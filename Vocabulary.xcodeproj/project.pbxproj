@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
-		7D276E0324BE05AF00CA4554 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0224BE05AF00CA4554 /* SceneDelegate.swift */; };
 		7D276E0524BE05AF00CA4554 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0424BE05AF00CA4554 /* ViewController.swift */; };
 		7D276E0824BE05AF00CA4554 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0624BE05AF00CA4554 /* Main.storyboard */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
@@ -16,12 +15,24 @@
 		D59B5ED3DA662A56CCBBF229 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1778F6C6D010F10A3584125D /* Pods_Vocabulary.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7D276E4D24BE12A300CA4554 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1778F6C6D010F10A3584125D /* Pods_Vocabulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vocabulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A3B817073A9BA36F5EE7FBF /* Pods-Vocabulary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.release.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.release.xcconfig"; sourceTree = "<group>"; };
 		7D276DFD24BE05AF00CA4554 /* Vocabulary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vocabulary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E0024BE05AF00CA4554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7D276E0224BE05AF00CA4554 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7D276E0424BE05AF00CA4554 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7D276E0724BE05AF00CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,9 +82,9 @@
 		7D276DFF24BE05AF00CA4554 /* Vocabulary */ = {
 			isa = PBXGroup;
 			children = (
-				7D276E1424BE092000CA4554 /* Resource */,
+				7D276E4E24BE12FC00CA4554 /* Resource */,
+				7D276E0E24BE05B200CA4554 /* Info.plist */,
 				7D276E0024BE05AF00CA4554 /* AppDelegate.swift */,
-				7D276E0224BE05AF00CA4554 /* SceneDelegate.swift */,
 				7D276E0424BE05AF00CA4554 /* ViewController.swift */,
 				7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */,
 				7D276E0624BE05AF00CA4554 /* Main.storyboard */,
@@ -81,11 +92,10 @@
 			path = Vocabulary;
 			sourceTree = "<group>";
 		};
-		7D276E1424BE092000CA4554 /* Resource */ = {
+		7D276E4E24BE12FC00CA4554 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				7D276E0924BE05B200CA4554 /* Assets.xcassets */,
-				7D276E0E24BE05B200CA4554 /* Info.plist */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -111,6 +121,7 @@
 				7D276DFA24BE05AF00CA4554 /* Frameworks */,
 				7D276DFB24BE05AF00CA4554 /* Resources */,
 				0135A3012B0049E3301DE2E9 /* [CP] Embed Pods Frameworks */,
+				7D276E4D24BE12A300CA4554 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -216,7 +227,6 @@
 			files = (
 				7D276E0524BE05AF00CA4554 /* ViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
-				7D276E0324BE05AF00CA4554 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

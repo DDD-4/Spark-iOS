@@ -5,6 +5,9 @@
       location = "group:Vocabulary.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:VocaDesignSystem/VocaDesignSystem.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
