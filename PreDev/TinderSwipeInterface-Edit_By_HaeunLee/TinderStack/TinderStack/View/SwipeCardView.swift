@@ -23,12 +23,30 @@ class SwipeCardView : UIView {
     var divisor : CGFloat = 0
     let baseView = UIView()
 
+    var flipView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .purple
+        view.isHidden = true
+        view.layer.cornerRadius = 15
+        view.clipsToBounds = true
+        return view
+    }()
+
+    var flipLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 50, weight: .bold)
+        label.textColor = .white
+        return label
+    }()
     
     
     var dataSource : CardsDataModel? {
         didSet {
             swipeView.backgroundColor = dataSource?.bgColor
             label.text = dataSource?.text
+            flipLabel.text = dataSource?.text
             guard let image = dataSource?.image else { return }
             imageView.image = UIImage(named: image)
         }
@@ -45,6 +63,7 @@ class SwipeCardView : UIView {
         configureButton()
         addPanGestureOnCards()
         configureTapGesture()
+        configureFlipView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -122,6 +141,21 @@ class SwipeCardView : UIView {
     
     }
 
+    func configureFlipView() {
+        self.addSubview(flipView)
+        flipView.addSubview(flipLabel)
+
+        NSLayoutConstraint.activate([
+            flipView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            flipView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            flipView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            flipView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+
+            flipLabel.centerYAnchor.constraint(equalTo: flipView.centerYAnchor),
+            flipLabel.centerXAnchor.constraint(equalTo: flipView.centerXAnchor)
+        ])
+    }
+
     func configureTapGesture() {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGesture)))
     }
@@ -178,7 +212,7 @@ class SwipeCardView : UIView {
     }
     
     @objc func handleTapGesture(sender: UITapGestureRecognizer){
-        delegate?.swipeView(self, didSelectCard: IndexPath(row: 0, section: 0))
+        delegate?.swipeView(self)
     }
     
   

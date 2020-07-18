@@ -89,17 +89,23 @@ class StackContainerView: UIView {
 }
 
 extension StackContainerView: SwipeCardsDelegate {
-    func swipeView(_ view: SwipeCardView, didSelectCard indexPath: IndexPath) {
+    func swipeView(_ view: SwipeCardView) {
         guard let readText = view.label.text else {
             return
         }
-        
-        synthesizer.stopSpeaking(at: .immediate)
-        let utterance = AVSpeechUtterance(string: readText)
-        utterance.rate = 0.3
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
 
-        synthesizer.speak(utterance)
+        UIView.transition(with: view, duration: 0.3, options: [.transitionFlipFromRight], animations: {
+            view.flipView.isHidden = !view.flipView.isHidden
+        }, completion: { [weak self] complete in
+
+            guard let self = self else { return }
+            self.synthesizer.stopSpeaking(at: .immediate)
+            let utterance = AVSpeechUtterance(string: readText)
+            utterance.rate = 0.3
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+
+            self.synthesizer.speak(utterance)
+        })
 
     }
 

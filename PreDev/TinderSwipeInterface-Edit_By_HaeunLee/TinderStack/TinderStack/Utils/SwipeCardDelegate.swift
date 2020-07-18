@@ -10,6 +10,6 @@ import UIKit
 
 protocol SwipeCardsDelegate {
     func swipeDidEnd(on view: SwipeCardView)
-    func swipeView(_ view: SwipeCardView, didSelectCard indexPath: IndexPath)
+    func swipeView(_ view: SwipeCardView)
 }
 
