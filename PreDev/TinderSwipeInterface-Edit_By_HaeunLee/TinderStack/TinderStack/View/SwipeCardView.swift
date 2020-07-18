@@ -45,7 +45,7 @@ class SwipeCardView : UIView {
     var dataSource : CardsDataModel? {
         didSet {
             swipeView.backgroundColor = dataSource?.bgColor
-            label.text = dataSource?.text
+//            label.text = dataSource?.text
             flipLabel.text = dataSource?.text
             guard let image = dataSource?.image else { return }
             imageView.image = UIImage(named: image)
@@ -58,9 +58,9 @@ class SwipeCardView : UIView {
         super.init(frame: .zero)
         configureShadowView()
         configureSwipeView()
-        configureLabelView()
+//        configureLabelView()
         configureImageView()
-        configureButton()
+//        configureButton()
         addPanGestureOnCards()
         configureTapGesture()
         configureFlipView()
@@ -121,10 +121,16 @@ class SwipeCardView : UIView {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        imageView.centerXAnchor.constraint(equalTo: swipeView.centerXAnchor).isActive = true
-        imageView.centerYAnchor.constraint(equalTo: swipeView.centerYAnchor, constant: -30).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: swipeView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: swipeView.bottomAnchor),
+        ])
+//        imageView.centerXAnchor.constraint(equalTo: swipeView.centerXAnchor).isActive = true
+//        imageView.centerYAnchor.constraint(equalTo: swipeView.centerYAnchor, constant: -30).isActive = true
+//        imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+//        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
     func configureButton() {

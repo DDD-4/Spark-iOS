@@ -90,7 +90,7 @@ class StackContainerView: UIView {
 
 extension StackContainerView: SwipeCardsDelegate {
     func swipeView(_ view: SwipeCardView) {
-        guard let readText = view.label.text else {
+        guard let readText = view.flipLabel.text else {
             return
         }
 
