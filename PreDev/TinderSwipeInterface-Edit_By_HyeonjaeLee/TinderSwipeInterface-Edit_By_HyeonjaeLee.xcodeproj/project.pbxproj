@@ -14,12 +14,12 @@
 		186AEC9624C403550009CA93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186AEC9524C403550009CA93 /* Assets.xcassets */; };
 		186AEC9924C403550009CA93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186AEC9724C403550009CA93 /* LaunchScreen.storyboard */; };
 		186AECA724C404BE0009CA93 /* PresentDetailViewControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECA624C404BE0009CA93 /* PresentDetailViewControllerTransitionAnimation.swift */; };
-		186AECA924C405050009CA93 /* CardsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECA824C405050009CA93 /* CardsDataModel.swift */; };
-		186AECAC24C405310009CA93 /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECAA24C405310009CA93 /* SwipeCardDelegate.swift */; };
-		186AECAD24C405310009CA93 /* SwipeCardsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECAB24C405310009CA93 /* SwipeCardsDataSource.swift */; };
 		186AECAF24C405830009CA93 /* StackContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECAE24C405830009CA93 /* StackContainerView.swift */; };
 		186AECB124C405A50009CA93 /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECB024C405A50009CA93 /* SwipeCardView.swift */; };
 		186AECB324C405EB0009CA93 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECB224C405EB0009CA93 /* DetailViewController.swift */; };
+		186AECB524C433F70009CA93 /* CardsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECB424C433F70009CA93 /* CardsDataModel.swift */; };
+		186AECB724C4345E0009CA93 /* SwipeCardsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECB624C4345E0009CA93 /* SwipeCardsDataSource.swift */; };
+		186AECB924C434B10009CA93 /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AECB824C434B10009CA93 /* SwipeCardDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,12 +32,12 @@
 		186AEC9824C403550009CA93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		186AEC9A24C403550009CA93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		186AECA624C404BE0009CA93 /* PresentDetailViewControllerTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentDetailViewControllerTransitionAnimation.swift; sourceTree = "<group>"; };
-		186AECA824C405050009CA93 /* CardsDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardsDataModel.swift; path = "../../../TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Model/CardsDataModel.swift"; sourceTree = "<group>"; };
-		186AECAA24C405310009CA93 /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeCardDelegate.swift; path = "../../../TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Utils/SwipeCardDelegate.swift"; sourceTree = "<group>"; };
-		186AECAB24C405310009CA93 /* SwipeCardsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeCardsDataSource.swift; path = "../../../TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Utils/SwipeCardsDataSource.swift"; sourceTree = "<group>"; };
 		186AECAE24C405830009CA93 /* StackContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackContainerView.swift; sourceTree = "<group>"; };
 		186AECB024C405A50009CA93 /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
 		186AECB224C405EB0009CA93 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		186AECB424C433F70009CA93 /* CardsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsDataModel.swift; sourceTree = "<group>"; };
+		186AECB624C4345E0009CA93 /* SwipeCardsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardsDataSource.swift; sourceTree = "<group>"; };
+		186AECB824C434B10009CA93 /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +96,7 @@
 		186AECA124C403BD0009CA93 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				186AECA824C405050009CA93 /* CardsDataModel.swift */,
+				186AECB424C433F70009CA93 /* CardsDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -104,8 +104,8 @@
 		186AECA224C403CC0009CA93 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				186AECAA24C405310009CA93 /* SwipeCardDelegate.swift */,
-				186AECAB24C405310009CA93 /* SwipeCardsDataSource.swift */,
+				186AECB624C4345E0009CA93 /* SwipeCardsDataSource.swift */,
+				186AECB824C434B10009CA93 /* SwipeCardDelegate.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -200,11 +200,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				186AEC9124C403530009CA93 /* ViewController.swift in Sources */,
+				186AECB924C434B10009CA93 /* SwipeCardDelegate.swift in Sources */,
 				186AECA724C404BE0009CA93 /* PresentDetailViewControllerTransitionAnimation.swift in Sources */,
 				186AEC8D24C403530009CA93 /* AppDelegate.swift in Sources */,
-				186AECAC24C405310009CA93 /* SwipeCardDelegate.swift in Sources */,
-				186AECA924C405050009CA93 /* CardsDataModel.swift in Sources */,
-				186AECAD24C405310009CA93 /* SwipeCardsDataSource.swift in Sources */,
+				186AECB524C433F70009CA93 /* CardsDataModel.swift in Sources */,
+				186AECB724C4345E0009CA93 /* SwipeCardsDataSource.swift in Sources */,
 				186AEC8F24C403530009CA93 /* SceneDelegate.swift in Sources */,
 				186AECB324C405EB0009CA93 /* DetailViewController.swift in Sources */,
 				186AECAF24C405830009CA93 /* StackContainerView.swift in Sources */,
