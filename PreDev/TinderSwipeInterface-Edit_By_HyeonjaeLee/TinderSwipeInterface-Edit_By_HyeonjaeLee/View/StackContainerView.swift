@@ -10,7 +10,7 @@ import AVFoundation
 
 class StackContainerView: UIView, SwipeCardsDelegate {
     
-
+    
     //MARK: - Properties
     var numberOfCardsToShow: Int = 0
     var cardsToBeVisible: Int = 3
@@ -38,7 +38,7 @@ class StackContainerView: UIView, SwipeCardsDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     
     func reloadData() {
         removeAllCardViews()
@@ -53,7 +53,7 @@ class StackContainerView: UIView, SwipeCardsDelegate {
             
         }
     }
-
+    
     //MARK: - Configurations
     private func addCardView(cardView: SwipeCardView, atIndex index: Int) {
         cardView.delegate = self
@@ -85,18 +85,18 @@ class StackContainerView: UIView, SwipeCardsDelegate {
     func swipeDidEnd(on view: SwipeCardView) {
         guard let datasource = dataSource else { return }
         view.removeFromSuperview()
-
+        
         if remainingcards > 0 {
             let newIndex = datasource.numberOfCardsToShow() - remainingcards
             addCardView(cardView: datasource.card(at: newIndex), atIndex: 2)
             for (cardIndex, cardView) in visibleCards.reversed().enumerated() {
                 UIView.animate(withDuration: 0.2, animations: {
-                cardView.center = self.center
-                  self.addCardFrame(index: cardIndex, cardView: cardView)
+                    cardView.center = self.center
+                    self.addCardFrame(index: cardIndex, cardView: cardView)
                     self.layoutIfNeeded()
                 })
             }
-
+            
         }else {
             for (cardIndex, cardView) in visibleCards.reversed().enumerated() {
                 UIView.animate(withDuration: 0.2, animations: {
@@ -113,20 +113,15 @@ class StackContainerView: UIView, SwipeCardsDelegate {
             return
         }
         
-        UIView.transition(with: view, duration: 1.0, options: [ .transitionFlipFromLeft ], animations: {
-            view.swipeView.isHidden = !view.swipeView.isHidden
-        })
-
-        UIView.transition(with: view, duration: 1.0, options: [.transitionFlipFromLeft], animations: {
+        UIView.transition(with: view, duration: 1.0, options: .transitionFlipFromLeft, animations: {
             view.flipView.isHidden = !view.flipView.isHidden
-            
+        }, completion: { complete in
             let synthesizer = AVSpeechSynthesizer()
-            let utterance = AVSpeechUtterance(string: view.flipLabel.text!)
+            let utterance = AVSpeechUtterance(string: readText)
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
             utterance.rate = 0.4
             synthesizer.speak(utterance)
         })
-        
         
     }
 }
