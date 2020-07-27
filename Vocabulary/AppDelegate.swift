@@ -7,15 +7,28 @@
 //
 
 import UIKit
+import Voca
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    var window: UIWindow?
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+
+        self.window?.rootViewController = TabbarViewController()
+        self.window?.makeKeyAndVisible()
 
 
+        if #available(iOS 13.0, *) {
+            GenerateToCloudKitScheme.init()
+        } else {
+            // Fallback on earlier versions
+        }
 
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
-    return true
-  }
+        return true
+    }
+
 }
-
