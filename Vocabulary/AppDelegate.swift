@@ -22,11 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
 
 
-        if #available(iOS 13.0, *) {
-            GenerateToCloudKitScheme.init()
-        } else {
-            // Fallback on earlier versions
-        }
+//        if #available(iOS 13.0, *) {
+//            VocaCoreDataManager.shared
+//        } else {
+//            // Fallback on earlier versions
+//        }
 
         return true
     }

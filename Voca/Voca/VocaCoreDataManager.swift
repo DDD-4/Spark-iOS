@@ -1,6 +1,6 @@
 //
-//  GenerateToCloudKitScheme.swift
-//  Vocabulary
+//  VocaCoreDataManager.swift
+//  Voca
 //
 //  Created by user on 2020/07/28.
 //  Copyright © 2020 LEE HAEUN. All rights reserved.
@@ -9,49 +9,14 @@
 import CoreData
 import CloudKit
 
-// NOTICE
-// 상관 없는 코드
-// 로컬에서 만든 coredat가 cloudkit 의 dashboard scheme 로 업데이트가 되는 Test 용
-
-@available(iOS 13.0, *)
-public class VocaCoreDataManager {
-    public static let shared = VocaCoreDataManager()
+class VocaCoreDataManager {
+    static let shared = VocaCoreDataManager()
     let modelName = "Voca"
     let cloudKitID = "iCloud.Spark.Vocabulary"
     let vocaBundleID = "Spark.Voca"
 
-    public init() {
-        _ = persistentContainer
-
-        // add test
-        let data = ManagedGroup(context: persistentContainer.viewContext)
-
-        data.title = "테스트용 타이틀"
-
-        do {
-            try persistentContainer.viewContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-
-
-        //2
-        let fetchRequest =
-            NSFetchRequest<ManagedGroup>(entityName: "Group")
-
-        //3
-        do {
-            let data = try persistentContainer.viewContext.fetch(fetchRequest)
-            print(data)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-
-
-    }
-
     lazy var persistentContainer: NSPersistentContainer = {
-        // vaca data model 을 다른 target에 생성했기 때문에 bundle을 직접 명시
+        // MARK: - vaca data model 을 다른 target에 생성했기 때문에 bundle을 직접 명시
         let vocaBundle = Bundle(identifier: vocaBundleID)
         let modelURL = vocaBundle!.url(forResource: modelName, withExtension: "momd")!
         let managedObjectModel =  NSManagedObjectModel(contentsOf: modelURL)
@@ -66,7 +31,6 @@ public class VocaCoreDataManager {
         }
 
         // 아래부터는 Configurations load
-
         // Put our stores into Application Support
         var storePath: URL
         do {
@@ -77,6 +41,8 @@ public class VocaCoreDataManager {
         } catch {
             fatalError("Unable to get path to Application Support directory")
         }
+
+        // Ref,  https://developer.apple.com/documentation/coredata/mirroring_a_core_data_store_with_cloudkit/setting_up_core_data_with_cloudkit
 
         // Create a store description for a local store
         let localStoreLocation = storePath.appendingPathComponent("local.store")
@@ -111,6 +77,104 @@ public class VocaCoreDataManager {
         return container
     }()
 
+    var backgroundContext: NSManagedObjectContext {
+        persistentContainer.newBackgroundContext()
+    }
+
+    func performBackgroundTask(_ completion: @escaping (NSManagedObjectContext) -> Void) {
+        let context = backgroundContext
+        context.perform { () -> Void in
+            completion(context)
+        }
+    }
+
+    func saveContext(context: NSManagedObjectContext) {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+
+    func fetch(predicate identifier: UUID?, context: NSManagedObjectContext) -> [ManagedGroup]? {
+        let fetchRequest =
+            NSFetchRequest<ManagedGroup>(entityName: "Group")
+
+        if let identifier = identifier {
+            fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier as CVarArg)
+            fetchRequest.fetchLimit = 1
+        }
+
+        guard let groupList = try? context.fetch(fetchRequest),
+            groupList.isEmpty == false else {
+                return nil
+        }
+        saveContext(context: context)
+        return groupList
+    }
+
+    func insert(group: Group, context: NSManagedObjectContext) {
+        group.toManaged(context: context)
+        saveContext(context: context)
+    }
+
+    func delete(identifier: UUID, context: NSManagedObjectContext) {
+        guard let deleteGroups = fetch(predicate: identifier, context: context) else {
+            return
+        }
+
+        for deleteGroup in deleteGroups {
+            context.delete(deleteGroup)
+        }
+        saveContext(context: context)
+    }
+
+    func update(group: Group, context: NSManagedObjectContext) {
+        guard let updateGroups = fetch(predicate: group.identifier, context: context) else {
+            return
+        }
+
+        for updateGroup in updateGroups {
+            updateGroup.title = group.title
+            updateGroup.visibilityType = group.visibilityType.rawValue
+        }
+        saveContext(context: context)
+    }
+
+    func reset() {
+        let container = persistentContainer
+        let coordinator = container.persistentStoreCoordinator
+        if let store = coordinator.destroyPersistentStore(type: NSSQLiteStoreType) {
+            do {
+                try coordinator.addPersistentStore(
+                    ofType: NSSQLiteStoreType,
+                    configurationName: nil,
+                    at: store.url,
+                    options: nil
+                )
+            } catch {
+                print(error)
+            }
+        }
+    }
+}
+
+extension NSPersistentStoreCoordinator {
+    func destroyPersistentStore(type: String) -> NSPersistentStore? {
+        guard
+            let store = persistentStores.first(where: { $0.type == type }),
+            let storeURL = store.url
+            else {
+                return nil
+        }
+
+        try? destroyPersistentStore(at: storeURL, ofType: store.type, options: nil)
+
+        return store
+    }
 }
 
 /* debug first time
