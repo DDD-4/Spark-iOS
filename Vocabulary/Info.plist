@@ -20,6 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>we need to camera access.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>please allow access if you want to access your album.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
