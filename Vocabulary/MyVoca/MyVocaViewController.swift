@@ -80,7 +80,7 @@ class MyVocaViewController: UIViewController {
     }
 
     @objc func addDidTap(_ sender: UIButton) {
-        VocaManager.shared.addGroup(
+        VocaManager.shared.insert(
             group: Group(
                 title: "test",
                 visibilityType: .public,
