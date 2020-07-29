@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		186E84D024D161320094E9EB /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CF24D161320094E9EB /* UIFont+.swift */; };
 		7D276E3924BE122C00CA4554 /* VocaDesignSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D276E3724BE122C00CA4554 /* VocaDesignSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7D276E5024BE133300CA4554 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E4F24BE133300CA4554 /* UIColor+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		186E84CF24D161320094E9EB /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		7D276E3424BE122C00CA4554 /* VocaDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VocaDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E3724BE122C00CA4554 /* VocaDesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VocaDesignSystem.h; sourceTree = "<group>"; };
 		7D276E3824BE122C00CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +53,7 @@
 				7D276E3724BE122C00CA4554 /* VocaDesignSystem.h */,
 				7D276E3824BE122C00CA4554 /* Info.plist */,
 				7D276E4F24BE133300CA4554 /* UIColor+.swift */,
+				186E84CF24D161320094E9EB /* UIFont+.swift */,
 			);
 			path = VocaDesignSystem;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186E84D024D161320094E9EB /* UIFont+.swift in Sources */,
 				7D276E5024BE133300CA4554 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
