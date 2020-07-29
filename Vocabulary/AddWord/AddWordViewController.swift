@@ -7,12 +7,77 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class AddWordViewController: UIViewController {
 
     // MARK: - Properties
     let picker = UIImagePickerController()
-    
+    let disposeBag = DisposeBag()
+
+    lazy var addWordNaviView: AddWordNavigationView = {
+        let view = AddWordNavigationView()
+        //view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    lazy var addWordButton: BaseButton = {
+        let button = BaseButton()
+        button.backgroundColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 30
+        button.setTitle("만들기", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
+    lazy var textStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [engTextField, korTextField, folderButton])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.distribution = .fillEqually
+        stack.spacing = 20
+        return stack
+    }()
+    lazy var engTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "영어 단어를 입력해 보세요!"
+        //textField.backgroundColor = .white
+        return textField
+    }()
+    lazy var korTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "영어 단어의 뜻을 입력해 보세요!"
+        //textField.backgroundColor = .white
+        return textField
+    }()
+    lazy var folderButton: BaseButton = {
+        let button = BaseButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("폴더 선택", for: .normal)
+        button.setTitleColor(.gray, for: .normal)
+        button.backgroundColor = .white
+        return button
+    }()
+    lazy var wordImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "icPicture")
+        view.layer.cornerRadius = 15
+        view.clipsToBounds = true
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .coverVertical
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +126,11 @@ class AddWordViewController: UIViewController {
     func bindFunction() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(addPicture))
         self.wordImageView.addGestureRecognizer(tap)
+
+        addWordNaviView.settingButton.rx.tap
+            .subscribe(onNext: { [weak self] (_) in
+                self?.dismiss(animated: true, completion: nil)
+            }).disposed(by: disposeBag)
     }
     
     @objc func addPicture(_ sender: Any) {
@@ -81,59 +151,6 @@ class AddWordViewController: UIViewController {
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
     }
-    
-    lazy var addWordNaviView: AddWordNavigationView = {
-       let view = AddWordNavigationView()
-        //view.backgroundColor = .lightGray
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    lazy var addWordButton: BaseButton = {
-       let button = BaseButton()
-        button.backgroundColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 30
-        button.setTitle("만들기", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        return button
-    }()
-    lazy var textStack: UIStackView = {
-      let stack = UIStackView(arrangedSubviews: [engTextField, korTextField, folderButton])
-      stack.translatesAutoresizingMaskIntoConstraints = false
-      stack.axis = .vertical
-      stack.alignment = .fill
-      stack.distribution = .fillEqually
-      stack.spacing = 20
-      return stack
-    }()
-    lazy var engTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "영어 단어를 입력해 보세요!"
-        //textField.backgroundColor = .white
-        return textField
-    }()
-    lazy var korTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "영어 단어의 뜻을 입력해 보세요!"
-        //textField.backgroundColor = .white
-        return textField
-    }()
-    lazy var folderButton: BaseButton = {
-      let button = BaseButton()
-      button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("폴더 선택", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
-        button.backgroundColor = .white
-      return button
-    }()
-    lazy var wordImageView: UIImageView = {
-       let view = UIImageView()
-        view.image = UIImage(named: "icPicture")
-        view.layer.cornerRadius = 15
-        view.clipsToBounds = true
-        view.isUserInteractionEnabled = true
-        return view
-    }()
 }
 
 extension AddWordViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

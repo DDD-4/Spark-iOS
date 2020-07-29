@@ -57,6 +57,6 @@ class TabbarViewController: UITabBarController, UITabBarControllerDelegate {
     }
 
     @objc func centerButtonDidTap(_ sender: UIButton) {
-        sender.backgroundColor = sender.backgroundColor == .black ? .red : .black
+        present(AddWordViewController(), animated: true, completion: nil)
     }
 }

@@ -9,4 +9,6 @@ target 'Vocabulary' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'SDWebImage', '~> 5.0'
   pod 'Moya', '~> 14.0'
+  pod 'RxSwift'
+  pod 'RxCocoa'
 end
