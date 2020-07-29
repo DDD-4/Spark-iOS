@@ -37,7 +37,8 @@ class AddWordViewController: UIViewController {
         }
         
         addWordButton.snp.makeConstraints { (make) in
-            make.height.width.equalTo(48)
+            make.height.equalTo(60)
+            make.width.equalTo(186)
             make.bottom.equalTo(view).offset(-8)
             make.centerX.equalTo(view)
         }
@@ -58,11 +59,14 @@ class AddWordViewController: UIViewController {
     
     // MARK: - Bind 🏷
     func bindFunction() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(addWordButtonAction))
-        addWordButton.addGestureRecognizer(tap)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(addPicture))
+        self.wordImageView.addGestureRecognizer(tap)
     }
     
-    @objc func addWordButtonAction(_ sender: Any) {
+    @objc func addPicture(_ sender: Any) {
+        
+        self.picker.delegate = self
+        
         let alert =  UIAlertController(title: "Add New Word", message: "단어에 넣을 사진을 찍어 주세요!", preferredStyle: .actionSheet)
         let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
             self.openLibrary()
@@ -88,8 +92,9 @@ class AddWordViewController: UIViewController {
        let button = BaseButton()
         button.backgroundColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 12
-        button.setImage( UIImage(systemName: "plus")?.withTintColor(.white) , for: .normal)
+        button.layer.cornerRadius = 30
+        button.setTitle("만들기", for: .normal)
+        button.setTitleColor(.white, for: .normal)
         return button
     }()
     lazy var textStack: UIStackView = {
@@ -124,31 +129,30 @@ class AddWordViewController: UIViewController {
     lazy var wordImageView: UIImageView = {
        let view = UIImageView()
         view.image = UIImage(named: "icPicture")
+        view.layer.cornerRadius = 15
+        view.clipsToBounds = true
+        view.isUserInteractionEnabled = true
         return view
     }()
 }
 
-extension AddWordViewController: UIImagePickerControllerDelegate {
+extension AddWordViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func openLibrary(){
         picker.sourceType = .photoLibrary
-        present(picker, animated: false, completion: nil)
+        present(picker, animated: true, completion: nil)
     }
     func openCamera(){
         if(UIImagePickerController .isSourceTypeAvailable(.camera)){
             picker.sourceType = .camera
-            present(picker, animated: false, completion: nil)
+            present(picker, animated: true, completion: nil)
         } else {
             print("Camera not available")
         }
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            // type convert to jpeg to 0.1
-            guard let imageData = image.jpegData(compressionQuality: 0.1) else {
-                print("image convert error")
-                return
-            }
+        if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            self.wordImageView.image = possibleImage
         }
         dismiss(animated: true, completion: nil)
     }
