@@ -8,10 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
-		7D276E0524BE05AF00CA4554 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0424BE05AF00CA4554 /* ViewController.swift */; };
-		7D276E0824BE05AF00CA4554 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0624BE05AF00CA4554 /* Main.storyboard */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
+		CE44019F24CF31060093D04B /* Voca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE44019E24CF31060093D04B /* Voca.framework */; };
+		CE4401A024CF31060093D04B /* Voca.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE44019E24CF31060093D04B /* Voca.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE4401A624CF325F0093D04B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
+		CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4401B724CF33E70093D04B /* MyVocaViewController.swift */; };
+		CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4401B924CF35360093D04B /* TabbarViewController.swift */; };
+		CE6C9BB524CF30390068C3BB /* VocaDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */; };
+		CE6C9BB624CF30390068C3BB /* VocaDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D59B5ED3DA662A56CCBBF229 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1778F6C6D010F10A3584125D /* Pods_Vocabulary.framework */; };
 /* End PBXBuildFile section */
 
@@ -22,6 +27,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CE6C9BB624CF30390068C3BB /* VocaDesignSystem.framework in Embed Frameworks */,
+				CE4401A024CF31060093D04B /* Voca.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,14 +38,19 @@
 /* Begin PBXFileReference section */
 		1778F6C6D010F10A3584125D /* Pods_Vocabulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vocabulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A3B817073A9BA36F5EE7FBF /* Pods-Vocabulary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.release.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.release.xcconfig"; sourceTree = "<group>"; };
-		7D276DFD24BE05AF00CA4554 /* Vocabulary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vocabulary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "포잉포잉.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E0024BE05AF00CA4554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7D276E0424BE05AF00CA4554 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7D276E0724BE05AF00CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C28BDD2A3BC6F8B55B4A2615 /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
+		CE44019E24CF31060093D04B /* Voca.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Voca.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE4401A424CF32570093D04B /* Vocabulary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vocabulary.entitlements; sourceTree = "<group>"; };
+		CE4401A524CF325F0093D04B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		CE4401B724CF33E70093D04B /* MyVocaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaViewController.swift; sourceTree = "<group>"; };
+		CE4401B924CF35360093D04B /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
+		CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VocaDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE6C9BBD24CF30A40068C3BB /* Voca.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Voca.framework; path = "../../Library/Developer/Xcode/DerivedData/Voca-blydlrtbacqgmggqkcatiqessyqc/Build/Products/Debug-iphonesimulator/Voca.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +58,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6C9BB524CF30390068C3BB /* VocaDesignSystem.framework in Frameworks */,
+				CE4401A624CF325F0093D04B /* CloudKit.framework in Frameworks */,
 				D59B5ED3DA662A56CCBBF229 /* Pods_Vocabulary.framework in Frameworks */,
+				CE44019F24CF31060093D04B /* Voca.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +71,10 @@
 		7C5637AC6CE1EDE31F81695F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE4401A524CF325F0093D04B /* CloudKit.framework */,
+				CE6C9BBD24CF30A40068C3BB /* Voca.framework */,
+				CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */,
+				CE44019E24CF31060093D04B /* Voca.framework */,
 				1778F6C6D010F10A3584125D /* Pods_Vocabulary.framework */,
 			);
 			name = Frameworks;
@@ -74,7 +93,7 @@
 		7D276DFE24BE05AF00CA4554 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7D276DFD24BE05AF00CA4554 /* Vocabulary.app */,
+				7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,12 +101,18 @@
 		7D276DFF24BE05AF00CA4554 /* Vocabulary */ = {
 			isa = PBXGroup;
 			children = (
+				CE4401A424CF32570093D04B /* Vocabulary.entitlements */,
+				CE6C9B6324CF2DDB0068C3BB /* Model */,
+				CE6C9B6124CF2D870068C3BB /* AddWord */,
+				CE6C9B6024CF2D800068C3BB /* Game */,
+				CE6C9B5F24CF2D790068C3BB /* My */,
+				CE6C9B5E24CF2D3F0068C3BB /* VacoForAll */,
+				CE6C9B5D24CF2D380068C3BB /* MyVoca */,
 				7D276E4E24BE12FC00CA4554 /* Resource */,
 				7D276E0E24BE05B200CA4554 /* Info.plist */,
 				7D276E0024BE05AF00CA4554 /* AppDelegate.swift */,
-				7D276E0424BE05AF00CA4554 /* ViewController.swift */,
+				CE4401B924CF35360093D04B /* TabbarViewController.swift */,
 				7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */,
-				7D276E0624BE05AF00CA4554 /* Main.storyboard */,
 			);
 			path = Vocabulary;
 			sourceTree = "<group>";
@@ -98,6 +123,49 @@
 				7D276E0924BE05B200CA4554 /* Assets.xcassets */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		CE6C9B5D24CF2D380068C3BB /* MyVoca */ = {
+			isa = PBXGroup;
+			children = (
+				CE4401B724CF33E70093D04B /* MyVocaViewController.swift */,
+			);
+			path = MyVoca;
+			sourceTree = "<group>";
+		};
+		CE6C9B5E24CF2D3F0068C3BB /* VacoForAll */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VacoForAll;
+			sourceTree = "<group>";
+		};
+		CE6C9B5F24CF2D790068C3BB /* My */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = My;
+			sourceTree = "<group>";
+		};
+		CE6C9B6024CF2D800068C3BB /* Game */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		CE6C9B6124CF2D870068C3BB /* AddWord */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddWord;
+			sourceTree = "<group>";
+		};
+		CE6C9B6324CF2DDB0068C3BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		DCBEF7D8D78A53C7ED1BCF92 /* Pods */ = {
@@ -129,7 +197,7 @@
 			);
 			name = Vocabulary;
 			productName = Vocabulary;
-			productReference = 7D276DFD24BE05AF00CA4554 /* Vocabulary.app */;
+			productReference = 7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -172,7 +240,6 @@
 			files = (
 				7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */,
 				7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */,
-				7D276E0824BE05AF00CA4554 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,22 +292,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D276E0524BE05AF00CA4554 /* ViewController.swift in Sources */,
+				CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
+				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		7D276E0624BE05AF00CA4554 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7D276E0724BE05AF00CA4554 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -302,7 +362,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -356,7 +416,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -371,16 +431,17 @@
 			baseConfigurationReference = C28BDD2A3BC6F8B55B4A2615 /* Pods-Vocabulary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = Vocabulary/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabulary;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "포잉포잉";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -391,16 +452,17 @@
 			baseConfigurationReference = 3A3B817073A9BA36F5EE7FBF /* Pods-Vocabulary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = Vocabulary/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabulary;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "포잉포잉";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
