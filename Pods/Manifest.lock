@@ -4,6 +4,12 @@ PODS:
     - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.1)
   - SDWebImage (5.8.4):
     - SDWebImage/Core (= 5.8.4)
   - SDWebImage/Core (5.8.4)
@@ -12,6 +18,8 @@ PODS:
 
 DEPENDENCIES:
   - Moya (~> 14.0)
+  - RxCocoa
+  - RxSwift
   - SDWebImage (~> 5.0)
   - SnapKit (~> 5.0.0)
   - SwiftLint
@@ -20,6 +28,9 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Moya
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SDWebImage
     - SnapKit
     - SwiftLint
@@ -27,10 +38,13 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
-PODFILE CHECKSUM: 6b2b28329a1005f86db93966fedaa7286b1e6da3
+PODFILE CHECKSUM: d6258ca7d193b0e2c1b76060327b6a91f2e04cc8
 
 COCOAPODS: 1.9.3
