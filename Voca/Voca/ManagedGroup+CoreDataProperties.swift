@@ -27,9 +27,9 @@ public struct Group {
         self.identifier = identifier
     }
 
-    var title: String
-    var visibilityType: VisibilityType
-    var identifier: UUID
+    public var title: String
+    public var visibilityType: VisibilityType
+    public var identifier: UUID
 }
 
 extension Group {
@@ -69,4 +69,16 @@ extension ManagedGroup {
     @objc(removeWords:)
     @NSManaged public func removeFromWords(_ values: NSSet)
 
+}
+
+extension ManagedGroup {
+    func toGroup() -> Group {
+        let isVailableVisibilityType = VisibilityType(rawValue: visibilityType ?? "") ?? .private
+        let group = Group(
+            title: title ?? "",
+            visibilityType: isVailableVisibilityType,
+            identifier: UUID()
+        )
+        return group
+    }
 }

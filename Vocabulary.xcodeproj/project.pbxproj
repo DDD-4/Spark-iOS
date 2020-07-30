@@ -13,6 +13,8 @@
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
+		CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */; };
+		CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A1224D1DECF00FDEBAC /* MyVocaGroupNameCell.swift */; };
 		CE44019F24CF31060093D04B /* Voca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE44019E24CF31060093D04B /* Voca.framework */; };
 		CE4401A024CF31060093D04B /* Voca.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE44019E24CF31060093D04B /* Voca.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE4401A624CF325F0093D04B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
@@ -20,6 +22,9 @@
 		CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4401B924CF35360093D04B /* TabbarViewController.swift */; };
 		CE6C9BB524CF30390068C3BB /* VocaDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */; };
 		CE6C9BB624CF30390068C3BB /* VocaDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84996A24D300D300D934C3 /* MyVocaGroupReusableView.swift */; };
+		CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */; };
+		CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */; };
 		D59B5ED3DA662A56CCBBF229 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1778F6C6D010F10A3584125D /* Pods_Vocabulary.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +55,8 @@
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C28BDD2A3BC6F8B55B4A2615 /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
+		CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaViewModel.swift; sourceTree = "<group>"; };
+		CE381A1224D1DECF00FDEBAC /* MyVocaGroupNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaGroupNameCell.swift; sourceTree = "<group>"; };
 		CE44019E24CF31060093D04B /* Voca.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Voca.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4401A424CF32570093D04B /* Vocabulary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vocabulary.entitlements; sourceTree = "<group>"; };
 		CE4401A524CF325F0093D04B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -57,6 +64,9 @@
 		CE4401B924CF35360093D04B /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VocaDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6C9BBD24CF30A40068C3BB /* Voca.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Voca.framework; path = "../../Library/Developer/Xcode/DerivedData/Voca-blydlrtbacqgmggqkcatiqessyqc/Build/Products/Debug-iphonesimulator/Voca.framework"; sourceTree = "<group>"; };
+		CE84996A24D300D300D934C3 /* MyVocaGroupReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaGroupReusableView.swift; sourceTree = "<group>"; };
+		CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaWordCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +125,7 @@
 		7D276DFF24BE05AF00CA4554 /* Vocabulary */ = {
 			isa = PBXGroup;
 			children = (
+				CE8703C124D2F9F100DDFAD4 /* Utills */,
 				186E84C824D146110094E9EB /* View */,
 				CE4401A424CF32570093D04B /* Vocabulary.entitlements */,
 				CE6C9B6324CF2DDB0068C3BB /* Model */,
@@ -144,6 +155,10 @@
 			isa = PBXGroup;
 			children = (
 				CE4401B724CF33E70093D04B /* MyVocaViewController.swift */,
+				CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */,
+				CE84996A24D300D300D934C3 /* MyVocaGroupReusableView.swift */,
+				CE381A1224D1DECF00FDEBAC /* MyVocaGroupNameCell.swift */,
+				CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */,
 			);
 			path = MyVoca;
 			sourceTree = "<group>";
@@ -183,6 +198,14 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		CE8703C124D2F9F100DDFAD4 /* Utills */ = {
+			isa = PBXGroup;
+			children = (
+				CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */,
+			);
+			path = Utills;
 			sourceTree = "<group>";
 		};
 		DCBEF7D8D78A53C7ED1BCF92 /* Pods */ = {
@@ -309,12 +332,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */,
 				186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */,
+				CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */,
 				186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */,
 				CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */,
+				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
+				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
 				186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
+				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

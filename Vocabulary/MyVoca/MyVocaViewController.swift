@@ -7,84 +7,144 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 import Voca
 
 class MyVocaViewController: UIViewController {
 
-    lazy var textView: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = .white
-        textView.textColor = .black
-        return textView
+    let viewModel = MyVocaViewModel()
+    let disposeBag = DisposeBag()
+
+    lazy var navigationViewArea: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .green
+        return view
     }()
 
-    lazy var buttonStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .horizontal
-        stack.alignment = .fill
-        return stack
-    }()
-
-    lazy var fetchButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("fetch CloudKit", for: .normal)
-        button.backgroundColor = .red
-        button.addTarget(self, action: #selector(fetchDidTap(_:)), for: .touchUpInside)
-        return button
-    }()
-
-    lazy var addButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("add CloudKit", for: .normal)
-        button.backgroundColor = .orange
-        button.addTarget(self, action: #selector(addDidTap(_:)), for: .touchUpInside)
-        return button
+    lazy var groupNameCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.minimumLineSpacing = 16
+        flowLayout.minimumInteritemSpacing = 0
+//        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .gray
+//        collectionView.contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 16)
+        collectionView.register(
+            MyVocaGroupNameCell.self,
+            forCellWithReuseIdentifier: MyVocaGroupNameCell.reuseIdentifier
+        )
+        collectionView.register(
+            MyVocaWordCell.self,
+            forCellWithReuseIdentifier: MyVocaWordCell.reuseIdentifier
+        )
+        collectionView.register(
+            MyVocaGroupReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: MyVocaGroupReusableView.reuseIdentifier
+        )
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsMultipleSelection = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .gray
         configureLayout()
+        configureRx()
+
+        viewModel.input.fetchGroups()
     }
 
     func configureLayout() {
-        view.addSubview(textView)
-        view.addSubview(buttonStackView)
-        buttonStackView.addArrangedSubview(fetchButton)
-        buttonStackView.addArrangedSubview(addButton)
+        view.addSubview(navigationViewArea)
+        view.addSubview(groupNameCollectionView)
 
-        textView.snp.makeConstraints { (make) in
+        navigationViewArea.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(buttonStackView.snp.top)
+            make.height.equalTo(44)
         }
 
-        buttonStackView.snp.makeConstraints { (make) in
-            make.center.equalTo(view)
-            make.height.equalTo(100)
+        groupNameCollectionView.snp.makeConstraints { (make) in
+            make.top.equalTo(navigationViewArea.snp.bottom).offset(20)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+//            make.height.equalTo(20 + 36 + 20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+
+    }
+
+    func configureRx() {
+
+        viewModel.output.groups.subscribe(onNext: { [weak self] (_) in
+            self?.groupNameCollectionView.reloadData()
+        }).disposed(by: disposeBag)
+    }
+}
+
+extension MyVocaViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.groups.value.count
+    }
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaWordCell.reuseIdentifier, for: indexPath) as? MyVocaWordCell else {
+            return UICollectionViewCell()
+        }
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let reusableview = collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: MyVocaGroupReusableView.reuseIdentifier,
+                for: indexPath) as? MyVocaGroupReusableView else {
+                    return UICollectionReusableView()
+            }
+            reusableview.configure(groups: viewModel.groups.value, selectedRow: 0)
+            return reusableview
+        default:
+            return UICollectionReusableView()
         }
     }
 
-    @objc func fetchDidTap(_ sender: UIButton) {
-        VocaManager.shared.fetch(
-            identifier: nil, completion: { [weak self] data in
-                let count = data?.count
-                DispatchQueue.main.async {
-                    self?.textView.text = "\(count)"
-                }
-        })
+}
+
+extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 444)
     }
 
-    @objc func addDidTap(_ sender: UIButton) {
-        VocaManager.shared.insert(
-            group: Group(
-                title: "test",
-                visibilityType: .public,
-                identifier: UUID())
-        )
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
+        CGSize(width: collectionView.frame.width, height: 20 + 36 + 20)
+    }
+}
+
+
+extension MyVocaViewController: MyVocaViewControllerDelegate {
+    func myVocaViewController(didTapGroup group: Group, view: MyVocaGroupReusableView) {
+        
     }
 }
