@@ -10,6 +10,33 @@
 import Foundation
 import CoreData
 
+public struct Word {
+    public init(
+        korean: String? = nil,
+        english: String? = nil,
+        image: Date? = nil,
+        identifier: UUID? = nil
+    ) {
+        self.korean = korean
+        self.english = english
+        self.image = image
+        self.identifier = identifier
+    }
+
+    public var korean: String?
+    public var english: String?
+    public var image: Date?
+    public var identifier: UUID?
+
+    func toManaged(context: NSManagedObjectContext) -> ManagedWord{
+        let managed = ManagedWord(context: context)
+        managed.korean = korean
+        managed.english = english
+        managed.image = image
+        managed.identifier = identifier
+        return managed
+    }
+}
 
 extension ManagedWord {
 
@@ -23,4 +50,7 @@ extension ManagedWord {
     @NSManaged public var identifier: UUID?
     @NSManaged public var ofGroup: ManagedGroup?
 
+    func toWord() -> Word {
+        Word(korean: korean, english: english, image: image, identifier: identifier)
+    }
 }

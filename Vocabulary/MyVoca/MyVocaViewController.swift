@@ -29,11 +29,9 @@ class MyVocaViewController: UIViewController {
         flowLayout.scrollDirection = .vertical
         flowLayout.minimumLineSpacing = 16
         flowLayout.minimumInteritemSpacing = 0
-//        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .gray
-//        collectionView.contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 16)
         collectionView.register(
             MyVocaGroupNameCell.self,
             forCellWithReuseIdentifier: MyVocaGroupNameCell.reuseIdentifier
@@ -56,7 +54,6 @@ class MyVocaViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .gray
         configureLayout()
         configureRx()
@@ -76,7 +73,6 @@ class MyVocaViewController: UIViewController {
         groupNameCollectionView.snp.makeConstraints { (make) in
             make.top.equalTo(navigationViewArea.snp.bottom).offset(20)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-//            make.height.equalTo(20 + 36 + 20)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
 
@@ -84,7 +80,15 @@ class MyVocaViewController: UIViewController {
 
     func configureRx() {
 
-        viewModel.output.groups.subscribe(onNext: { [weak self] (_) in
+        viewModel.output.groups
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+            self?.groupNameCollectionView.reloadData()
+        }).disposed(by: disposeBag)
+
+        viewModel.output.words
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
             self?.groupNameCollectionView.reloadData()
         }).disposed(by: disposeBag)
     }
@@ -92,7 +96,7 @@ class MyVocaViewController: UIViewController {
 
 extension MyVocaViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.groups.value.count
+        return viewModel.output.words.value.count
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -103,6 +107,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaWordCell.reuseIdentifier, for: indexPath) as? MyVocaWordCell else {
             return UICollectionViewCell()
         }
+        cell.configure(word: viewModel.output.words.value[indexPath.row])
         return cell
     }
 
@@ -115,6 +120,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
                 for: indexPath) as? MyVocaGroupReusableView else {
                     return UICollectionReusableView()
             }
+            reusableview.delegate = self
             reusableview.configure(groups: viewModel.groups.value, selectedRow: 0)
             return reusableview
         default:
@@ -144,7 +150,11 @@ extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollection
 
 
 extension MyVocaViewController: MyVocaViewControllerDelegate {
+    func myVocaViewController(didTapEditGroupButton button: UIButton) {
+        present(EditMyVocaGroupViewController(groups: viewModel.output.groups.value), animated: true, completion: nil)
+    }
+
     func myVocaViewController(didTapGroup group: Group, view: MyVocaGroupReusableView) {
-        
+        viewModel.input.selectedGroup.onNext(group)
     }
 }

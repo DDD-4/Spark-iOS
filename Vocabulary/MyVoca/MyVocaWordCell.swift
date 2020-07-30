@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Voca
 
 class MyVocaWordCell: UICollectionViewCell {
 
@@ -44,6 +45,11 @@ class MyVocaWordCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(word: Word) {
+        EnglishLabel.text = word.english
+        KoreanLabel.text = word.korean
     }
 
     func configureLayout() {

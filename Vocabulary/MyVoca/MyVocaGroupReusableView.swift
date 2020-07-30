@@ -8,9 +8,11 @@
 
 import UIKit
 import Voca
+import RxSwift
 
 protocol MyVocaViewControllerDelegate: class {
     func myVocaViewController(didTapGroup group: Group, view: MyVocaGroupReusableView)
+    func myVocaViewController(didTapEditGroupButton button: UIButton)
 }
 class MyVocaGroupReusableView: UICollectionReusableView {
 
@@ -19,12 +21,13 @@ class MyVocaGroupReusableView: UICollectionReusableView {
 
     private var groups = [Group]()
     private var selectedRow: Int?
+    private let disposeBag = DisposeBag()
 
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 12
+        flowLayout.minimumLineSpacing = 12
+        flowLayout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(
@@ -38,10 +41,19 @@ class MyVocaGroupReusableView: UICollectionReusableView {
         return collectionView
     }()
 
+    lazy var groupEditButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .black
+        button.setTitle("편집", for: .normal)
+        return button
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         configureLayout()
+        bindRx()
         backgroundColor = .red
     }
 
@@ -51,16 +63,31 @@ class MyVocaGroupReusableView: UICollectionReusableView {
 
     func configureLayout() {
         addSubview(groupNameCollectionView)
+        addSubview(groupEditButton)
 
         groupNameCollectionView.snp.makeConstraints { (make) in
-            make.top.bottom.leading.trailing.equalTo(self)
+            make.top.bottom.leading.equalTo(self)
             make.height.equalTo(20 + 36 + 20)
+        }
+
+        groupEditButton.snp.makeConstraints { (make) in
+            make.centerY.equalTo(groupNameCollectionView.snp.centerY)
+//            make.width.height.equalTo(24)
+            make.trailing.equalTo(-16).priority(.high)
+            make.leading.equalTo(groupNameCollectionView.snp.trailing).offset(16)
         }
     }
 
     func configure(groups: [Group], selectedRow: Int) {
         self.groups = groups
         groupNameCollectionView.reloadData()
+    }
+
+    func bindRx() {
+        groupEditButton.rx.tap.subscribe(onNext: { [weak self] (_) in
+            guard let self = self else { return }
+            self.delegate?.myVocaViewController(didTapEditGroupButton: self.groupEditButton)
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -93,6 +120,9 @@ extension MyVocaGroupReusableView: UICollectionViewDelegate, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard selectedRow != indexPath.row else {
+            return
+        }
         let beforeSelectedRow = selectedRow
         selectedRow = indexPath.row
 

@@ -83,7 +83,7 @@ public class VocaCoreDataManager {
 
     func performBackgroundTask(_ completion: @escaping (NSManagedObjectContext) -> Void) {
         let context = backgroundContext
-        context.performAndWait { () -> Void in
+        context.perform { () -> Void in
             completion(context)
         }
     }
