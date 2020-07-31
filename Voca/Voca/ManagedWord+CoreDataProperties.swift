@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension ManagedWord {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedWord> {

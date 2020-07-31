@@ -10,6 +10,9 @@
 		186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84C924D1462E0094E9EB /* BaseButton.swift */; };
 		186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */; };
 		186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */; };
+		186E84E524D2DAC50094E9EB /* VocaForAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84E424D2DAC50094E9EB /* VocaForAllViewController.swift */; };
+		186E84E724D2DB300094E9EB /* VocaForAllNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84E624D2DB300094E9EB /* VocaForAllNavigationView.swift */; };
+		186E84E924D2E2A30094E9EB /* VocaForAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84E824D2E2A30094E9EB /* VocaForAllCell.swift */; };
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
@@ -43,6 +46,9 @@
 		186E84C924D1462E0094E9EB /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordNavigationView.swift; sourceTree = "<group>"; };
+		186E84E424D2DAC50094E9EB /* VocaForAllViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VocaForAllViewController.swift; path = Vocabulary/VocaForAll/VocaForAllViewController.swift; sourceTree = SOURCE_ROOT; };
+		186E84E624D2DB300094E9EB /* VocaForAllNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VocaForAllNavigationView.swift; path = Vocabulary/VocaForAll/VocaForAllNavigationView.swift; sourceTree = SOURCE_ROOT; };
+		186E84E824D2E2A30094E9EB /* VocaForAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VocaForAllCell.swift; path = Vocabulary/VocaForAll/VocaForAllCell.swift; sourceTree = SOURCE_ROOT; };
 		3A3B817073A9BA36F5EE7FBF /* Pods-Vocabulary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.release.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.release.xcconfig"; sourceTree = "<group>"; };
 		7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "포잉포잉.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E0024BE05AF00CA4554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +157,9 @@
 		CE6C9B5E24CF2D3F0068C3BB /* VacoForAll */ = {
 			isa = PBXGroup;
 			children = (
+				186E84E424D2DAC50094E9EB /* VocaForAllViewController.swift */,
+				186E84E624D2DB300094E9EB /* VocaForAllNavigationView.swift */,
+				186E84E824D2E2A30094E9EB /* VocaForAllCell.swift */,
 			);
 			path = VacoForAll;
 			sourceTree = "<group>";
@@ -313,7 +322,10 @@
 				186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */,
 				CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */,
 				186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */,
+				186E84E924D2E2A30094E9EB /* VocaForAllCell.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
+				186E84E724D2DB300094E9EB /* VocaForAllNavigationView.swift in Sources */,
+				186E84E524D2DAC50094E9EB /* VocaForAllViewController.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,7 +465,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Vocabulary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -474,7 +486,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Vocabulary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
