@@ -27,6 +27,7 @@
 		CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84996A24D300D300D934C3 /* MyVocaGroupReusableView.swift */; };
 		CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */; };
 		CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */; };
+		CEF4C3BA24D3949E001AEE97 /* AddVocaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4C3B924D3949E001AEE97 /* AddVocaViewController.swift */; };
 		D59B5ED3DA662A56CCBBF229 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1778F6C6D010F10A3584125D /* Pods_Vocabulary.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		CE84996A24D300D300D934C3 /* MyVocaGroupReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaGroupReusableView.swift; sourceTree = "<group>"; };
 		CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaWordCell.swift; sourceTree = "<group>"; };
+		CEF4C3B924D3949E001AEE97 /* AddVocaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVocaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */,
 				CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */,
 				CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */,
+				CEF4C3B924D3949E001AEE97 /* AddVocaViewController.swift */,
 			);
 			path = MyVoca;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
 				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
+				CEF4C3BA24D3949E001AEE97 /* AddVocaViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

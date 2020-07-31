@@ -20,6 +20,14 @@ class EditMyVocaGroupViewController: UIViewController {
         return view
     }()
 
+    lazy var rightButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .black
+        button.addTarget(nil, action: #selector(addDidTap(_:)), for: .touchUpInside)
+        return button
+    }()
+
     lazy var groupTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .gray
@@ -57,6 +65,7 @@ class EditMyVocaGroupViewController: UIViewController {
 
     func configureLayout() {
         view.addSubview(navigationViewArea)
+        navigationViewArea.addSubview(rightButton)
         view.addSubview(groupTableView)
 
         navigationViewArea.snp.makeConstraints { (make) in
@@ -64,10 +73,19 @@ class EditMyVocaGroupViewController: UIViewController {
             make.height.equalTo(44)
         }
 
+        rightButton.snp.makeConstraints { (make) in
+            make.centerY.equalTo(navigationViewArea)
+            make.width.height.equalTo(22)
+            make.trailing.equalTo(navigationViewArea).offset(-16)
+        }
+
         groupTableView.snp.makeConstraints { (make) in
             make.top.equalTo(navigationViewArea.snp.bottom)
             make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    @objc func addDidTap(_ sender: UIButton) {
+        present(AddVocaViewController(), animated: true, completion: nil)
     }
 }
 

@@ -69,7 +69,7 @@ class MyVocaViewController: UIViewController {
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(44)
         }
-
+        
         groupNameCollectionView.snp.makeConstraints { (make) in
             make.top.equalTo(navigationViewArea.snp.bottom).offset(20)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
