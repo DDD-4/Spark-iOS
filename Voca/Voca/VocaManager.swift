@@ -17,10 +17,17 @@ public class VocaManager {
 
     public func fetch(
         identifier: UUID?,
-        completion: @escaping (([ManagedGroup]?) -> Void)
+        completion: @escaping (([Group]?) -> Void)
     ) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
-            completion(VocaCoreDataManager.shared.fetch(predicate: identifier, context: context) ?? [])
+            let managedGroups = VocaCoreDataManager.shared.fetch(predicate: identifier, context: context) ?? []
+
+            var groups = [Group]()
+            for managedGroup in managedGroups {
+                groups.append(managedGroup.toGroup())
+            }
+
+            completion(groups)
         }
     }
 

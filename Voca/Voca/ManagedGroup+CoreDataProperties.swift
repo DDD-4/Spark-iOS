@@ -20,24 +20,33 @@ public struct Group {
     public init(
         title: String,
         visibilityType: VisibilityType,
-        identifier: UUID
+        identifier: UUID,
+        words: [Word]
     ) {
         self.title = title
         self.visibilityType = visibilityType
         self.identifier = identifier
+        self.words = words
     }
 
-    var title: String
-    var visibilityType: VisibilityType
-    var identifier: UUID
+    public var title: String
+    public var visibilityType: VisibilityType
+    public var identifier: UUID
+    public var words: [Word]
 }
 
 extension Group {
     func toManaged(context: NSManagedObjectContext) {
+
+        var managedWords = [ManagedWord]()
+        for word in words {
+            managedWords.append(word.toManaged(context: context))
+        }
         let managed = ManagedGroup(context: context)
         managed.title = title
         managed.visibilityType = visibilityType.rawValue
         managed.identifier = identifier
+        managed.words = NSSet(array: managedWords)
     }
 }
 
@@ -69,4 +78,26 @@ extension ManagedGroup {
     @objc(removeWords:)
     @NSManaged public func removeFromWords(_ values: NSSet)
 
+}
+
+extension ManagedGroup {
+    func toGroup() -> Group {
+
+        var processedWords = [Word]()
+        if let managedWords = words as? Set<ManagedWord> {
+            for managedWord in managedWords {
+                processedWords.append(managedWord.toWord())
+            }
+        }
+
+        let isVailableVisibilityType = VisibilityType(rawValue: visibilityType ?? "") ?? .private
+
+        let group = Group(
+            title: title ?? "",
+            visibilityType: isVailableVisibilityType,
+            identifier: UUID(),
+            words: processedWords
+        )
+        return group
+    }
 }

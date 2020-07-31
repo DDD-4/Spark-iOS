@@ -43,11 +43,39 @@ class VocaTests: XCTestCase {
     }
 
     func test_add() {
+
+        let dummyWords = [
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+            Word(korean: "한글0", english: "eng", image: nil, identifier: UUID()),
+        ]
+
         let newGroup = Group(
             title: "1",
             visibilityType: .public,
-            identifier: UUID()
+            identifier: UUID(),
+            words: dummyWords
         )
+
         VocaManager.shared.insert(group: newGroup)
 
         VocaManager.shared.fetch(identifier: newGroup.identifier) { (managedGroups) in
@@ -62,7 +90,8 @@ class VocaTests: XCTestCase {
         let newGroup = Group(
             title: "1",
             visibilityType: .public,
-            identifier: UUID()
+            identifier: UUID(),
+            words: []
         )
         VocaManager.shared.insert(group: newGroup)
 
@@ -88,7 +117,8 @@ class VocaTests: XCTestCase {
         var newGroup = Group(
             title: "1",
             visibilityType: .public,
-            identifier: UUID()
+            identifier: UUID(),
+            words: []
         )
         VocaManager.shared.insert(group: newGroup)
 

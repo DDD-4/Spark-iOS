@@ -9,8 +9,8 @@
 import CoreData
 import CloudKit
 
-class VocaCoreDataManager {
-    static let shared = VocaCoreDataManager()
+public class VocaCoreDataManager {
+    public static let shared = VocaCoreDataManager()
     let modelName = "Voca"
     let cloudKitID = "iCloud.Spark.Vocabulary"
     let vocaBundleID = "Spark.Voca"
@@ -112,7 +112,6 @@ class VocaCoreDataManager {
             groupList.isEmpty == false else {
                 return nil
         }
-        saveContext(context: context)
         return groupList
     }
 
@@ -144,7 +143,7 @@ class VocaCoreDataManager {
         saveContext(context: context)
     }
 
-    func reset() {
+    public func reset() {
         let container = persistentContainer
         let coordinator = container.persistentStoreCoordinator
         if let store = coordinator.destroyPersistentStore(type: NSSQLiteStoreType) {

@@ -10,6 +10,8 @@
 		186E84D024D161320094E9EB /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CF24D161320094E9EB /* UIFont+.swift */; };
 		7D276E3924BE122C00CA4554 /* VocaDesignSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D276E3724BE122C00CA4554 /* VocaDesignSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7D276E5024BE133300CA4554 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E4F24BE133300CA4554 /* UIColor+.swift */; };
+		CEF4C3BC24D394C7001AEE97 /* AccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4C3BB24D394C7001AEE97 /* AccentButton.swift */; };
+		CEFED47124D397E9002E858C /* VDSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47024D397E9002E858C /* VDSTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +20,8 @@
 		7D276E3724BE122C00CA4554 /* VocaDesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VocaDesignSystem.h; sourceTree = "<group>"; };
 		7D276E3824BE122C00CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D276E4F24BE133300CA4554 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		CEF4C3BB24D394C7001AEE97 /* AccentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentButton.swift; sourceTree = "<group>"; };
+		CEFED47024D397E9002E858C /* VDSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDSTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 				7D276E3824BE122C00CA4554 /* Info.plist */,
 				7D276E4F24BE133300CA4554 /* UIColor+.swift */,
 				186E84CF24D161320094E9EB /* UIFont+.swift */,
+				CEF4C3BB24D394C7001AEE97 /* AccentButton.swift */,
+				CEFED47024D397E9002E858C /* VDSTextField.swift */,
 			);
 			path = VocaDesignSystem;
 			sourceTree = "<group>";
@@ -138,8 +144,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF4C3BC24D394C7001AEE97 /* AccentButton.swift in Sources */,
 				186E84D024D161320094E9EB /* UIFont+.swift in Sources */,
 				7D276E5024BE133300CA4554 /* UIColor+.swift in Sources */,
+				CEFED47124D397E9002E858C /* VDSTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
