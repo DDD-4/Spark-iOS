@@ -28,6 +28,8 @@
 		CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */; };
 		CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */; };
 		CEF4C3BA24D3949E001AEE97 /* AddVocaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4C3B924D3949E001AEE97 /* AddVocaViewController.swift */; };
+		CEFED47324D45291002E858C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47224D45291002E858C /* GameViewController.swift */; };
+		CEFED47524D5B236002E858C /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47424D5B236002E858C /* GameCell.swift */; };
 		D59B5ED3DA662A56CCBBF229 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1778F6C6D010F10A3584125D /* Pods_Vocabulary.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +75,8 @@
 		CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaWordCell.swift; sourceTree = "<group>"; };
 		CEF4C3B924D3949E001AEE97 /* AddVocaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVocaViewController.swift; sourceTree = "<group>"; };
+		CEFED47224D45291002E858C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = Vocabulary/Game/GameViewController.swift; sourceTree = SOURCE_ROOT; };
+		CEFED47424D5B236002E858C /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameCell.swift; path = Vocabulary/Game/GameCell.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,12 +135,12 @@
 		7D276DFF24BE05AF00CA4554 /* Vocabulary */ = {
 			isa = PBXGroup;
 			children = (
+				CEFED47624D5BAC7002E858C /* Game */,
 				CE8703C124D2F9F100DDFAD4 /* Utills */,
 				186E84C824D146110094E9EB /* View */,
 				CE4401A424CF32570093D04B /* Vocabulary.entitlements */,
 				CE6C9B6324CF2DDB0068C3BB /* Model */,
 				CE6C9B6124CF2D870068C3BB /* AddWord */,
-				CE6C9B6024CF2D800068C3BB /* Game */,
 				CE6C9B5F24CF2D790068C3BB /* My */,
 				CE6C9B5E24CF2D3F0068C3BB /* VacoForAll */,
 				CE6C9B5D24CF2D380068C3BB /* MyVoca */,
@@ -186,13 +190,6 @@
 			path = My;
 			sourceTree = "<group>";
 		};
-		CE6C9B6024CF2D800068C3BB /* Game */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Game;
-			sourceTree = "<group>";
-		};
 		CE6C9B6124CF2D870068C3BB /* AddWord */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +212,15 @@
 				CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */,
 			);
 			path = Utills;
+			sourceTree = "<group>";
+		};
+		CEFED47624D5BAC7002E858C /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				CEFED47224D45291002E858C /* GameViewController.swift */,
+				CEFED47424D5B236002E858C /* GameCell.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 		DCBEF7D8D78A53C7ED1BCF92 /* Pods */ = {
@@ -344,6 +350,7 @@
 				CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */,
 				186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */,
 				CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */,
+				CEFED47524D5B236002E858C /* GameCell.swift in Sources */,
 				CE1458FA24D319FC004F2700 /* EditMyVocaGroupCell.swift in Sources */,
 				186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */,
 				CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */,
@@ -351,6 +358,7 @@
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
 				CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */,
 				186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */,
+				CEFED47324D45291002E858C /* GameViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
 				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
