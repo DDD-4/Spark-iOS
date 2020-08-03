@@ -43,6 +43,11 @@ class GameCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        backgroundColor = .clear
+    }
+
     func configure(title: String) {
         titleLabel.text = title
     }

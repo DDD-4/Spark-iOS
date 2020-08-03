@@ -14,7 +14,7 @@ class PresentDetailViewControllerTransitionAnimation: NSObject, UIViewController
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
-        guard let fromViewController = transitionContext.viewController(forKey: .from) as? ViewController, let toViewController = transitionContext.viewController(forKey: .to) as? DetailViewController else { return }
+        guard let fromViewController = transitionContext.viewController(forKey: .from) as? FlipGameViewController, let toViewController = transitionContext.viewController(forKey: .to) as? DetailViewController else { return }
         
         
         containerView.addSubview(toViewController.view)

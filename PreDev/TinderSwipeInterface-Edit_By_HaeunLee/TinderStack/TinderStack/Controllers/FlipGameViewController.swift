@@ -10,7 +10,7 @@ import UIKit
 import Voca
 import SnapKit
 
-class FlipGameViewController: UIViewController {
+public class FlipGameViewController: UIViewController {
 
     //MARK: - Properties
     var viewModelData = [CardsDataModel]()
@@ -19,6 +19,7 @@ class FlipGameViewController: UIViewController {
     
     //MARK: - Init
 
+    public
     init(words: [Word]) {
         super.init(nibName: nil, bundle: nil)
         for word in words {
@@ -30,7 +31,7 @@ class FlipGameViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
+    public override func loadView() {
         view = UIView()
         view.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0)
         stackContainer = StackContainerView()
@@ -40,7 +41,7 @@ class FlipGameViewController: UIViewController {
         configureNavigationBarButtonItem()
     }
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         title = "Expense Tracker"
         stackContainer.dataSource = self
@@ -51,9 +52,8 @@ class FlipGameViewController: UIViewController {
     func configureStackContainer() {
         stackContainer.snp.makeConstraints { (make) in
             make.centerY.centerX.equalTo(view.safeAreaLayoutGuide)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            make.height.equalTo(stackContainer.snp.width)
+            make.height.equalTo(UIScreen.main.bounds.width - 32)
+            make.width.equalTo(UIScreen.main.bounds.width - 32)
         }
     }
     

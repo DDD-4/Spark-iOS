@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+public class CardMatchingViewController: UIViewController {
     enum Constant {
         static let spacing: CGFloat = 20
         static let maxSelectedCount: Int = 2
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
 
     var cardHeightConstraint: NSLayoutConstraint?
 
-    init(imageWords: [ImageWord]) {
+    public init(imageWords: [ImageWord]) {
         for word in imageWords {
             guard let wordImage = UIImage(named: word.image) else {
                 continue
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         configureLayout()
@@ -146,12 +146,12 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension CardMatchingViewController: UICollectionViewDataSource {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cards.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCell.reuseIdentifier, for: indexPath) as? CardCell else {
             return UICollectionViewCell()
         }
@@ -159,11 +159,11 @@ extension ViewController: UICollectionViewDataSource {
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard selectedCardRow.contains(indexPath.row) == false else {
             return
         }
-        if selectedCardRow.count > Constant.maxSelectedCount {
+        if selectedCardRow.count >= Constant.maxSelectedCount {
             deSelectCard(row: indexPath.row)
         }
         SelectCard(row: indexPath.row)
@@ -171,8 +171,8 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+extension CardMatchingViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellSpcing = 2 * Constant.spacing
         let width = (collectionView.bounds.width - cellSpcing) / 4
         return CGSize(width: width, height: width)

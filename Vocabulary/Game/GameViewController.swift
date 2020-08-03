@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import VocaGame
+import Voca
 
 class GameViewController: UIViewController {
 
@@ -71,7 +73,15 @@ class GameViewController: UIViewController {
 }
 
 extension GameViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedGame = Constant.gameList[indexPath.row]
+        switch selectedGame {
+        case .flip:
+            present(FlipGameViewController(words: [Word(korean: "kor", english: "eng", image: nil, identifier: nil)]), animated: true, completion: nil)
+        case .matching:
+            present(CardMatchingViewController(imageWords: [ImageWord(image: "icPicture", word: "eng")]), animated: true, completion: nil)
+        }
+    }
 }
 
 extension GameViewController: UITableViewDataSource {
@@ -86,6 +96,4 @@ extension GameViewController: UITableViewDataSource {
         cell.configure(title: Constant.gameList[indexPath.row].rawValue)
         return cell
     }
-
-
 }
