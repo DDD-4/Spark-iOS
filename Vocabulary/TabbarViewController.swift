@@ -35,7 +35,7 @@ class TabbarViewController: UITabBarController, UITabBarControllerDelegate {
         tabBarItem3.isEnabled = false
         tab3.tabBarItem = tabBarItem3
 
-        let tab4 = UINavigationController(rootViewController: MyVocaViewController())
+        let tab4 = UINavigationController(rootViewController: VocaForAllViewController(groups: []))
         let tabBarItem4 = UITabBarItem(title: "4", image: nil, selectedImage: nil)
         tab4.tabBarItem = tabBarItem4
 
