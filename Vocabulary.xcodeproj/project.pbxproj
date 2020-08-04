@@ -15,6 +15,8 @@
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
+		7D30807324D9A39D0001D850 /* VocaDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; };
+		7D30807424D9A39D0001D850 /* VocaDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D492D4024D985C8000B8F43 /* VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; };
 		7D492D4124D985C8000B8F43 /* VocaGame.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D492D4524D985CC000B8F43 /* Voca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545324D973B70017E732 /* Voca.framework */; };
@@ -34,7 +36,6 @@
 		CEF4C3BA24D3949E001AEE97 /* AddVocaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4C3B924D3949E001AEE97 /* AddVocaViewController.swift */; };
 		CEFED47324D45291002E858C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47224D45291002E858C /* GameViewController.swift */; };
 		CEFED47524D5B236002E858C /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47424D5B236002E858C /* GameCell.swift */; };
-		CEFED47924D5C868002E858C /* FlipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47824D5C868002E858C /* FlipViewController.swift */; };
 		CEFED49124D5C8C2002E858C /* VocaGame.h in Headers */ = {isa = PBXBuildFile; fileRef = CEFED48124D5C8C2002E858C /* VocaGame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CEFED49F24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED49E24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift */; };
 		CEFED4A324D5C8F2002E858C /* FlipGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A124D5C8F2002E858C /* FlipGameViewController.swift */; };
@@ -83,6 +84,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7D30807524D9A39D0001D850 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7D30807424D9A39D0001D850 /* VocaDesignSystem.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7D492D4424D985C9000B8F43 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,7 +142,6 @@
 		CEF4C3B924D3949E001AEE97 /* AddVocaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVocaViewController.swift; sourceTree = "<group>"; };
 		CEFED47224D45291002E858C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = Vocabulary/Game/GameViewController.swift; sourceTree = SOURCE_ROOT; };
 		CEFED47424D5B236002E858C /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameCell.swift; path = Vocabulary/Game/GameCell.swift; sourceTree = SOURCE_ROOT; };
-		CEFED47824D5C868002E858C /* FlipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipViewController.swift; sourceTree = "<group>"; };
 		CEFED47F24D5C8C2002E858C /* VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFED48124D5C8C2002E858C /* VocaGame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VocaGame.h; sourceTree = "<group>"; };
 		CEFED48224D5C8C2002E858C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -168,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D30807324D9A39D0001D850 /* VocaDesignSystem.framework in Frameworks */,
 				03F8678E0573AD5D0E292449 /* Pods_VocaGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,19 +332,10 @@
 		CEFED47624D5BAC7002E858C /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				CEFED47724D5C85E002E858C /* Flip */,
 				CEFED47224D45291002E858C /* GameViewController.swift */,
 				CEFED47424D5B236002E858C /* GameCell.swift */,
 			);
 			path = Game;
-			sourceTree = "<group>";
-		};
-		CEFED47724D5C85E002E858C /* Flip */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED47824D5C868002E858C /* FlipViewController.swift */,
-			);
-			path = Flip;
 			sourceTree = "<group>";
 		};
 		CEFED48024D5C8C2002E858C /* VocaGame */ = {
@@ -482,6 +485,7 @@
 				CEFED47B24D5C8C2002E858C /* Sources */,
 				CEFED47C24D5C8C2002E858C /* Frameworks */,
 				CEFED47D24D5C8C2002E858C /* Resources */,
+				7D30807524D9A39D0001D850 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -651,7 +655,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEFED47924D5C868002E858C /* FlipViewController.swift in Sources */,
 				CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */,
 				186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */,
 				CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */,

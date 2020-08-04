@@ -43,7 +43,13 @@ class TabbarViewController: UITabBarController, UITabBarControllerDelegate {
         let tabBarItem5 = UITabBarItem(title: "5", image: nil, selectedImage: nil)
         tab5.tabBarItem = tabBarItem5
 
-        self.viewControllers = [tabOne, tabTwo, tab3, tab4, tab5]
+        let viewControllers = [tabOne, tabTwo, tab3, tab4, tab5]
+
+        for vc in viewControllers {
+            vc.navigationBar.isHidden = true
+        }
+
+        self.viewControllers = viewControllers
 
 
         view.addSubview(button)
