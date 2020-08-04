@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-private enum HomeNavigationConstants {
+private enum AddWordNavigationConstants {
   enum Title {
     static let Title: String = "단어 추가"
     static let color: UIColor = .black
@@ -79,15 +79,15 @@ class AddWordNavigationView: UIView {
     lazy var titleLabel: UILabel = {
       let label = UILabel()
       label.translatesAutoresizingMaskIntoConstraints = false
-      label.textColor = HomeNavigationConstants.Title.color
-      label.font = HomeNavigationConstants.Title.Font
-      label.text = HomeNavigationConstants.Title.Title
+      label.textColor = AddWordNavigationConstants.Title.color
+      label.font = AddWordNavigationConstants.Title.Font
+      label.text = AddWordNavigationConstants.Title.Title
       return label
     }()
     lazy var settingButton: BaseButton = {
       let button = BaseButton()
       button.translatesAutoresizingMaskIntoConstraints = false
-      button.setTitle(HomeNavigationConstants.Button.title, for: .normal)
+      button.setTitle(AddWordNavigationConstants.Button.title, for: .normal)
       return button
     }()
     

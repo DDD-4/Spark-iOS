@@ -31,8 +31,8 @@ public struct Word {
     func toManaged(context: NSManagedObjectContext) -> ManagedWord{
         let managed = ManagedWord(context: context)
         managed.korean = korean
-        managed.english = english
         managed.image = image
+        managed.english = english
         managed.identifier = identifier
         return managed
     }
