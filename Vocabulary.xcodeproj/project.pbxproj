@@ -20,6 +20,10 @@
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
+		7D36545C24D973C40017E732 /* Voca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545324D973B70017E732 /* Voca.framework */; };
+		7D36545D24D973C40017E732 /* Voca.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545324D973B70017E732 /* Voca.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D36545E24D973C80017E732 /* VocaDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; };
+		7D36545F24D973C80017E732 /* VocaDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */; };
 		CE1458FA24D319FC004F2700 /* EditMyVocaGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */; };
 		CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */; };
@@ -38,6 +42,30 @@
 		D59B5ED3DA662A56CCBBF229 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1778F6C6D010F10A3584125D /* Pods_Vocabulary.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7D36545224D973B70017E732 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D36544D24D973B70017E732 /* Voca.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CE6C9BA324CF300F0068C3BB;
+			remoteInfo = Voca;
+		};
+		7D36545424D973B70017E732 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D36544D24D973B70017E732 /* Voca.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7D2C768C24CF53AA007BAB7F;
+			remoteInfo = VocaTests;
+		};
+		7D36545A24D973BF0017E732 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D36545624D973BF0017E732 /* VocaDesignSystem.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7D276E3424BE122C00CA4554;
+			remoteInfo = VocaDesignSystem;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		7D276E4D24BE12A300CA4554 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -47,6 +75,8 @@
 			files = (
 				CE6C9BB624CF30390068C3BB /* VocaDesignSystem.framework in Embed Frameworks */,
 				CE4401A024CF31060093D04B /* Voca.framework in Embed Frameworks */,
+				7D36545F24D973C80017E732 /* VocaDesignSystem.framework in Embed Frameworks */,
+				7D36545D24D973C40017E732 /* Voca.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +101,8 @@
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D36544D24D973B70017E732 /* Voca.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Voca.xcodeproj; path = Voca/Voca.xcodeproj; sourceTree = "<group>"; };
+		7D36545624D973BF0017E732 /* VocaDesignSystem.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VocaDesignSystem.xcodeproj; path = VocaDesignSystem/VocaDesignSystem.xcodeproj; sourceTree = "<group>"; };
 		C28BDD2A3BC6F8B55B4A2615 /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
 		CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupViewController.swift; sourceTree = "<group>"; };
 		CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupCell.swift; sourceTree = "<group>"; };
@@ -94,7 +126,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D36545E24D973C80017E732 /* VocaDesignSystem.framework in Frameworks */,
 				CE6C9BB524CF30390068C3BB /* VocaDesignSystem.framework in Frameworks */,
+				7D36545C24D973C40017E732 /* Voca.framework in Frameworks */,
 				CE4401A624CF325F0093D04B /* CloudKit.framework in Frameworks */,
 				D59B5ED3DA662A56CCBBF229 /* Pods_Vocabulary.framework in Frameworks */,
 				CE44019F24CF31060093D04B /* Voca.framework in Frameworks */,
@@ -137,6 +171,8 @@
 		7D276DF424BE05AF00CA4554 = {
 			isa = PBXGroup;
 			children = (
+				7D36545624D973BF0017E732 /* VocaDesignSystem.xcodeproj */,
+				7D36544D24D973B70017E732 /* Voca.xcodeproj */,
 				7D276DFF24BE05AF00CA4554 /* Vocabulary */,
 				7D276DFE24BE05AF00CA4554 /* Products */,
 				DCBEF7D8D78A53C7ED1BCF92 /* Pods */,
@@ -179,6 +215,23 @@
 				7D276E0924BE05B200CA4554 /* Assets.xcassets */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		7D36544E24D973B70017E732 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D36545324D973B70017E732 /* Voca.framework */,
+				7D36545524D973B70017E732 /* VocaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7D36545724D973BF0017E732 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		CE6C9B5D24CF2D380068C3BB /* MyVoca */ = {
@@ -304,12 +357,46 @@
 			mainGroup = 7D276DF424BE05AF00CA4554;
 			productRefGroup = 7D276DFE24BE05AF00CA4554 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7D36544E24D973B70017E732 /* Products */;
+					ProjectRef = 7D36544D24D973B70017E732 /* Voca.xcodeproj */;
+				},
+				{
+					ProductGroup = 7D36545724D973BF0017E732 /* Products */;
+					ProjectRef = 7D36545624D973BF0017E732 /* VocaDesignSystem.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7D276DFC24BE05AF00CA4554 /* Vocabulary */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7D36545324D973B70017E732 /* Voca.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Voca.framework;
+			remoteRef = 7D36545224D973B70017E732 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7D36545524D973B70017E732 /* VocaTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = VocaTests.xctest;
+			remoteRef = 7D36545424D973B70017E732 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = VocaDesignSystem.framework;
+			remoteRef = 7D36545A24D973BF0017E732 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7D276DFB24BE05AF00CA4554 /* Resources */ = {
