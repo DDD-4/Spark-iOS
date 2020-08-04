@@ -20,26 +20,6 @@ class VocaDetailViewController: UIViewController {
     private var viewModel: WordViewModel
     let disposeBag = DisposeBag()
     
-    lazy var navigationView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .blue
-        return view
-    }()
-    
-    lazy var naviTitle: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    lazy var backButton: BaseButton = {
-        let button = BaseButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("<", for: .normal)
-        return button
-    }()
-    
     lazy var vocaCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical // 스크롤 방향
@@ -76,7 +56,8 @@ class VocaDetailViewController: UIViewController {
         self.viewModel = WordViewModel(group: group)
         defer {
             self.words = group.words
-            self.naviTitle.text = group.title
+            self.navigationItem.title = group.title
+            //self.naviTitle.text = group.title
         }
         super.init(nibName: nil, bundle: nil)
     }
@@ -95,26 +76,9 @@ class VocaDetailViewController: UIViewController {
     }
     
     func configureLayout() {
-        navigationView.addSubview(naviTitle)
-        navigationView.addSubview(backButton)
-        view.addSubview(navigationView)
         view.addSubview(saveButton)
         view.bringSubviewToFront(saveButton)
         view.addSubview(vocaCollectionView)
-        
-        naviTitle.snp.makeConstraints { (make) in
-            make.centerX.centerY.equalTo(navigationView)
-        }
-        
-        backButton.snp.makeConstraints { (make) in
-            make.leading.equalTo(navigationView).offset(16)
-            make.centerY.equalTo(navigationView)
-        }
-        
-        navigationView.snp.makeConstraints { (make) in
-            make.top.trailing.leading.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(44)
-        }
         
         saveButton.snp.makeConstraints { (make) in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
@@ -122,7 +86,7 @@ class VocaDetailViewController: UIViewController {
         }
         
         vocaCollectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(navigationView.snp.bottom)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -145,17 +109,10 @@ class VocaDetailViewController: UIViewController {
         
         self.vocaCollectionView.rx.modelSelected(Group.self)
         .subscribe(onNext : { [weak self] (groupData) in
-            
             // present dim view..
         }).disposed(by: disposeBag)
-        
-        self.backButton.rx.tap
-            .subscribe(onNext: { [weak self] (_) in
-                self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
+    
     }
-    
-    
 }
 
 extension VocaDetailViewController: UICollectionViewDataSource {

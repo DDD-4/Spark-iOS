@@ -79,6 +79,10 @@ class VocaForAllViewController: UIViewController {
         bindRx()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     // MARK: - View ✨
     func configureLayout() {
         view.addSubview(VocaForAllNaviView)
@@ -118,27 +122,8 @@ class VocaForAllViewController: UIViewController {
         self.viewModel.output.words.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] (_) in
             self?.tableView.reloadData()
         })
-        
-//        self.tableView.rx.modelSelected(Group.self)
-//               .subscribe(onNext : { [weak self] (groupData) in
-//
-//                   let wordView = VocaDetailViewController(group: groupData)
-//                   self?.navigationController?.pushViewController(wordView, animated: true)
-//               }).disposed(by: disposeBag)
-        
     }
-    
 }
-
-//extension VocaForAllViewController {
-//    private func VocaForAllcell(with element: Group, from table: UITableView) -> UITableViewCell {
-//        if let cell = table.dequeueReusableCell(withIdentifier: VocaForAllCell.reuseIdentifier) as? VocaForAllCell {
-//        cell.configure(group: element)
-//        return cell
-//      }
-//      return UITableViewCell()
-//    }
-//}
 
 extension VocaForAllViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
