@@ -158,19 +158,6 @@ extension VocaForAllViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        true
-    }
-
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let elem = groups.remove(at: sourceIndexPath.row)
-        groups.insert(elem, at: destinationIndexPath.row)
-
-        DispatchQueue.main.async {
-            tableView.reloadData()
-        }
-    }
 }
 
 extension VocaForAllViewController {

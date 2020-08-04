@@ -59,4 +59,9 @@ class TabbarViewController: UITabBarController, UITabBarControllerDelegate {
     @objc func centerButtonDidTap(_ sender: UIButton) {
         present(AddWordViewController(), animated: true, completion: nil)
     }
+    
+    func hiddenTabBar(_ bool: Bool) {
+        tabBar.isHidden = bool
+        button.isHidden = bool
+    }
 }

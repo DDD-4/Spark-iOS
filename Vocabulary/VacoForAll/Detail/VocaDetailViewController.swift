@@ -69,10 +69,16 @@ class VocaDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarController?.tabBar.isHidden = true
+        if let tabBarController = tabBarController as? TabbarViewController { tabBarController.hiddenTabBar(true)
+        }
         configureLayout()
         configureRx()
         viewModel.input.fetchGroups()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if let tabBarController = tabBarController as? TabbarViewController { tabBarController.hiddenTabBar(false)
+        }
     }
     
     func configureLayout() {
