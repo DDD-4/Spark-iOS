@@ -7,27 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03F8678E0573AD5D0E292449 /* Pods_VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F87D2451CC2A97DFBBA7C024 /* Pods_VocaGame.framework */; };
 		186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84C924D1462E0094E9EB /* BaseButton.swift */; };
 		186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */; };
 		186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */; };
+		58053FFE86CD1AA31AA238E4 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD71404A8E834ED160D8C3CC /* Pods_Vocabulary.framework */; };
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
-		7D36545C24D973C40017E732 /* Voca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545324D973B70017E732 /* Voca.framework */; };
-		7D36545D24D973C40017E732 /* Voca.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545324D973B70017E732 /* Voca.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D36545E24D973C80017E732 /* VocaDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; };
-		7D36545F24D973C80017E732 /* VocaDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D492D4024D985C8000B8F43 /* VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; };
+		7D492D4124D985C8000B8F43 /* VocaGame.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D492D4524D985CC000B8F43 /* Voca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545324D973B70017E732 /* Voca.framework */; };
+		7D492D4624D985CC000B8F43 /* Voca.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545324D973B70017E732 /* Voca.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D492D4724D985D0000B8F43 /* VocaDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; };
+		7D492D4824D985D0000B8F43 /* VocaDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
 		CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */; };
 		CE1458FA24D319FC004F2700 /* EditMyVocaGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */; };
 		CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */; };
 		CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A1224D1DECF00FDEBAC /* MyVocaGroupNameCell.swift */; };
-		CE44019F24CF31060093D04B /* Voca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE44019E24CF31060093D04B /* Voca.framework */; };
-		CE4401A024CF31060093D04B /* Voca.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE44019E24CF31060093D04B /* Voca.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CE4401A624CF325F0093D04B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
 		CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4401B724CF33E70093D04B /* MyVocaViewController.swift */; };
 		CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4401B924CF35360093D04B /* TabbarViewController.swift */; };
-		CE6C9BB524CF30390068C3BB /* VocaDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */; };
-		CE6C9BB624CF30390068C3BB /* VocaDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84996A24D300D300D934C3 /* MyVocaGroupReusableView.swift */; };
 		CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */; };
 		CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */; };
@@ -36,8 +36,6 @@
 		CEFED47524D5B236002E858C /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47424D5B236002E858C /* GameCell.swift */; };
 		CEFED47924D5C868002E858C /* FlipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47824D5C868002E858C /* FlipViewController.swift */; };
 		CEFED49124D5C8C2002E858C /* VocaGame.h in Headers */ = {isa = PBXBuildFile; fileRef = CEFED48124D5C8C2002E858C /* VocaGame.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CEFED49424D5C8C2002E858C /* VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; };
-		CEFED49524D5C8C2002E858C /* VocaGame.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CEFED49F24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED49E24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift */; };
 		CEFED4A324D5C8F2002E858C /* FlipGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A124D5C8F2002E858C /* FlipGameViewController.swift */; };
 		CEFED4A424D5C8F2002E858C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A224D5C8F2002E858C /* DetailViewController.swift */; };
@@ -51,8 +49,6 @@
 		CEFED4B924D5D031002E858C /* CardMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B724D5D030002E858C /* CardMatching.swift */; };
 		CEFED4BB24D5D037002E858C /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BA24D5D037002E858C /* CardCell.swift */; };
 		CEFED4BD24D5D03E002E858C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BC24D5D03E002E858C /* ViewController.swift */; };
-		E7BA13D8A192AAADB037A378 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1808EB3475EFBCB39B66A100 /* Pods_Vocabulary.framework */; };
-		F430E12C8BB8E0005DB68900 /* Pods_VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37ED459BE7F8BBF9F7FA2FC /* Pods_VocaGame.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,20 +73,25 @@
 			remoteGlobalIDString = 7D276E3424BE122C00CA4554;
 			remoteInfo = VocaDesignSystem;
 		};
+		7D492D4224D985C8000B8F43 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEFED47E24D5C8C2002E858C;
+			remoteInfo = VocaGame;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7D276E4D24BE12A300CA4554 /* Embed Frameworks */ = {
+		7D492D4424D985C9000B8F43 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CEFED49524D5C8C2002E858C /* VocaGame.framework in Embed Frameworks */,
-				CE6C9BB624CF30390068C3BB /* VocaDesignSystem.framework in Embed Frameworks */,
-				CE4401A024CF31060093D04B /* Voca.framework in Embed Frameworks */,
-				7D36545F24D973C80017E732 /* VocaDesignSystem.framework in Embed Frameworks */,
-				7D36545D24D973C40017E732 /* Voca.framework in Embed Frameworks */,
+				7D492D4824D985D0000B8F43 /* VocaDesignSystem.framework in Embed Frameworks */,
+				7D492D4124D985C8000B8F43 /* VocaGame.framework in Embed Frameworks */,
+				7D492D4624D985CC000B8F43 /* Voca.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,13 +99,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1808EB3475EFBCB39B66A100 /* Pods_Vocabulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vocabulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		00EDE8F629BD2543A2039761 /* Pods-VocaGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.debug.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.debug.xcconfig"; sourceTree = "<group>"; };
 		186E84C924D1462E0094E9EB /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordNavigationView.swift; sourceTree = "<group>"; };
-		3EF2A681BDDF14F0CF23F7DF /* Pods-Vocabulary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.release.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.release.xcconfig"; sourceTree = "<group>"; };
-		57E1FBACCAF5170A42F106DA /* Pods-VocaGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.debug.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.debug.xcconfig"; sourceTree = "<group>"; };
-		7A0AD6E919A149138033637B /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
+		75C511B7D90F4898B1CD654C /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
 		7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "포잉포잉.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E0024BE05AF00CA4554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,7 +111,8 @@
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D36544D24D973B70017E732 /* Voca.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Voca.xcodeproj; path = Voca/Voca.xcodeproj; sourceTree = "<group>"; };
 		7D36545624D973BF0017E732 /* VocaDesignSystem.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VocaDesignSystem.xcodeproj; path = VocaDesignSystem/VocaDesignSystem.xcodeproj; sourceTree = "<group>"; };
-		C28BDD2A3BC6F8B55B4A2615 /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
+		A92164D16BD573D454878EAC /* Pods-VocaGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.release.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.release.xcconfig"; sourceTree = "<group>"; };
+		BD71404A8E834ED160D8C3CC /* Pods_Vocabulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vocabulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupViewController.swift; sourceTree = "<group>"; };
 		CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupCell.swift; sourceTree = "<group>"; };
 		CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaViewModel.swift; sourceTree = "<group>"; };
@@ -147,8 +147,8 @@
 		CEFED4B724D5D030002E858C /* CardMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatching.swift; sourceTree = "<group>"; };
 		CEFED4BA24D5D037002E858C /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardCell.swift; path = PreDev/CardMatching/CardMatching/CardCell.swift; sourceTree = SOURCE_ROOT; };
 		CEFED4BC24D5D03E002E858C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = PreDev/CardMatching/CardMatching/ViewController.swift; sourceTree = SOURCE_ROOT; };
-		D4E67823CA4F580F9AC27167 /* Pods-VocaGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.release.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.release.xcconfig"; sourceTree = "<group>"; };
-		F37ED459BE7F8BBF9F7FA2FC /* Pods_VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0CA266D120AA8DDAB32F927 /* Pods-Vocabulary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.release.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.release.xcconfig"; sourceTree = "<group>"; };
+		F87D2451CC2A97DFBBA7C024 /* Pods_VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,12 +156,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D36545E24D973C80017E732 /* VocaDesignSystem.framework in Frameworks */,
-				CE6C9BB524CF30390068C3BB /* VocaDesignSystem.framework in Frameworks */,
-				7D36545C24D973C40017E732 /* Voca.framework in Frameworks */,
-				CE4401A624CF325F0093D04B /* CloudKit.framework in Frameworks */,
-				CE44019F24CF31060093D04B /* Voca.framework in Frameworks */,
-				E7BA13D8A192AAADB037A378 /* Pods_Vocabulary.framework in Frameworks */,
+				7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */,
+				7D492D4024D985C8000B8F43 /* VocaGame.framework in Frameworks */,
+				7D492D4724D985D0000B8F43 /* VocaDesignSystem.framework in Frameworks */,
+				7D492D4524D985CC000B8F43 /* Voca.framework in Frameworks */,
+				58053FFE86CD1AA31AA238E4 /* Pods_Vocabulary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F430E12C8BB8E0005DB68900 /* Pods_VocaGame.framework in Frameworks */,
+				03F8678E0573AD5D0E292449 /* Pods_VocaGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,8 +190,8 @@
 				CE6C9BBD24CF30A40068C3BB /* Voca.framework */,
 				CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */,
 				CE44019E24CF31060093D04B /* Voca.framework */,
-				F37ED459BE7F8BBF9F7FA2FC /* Pods_VocaGame.framework */,
-				1808EB3475EFBCB39B66A100 /* Pods_Vocabulary.framework */,
+				F87D2451CC2A97DFBBA7C024 /* Pods_VocaGame.framework */,
+				BD71404A8E834ED160D8C3CC /* Pods_Vocabulary.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -431,10 +430,10 @@
 		DCBEF7D8D78A53C7ED1BCF92 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				57E1FBACCAF5170A42F106DA /* Pods-VocaGame.debug.xcconfig */,
-				D4E67823CA4F580F9AC27167 /* Pods-VocaGame.release.xcconfig */,
-				7A0AD6E919A149138033637B /* Pods-Vocabulary.debug.xcconfig */,
-				3EF2A681BDDF14F0CF23F7DF /* Pods-Vocabulary.release.xcconfig */,
+				00EDE8F629BD2543A2039761 /* Pods-VocaGame.debug.xcconfig */,
+				A92164D16BD573D454878EAC /* Pods-VocaGame.release.xcconfig */,
+				75C511B7D90F4898B1CD654C /* Pods-Vocabulary.debug.xcconfig */,
+				E0CA266D120AA8DDAB32F927 /* Pods-Vocabulary.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -457,17 +456,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7D276E1124BE05B200CA4554 /* Build configuration list for PBXNativeTarget "Vocabulary" */;
 			buildPhases = (
-				F0E1EF5D496779E905C369BB /* [CP] Check Pods Manifest.lock */,
+				59226C1F897620742A76141B /* [CP] Check Pods Manifest.lock */,
 				7D276DF924BE05AF00CA4554 /* Sources */,
 				7D276DFA24BE05AF00CA4554 /* Frameworks */,
 				7D276DFB24BE05AF00CA4554 /* Resources */,
-				7D276E4D24BE12A300CA4554 /* Embed Frameworks */,
-				32369042C6AF148E33C7C9B6 /* [CP] Embed Pods Frameworks */,
+				7D492D4424D985C9000B8F43 /* Embed Frameworks */,
+				83A4A8550549995F0E06EDB7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CEFED49324D5C8C2002E858C /* PBXTargetDependency */,
+				7D492D4324D985C8000B8F43 /* PBXTargetDependency */,
 			);
 			name = Vocabulary;
 			productName = Vocabulary;
@@ -478,7 +477,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CEFED49624D5C8C2002E858C /* Build configuration list for PBXNativeTarget "VocaGame" */;
 			buildPhases = (
-				12DB642A4FDCAE6D1185E154 /* [CP] Check Pods Manifest.lock */,
+				9B11C3FAA80A99740DBFC414 /* [CP] Check Pods Manifest.lock */,
 				CEFED47A24D5C8C2002E858C /* Headers */,
 				CEFED47B24D5C8C2002E858C /* Sources */,
 				CEFED47C24D5C8C2002E858C /* Frameworks */,
@@ -584,7 +583,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		12DB642A4FDCAE6D1185E154 /* [CP] Check Pods Manifest.lock */ = {
+		59226C1F897620742A76141B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -599,14 +598,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VocaGame-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Vocabulary-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		32369042C6AF148E33C7C9B6 /* [CP] Embed Pods Frameworks */ = {
+		83A4A8550549995F0E06EDB7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -623,7 +622,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Vocabulary/Pods-Vocabulary-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F0E1EF5D496779E905C369BB /* [CP] Check Pods Manifest.lock */ = {
+		9B11C3FAA80A99740DBFC414 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -638,7 +637,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Vocabulary-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-VocaGame-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -695,10 +694,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CEFED49324D5C8C2002E858C /* PBXTargetDependency */ = {
+		7D492D4324D985C8000B8F43 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CEFED47E24D5C8C2002E858C /* VocaGame */;
-			targetProxy = CEFED49224D5C8C2002E858C /* PBXContainerItemProxy */;
+			targetProxy = 7D492D4224D985C8000B8F43 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -830,9 +829,8 @@
 		};
 		7D276E1224BE05B200CA4554 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A0AD6E919A149138033637B /* Pods-Vocabulary.debug.xcconfig */;
+			baseConfigurationReference = 75C511B7D90F4898B1CD654C /* Pods-Vocabulary.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -852,9 +850,8 @@
 		};
 		7D276E1324BE05B200CA4554 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EF2A681BDDF14F0CF23F7DF /* Pods-Vocabulary.release.xcconfig */;
+			baseConfigurationReference = E0CA266D120AA8DDAB32F927 /* Pods-Vocabulary.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -874,7 +871,7 @@
 		};
 		CEFED49724D5C8C2002E858C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57E1FBACCAF5170A42F106DA /* Pods-VocaGame.debug.xcconfig */;
+			baseConfigurationReference = 00EDE8F629BD2543A2039761 /* Pods-VocaGame.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -896,7 +893,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -904,7 +901,7 @@
 		};
 		CEFED49824D5C8C2002E858C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4E67823CA4F580F9AC27167 /* Pods-VocaGame.release.xcconfig */;
+			baseConfigurationReference = A92164D16BD573D454878EAC /* Pods-VocaGame.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -926,7 +923,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

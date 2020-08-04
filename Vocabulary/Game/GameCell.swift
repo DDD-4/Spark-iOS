@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 
 class GameCell: UITableViewCell {
+    enum Constant {
+        static let height: CGFloat = 120
+    }
 
     static let reuseIdentifier = String(describing: GameCell.self)
 
@@ -45,7 +48,6 @@ class GameCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        backgroundColor = .clear
     }
 
     func configure(title: String) {
@@ -53,6 +55,9 @@ class GameCell: UITableViewCell {
     }
 
     func configureLayout() {
+        selectionStyle = .none
+        backgroundColor = .gray
+
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(arrowButton)
@@ -61,11 +66,11 @@ class GameCell: UITableViewCell {
             make.top.bottom.equalTo(contentView)
             make.leading.equalTo(contentView).offset(16)
             make.trailing.equalTo(contentView).offset(-16)
+            make.height.equalTo(Constant.height)
         }
 
         titleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(containerView).offset(50)
-            make.bottom.equalTo(containerView).offset(-50)
+            make.centerY.equalTo(containerView)
             make.centerX.equalTo(containerView)
         }
 

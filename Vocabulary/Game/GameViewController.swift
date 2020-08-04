@@ -20,7 +20,10 @@ class GameViewController: UIViewController {
 
     enum Constant {
         static let gameList: [GameType] = [.flip, .matching]
+        static let spacing: CGFloat = 23
     }
+
+    var tableViewHeightConstraint: NSLayoutConstraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,21 +36,28 @@ class GameViewController: UIViewController {
         view.addSubview(gameListTableView)
 
         titleLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(view)
-            make.top.equalTo(view).offset(89)
+//            make.centerX.equalTo(view)
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(gameListTableView.snp.top)
         }
 
         gameListTableView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(view.safeAreaLayoutGuide)
             make.top.equalTo(titleLabel.snp.bottom)
             make.leading.trailing.equalTo(view)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.lessThanOrEqualTo(view.safeAreaLayoutGuide)
         }
+
+        tableViewHeightConstraint = gameListTableView.heightAnchor.constraint(equalToConstant: 0)
+        tableViewHeightConstraint?.constant = (CGFloat(Constant.gameList.count) * GameCell.Constant.height) + ((CGFloat(Constant.gameList.count) - 1 ) * Constant.spacing)
+        tableViewHeightConstraint?.isActive = true
     }
 
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "복습 해볼까?"
+        label.textAlignment = .center
         return label
     }()
 
@@ -67,6 +77,7 @@ class GameViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.isScrollEnabled = false
         tableView.backgroundColor = .gray
         return tableView
     }()
@@ -74,7 +85,7 @@ class GameViewController: UIViewController {
 
 extension GameViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedGame = Constant.gameList[indexPath.row]
+        let selectedGame = Constant.gameList[indexPath.section]
         switch selectedGame {
         case .flip:
             present(FlipGameViewController(words: [Word(korean: "kor", english: "eng", image: nil, identifier: nil)]), animated: true, completion: nil)
@@ -85,15 +96,27 @@ extension GameViewController: UITableViewDelegate {
 }
 
 extension GameViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return Constant.gameList.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return Constant.spacing
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        UIView()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GameCell.reuseIdentifier, for: indexPath) as? GameCell else {
             return UITableViewCell()
         }
-        cell.configure(title: Constant.gameList[indexPath.row].rawValue)
+        cell.configure(title: Constant.gameList[indexPath.section].rawValue)
         return cell
     }
 }
