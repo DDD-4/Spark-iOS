@@ -44,11 +44,11 @@ class SwipeCardView : UIView {
     
     var dataSource : CardsDataModel? {
         didSet {
-            swipeView.backgroundColor = dataSource?.bgColor
+            swipeView.backgroundColor = .white
 //            label.text = dataSource?.text
             flipLabel.text = dataSource?.text
             guard let image = dataSource?.image else { return }
-            imageView.image = UIImage(named: image)
+//            imageView.image = UIImage(named: image)
         }
     }
     
