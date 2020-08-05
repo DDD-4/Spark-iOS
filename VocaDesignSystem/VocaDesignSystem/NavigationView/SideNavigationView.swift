@@ -18,7 +18,7 @@ public class SideNavigationView: UIView {
         return stack
     }()
 
-    public lazy var popButton: UIButton = {
+    public lazy var leftSideButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFit
@@ -32,7 +32,7 @@ public class SideNavigationView: UIView {
         return label
     }()
 
-    public lazy var addButton: UIButton = {
+    public lazy var rightSideButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFit
@@ -43,11 +43,11 @@ public class SideNavigationView: UIView {
         super.init(frame: .zero)
         configureLayout()
         if let image = leftImage {
-            popButton.setImage(image, for: .normal)
+            leftSideButton.setImage(image, for: .normal)
         }
 
         if let image = rightImage {
-            addButton.setImage(image, for: .normal)
+            rightSideButton.setImage(image, for: .normal)
         }
 
         titleLabel.text = centerTitle
@@ -59,9 +59,9 @@ public class SideNavigationView: UIView {
 
     func configureLayout() {
         addSubview(stackView)
-        stackView.addArrangedSubview(popButton)
+        stackView.addArrangedSubview(leftSideButton)
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(addButton)
+        stackView.addArrangedSubview(rightSideButton)
 
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
@@ -70,8 +70,8 @@ public class SideNavigationView: UIView {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             stackView.heightAnchor.constraint(equalToConstant: LeftTitleNavigationView.Constant.height),
 
-            popButton.widthAnchor.constraint(equalToConstant: 24),
-            addButton.widthAnchor.constraint(equalToConstant: 24)
+            leftSideButton.widthAnchor.constraint(equalToConstant: 24),
+            rightSideButton.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
 }

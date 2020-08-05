@@ -17,7 +17,7 @@ class EditMyVocaGroupViewController: UIViewController {
     lazy var navigationViewArea: SideNavigationView = {
         let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: "폴더 편집", rightImage: UIImage(named: "btnAdd"))
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.addButton.addTarget(nil, action: #selector(addDidTap(_:)), for: .touchUpInside)
+        view.rightSideButton.addTarget(nil, action: #selector(addDidTap(_:)), for: .touchUpInside)
         return view
     }()
 
