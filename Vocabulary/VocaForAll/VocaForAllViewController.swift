@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
-import Voca
+import PoingVocaSubsystem
 
 private enum VocaForAllConstants {
     enum Table {

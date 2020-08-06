@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import Voca
+import PoingVocaSubsystem
 import SnapKit
-import VocaDesignSystem
+import PoingDesignSystem
 
 protocol FlipGameViewControllerDelegate: class {
     func flipGameViewController(

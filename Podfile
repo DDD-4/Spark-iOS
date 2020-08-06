@@ -20,3 +20,9 @@ end
 target 'VocaGame' do
   basicFrameworks
 end
+
+target 'PoingVocaSubsystem' do
+end
+
+target 'PoingDesignSystem' do
+end

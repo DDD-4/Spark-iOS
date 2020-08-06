@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
-import Voca
-import VocaDesignSystem
+import PoingVocaSubsystem
+import PoingDesignSystem
 
 class EditMyVocaGroupViewController: UIViewController {
     lazy var navigationViewArea: SideNavigationView = {

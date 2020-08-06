@@ -10,8 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
-import Voca
-import VocaDesignSystem
+import PoingVocaSubsystem
+import PoingDesignSystem
 
 class MyVocaViewController: UIViewController {
 
