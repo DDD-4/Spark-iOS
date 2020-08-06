@@ -7,14 +7,12 @@
 //
 
 import UIKit
+
 struct CardsDataModel {
-    
-    var bgColor: UIColor
-    var text : String
-    var image : String
+    var text: String
+    var image: UIImage
       
-    init(bgColor: UIColor, text: String, image: String) {
-        self.bgColor = bgColor
+    init(text: String, image: UIImage) {
         self.text = text
         self.image = image
     

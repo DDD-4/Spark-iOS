@@ -26,7 +26,7 @@ class TabbarViewController: UITabBarController, UITabBarControllerDelegate {
         let tabOneBarItem = UITabBarItem(title: "1", image: nil, selectedImage: nil)
         tabOne.tabBarItem = tabOneBarItem
 
-        let tabTwo = UINavigationController(rootViewController: MyVocaViewController())
+        let tabTwo = UINavigationController(rootViewController: GameViewController())
         let tabTwoBarItem2 = UITabBarItem(title: "2", image: nil, selectedImage: nil)
         tabTwo.tabBarItem = tabTwoBarItem2
 
