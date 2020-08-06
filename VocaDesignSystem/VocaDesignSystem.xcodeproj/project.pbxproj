@@ -10,6 +10,9 @@
 		186E84D024D161320094E9EB /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CF24D161320094E9EB /* UIFont+.swift */; };
 		7D276E3924BE122C00CA4554 /* VocaDesignSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D276E3724BE122C00CA4554 /* VocaDesignSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7D276E5024BE133300CA4554 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E4F24BE133300CA4554 /* UIColor+.swift */; };
+		7D30806F24D99DFF0001D850 /* NoticePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D30806E24D99DFF0001D850 /* NoticePopupViewController.swift */; };
+		7D30807824D9A8780001D850 /* LeftTitleNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D30807724D9A8780001D850 /* LeftTitleNavigationView.swift */; };
+		7D30807A24D9AC1A0001D850 /* SideNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D30807924D9AC1A0001D850 /* SideNavigationView.swift */; };
 		CEF4C3BC24D394C7001AEE97 /* AccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4C3BB24D394C7001AEE97 /* AccentButton.swift */; };
 		CEFED47124D397E9002E858C /* VDSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47024D397E9002E858C /* VDSTextField.swift */; };
 /* End PBXBuildFile section */
@@ -20,6 +23,9 @@
 		7D276E3724BE122C00CA4554 /* VocaDesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VocaDesignSystem.h; sourceTree = "<group>"; };
 		7D276E3824BE122C00CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D276E4F24BE133300CA4554 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		7D30806E24D99DFF0001D850 /* NoticePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePopupViewController.swift; sourceTree = "<group>"; };
+		7D30807724D9A8780001D850 /* LeftTitleNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftTitleNavigationView.swift; sourceTree = "<group>"; };
+		7D30807924D9AC1A0001D850 /* SideNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideNavigationView.swift; sourceTree = "<group>"; };
 		CEF4C3BB24D394C7001AEE97 /* AccentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentButton.swift; sourceTree = "<group>"; };
 		CEFED47024D397E9002E858C /* VDSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDSTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,14 +60,25 @@
 		7D276E3624BE122C00CA4554 /* VocaDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				7D30807624D9A6790001D850 /* NavigationView */,
 				7D276E3724BE122C00CA4554 /* VocaDesignSystem.h */,
 				7D276E3824BE122C00CA4554 /* Info.plist */,
 				7D276E4F24BE133300CA4554 /* UIColor+.swift */,
 				186E84CF24D161320094E9EB /* UIFont+.swift */,
 				CEF4C3BB24D394C7001AEE97 /* AccentButton.swift */,
 				CEFED47024D397E9002E858C /* VDSTextField.swift */,
+				7D30806E24D99DFF0001D850 /* NoticePopupViewController.swift */,
 			);
 			path = VocaDesignSystem;
+			sourceTree = "<group>";
+		};
+		7D30807624D9A6790001D850 /* NavigationView */ = {
+			isa = PBXGroup;
+			children = (
+				7D30807724D9A8780001D850 /* LeftTitleNavigationView.swift */,
+				7D30807924D9AC1A0001D850 /* SideNavigationView.swift */,
+			);
+			path = NavigationView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +161,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D30806F24D99DFF0001D850 /* NoticePopupViewController.swift in Sources */,
 				CEF4C3BC24D394C7001AEE97 /* AccentButton.swift in Sources */,
+				7D30807A24D9AC1A0001D850 /* SideNavigationView.swift in Sources */,
+				7D30807824D9A8780001D850 /* LeftTitleNavigationView.swift in Sources */,
 				186E84D024D161320094E9EB /* UIFont+.swift in Sources */,
 				7D276E5024BE133300CA4554 /* UIColor+.swift in Sources */,
 				CEFED47124D397E9002E858C /* VDSTextField.swift in Sources */,

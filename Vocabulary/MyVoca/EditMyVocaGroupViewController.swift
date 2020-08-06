@@ -11,21 +11,14 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import Voca
+import VocaDesignSystem
 
 class EditMyVocaGroupViewController: UIViewController {
-    lazy var navigationViewArea: UIView = {
-        let view = UIView()
+    lazy var navigationViewArea: SideNavigationView = {
+        let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: "폴더 편집", rightImage: UIImage(named: "btnAdd"))
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green
+        view.rightSideButton.addTarget(nil, action: #selector(addDidTap(_:)), for: .touchUpInside)
         return view
-    }()
-
-    lazy var rightButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .black
-        button.addTarget(nil, action: #selector(addDidTap(_:)), for: .touchUpInside)
-        return button
     }()
 
     lazy var groupTableView: UITableView = {
@@ -64,19 +57,13 @@ class EditMyVocaGroupViewController: UIViewController {
     }
 
     func configureLayout() {
+        view.backgroundColor = .gray
         view.addSubview(navigationViewArea)
-        navigationViewArea.addSubview(rightButton)
         view.addSubview(groupTableView)
 
         navigationViewArea.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(44)
-        }
-
-        rightButton.snp.makeConstraints { (make) in
-            make.centerY.equalTo(navigationViewArea)
-            make.width.height.equalTo(22)
-            make.trailing.equalTo(navigationViewArea).offset(-16)
         }
 
         groupTableView.snp.makeConstraints { (make) in
