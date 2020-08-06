@@ -7,23 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03F8678E0573AD5D0E292449 /* Pods_VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F87D2451CC2A97DFBBA7C024 /* Pods_VocaGame.framework */; };
+		06A4B72962724343C5C0AAB5 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8C74B9303DD0E57D91D7E6 /* Pods_Vocabulary.framework */; };
 		186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84C924D1462E0094E9EB /* BaseButton.swift */; };
 		186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */; };
 		186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */; };
-		58053FFE86CD1AA31AA238E4 /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD71404A8E834ED160D8C3CC /* Pods_Vocabulary.framework */; };
+		63CD71F195884ED5848DAB20 /* Pods_PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D55E7E8567F8BD4A8C3E0B65 /* Pods_PoingDesignSystem.framework */; };
+		7D1FBE5024DC3B6000D2F4A1 /* Voca.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1524DC2E67008812CD /* Voca.xcdatamodeld */; };
+		7D1FBE5E24DC3FEF00D2F4A1 /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
+		7D1FBE5F24DC3FEF00D2F4A1 /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D1FBE6324DC3FF500D2F4A1 /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
+		7D1FBE6424DC3FF500D2F4A1 /* PoingVocaSubsystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D1FBE6724DC3FFB00D2F4A1 /* VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; };
+		7D1FBE6824DC3FFB00D2F4A1 /* VocaGame.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
-		7D30807324D9A39D0001D850 /* VocaDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; };
-		7D30807424D9A39D0001D850 /* VocaDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D492D4024D985C8000B8F43 /* VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; };
-		7D492D4124D985C8000B8F43 /* VocaGame.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D492D4524D985CC000B8F43 /* Voca.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545324D973B70017E732 /* Voca.framework */; };
-		7D492D4624D985CC000B8F43 /* Voca.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545324D973B70017E732 /* Voca.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D492D4724D985D0000B8F43 /* VocaDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; };
-		7D492D4824D985D0000B8F43 /* VocaDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
+		7DDB4ACE24DC2D6B008812CD /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
+		7DDB4AD524DC2D6B008812CD /* PoingDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4AD424DC2D6B008812CD /* PoingDesignSystemTests.swift */; };
+		7DDB4AD724DC2D6B008812CD /* PoingDesignSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7DDB4AF324DC2DF2008812CD /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
+		7DDB4AFA24DC2DF2008812CD /* PoingVocaSubsystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4AF924DC2DF2008812CD /* PoingVocaSubsystemTests.swift */; };
+		7DDB4AFC24DC2DF2008812CD /* PoingVocaSubsystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DDB4AEC24DC2DF2008812CD /* PoingVocaSubsystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7DDB4B0F24DC2E1E008812CD /* AccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0E24DC2E1E008812CD /* AccentButton.swift */; };
+		7DDB4B1024DC2E1E008812CD /* NoticePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0A24DC2E1D008812CD /* NoticePopupViewController.swift */; };
+		7DDB4B1124DC2E1E008812CD /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0D24DC2E1E008812CD /* UIColor+.swift */; };
+		7DDB4B1224DC2E1E008812CD /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0B24DC2E1D008812CD /* UIFont+.swift */; };
+		7DDB4B1324DC2E1E008812CD /* VDSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0C24DC2E1D008812CD /* VDSTextField.swift */; };
+		7DDB4B1C24DC2E6E008812CD /* ManagedWord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1924DC2E6D008812CD /* ManagedWord+CoreDataProperties.swift */; };
+		7DDB4B1D24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1B24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift */; };
+		7DDB4B1E24DC2E6E008812CD /* VocaCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1724DC2E6D008812CD /* VocaCoreDataManager.swift */; };
+		7DDB4B1F24DC2E6E008812CD /* VocaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1A24DC2E6D008812CD /* VocaManager.swift */; };
+		7DDB4B2024DC2E6E008812CD /* ManagedWord+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1824DC2E6D008812CD /* ManagedWord+CoreDataClass.swift */; };
+		7DDB4B2124DC2E6E008812CD /* ManagedGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1624DC2E6D008812CD /* ManagedGroup+CoreDataProperties.swift */; };
+		7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0724DC2E0A008812CD /* LeftTitleNavigationView.swift */; };
+		7DDB4B3324DC337E008812CD /* SideNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0824DC2E0A008812CD /* SideNavigationView.swift */; };
+		9AA9B7F0DA0ABAF621BF543B /* Pods_VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74529C9A7ACC88E91CF1AA1 /* Pods_VocaGame.framework */; };
 		CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */; };
 		CE1458FA24D319FC004F2700 /* EditMyVocaGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */; };
 		CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */; };
@@ -50,60 +69,81 @@
 		CEFED4B924D5D031002E858C /* CardMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B724D5D030002E858C /* CardMatching.swift */; };
 		CEFED4BB24D5D037002E858C /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BA24D5D037002E858C /* CardCell.swift */; };
 		CEFED4BD24D5D03E002E858C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BC24D5D03E002E858C /* ViewController.swift */; };
+		FA7F4F410B93161E52D5F337 /* Pods_PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F18B4A80A5A1A8A5077EF5AC /* Pods_PoingVocaSubsystem.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7D36545224D973B70017E732 /* PBXContainerItemProxy */ = {
+		7D1FBE6024DC3FEF00D2F4A1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7D36544D24D973B70017E732 /* Voca.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CE6C9BA324CF300F0068C3BB;
-			remoteInfo = Voca;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DDB4AC424DC2D6B008812CD;
+			remoteInfo = PoingDesignSystem;
 		};
-		7D36545424D973B70017E732 /* PBXContainerItemProxy */ = {
+		7D1FBE6524DC3FF500D2F4A1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7D36544D24D973B70017E732 /* Voca.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7D2C768C24CF53AA007BAB7F;
-			remoteInfo = VocaTests;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DDB4AE924DC2DF2008812CD;
+			remoteInfo = PoingVocaSubsystem;
 		};
-		7D36545A24D973BF0017E732 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7D36545624D973BF0017E732 /* VocaDesignSystem.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7D276E3424BE122C00CA4554;
-			remoteInfo = VocaDesignSystem;
-		};
-		7D492D4224D985C8000B8F43 /* PBXContainerItemProxy */ = {
+		7D1FBE6924DC3FFB00D2F4A1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = CEFED47E24D5C8C2002E858C;
 			remoteInfo = VocaGame;
 		};
+		7DDB4ACF24DC2D6B008812CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DDB4AC424DC2D6B008812CD;
+			remoteInfo = PoingDesignSystem;
+		};
+		7DDB4AD124DC2D6B008812CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7D276DFC24BE05AF00CA4554;
+			remoteInfo = Vocabulary;
+		};
+		7DDB4AF424DC2DF2008812CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DDB4AE924DC2DF2008812CD;
+			remoteInfo = PoingVocaSubsystem;
+		};
+		7DDB4AF624DC2DF2008812CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7D276DFC24BE05AF00CA4554;
+			remoteInfo = Vocabulary;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7D1FBE6224DC3FEF00D2F4A1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7D1FBE6824DC3FFB00D2F4A1 /* VocaGame.framework in Embed Frameworks */,
+				7D1FBE5F24DC3FEF00D2F4A1 /* PoingDesignSystem.framework in Embed Frameworks */,
+				7D1FBE6424DC3FF500D2F4A1 /* PoingVocaSubsystem.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7D30807524D9A39D0001D850 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7D30807424D9A39D0001D850 /* VocaDesignSystem.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7D492D4424D985C9000B8F43 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				7D492D4824D985D0000B8F43 /* VocaDesignSystem.framework in Embed Frameworks */,
-				7D492D4124D985C8000B8F43 /* VocaGame.framework in Embed Frameworks */,
-				7D492D4624D985CC000B8F43 /* Voca.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -111,20 +151,47 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		00EDE8F629BD2543A2039761 /* Pods-VocaGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.debug.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.debug.xcconfig"; sourceTree = "<group>"; };
+		002E562A1E262C08151BB8A7 /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
+		0F44197C1C1AD0C99838784A /* Pods-PoingDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-PoingDesignSystem/Pods-PoingDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
 		186E84C924D1462E0094E9EB /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordNavigationView.swift; sourceTree = "<group>"; };
-		75C511B7D90F4898B1CD654C /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
+		274FC606FEEA74C0079C6BCE /* Pods-PoingDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-PoingDesignSystem/Pods-PoingDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
+		5ED4B245B622CC4E5959BDC8 /* Pods-Vocabulary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.release.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.release.xcconfig"; sourceTree = "<group>"; };
+		6787070EC0E2D876D3129AB6 /* Pods-PoingVocaSubsystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingVocaSubsystem.debug.xcconfig"; path = "Target Support Files/Pods-PoingVocaSubsystem/Pods-PoingVocaSubsystem.debug.xcconfig"; sourceTree = "<group>"; };
+		75C1F1A34C179AEC72251774 /* Pods-VocaGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.debug.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.debug.xcconfig"; sourceTree = "<group>"; };
 		7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "포잉포잉.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E0024BE05AF00CA4554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7D36544D24D973B70017E732 /* Voca.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Voca.xcodeproj; path = Voca/Voca.xcodeproj; sourceTree = "<group>"; };
-		7D36545624D973BF0017E732 /* VocaDesignSystem.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VocaDesignSystem.xcodeproj; path = VocaDesignSystem/VocaDesignSystem.xcodeproj; sourceTree = "<group>"; };
-		A92164D16BD573D454878EAC /* Pods-VocaGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.release.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.release.xcconfig"; sourceTree = "<group>"; };
-		BD71404A8E834ED160D8C3CC /* Pods_Vocabulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vocabulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PoingDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PoingDesignSystem.h; sourceTree = "<group>"; };
+		7DDB4AC824DC2D6B008812CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DDB4ACD24DC2D6B008812CD /* PoingDesignSystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoingDesignSystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DDB4AD424DC2D6B008812CD /* PoingDesignSystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoingDesignSystemTests.swift; sourceTree = "<group>"; };
+		7DDB4AD624DC2D6B008812CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PoingVocaSubsystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DDB4AEC24DC2DF2008812CD /* PoingVocaSubsystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PoingVocaSubsystem.h; sourceTree = "<group>"; };
+		7DDB4AED24DC2DF2008812CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DDB4AF224DC2DF2008812CD /* PoingVocaSubsystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoingVocaSubsystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DDB4AF924DC2DF2008812CD /* PoingVocaSubsystemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoingVocaSubsystemTests.swift; sourceTree = "<group>"; };
+		7DDB4AFB24DC2DF2008812CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DDB4B0724DC2E0A008812CD /* LeftTitleNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftTitleNavigationView.swift; sourceTree = "<group>"; };
+		7DDB4B0824DC2E0A008812CD /* SideNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideNavigationView.swift; sourceTree = "<group>"; };
+		7DDB4B0A24DC2E1D008812CD /* NoticePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePopupViewController.swift; sourceTree = "<group>"; };
+		7DDB4B0B24DC2E1D008812CD /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		7DDB4B0C24DC2E1D008812CD /* VDSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDSTextField.swift; sourceTree = "<group>"; };
+		7DDB4B0D24DC2E1E008812CD /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		7DDB4B0E24DC2E1E008812CD /* AccentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentButton.swift; sourceTree = "<group>"; };
+		7DDB4B1424DC2E67008812CD /* Voca.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Voca.xcdatamodel; sourceTree = "<group>"; };
+		7DDB4B1624DC2E6D008812CD /* ManagedGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7DDB4B1724DC2E6D008812CD /* VocaCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaCoreDataManager.swift; sourceTree = "<group>"; };
+		7DDB4B1824DC2E6D008812CD /* ManagedWord+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedWord+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7DDB4B1924DC2E6D008812CD /* ManagedWord+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedWord+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7DDB4B1A24DC2E6D008812CD /* VocaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaManager.swift; sourceTree = "<group>"; };
+		7DDB4B1B24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8106A5D79886D9AB58C395E6 /* Pods-VocaGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.release.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.release.xcconfig"; sourceTree = "<group>"; };
 		CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupViewController.swift; sourceTree = "<group>"; };
 		CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupCell.swift; sourceTree = "<group>"; };
 		CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaViewModel.swift; sourceTree = "<group>"; };
@@ -158,8 +225,11 @@
 		CEFED4B724D5D030002E858C /* CardMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatching.swift; sourceTree = "<group>"; };
 		CEFED4BA24D5D037002E858C /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardCell.swift; path = PreDev/CardMatching/CardMatching/CardCell.swift; sourceTree = SOURCE_ROOT; };
 		CEFED4BC24D5D03E002E858C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = PreDev/CardMatching/CardMatching/ViewController.swift; sourceTree = SOURCE_ROOT; };
-		E0CA266D120AA8DDAB32F927 /* Pods-Vocabulary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.release.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.release.xcconfig"; sourceTree = "<group>"; };
-		F87D2451CC2A97DFBBA7C024 /* Pods_VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D55E7E8567F8BD4A8C3E0B65 /* Pods_PoingDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoingDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D74529C9A7ACC88E91CF1AA1 /* Pods_VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2BB2C37F518ED548AFAEE25 /* Pods-PoingVocaSubsystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingVocaSubsystem.release.xcconfig"; path = "Target Support Files/Pods-PoingVocaSubsystem/Pods-PoingVocaSubsystem.release.xcconfig"; sourceTree = "<group>"; };
+		EC8C74B9303DD0E57D91D7E6 /* Pods_Vocabulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vocabulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F18B4A80A5A1A8A5077EF5AC /* Pods_PoingVocaSubsystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoingVocaSubsystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,11 +237,43 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D1FBE6724DC3FFB00D2F4A1 /* VocaGame.framework in Frameworks */,
+				7D1FBE5E24DC3FEF00D2F4A1 /* PoingDesignSystem.framework in Frameworks */,
+				7D1FBE6324DC3FF500D2F4A1 /* PoingVocaSubsystem.framework in Frameworks */,
 				7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */,
-				7D492D4024D985C8000B8F43 /* VocaGame.framework in Frameworks */,
-				7D492D4724D985D0000B8F43 /* VocaDesignSystem.framework in Frameworks */,
-				7D492D4524D985CC000B8F43 /* Voca.framework in Frameworks */,
-				58053FFE86CD1AA31AA238E4 /* Pods_Vocabulary.framework in Frameworks */,
+				06A4B72962724343C5C0AAB5 /* Pods_Vocabulary.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AC224DC2D6B008812CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63CD71F195884ED5848DAB20 /* Pods_PoingDesignSystem.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4ACA24DC2D6B008812CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DDB4ACE24DC2D6B008812CD /* PoingDesignSystem.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AE724DC2DF2008812CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA7F4F410B93161E52D5F337 /* Pods_PoingVocaSubsystem.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AEF24DC2DF2008812CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DDB4AF324DC2DF2008812CD /* PoingVocaSubsystem.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,8 +281,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D30807324D9A39D0001D850 /* VocaDesignSystem.framework in Frameworks */,
-				03F8678E0573AD5D0E292449 /* Pods_VocaGame.framework in Frameworks */,
+				9AA9B7F0DA0ABAF621BF543B /* Pods_VocaGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,8 +303,10 @@
 				CE6C9BBD24CF30A40068C3BB /* Voca.framework */,
 				CE6C9BB424CF30390068C3BB /* VocaDesignSystem.framework */,
 				CE44019E24CF31060093D04B /* Voca.framework */,
-				F87D2451CC2A97DFBBA7C024 /* Pods_VocaGame.framework */,
-				BD71404A8E834ED160D8C3CC /* Pods_Vocabulary.framework */,
+				D74529C9A7ACC88E91CF1AA1 /* Pods_VocaGame.framework */,
+				EC8C74B9303DD0E57D91D7E6 /* Pods_Vocabulary.framework */,
+				D55E7E8567F8BD4A8C3E0B65 /* Pods_PoingDesignSystem.framework */,
+				F18B4A80A5A1A8A5077EF5AC /* Pods_PoingVocaSubsystem.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -211,10 +314,12 @@
 		7D276DF424BE05AF00CA4554 = {
 			isa = PBXGroup;
 			children = (
-				7D36545624D973BF0017E732 /* VocaDesignSystem.xcodeproj */,
-				7D36544D24D973B70017E732 /* Voca.xcodeproj */,
 				7D276DFF24BE05AF00CA4554 /* Vocabulary */,
 				CEFED48024D5C8C2002E858C /* VocaGame */,
+				7DDB4AC624DC2D6B008812CD /* PoingDesignSystem */,
+				7DDB4AD324DC2D6B008812CD /* PoingDesignSystemTests */,
+				7DDB4AEB24DC2DF2008812CD /* PoingVocaSubsystem */,
+				7DDB4AF824DC2DF2008812CD /* PoingVocaSubsystemTests */,
 				7D276DFE24BE05AF00CA4554 /* Products */,
 				DCBEF7D8D78A53C7ED1BCF92 /* Pods */,
 				7C5637AC6CE1EDE31F81695F /* Frameworks */,
@@ -226,6 +331,10 @@
 			children = (
 				7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */,
 				CEFED47F24D5C8C2002E858C /* VocaGame.framework */,
+				7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */,
+				7DDB4ACD24DC2D6B008812CD /* PoingDesignSystemTests.xctest */,
+				7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */,
+				7DDB4AF224DC2DF2008812CD /* PoingVocaSubsystemTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,21 +368,62 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		7D36544E24D973B70017E732 /* Products */ = {
+		7DDB4AC624DC2D6B008812CD /* PoingDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				7D36545324D973B70017E732 /* Voca.framework */,
-				7D36545524D973B70017E732 /* VocaTests.xctest */,
+				7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */,
+				7DDB4AC824DC2D6B008812CD /* Info.plist */,
+				7DDB4B0E24DC2E1E008812CD /* AccentButton.swift */,
+				7DDB4B0A24DC2E1D008812CD /* NoticePopupViewController.swift */,
+				7DDB4B0D24DC2E1E008812CD /* UIColor+.swift */,
+				7DDB4B0B24DC2E1D008812CD /* UIFont+.swift */,
+				7DDB4B0C24DC2E1D008812CD /* VDSTextField.swift */,
+				7DDB4B0924DC2E0A008812CD /* NavigationView */,
 			);
-			name = Products;
+			path = PoingDesignSystem;
 			sourceTree = "<group>";
 		};
-		7D36545724D973BF0017E732 /* Products */ = {
+		7DDB4AD324DC2D6B008812CD /* PoingDesignSystemTests */ = {
 			isa = PBXGroup;
 			children = (
-				7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */,
+				7DDB4AD424DC2D6B008812CD /* PoingDesignSystemTests.swift */,
+				7DDB4AD624DC2D6B008812CD /* Info.plist */,
 			);
-			name = Products;
+			path = PoingDesignSystemTests;
+			sourceTree = "<group>";
+		};
+		7DDB4AEB24DC2DF2008812CD /* PoingVocaSubsystem */ = {
+			isa = PBXGroup;
+			children = (
+				7DDB4B1724DC2E6D008812CD /* VocaCoreDataManager.swift */,
+				7DDB4B1A24DC2E6D008812CD /* VocaManager.swift */,
+				7DDB4B1B24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift */,
+				7DDB4B1624DC2E6D008812CD /* ManagedGroup+CoreDataProperties.swift */,
+				7DDB4B1824DC2E6D008812CD /* ManagedWord+CoreDataClass.swift */,
+				7DDB4B1924DC2E6D008812CD /* ManagedWord+CoreDataProperties.swift */,
+				7DDB4B1524DC2E67008812CD /* Voca.xcdatamodeld */,
+				7DDB4AEC24DC2DF2008812CD /* PoingVocaSubsystem.h */,
+				7DDB4AED24DC2DF2008812CD /* Info.plist */,
+			);
+			path = PoingVocaSubsystem;
+			sourceTree = "<group>";
+		};
+		7DDB4AF824DC2DF2008812CD /* PoingVocaSubsystemTests */ = {
+			isa = PBXGroup;
+			children = (
+				7DDB4AF924DC2DF2008812CD /* PoingVocaSubsystemTests.swift */,
+				7DDB4AFB24DC2DF2008812CD /* Info.plist */,
+			);
+			path = PoingVocaSubsystemTests;
+			sourceTree = "<group>";
+		};
+		7DDB4B0924DC2E0A008812CD /* NavigationView */ = {
+			isa = PBXGroup;
+			children = (
+				7DDB4B0724DC2E0A008812CD /* LeftTitleNavigationView.swift */,
+				7DDB4B0824DC2E0A008812CD /* SideNavigationView.swift */,
+			);
+			path = NavigationView;
 			sourceTree = "<group>";
 		};
 		CE6C9B5D24CF2D380068C3BB /* MyVoca */ = {
@@ -433,10 +583,14 @@
 		DCBEF7D8D78A53C7ED1BCF92 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				00EDE8F629BD2543A2039761 /* Pods-VocaGame.debug.xcconfig */,
-				A92164D16BD573D454878EAC /* Pods-VocaGame.release.xcconfig */,
-				75C511B7D90F4898B1CD654C /* Pods-Vocabulary.debug.xcconfig */,
-				E0CA266D120AA8DDAB32F927 /* Pods-Vocabulary.release.xcconfig */,
+				75C1F1A34C179AEC72251774 /* Pods-VocaGame.debug.xcconfig */,
+				8106A5D79886D9AB58C395E6 /* Pods-VocaGame.release.xcconfig */,
+				002E562A1E262C08151BB8A7 /* Pods-Vocabulary.debug.xcconfig */,
+				5ED4B245B622CC4E5959BDC8 /* Pods-Vocabulary.release.xcconfig */,
+				274FC606FEEA74C0079C6BCE /* Pods-PoingDesignSystem.debug.xcconfig */,
+				0F44197C1C1AD0C99838784A /* Pods-PoingDesignSystem.release.xcconfig */,
+				6787070EC0E2D876D3129AB6 /* Pods-PoingVocaSubsystem.debug.xcconfig */,
+				E2BB2C37F518ED548AFAEE25 /* Pods-PoingVocaSubsystem.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -444,6 +598,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		7DDB4AC024DC2D6B008812CD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DDB4AD724DC2D6B008812CD /* PoingDesignSystem.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AE524DC2DF2008812CD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DDB4AFC24DC2DF2008812CD /* PoingVocaSubsystem.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CEFED47A24D5C8C2002E858C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -459,28 +629,106 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7D276E1124BE05B200CA4554 /* Build configuration list for PBXNativeTarget "Vocabulary" */;
 			buildPhases = (
-				59226C1F897620742A76141B /* [CP] Check Pods Manifest.lock */,
+				AC53DD121471B3CFBC2884E7 /* [CP] Check Pods Manifest.lock */,
 				7D276DF924BE05AF00CA4554 /* Sources */,
 				7D276DFA24BE05AF00CA4554 /* Frameworks */,
 				7D276DFB24BE05AF00CA4554 /* Resources */,
-				7D492D4424D985C9000B8F43 /* Embed Frameworks */,
-				83A4A8550549995F0E06EDB7 /* [CP] Embed Pods Frameworks */,
+				D1DF26A4FB1F62FE05836DB4 /* [CP] Embed Pods Frameworks */,
+				7D1FBE6224DC3FEF00D2F4A1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7D492D4324D985C8000B8F43 /* PBXTargetDependency */,
+				7D1FBE6124DC3FEF00D2F4A1 /* PBXTargetDependency */,
+				7D1FBE6624DC3FF500D2F4A1 /* PBXTargetDependency */,
+				7D1FBE6A24DC3FFB00D2F4A1 /* PBXTargetDependency */,
 			);
 			name = Vocabulary;
 			productName = Vocabulary;
 			productReference = 7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DDB4AE324DC2D6B008812CD /* Build configuration list for PBXNativeTarget "PoingDesignSystem" */;
+			buildPhases = (
+				0BE7756B3C2C08FA37EBF633 /* [CP] Check Pods Manifest.lock */,
+				7DDB4AC024DC2D6B008812CD /* Headers */,
+				7DDB4AC124DC2D6B008812CD /* Sources */,
+				7DDB4AC224DC2D6B008812CD /* Frameworks */,
+				7DDB4AC324DC2D6B008812CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PoingDesignSystem;
+			productName = PoingDesignSystem;
+			productReference = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7DDB4ACC24DC2D6B008812CD /* PoingDesignSystemTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DDB4AE424DC2D6B008812CD /* Build configuration list for PBXNativeTarget "PoingDesignSystemTests" */;
+			buildPhases = (
+				7DDB4AC924DC2D6B008812CD /* Sources */,
+				7DDB4ACA24DC2D6B008812CD /* Frameworks */,
+				7DDB4ACB24DC2D6B008812CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DDB4AD024DC2D6B008812CD /* PBXTargetDependency */,
+				7DDB4AD224DC2D6B008812CD /* PBXTargetDependency */,
+			);
+			name = PoingDesignSystemTests;
+			productName = PoingDesignSystemTests;
+			productReference = 7DDB4ACD24DC2D6B008812CD /* PoingDesignSystemTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7DDB4AE924DC2DF2008812CD /* PoingVocaSubsystem */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DDB4B0124DC2DF2008812CD /* Build configuration list for PBXNativeTarget "PoingVocaSubsystem" */;
+			buildPhases = (
+				A79CE5759DCB246E63428918 /* [CP] Check Pods Manifest.lock */,
+				7DDB4AE524DC2DF2008812CD /* Headers */,
+				7DDB4AE624DC2DF2008812CD /* Sources */,
+				7DDB4AE724DC2DF2008812CD /* Frameworks */,
+				7DDB4AE824DC2DF2008812CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PoingVocaSubsystem;
+			productName = PoingVocaSubsystem;
+			productReference = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7DDB4AF124DC2DF2008812CD /* PoingVocaSubsystemTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DDB4B0424DC2DF2008812CD /* Build configuration list for PBXNativeTarget "PoingVocaSubsystemTests" */;
+			buildPhases = (
+				7DDB4AEE24DC2DF2008812CD /* Sources */,
+				7DDB4AEF24DC2DF2008812CD /* Frameworks */,
+				7DDB4AF024DC2DF2008812CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DDB4AF524DC2DF2008812CD /* PBXTargetDependency */,
+				7DDB4AF724DC2DF2008812CD /* PBXTargetDependency */,
+			);
+			name = PoingVocaSubsystemTests;
+			productName = PoingVocaSubsystemTests;
+			productReference = 7DDB4AF224DC2DF2008812CD /* PoingVocaSubsystemTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CEFED47E24D5C8C2002E858C /* VocaGame */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CEFED49624D5C8C2002E858C /* Build configuration list for PBXNativeTarget "VocaGame" */;
 			buildPhases = (
-				9B11C3FAA80A99740DBFC414 /* [CP] Check Pods Manifest.lock */,
+				B553FD2DE54E4C4B683FA392 /* [CP] Check Pods Manifest.lock */,
 				CEFED47A24D5C8C2002E858C /* Headers */,
 				CEFED47B24D5C8C2002E858C /* Sources */,
 				CEFED47C24D5C8C2002E858C /* Frameworks */,
@@ -502,12 +750,26 @@
 		7D276DF524BE05AF00CA4554 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1160;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "LEE HAEUN";
 				TargetAttributes = {
 					7D276DFC24BE05AF00CA4554 = {
 						CreatedOnToolsVersion = 11.5;
+					};
+					7DDB4AC424DC2D6B008812CD = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					7DDB4ACC24DC2D6B008812CD = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 7D276DFC24BE05AF00CA4554;
+					};
+					7DDB4AE924DC2DF2008812CD = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					7DDB4AF124DC2DF2008812CD = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 7D276DFC24BE05AF00CA4554;
 					};
 					CEFED47E24D5C8C2002E858C = {
 						CreatedOnToolsVersion = 11.6;
@@ -525,47 +787,17 @@
 			mainGroup = 7D276DF424BE05AF00CA4554;
 			productRefGroup = 7D276DFE24BE05AF00CA4554 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7D36544E24D973B70017E732 /* Products */;
-					ProjectRef = 7D36544D24D973B70017E732 /* Voca.xcodeproj */;
-				},
-				{
-					ProductGroup = 7D36545724D973BF0017E732 /* Products */;
-					ProjectRef = 7D36545624D973BF0017E732 /* VocaDesignSystem.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				7D276DFC24BE05AF00CA4554 /* Vocabulary */,
 				CEFED47E24D5C8C2002E858C /* VocaGame */,
+				7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */,
+				7DDB4ACC24DC2D6B008812CD /* PoingDesignSystemTests */,
+				7DDB4AE924DC2DF2008812CD /* PoingVocaSubsystem */,
+				7DDB4AF124DC2DF2008812CD /* PoingVocaSubsystemTests */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7D36545324D973B70017E732 /* Voca.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Voca.framework;
-			remoteRef = 7D36545224D973B70017E732 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7D36545524D973B70017E732 /* VocaTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = VocaTests.xctest;
-			remoteRef = 7D36545424D973B70017E732 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7D36545B24D973BF0017E732 /* VocaDesignSystem.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = VocaDesignSystem.framework;
-			remoteRef = 7D36545A24D973BF0017E732 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7D276DFB24BE05AF00CA4554 /* Resources */ = {
@@ -574,6 +806,34 @@
 			files = (
 				7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */,
 				7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AC324DC2D6B008812CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4ACB24DC2D6B008812CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AE824DC2DF2008812CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AF024DC2DF2008812CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,7 +847,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		59226C1F897620742A76141B /* [CP] Check Pods Manifest.lock */ = {
+		0BE7756B3C2C08FA37EBF633 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PoingDesignSystem-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A79CE5759DCB246E63428918 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PoingVocaSubsystem-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC53DD121471B3CFBC2884E7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -609,24 +913,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		83A4A8550549995F0E06EDB7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Vocabulary/Pods-Vocabulary-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Vocabulary/Pods-Vocabulary-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Vocabulary/Pods-Vocabulary-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9B11C3FAA80A99740DBFC414 /* [CP] Check Pods Manifest.lock */ = {
+		B553FD2DE54E4C4B683FA392 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -646,6 +933,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1DF26A4FB1F62FE05836DB4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Vocabulary/Pods-Vocabulary-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Vocabulary/Pods-Vocabulary-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Vocabulary/Pods-Vocabulary-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -674,6 +978,50 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7DDB4AC124DC2D6B008812CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DDB4B1224DC2E1E008812CD /* UIFont+.swift in Sources */,
+				7DDB4B3324DC337E008812CD /* SideNavigationView.swift in Sources */,
+				7DDB4B1324DC2E1E008812CD /* VDSTextField.swift in Sources */,
+				7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */,
+				7DDB4B0F24DC2E1E008812CD /* AccentButton.swift in Sources */,
+				7DDB4B1024DC2E1E008812CD /* NoticePopupViewController.swift in Sources */,
+				7DDB4B1124DC2E1E008812CD /* UIColor+.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AC924DC2D6B008812CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DDB4AD524DC2D6B008812CD /* PoingDesignSystemTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AE624DC2DF2008812CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D1FBE5024DC3B6000D2F4A1 /* Voca.xcdatamodeld in Sources */,
+				7DDB4B1F24DC2E6E008812CD /* VocaManager.swift in Sources */,
+				7DDB4B2024DC2E6E008812CD /* ManagedWord+CoreDataClass.swift in Sources */,
+				7DDB4B1D24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift in Sources */,
+				7DDB4B1C24DC2E6E008812CD /* ManagedWord+CoreDataProperties.swift in Sources */,
+				7DDB4B1E24DC2E6E008812CD /* VocaCoreDataManager.swift in Sources */,
+				7DDB4B2124DC2E6E008812CD /* ManagedGroup+CoreDataProperties.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DDB4AEE24DC2DF2008812CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DDB4AFA24DC2DF2008812CD /* PoingVocaSubsystemTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CEFED47B24D5C8C2002E858C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -697,10 +1045,40 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7D492D4324D985C8000B8F43 /* PBXTargetDependency */ = {
+		7D1FBE6124DC3FEF00D2F4A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */;
+			targetProxy = 7D1FBE6024DC3FEF00D2F4A1 /* PBXContainerItemProxy */;
+		};
+		7D1FBE6624DC3FF500D2F4A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DDB4AE924DC2DF2008812CD /* PoingVocaSubsystem */;
+			targetProxy = 7D1FBE6524DC3FF500D2F4A1 /* PBXContainerItemProxy */;
+		};
+		7D1FBE6A24DC3FFB00D2F4A1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CEFED47E24D5C8C2002E858C /* VocaGame */;
-			targetProxy = 7D492D4224D985C8000B8F43 /* PBXContainerItemProxy */;
+			targetProxy = 7D1FBE6924DC3FFB00D2F4A1 /* PBXContainerItemProxy */;
+		};
+		7DDB4AD024DC2D6B008812CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */;
+			targetProxy = 7DDB4ACF24DC2D6B008812CD /* PBXContainerItemProxy */;
+		};
+		7DDB4AD224DC2D6B008812CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7D276DFC24BE05AF00CA4554 /* Vocabulary */;
+			targetProxy = 7DDB4AD124DC2D6B008812CD /* PBXContainerItemProxy */;
+		};
+		7DDB4AF524DC2DF2008812CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DDB4AE924DC2DF2008812CD /* PoingVocaSubsystem */;
+			targetProxy = 7DDB4AF424DC2DF2008812CD /* PBXContainerItemProxy */;
+		};
+		7DDB4AF724DC2DF2008812CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7D276DFC24BE05AF00CA4554 /* Vocabulary */;
+			targetProxy = 7DDB4AF624DC2DF2008812CD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -832,11 +1210,12 @@
 		};
 		7D276E1224BE05B200CA4554 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75C511B7D90F4898B1CD654C /* Pods-Vocabulary.debug.xcconfig */;
+			baseConfigurationReference = 002E562A1E262C08151BB8A7 /* Pods-Vocabulary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = Vocabulary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -844,6 +1223,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabulary;
 				PRODUCT_NAME = "포잉포잉";
 				SWIFT_VERSION = 5.0;
@@ -853,11 +1233,12 @@
 		};
 		7D276E1324BE05B200CA4554 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0CA266D120AA8DDAB32F927 /* Pods-Vocabulary.release.xcconfig */;
+			baseConfigurationReference = 5ED4B245B622CC4E5959BDC8 /* Pods-Vocabulary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = Vocabulary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -865,6 +1246,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabulary;
 				PRODUCT_NAME = "포잉포잉";
 				SWIFT_VERSION = 5.0;
@@ -872,9 +1254,213 @@
 			};
 			name = Release;
 		};
+		7DDB4ADC24DC2D6B008812CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 274FC606FEEA74C0079C6BCE /* Pods-PoingDesignSystem.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PoingDesignSystem/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingDesignSystem";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7DDB4ADD24DC2D6B008812CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F44197C1C1AD0C99838784A /* Pods-PoingDesignSystem.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PoingDesignSystem/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingDesignSystem";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7DDB4ADE24DC2D6B008812CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				INFOPLIST_FILE = PoingDesignSystemTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingDesignSystemTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/포잉포잉.app/포잉포잉";
+			};
+			name = Debug;
+		};
+		7DDB4ADF24DC2D6B008812CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				INFOPLIST_FILE = PoingDesignSystemTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingDesignSystemTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/포잉포잉.app/포잉포잉";
+			};
+			name = Release;
+		};
+		7DDB4B0224DC2DF2008812CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6787070EC0E2D876D3129AB6 /* Pods-PoingVocaSubsystem.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PoingVocaSubsystem/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingVocaSubsystem";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7DDB4B0324DC2DF2008812CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2BB2C37F518ED548AFAEE25 /* Pods-PoingVocaSubsystem.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PoingVocaSubsystem/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingVocaSubsystem";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7DDB4B0524DC2DF2008812CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				INFOPLIST_FILE = PoingVocaSubsystemTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingVocaSubsystemTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/포잉포잉.app/포잉포잉";
+			};
+			name = Debug;
+		};
+		7DDB4B0624DC2DF2008812CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				INFOPLIST_FILE = PoingVocaSubsystemTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingVocaSubsystemTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/포잉포잉.app/포잉포잉";
+			};
+			name = Release;
+		};
 		CEFED49724D5C8C2002E858C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00EDE8F629BD2543A2039761 /* Pods-VocaGame.debug.xcconfig */;
+			baseConfigurationReference = 75C1F1A34C179AEC72251774 /* Pods-VocaGame.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -904,7 +1490,7 @@
 		};
 		CEFED49824D5C8C2002E858C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A92164D16BD573D454878EAC /* Pods-VocaGame.release.xcconfig */;
+			baseConfigurationReference = 8106A5D79886D9AB58C395E6 /* Pods-VocaGame.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -953,6 +1539,42 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		7DDB4AE324DC2D6B008812CD /* Build configuration list for PBXNativeTarget "PoingDesignSystem" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DDB4ADC24DC2D6B008812CD /* Debug */,
+				7DDB4ADD24DC2D6B008812CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DDB4AE424DC2D6B008812CD /* Build configuration list for PBXNativeTarget "PoingDesignSystemTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DDB4ADE24DC2D6B008812CD /* Debug */,
+				7DDB4ADF24DC2D6B008812CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DDB4B0124DC2DF2008812CD /* Build configuration list for PBXNativeTarget "PoingVocaSubsystem" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DDB4B0224DC2DF2008812CD /* Debug */,
+				7DDB4B0324DC2DF2008812CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DDB4B0424DC2DF2008812CD /* Build configuration list for PBXNativeTarget "PoingVocaSubsystemTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DDB4B0524DC2DF2008812CD /* Debug */,
+				7DDB4B0624DC2DF2008812CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CEFED49624D5C8C2002E858C /* Build configuration list for PBXNativeTarget "VocaGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -963,6 +1585,18 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7DDB4B1524DC2E67008812CD /* Voca.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7DDB4B1424DC2E67008812CD /* Voca.xcdatamodel */,
+			);
+			currentVersion = 7DDB4B1424DC2E67008812CD /* Voca.xcdatamodel */;
+			path = Voca.xcdatamodeld;
+			sourceTree = "<group>";
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7D276DF524BE05AF00CA4554 /* Project object */;
 }

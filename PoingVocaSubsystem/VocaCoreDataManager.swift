@@ -13,7 +13,7 @@ public class VocaCoreDataManager {
     public static let shared = VocaCoreDataManager()
     let modelName = "Voca"
     let cloudKitID = "iCloud.Spark.Vocabulary"
-    let vocaBundleID = "Spark.Voca"
+    let vocaBundleID = "LEE-HAEUN.PoingVocaSubsystem"
 
     lazy var persistentContainer: NSPersistentContainer = {
         // MARK: - vaca data model 을 다른 target에 생성했기 때문에 bundle을 직접 명시
@@ -83,7 +83,7 @@ public class VocaCoreDataManager {
 
     func performBackgroundTask(_ completion: @escaping (NSManagedObjectContext) -> Void) {
         let context = backgroundContext
-        context.perform { () -> Void in
+        context.performAndWait { () -> Void in
             completion(context)
         }
     }

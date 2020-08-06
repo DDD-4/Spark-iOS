@@ -9,10 +9,9 @@
 import UIKit
 import SnapKit
 import VocaGame
-import Voca
+import PoingVocaSubsystem
 
 class GameViewController: UIViewController {
-
     enum GameType: String {
         case flip = "뒤집기"
         case matching = "매칭 게임"

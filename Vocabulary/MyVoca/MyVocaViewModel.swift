@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Voca
+import PoingVocaSubsystem
 
 protocol MyVocaViewModelOutput {
     var groups: BehaviorRelay<[Group]> { get }

@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-import VocaDesignSystem
+import PoingDesignSystem
 
 class AddVocaViewController: UIViewController {
     lazy var containerView: UIView = {

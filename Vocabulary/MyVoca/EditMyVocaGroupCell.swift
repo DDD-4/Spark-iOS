@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
-import Voca
+import PoingVocaSubsystem
 
 class EditMyVocaGroupCell: UITableViewCell {
     static let reuseIdentifier = String(describing: EditMyVocaGroupCell.self)
