@@ -19,7 +19,7 @@ protocol MyVocaViewModelOutput {
 protocol MyVocaViewModelInput {
     func fetchGroups()
     var selectedGroupIndex: BehaviorRelay<Int?> { get }
-    var selectedGroup: PublishSubject<Group> { get }
+    var selectedGroup: BehaviorRelay<Group?> { get }
 }
 
 protocol MyVocaViewModelType {
@@ -32,7 +32,7 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
 
     var words: BehaviorRelay<[Word]>
 
-    var selectedGroup: PublishSubject<Group>
+    var selectedGroup: BehaviorRelay<Group?>
 
     var groups: BehaviorRelay<[Group]>
 
@@ -44,12 +44,12 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
 
     init() {
         words = BehaviorRelay<[Word]>(value: [])
-        selectedGroup = PublishSubject<Group>()
+        selectedGroup = BehaviorRelay<Group?>(value: nil)
         groups = BehaviorRelay<[Group]>(value: [])
         selectedGroupIndex = BehaviorRelay<Int?>(value: nil)
 
         selectedGroup.map { (group) -> [Word] in
-            group.words
+            group?.words ?? []
         }
         .bind(to: words)
         .disposed(by: disposeBag)
@@ -63,6 +63,7 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
                 return
             }
             self.groups.accept(groups)
+            self.selectedGroup.accept(groups.first!)
         }
     }
 }

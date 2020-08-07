@@ -15,7 +15,7 @@ import PoingDesignSystem
 
 class MyVocaViewController: UIViewController {
 
-    let viewModel = MyVocaViewModel()
+    let viewModel: MyVocaViewModelType = MyVocaViewModel()
     let disposeBag = DisposeBag()
 
     lazy var navigationViewArea: LeftTitleNavigationView = {
@@ -59,6 +59,13 @@ class MyVocaViewController: UIViewController {
         configureRx()
 
         viewModel.input.fetchGroups()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(vocaDataChanged),
+            name: .vocaDataChanged,
+            object: nil
+        )
     }
 
     func configureLayout() {
@@ -92,6 +99,11 @@ class MyVocaViewController: UIViewController {
             self?.groupNameCollectionView.reloadData()
         }).disposed(by: disposeBag)
     }
+
+    @objc
+    func vocaDataChanged() {
+        viewModel.input.fetchGroups()
+    }
 }
 
 extension MyVocaViewController: UICollectionViewDataSource {
@@ -121,7 +133,10 @@ extension MyVocaViewController: UICollectionViewDataSource {
                     return UICollectionReusableView()
             }
             reusableview.delegate = self
-            reusableview.configure(groups: viewModel.groups.value, selectedRow: 0)
+            reusableview.configure(
+                groups: viewModel.output.groups.value,
+                selectedGroup: viewModel.input.selectedGroup.value
+            )
             return reusableview
         default:
             return UICollectionReusableView()
@@ -155,6 +170,6 @@ extension MyVocaViewController: MyVocaViewControllerDelegate {
     }
 
     func myVocaViewController(didTapGroup group: Group, view: MyVocaGroupReusableView) {
-        viewModel.input.selectedGroup.onNext(group)
+        viewModel.input.selectedGroup.accept(group)
     }
 }

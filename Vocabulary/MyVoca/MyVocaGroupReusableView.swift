@@ -78,11 +78,17 @@ class MyVocaGroupReusableView: UICollectionReusableView {
         }
     }
 
-    func configure(groups: [Group], selectedRow: Int) {
+    func configure(groups: [Group], selectedGroup: Group?) {
         self.groups = groups
+        for index in 0 ..< groups.count {
+            if groups[index].identifier == selectedGroup?.identifier {
+                selectedRow = index
+            }
+            break
+        }
+
         groupNameCollectionView.reloadData()
     }
-
     func bindRx() {
         groupEditButton.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
