@@ -14,6 +14,7 @@ public enum VisibilityType: String {
     case `public`
     case `private`
     case group
+    case `default`
 }
 
 public struct Group {

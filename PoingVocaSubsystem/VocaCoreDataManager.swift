@@ -115,6 +115,22 @@ public class VocaCoreDataManager {
         return groupList
     }
 
+    func fetch(
+        predicate visibilityType: VisibilityType,
+        context: NSManagedObjectContext
+    ) -> [ManagedGroup]? {
+        let fetchRequest =
+            NSFetchRequest<ManagedGroup>(entityName: "Group")
+
+        fetchRequest.predicate = NSPredicate(format: "visibilityType == %@", visibilityType.rawValue)
+
+        guard let groupList = try? context.fetch(fetchRequest),
+            groupList.isEmpty == false else {
+                return nil
+        }
+        return groupList
+    }
+
     func insert(group: Group, context: NSManagedObjectContext) {
         group.toManaged(context: context)
         saveContext(context: context)

@@ -20,7 +20,32 @@ Unit test에서 coredata를 비동기로 동작하면 테스트를 할 수 없�
 */
 
 class PoingVocaSubsystemTests: XCTestCase {
-    
+
+    let dummyWords = [
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
+        Word(korean: "한글0", english: "eng", image: nil, identifier: UUID()),
+    ]
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
@@ -42,35 +67,24 @@ class PoingVocaSubsystemTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    func test_add() {
-        VocaCoreDataManager.shared.backgroundContext
 
-        let dummyWords = [
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-            Word(korean: "한글0", english: "eng", image: nil, identifier: UUID()),
-        ]
-        
+    func test_initGroup() {
+        VocaCoreDataManager.shared.reset()
+
+        VocaManager.shared.fetch(identifier: nil) { (managedGroups) in
+            guard let managedGroups = managedGroups else {
+                return
+            }
+            XCTAssertTrue(managedGroups.count == 1)
+        }
+    }
+
+    func test_addDummyInDefault() {
+
+    }
+
+    func test_add() {
+
         let newGroup = Group(
             title: "1",
             visibilityType: .public,

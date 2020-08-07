@@ -90,6 +90,8 @@ class EditMyVocaGroupCell: UITableViewCell {
             publicButton.setTitle("공개 중", for: .normal)
         case .private:
             publicButton.setTitle("공개하기", for: .normal)
+        case .default:
+            publicButton.setTitle("기본 폴더", for: .normal)
         }
     }
 
