@@ -79,18 +79,31 @@ public class VocaManager {
     public func insert(group: Group, completion: (() -> Void)? = nil) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             VocaCoreDataManager.shared.insert(group: group, context: context)
+            guard let completion = completion else {
+                return
+            }
+            completion()
         }
     }
 
-    public func delete(group: Group) {
+    public func delete(group: Group, completion: (() -> Void)? = nil) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             VocaCoreDataManager.shared.delete(identifier: group.identifier, context: context)
+            guard let completion = completion else {
+                return
+            }
+            completion()
         }
     }
 
-    public func update(group: Group) {
+    public func update(group: Group, completion: (() -> Void)? = nil) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
-            VocaCoreDataManager.shared.update(group: group, context: context)
+            VocaCoreDataManager.shared.update(group: group, context: context) {
+                guard let completion = completion else {
+                    return
+                }
+                completion()
+            }
         }
     }
 }

@@ -96,7 +96,7 @@ extension ManagedGroup {
         let group = Group(
             title: title ?? "",
             visibilityType: isVailableVisibilityType,
-            identifier: UUID(),
+            identifier: identifier ?? UUID(),
             words: processedWords
         )
         return group

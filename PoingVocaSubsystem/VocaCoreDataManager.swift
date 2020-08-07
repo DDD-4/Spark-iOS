@@ -9,7 +9,7 @@
 import CoreData
 import CloudKit
 
-public class VocaCoreDataManager {
+public class VocaCoreDataManager: NSObject {
     public static let shared = VocaCoreDataManager()
     let modelName = "Voca"
     let cloudKitID = "iCloud.Spark.Vocabulary"
@@ -81,9 +81,20 @@ public class VocaCoreDataManager {
         persistentContainer.newBackgroundContext()
     }
 
+    public override init() {
+        super.init()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(contextObjectDidChange(_:)),
+            name: .NSManagedObjectContextObjectsDidChange,
+            object: backgroundContext
+        )
+    }
+
     func performBackgroundTask(_ completion: @escaping (NSManagedObjectContext) -> Void) {
         let context = backgroundContext
-        context.performAndWait { () -> Void in
+        context.perform { () -> Void in
             completion(context)
         }
     }
@@ -147,16 +158,23 @@ public class VocaCoreDataManager {
         saveContext(context: context)
     }
 
-    func update(group: Group, context: NSManagedObjectContext) {
+    func update(group: Group, context: NSManagedObjectContext, completion: @escaping (() -> Void)) {
         guard let updateGroups = fetch(predicate: group.identifier, context: context) else {
+            completion()
             return
         }
 
         for updateGroup in updateGroups {
             updateGroup.title = group.title
             updateGroup.visibilityType = group.visibilityType.rawValue
+            var newWordArr = [ManagedWord]()
+            for word in group.words {
+                newWordArr.append(word.toManaged(context: context))
+            }
+            updateGroup.words = NSSet(array: newWordArr)
         }
         saveContext(context: context)
+        completion()
     }
 
     public func reset() {
@@ -174,6 +192,10 @@ public class VocaCoreDataManager {
                 print(error)
             }
         }
+    }
+
+    @objc private func contextObjectDidChange(_ notification: NSNotification) {
+        NotificationCenter.default.post(name: .vocaDataChanged, object: self)
     }
 }
 

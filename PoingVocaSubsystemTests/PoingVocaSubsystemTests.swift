@@ -81,6 +81,28 @@ class PoingVocaSubsystemTests: XCTestCase {
 
     func test_addDummyInDefault() {
 
+        let exp = expectation(description: "callback")
+
+        VocaManager.shared.fetch(visibilityType: .default) { (group) in
+            guard let group = group, group.isEmpty == false, var firstGroup = group.first else {
+                exp.fulfill()
+                return
+            }
+
+            firstGroup.words = self.dummyWords
+            VocaManager.shared.update(group: firstGroup) {
+                VocaManager.shared.fetch(visibilityType: .default) { (managedGroups) in
+                    guard let managedGroups = managedGroups else {
+                        exp.fulfill()
+                        return
+                    }
+                    XCTAssertEqual(managedGroups.first?.words.count, self.dummyWords.count)
+                    exp.fulfill()
+                }
+            }
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+
     }
 
     func test_add() {
