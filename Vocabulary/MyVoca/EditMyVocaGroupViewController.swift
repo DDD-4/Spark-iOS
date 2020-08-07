@@ -18,6 +18,7 @@ class EditMyVocaGroupViewController: UIViewController {
         let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: "폴더 편집", rightImage: UIImage(named: "btnAdd"))
         view.translatesAutoresizingMaskIntoConstraints = false
         view.rightSideButton.addTarget(nil, action: #selector(addDidTap(_:)), for: .touchUpInside)
+        view.leftSideButton.addTarget(self, action: #selector(dismissDidTap), for: .touchUpInside)
         return view
     }()
 
@@ -52,6 +53,14 @@ class EditMyVocaGroupViewController: UIViewController {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let tabBarController = tabBarController as? TabbarViewController {
+            tabBarController.hiddenTabBar(true)
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
@@ -71,8 +80,13 @@ class EditMyVocaGroupViewController: UIViewController {
             make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+
     @objc func addDidTap(_ sender: UIButton) {
         present(AddVocaViewController(), animated: true, completion: nil)
+    }
+
+    @objc func dismissDidTap(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -83,7 +97,7 @@ extension EditMyVocaGroupViewController: UITableViewDataSource {
             for: indexPath) as? EditMyVocaGroupCell else {
             return UITableViewCell()
         }
-        cell.configure(group: groups[indexPath.row])
+        cell.configure(group: groups[indexPath.section])
         return cell
     }
 

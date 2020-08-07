@@ -74,6 +74,13 @@ class MyVocaViewController: UIViewController {
         )
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let tabBarController = tabBarController as? TabbarViewController { tabBarController.hiddenTabBar(false)
+        }
+    }
+
     func configureLayout() {
         view.addSubview(navigationViewArea)
         view.addSubview(groupNameCollectionView)
@@ -112,9 +119,11 @@ class MyVocaViewController: UIViewController {
     }
 
     func setWordEmptyView() {
-        groupNameCollectionView.addSubview(emptyWordView)
+        clearWordEmptyView()
 
+        groupNameCollectionView.addSubview(emptyWordView)
         groupNameCollectionView.sendSubviewToBack(emptyWordView)
+
         emptyWordView.snp.makeConstraints { (make) in
             make.top.leading.trailing.bottom.equalTo(view)
         }
@@ -195,7 +204,8 @@ extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollection
 
 extension MyVocaViewController: MyVocaViewControllerDelegate {
     func myVocaViewController(didTapEditGroupButton button: UIButton) {
-        present(EditMyVocaGroupViewController(groups: viewModel.output.groups.value), animated: true, completion: nil)
+        let editGroupViewController = EditMyVocaGroupViewController(groups: viewModel.output.groups.value)
+        navigationController?.pushViewController(editGroupViewController, animated: true)
     }
 
     func myVocaViewController(didTapGroup group: Group, view: MyVocaGroupReusableView) {
@@ -214,9 +224,7 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
                 guard let group = self?.viewModel.input.selectedGroup.value else {
                     return
                 }
-                VocaManager.shared.update(group: group, deleteWords: [word]) { [weak self] in
-                    self?.vocaDataChanged()
-                }
+                VocaManager.shared.update(group: group, deleteWords: [word])
             }),
             UIAlertAction(title: "닫기", style: .cancel, handler: { (_) in
 
