@@ -52,6 +52,12 @@ class MyVocaViewController: UIViewController {
         return collectionView
     }()
 
+    lazy var emptyWordView: EmptyWordView = {
+        let view = EmptyWordView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
@@ -104,11 +110,33 @@ class MyVocaViewController: UIViewController {
     func vocaDataChanged() {
         viewModel.input.fetchGroups()
     }
+
+    func setWordEmptyView() {
+        groupNameCollectionView.addSubview(emptyWordView)
+
+        groupNameCollectionView.sendSubviewToBack(emptyWordView)
+        emptyWordView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(view)
+        }
+    }
+
+    func clearWordEmptyView() {
+        emptyWordView.removeFromSuperview()
+    }
 }
 
 extension MyVocaViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.output.words.value.count
+
+        let wordCount = viewModel.output.words.value.count
+
+        if wordCount == 0 {
+            setWordEmptyView()
+        } else {
+            clearWordEmptyView()
+        }
+
+        return wordCount
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
