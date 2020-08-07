@@ -147,6 +147,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaWordCell.reuseIdentifier, for: indexPath) as? MyVocaWordCell else {
             return UICollectionViewCell()
         }
+        cell.delegate = self
         cell.configure(word: viewModel.output.words.value[indexPath.row])
         return cell
     }
@@ -199,5 +200,34 @@ extension MyVocaViewController: MyVocaViewControllerDelegate {
 
     func myVocaViewController(didTapGroup group: Group, view: MyVocaGroupReusableView) {
         viewModel.input.selectedGroup.accept(group)
+    }
+}
+
+extension MyVocaViewController: MyVocaWordCellDelegate {
+    func MyVocaWord(didTapEdit button: UIButton, selectedWord word: Word) {
+
+        let actionSheetData: [UIAlertAction] = [
+            UIAlertAction(title: "단어 수정", style: .default, handler: { (_) in
+
+            }),
+            UIAlertAction(title: "단어 삭제", style: .destructive, handler: { [weak self] (_) in
+                guard let group = self?.viewModel.input.selectedGroup.value else {
+                    return
+                }
+                VocaManager.shared.update(group: group, deleteWords: [word]) { [weak self] in
+                    self?.vocaDataChanged()
+                }
+            }),
+            UIAlertAction(title: "닫기", style: .cancel, handler: { (_) in
+
+            })
+        ]
+
+        let actionsheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+
+        for data in actionSheetData {
+            actionsheet.addAction(data)
+        }
+        present(actionsheet, animated: true, completion: nil)
     }
 }

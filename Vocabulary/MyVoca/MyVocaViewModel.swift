@@ -63,7 +63,16 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
                 return
             }
             self.groups.accept(groups)
-            self.selectedGroup.accept(groups.first!)
+
+            let currentSelectedGroup = groups.filter { (group) -> Bool in
+                group.identifier == self.selectedGroup.value?.identifier
+            }
+
+            if currentSelectedGroup.isEmpty == false {
+                self.selectedGroup.accept(currentSelectedGroup.first)
+            } else {
+                self.selectedGroup.accept(groups.first!)
+            }
         }
     }
 }

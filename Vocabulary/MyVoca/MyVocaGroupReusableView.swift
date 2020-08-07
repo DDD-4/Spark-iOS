@@ -26,10 +26,11 @@ class MyVocaGroupReusableView: UICollectionReusableView {
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 12
-        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 12
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
             MyVocaGroupNameCell.self,
             forCellWithReuseIdentifier: MyVocaGroupNameCell.reuseIdentifier

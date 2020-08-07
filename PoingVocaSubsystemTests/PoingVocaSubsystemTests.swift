@@ -123,7 +123,41 @@ class PoingVocaSubsystemTests: XCTestCase {
             XCTAssertTrue(managedGroups.count == 1)
         }
     }
-    
+
+    func test_delete_words() {
+        let newGroup = Group(
+            title: "Unit Test Dummy",
+            visibilityType: .public,
+            identifier: UUID(),
+            words: [
+                Word(korean: "더미1", english: "더미1", image: nil, identifier: UUID()),
+                Word(korean: "더미2", english: "더미2", image: nil, identifier: UUID())
+            ]
+        )
+
+        VocaManager.shared.insert(group: newGroup)
+
+        VocaManager.shared.fetch(identifier: newGroup.identifier) { (managedGroups) in
+            guard let managedGroups = managedGroups else {
+                fatalError()
+            }
+            XCTAssertTrue(managedGroups.count == 1)
+        }
+
+        VocaManager.shared.update(
+            group: newGroup,
+            deleteWords: [newGroup.words.first!]
+        ) {
+            VocaManager.shared.fetch(identifier: newGroup.identifier) { (managedGroups) in
+                guard let managedGroups = managedGroups else {
+                    fatalError()
+                }
+                XCTAssertTrue(managedGroups.first!.words.count == 1)
+            }
+        }
+
+    }
+
     func test_delete() {
         let newGroup = Group(
             title: "1",
