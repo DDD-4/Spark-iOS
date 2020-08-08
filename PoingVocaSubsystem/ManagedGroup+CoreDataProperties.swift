@@ -14,6 +14,7 @@ public enum VisibilityType: String {
     case `public`
     case `private`
     case group
+    case `default`
 }
 
 public struct Group {
@@ -95,7 +96,7 @@ extension ManagedGroup {
         let group = Group(
             title: title ?? "",
             visibilityType: isVailableVisibilityType,
-            identifier: UUID(),
+            identifier: identifier ?? UUID(),
             words: processedWords
         )
         return group
