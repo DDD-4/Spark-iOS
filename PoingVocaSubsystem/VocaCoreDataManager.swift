@@ -78,7 +78,7 @@ public class VocaCoreDataManager: NSObject {
     }()
 
     var backgroundContext: NSManagedObjectContext {
-        persistentContainer.newBackgroundContext()
+        persistentContainer.viewContext
     }
 
     public override init() {
@@ -88,13 +88,13 @@ public class VocaCoreDataManager: NSObject {
             self,
             selector: #selector(contextObjectDidChange(_:)),
             name: .NSManagedObjectContextObjectsDidChange,
-            object: backgroundContext
+            object: persistentContainer.viewContext
         )
     }
 
     func performBackgroundTask(_ completion: @escaping (NSManagedObjectContext) -> Void) {
         let context = backgroundContext
-        context.perform { () -> Void in
+        context.performAndWait { () -> Void in
             completion(context)
         }
     }
@@ -172,7 +172,7 @@ public class VocaCoreDataManager: NSObject {
                 newWordArr.append(word.toManaged(context: context))
             }
             updateGroup.words = NSSet(array: newWordArr)
-        }
+        }        
         saveContext(context: context)
         completion()
     }

@@ -15,7 +15,7 @@ import PoingDesignSystem
 
 class MyVocaViewController: UIViewController {
 
-    let viewModel = MyVocaViewModel()
+    let viewModel: MyVocaViewModelType = MyVocaViewModel()
     let disposeBag = DisposeBag()
 
     lazy var navigationViewArea: LeftTitleNavigationView = {
@@ -52,6 +52,12 @@ class MyVocaViewController: UIViewController {
         return collectionView
     }()
 
+    lazy var emptyWordView: EmptyWordView = {
+        let view = EmptyWordView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
@@ -59,6 +65,20 @@ class MyVocaViewController: UIViewController {
         configureRx()
 
         viewModel.input.fetchGroups()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(vocaDataChanged),
+            name: .vocaDataChanged,
+            object: nil
+        )
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let tabBarController = tabBarController as? TabbarViewController { tabBarController.hiddenTabBar(false)
+        }
     }
 
     func configureLayout() {
@@ -92,11 +112,40 @@ class MyVocaViewController: UIViewController {
             self?.groupNameCollectionView.reloadData()
         }).disposed(by: disposeBag)
     }
+
+    @objc
+    func vocaDataChanged() {
+        viewModel.input.fetchGroups()
+    }
+
+    func setWordEmptyView() {
+        clearWordEmptyView()
+
+        groupNameCollectionView.addSubview(emptyWordView)
+        groupNameCollectionView.sendSubviewToBack(emptyWordView)
+
+        emptyWordView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(view)
+        }
+    }
+
+    func clearWordEmptyView() {
+        emptyWordView.removeFromSuperview()
+    }
 }
 
 extension MyVocaViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.output.words.value.count
+
+        let wordCount = viewModel.output.words.value.count
+
+        if wordCount == 0 {
+            setWordEmptyView()
+        } else {
+            clearWordEmptyView()
+        }
+
+        return wordCount
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -107,6 +156,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaWordCell.reuseIdentifier, for: indexPath) as? MyVocaWordCell else {
             return UICollectionViewCell()
         }
+        cell.delegate = self
         cell.configure(word: viewModel.output.words.value[indexPath.row])
         return cell
     }
@@ -121,7 +171,10 @@ extension MyVocaViewController: UICollectionViewDataSource {
                     return UICollectionReusableView()
             }
             reusableview.delegate = self
-            reusableview.configure(groups: viewModel.groups.value, selectedRow: 0)
+            reusableview.configure(
+                groups: viewModel.output.groups.value,
+                selectedGroup: viewModel.input.selectedGroup.value
+            )
             return reusableview
         default:
             return UICollectionReusableView()
@@ -151,10 +204,38 @@ extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollection
 
 extension MyVocaViewController: MyVocaViewControllerDelegate {
     func myVocaViewController(didTapEditGroupButton button: UIButton) {
-        present(EditMyVocaGroupViewController(groups: viewModel.output.groups.value), animated: true, completion: nil)
+        let editGroupViewController = EditMyVocaGroupViewController(groups: viewModel.output.groups.value)
+        navigationController?.pushViewController(editGroupViewController, animated: true)
     }
 
     func myVocaViewController(didTapGroup group: Group, view: MyVocaGroupReusableView) {
-        viewModel.input.selectedGroup.onNext(group)
+        viewModel.input.selectedGroup.accept(group)
+    }
+}
+
+extension MyVocaViewController: MyVocaWordCellDelegate {
+    func MyVocaWord(didTapEdit button: UIButton, selectedWord word: Word) {
+
+        let actionSheetData: [UIAlertAction] = [
+            UIAlertAction(title: "단어 수정", style: .default, handler: { (_) in
+
+            }),
+            UIAlertAction(title: "단어 삭제", style: .destructive, handler: { [weak self] (_) in
+                guard let group = self?.viewModel.input.selectedGroup.value else {
+                    return
+                }
+                VocaManager.shared.update(group: group, deleteWords: [word])
+            }),
+            UIAlertAction(title: "닫기", style: .cancel, handler: { (_) in
+
+            })
+        ]
+
+        let actionsheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+
+        for data in actionSheetData {
+            actionsheet.addAction(data)
+        }
+        present(actionsheet, animated: true, completion: nil)
     }
 }
