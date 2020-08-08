@@ -15,29 +15,36 @@ import RxSwift
 class MyViewController: UIViewController {
     
     // MARK: - Properties
-    lazy var profileView: UserinfoHeader = {
-        let view = UserinfoHeader()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .red
-        return view
-    }()
+//    lazy var profileView: UserinfoHeader = {
+//        let view = UserinfoHeader()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = .red
+//        return view
+//    }()
+    
+    var userInforHeader: UserinfoHeader!
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        view.addSubview(tableView)
-        tableView.frame = view.frame
-        
-        tableView.rowHeight = 60
-        tableView.register(settingCell.self, forCellReuseIdentifier: settingCell.reuseIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.frame = view.frame
+        //view.addSubview(tableView)
+        tableView.rowHeight = 60
+        tableView.register(settingCell.self, forCellReuseIdentifier: settingCell.reuseIdentifier)
+        
+        let frame = CGRect(x: 0, y: 88, width: view.frame.width, height: 100)
+        userInforHeader = UserinfoHeader(frame: frame)
+        tableView.tableHeaderView = userInforHeader
+        tableView.tableFooterView = UIView()
+        
         return tableView
     }()
     
     init() {
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -45,28 +52,28 @@ class MyViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 55/255, green: 120/255, blue: 250/255, alpha: 1)
-        self.navigationItem.title = "Setting"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.barTintColor = UIColor(red: 55/255, green: 120/255, blue: 250/255, alpha: 1)
+        navigationItem.title = "Settings"
         configureLayout()
     }
     
     func configureLayout() {
         
-        view.addSubview(profileView)
+        //view.addSubview(profileView)
         view.addSubview(tableView)
         
-        profileView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(80)
-        }
+//        profileView.snp.makeConstraints { (make) in
+//            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+//            make.height.equalTo(80)
+//        }
         
-        tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(profileView.snp.bottom)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
+//        tableView.snp.makeConstraints { (make) in
+//            //make.top.equalTo(profileView.snp.bottom)
+//            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+//        }
     }
 }
 

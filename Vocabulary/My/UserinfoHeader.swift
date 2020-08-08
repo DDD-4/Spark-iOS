@@ -73,7 +73,6 @@ class UserinfoHeader: UIView {
             make.leading.equalTo(contentView).offset(10)
             make.top.equalTo(contentView).offset(10)
             make.bottom.equalTo(contentView).offset(-10)
-            make.height.width.equalTo(40)
         }
         stackView.snp.makeConstraints { (make) in
             make.leading.equalTo(profileImageView.snp.trailing).offset(5)
