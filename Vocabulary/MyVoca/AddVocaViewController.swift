@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import PoingDesignSystem
+import PoingVocaSubsystem
 
 class AddVocaViewController: UIViewController {
     lazy var containerView: UIView = {
@@ -38,8 +39,22 @@ class AddVocaViewController: UIViewController {
         let button = AccentButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("확인", for: .normal)
+        button.addTarget(self, action: #selector(confirmDidTap), for: .touchUpInside)
         return button
     }()
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+
+        modalPresentationStyle = .overFullScreen
+        modalTransitionStyle = .crossDissolve
+
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +92,14 @@ class AddVocaViewController: UIViewController {
             make.top.equalTo(groupNameTextField.snp.bottom).offset(20)
             make.centerX.equalTo(containerView)
             make.bottom.equalTo(containerView).offset(-18)
+        }
+    }
+
+    @objc func confirmDidTap(_ sender: UIButton) {
+        // FIXIT: if empty title then warning alert
+        let newGroup = Group(title: groupNameTextField.text ?? "이름 없음", visibilityType: .private, identifier: UUID(), words: [])
+        VocaManager.shared.insert(group: newGroup) { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
         }
     }
 }

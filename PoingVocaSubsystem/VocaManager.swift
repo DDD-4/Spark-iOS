@@ -96,6 +96,24 @@ public class VocaManager {
         }
     }
 
+    public func update(group: Group, deleteWords: [Word], completion: (() -> Void)? = nil) {
+        let currentWords = group.words.filter { (groupWord) -> Bool in
+            deleteWords.contains { (word) -> Bool in
+                word.identifier != groupWord.identifier
+            }
+        }
+
+        var currentGroup = group
+        currentGroup.words = currentWords
+
+        update(group: currentGroup) {
+            guard let completion = completion else {
+                return
+            }
+            completion()
+        }
+    }
+
     public func update(group: Group, completion: (() -> Void)? = nil) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             VocaCoreDataManager.shared.update(group: group, context: context) {
