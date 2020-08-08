@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Voca
+import PoingVocaSubsystem
 import RxSwift
 
 protocol MyVocaViewControllerDelegate: class {

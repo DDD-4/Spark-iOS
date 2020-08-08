@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Voca
+import PoingVocaSubsystem
 
 class WordDetailCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: WordDetailCell.self)

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
-import Voca
+import PoingVocaSubsystem
 
 class EditMyVocaGroupCell: UITableViewCell {
     static let reuseIdentifier = String(describing: EditMyVocaGroupCell.self)
@@ -90,6 +90,8 @@ class EditMyVocaGroupCell: UITableViewCell {
             publicButton.setTitle("공개 중", for: .normal)
         case .private:
             publicButton.setTitle("공개하기", for: .normal)
+        case .default:
+            publicButton.setTitle("기본 폴더", for: .normal)
         }
     }
 

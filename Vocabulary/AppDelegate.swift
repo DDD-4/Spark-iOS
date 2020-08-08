@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Voca
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

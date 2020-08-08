@@ -32,6 +32,8 @@ class StackContainerView: UIView {
     // Speek
     let synthesizer = AVSpeechSynthesizer()
 
+    weak var delegate: FlipGameViewControllerDelegate?
+
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -124,14 +126,8 @@ extension StackContainerView: SwipeCardsDelegate {
                 })
             }
 
-        }else {
-            for (cardIndex, cardView) in visibleCards.reversed().enumerated() {
-                UIView.animate(withDuration: 0.2, animations: {
-                    cardView.center = self.center
-                    self.addCardFrame(index: cardIndex, cardView: cardView)
-                    self.layoutIfNeeded()
-                })
-            }
+        } else {
+            delegate?.flipGameViewController(self, didCompleteCard: view)
         }
     }
 }

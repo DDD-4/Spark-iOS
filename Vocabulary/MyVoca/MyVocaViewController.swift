@@ -10,17 +10,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
-import Voca
+import PoingVocaSubsystem
+import PoingDesignSystem
 
 class MyVocaViewController: UIViewController {
 
     let viewModel = MyVocaViewModel()
     let disposeBag = DisposeBag()
 
-    lazy var navigationViewArea: UIView = {
-        let view = UIView()
+    lazy var navigationViewArea: LeftTitleNavigationView = {
+        let view = LeftTitleNavigationView(title: "미진이의 단어장", rightTitle: nil)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green
         return view
     }()
 

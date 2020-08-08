@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-import Voca
+import PoingVocaSubsystem
 
 class MyVocaWordCell: UICollectionViewCell {
 

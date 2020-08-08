@@ -7,8 +7,16 @@
 //
 
 import UIKit
-import Voca
+import PoingVocaSubsystem
 import SnapKit
+import PoingDesignSystem
+
+protocol FlipGameViewControllerDelegate: class {
+    func flipGameViewController(
+        _ view: StackContainerView,
+        didCompleteCard: SwipeCardView
+    )
+}
 
 public class FlipGameViewController: UIViewController {
 
@@ -35,6 +43,7 @@ public class FlipGameViewController: UIViewController {
         view = UIView()
         view.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0)
         stackContainer = StackContainerView()
+        stackContainer.delegate = self
         view.addSubview(stackContainer)
         configureStackContainer()
         stackContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -83,6 +92,13 @@ extension FlipGameViewController : SwipeCardsDataSource {
     func emptyView() -> UIView? {
         return nil
     }
-    
+}
 
+extension FlipGameViewController: FlipGameViewControllerDelegate {
+    func flipGameViewController(
+        _ view: StackContainerView,
+        didCompleteCard: SwipeCardView
+    ) {
+        present(NoticePopupViewController(text: "모두 학습! 잘했어!"), animated: true, completion: nil)
+    }
 }
