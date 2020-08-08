@@ -19,6 +19,7 @@
 		187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024924D4065B008DBC8B /* VocaDetailViewController.swift */; };
 		187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024B24D40968008DBC8B /* WordDetailCell.swift */; };
 		187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024D24D41705008DBC8B /* VocaForAllModel.swift */; };
+		7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D14050724DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift */; };
 		7D1FBE5024DC3B6000D2F4A1 /* Voca.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1524DC2E67008812CD /* Voca.xcdatamodeld */; };
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
@@ -175,6 +176,7 @@
 		4478D4B7DA4E6BD69D08D8DE /* Pods_VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AD6E985030682623744FE4E /* Pods_Vocabulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vocabulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C3389560DBDD00DE6B80C3E /* Pods-PoingDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-PoingDesignSystem/Pods-PoingDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
+		7D14050724DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupViewModel.swift; sourceTree = "<group>"; };
 		7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "포잉포잉.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E0024BE05AF00CA4554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -460,15 +462,16 @@
 		CE6C9B5D24CF2D380068C3BB /* MyVoca */ = {
 			isa = PBXGroup;
 			children = (
+				CEF4C3B924D3949E001AEE97 /* AddVocaViewController.swift */,
+				CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */,
+				CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */,
+				7D14050724DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift */,
+				7DE758D324DDC2AE001922C6 /* EmptyWordView.swift */,
+				CE381A1224D1DECF00FDEBAC /* MyVocaGroupNameCell.swift */,
+				CE84996A24D300D300D934C3 /* MyVocaGroupReusableView.swift */,
 				CE4401B724CF33E70093D04B /* MyVocaViewController.swift */,
 				CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */,
-				CE84996A24D300D300D934C3 /* MyVocaGroupReusableView.swift */,
-				CE381A1224D1DECF00FDEBAC /* MyVocaGroupNameCell.swift */,
 				CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */,
-				CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */,
-				CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */,
-				CEF4C3B924D3949E001AEE97 /* AddVocaViewController.swift */,
-				7DE758D324DDC2AE001922C6 /* EmptyWordView.swift */,
 			);
 			path = MyVoca;
 			sourceTree = "<group>";
@@ -1005,6 +1008,7 @@
 				CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */,
 				1870799524D8120E0079E280 /* WordViewModel.swift in Sources */,
 				187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */,
+				7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */,
 				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
 				CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */,

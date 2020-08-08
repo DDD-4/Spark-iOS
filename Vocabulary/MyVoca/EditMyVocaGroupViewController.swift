@@ -14,6 +14,10 @@ import PoingVocaSubsystem
 import PoingDesignSystem
 
 class EditMyVocaGroupViewController: UIViewController {
+
+    let viewModel: EditMyVocaGroupViewModel
+    let disposeBag = DisposeBag()
+
     lazy var navigationViewArea: SideNavigationView = {
         let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: "폴더 편집", rightImage: UIImage(named: "btnAdd"))
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -35,9 +39,8 @@ class EditMyVocaGroupViewController: UIViewController {
         return tableView
     }()
 
-    var groups = [Group]()
     init(groups: [Group]) {
-        self.groups = groups
+        viewModel = EditMyVocaGroupViewModel(groups: groups)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -48,9 +51,18 @@ class EditMyVocaGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+        configureRx()
         DispatchQueue.main.async {
             self.groupTableView.setEditing(true, animated: true)
         }
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(vocaDataChanged),
+            name: .vocaDataChanged,
+            object: nil
+        )
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -81,12 +93,25 @@ class EditMyVocaGroupViewController: UIViewController {
         }
     }
 
+    func configureRx() {
+        viewModel.groups
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+                self?.groupTableView.reloadData()
+            }).disposed(by: disposeBag)
+
+    }
+
     @objc func addDidTap(_ sender: UIButton) {
         present(AddVocaViewController(), animated: true, completion: nil)
     }
 
     @objc func dismissDidTap(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc func vocaDataChanged() {
+        viewModel.filteredFetchGroup()
     }
 }
 
@@ -97,7 +122,10 @@ extension EditMyVocaGroupViewController: UITableViewDataSource {
             for: indexPath) as? EditMyVocaGroupCell else {
             return UITableViewCell()
         }
-        cell.configure(group: groups[indexPath.section])
+        let group = viewModel.groups.value[indexPath.section]
+
+        cell.delegate = self
+        cell.configure(group: group)
         return cell
     }
 
@@ -106,7 +134,7 @@ extension EditMyVocaGroupViewController: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return groups.count
+        return viewModel.groups.value.count
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -136,12 +164,17 @@ extension EditMyVocaGroupViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let elem = groups.remove(at: sourceIndexPath.row)
-        groups.insert(elem, at: destinationIndexPath.row)
 
-        DispatchQueue.main.async {
-            tableView.reloadData()
+        guard sourceIndexPath.row != destinationIndexPath.row else {
+            return
         }
+
+        var tempGroup = viewModel.groups.value
+
+        let elem = tempGroup.remove(at: sourceIndexPath.row)
+        tempGroup.insert(elem, at: destinationIndexPath.row)
+
+        viewModel.groups.accept(tempGroup)
     }
 
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
@@ -150,5 +183,29 @@ extension EditMyVocaGroupViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         .none
+    }
+}
+
+extension EditMyVocaGroupViewController: EditMyVocaGroupCellDelegate {
+    func editMyVocaGroupCell(
+        _ cell: UITableViewCell,
+        didTapDelete button: UIButton,
+        group: Group
+    ) {
+        VocaManager.shared.delete(group: group)
+    }
+
+    func editMyVocaGroupCell(
+        _ cell: UITableViewCell,
+        didTapChangeVisibility button: UIButton,
+        group: Group
+    ) {
+        let changedVisibilityType: VisibilityType = (group.visibilityType == .public) ? .private : .public
+
+        var currentGroup = group
+
+        currentGroup.visibilityType = changedVisibilityType
+
+        VocaManager.shared.update(group: currentGroup)
     }
 }

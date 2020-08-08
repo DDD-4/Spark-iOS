@@ -12,8 +12,24 @@ import RxSwift
 import RxCocoa
 import PoingVocaSubsystem
 
+protocol EditMyVocaGroupCellDelegate: class {
+    func editMyVocaGroupCell(
+        _ cell: UITableViewCell,
+        didTapDelete button: UIButton,
+        group: Group
+    )
+    func editMyVocaGroupCell(
+        _ cell: UITableViewCell,
+        didTapChangeVisibility button: UIButton,
+        group: Group
+    )
+}
+
 class EditMyVocaGroupCell: UITableViewCell {
     static let reuseIdentifier = String(describing: EditMyVocaGroupCell.self)
+
+    var group: Group?
+    weak var delegate: EditMyVocaGroupCellDelegate?
 
     lazy var containerView: UIView = {
         let view = UIView()
@@ -59,6 +75,7 @@ class EditMyVocaGroupCell: UITableViewCell {
         button.backgroundColor = .gray
         button.layer.cornerRadius = 12
         button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 15, bottom: 3, right: 15)
+        button.addTarget(self, action: #selector(deleteDidTap(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -69,6 +86,7 @@ class EditMyVocaGroupCell: UITableViewCell {
         button.backgroundColor = .gray
         button.layer.cornerRadius = 12
         button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 15, bottom: 3, right: 15)
+        button.addTarget(self, action: #selector(changeVisibilityTypeDidTap(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -83,15 +101,18 @@ class EditMyVocaGroupCell: UITableViewCell {
     }
 
     func configure(group: Group) {
+        self.group = group
         groupNameLabel.text = group.title
 
         switch group.visibilityType {
         case .group, .public:
             publicButton.setTitle("공개 중", for: .normal)
+            publicButton.backgroundColor = .black
         case .private:
             publicButton.setTitle("공개하기", for: .normal)
+            publicButton.backgroundColor = .gray
         case .default:
-            publicButton.setTitle("기본 폴더", for: .normal)
+            break
         }
     }
 
@@ -124,5 +145,19 @@ class EditMyVocaGroupCell: UITableViewCell {
         editButton.snp.makeConstraints { (make) in
             make.width.height.equalTo(16)
         }
+    }
+
+    @objc func deleteDidTap(_ sender: UIButton) {
+        guard let group = group else {
+            return
+        }
+        delegate?.editMyVocaGroupCell(self, didTapDelete: sender, group: group)
+    }
+
+    @objc func changeVisibilityTypeDidTap(_ sender: UIButton) {
+        guard let group = group else {
+            return
+        }
+        delegate?.editMyVocaGroupCell(self, didTapChangeVisibility: sender, group: group)
     }
 }
