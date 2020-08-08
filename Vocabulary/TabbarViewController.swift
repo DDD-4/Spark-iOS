@@ -39,7 +39,7 @@ class TabbarViewController: UITabBarController, UITabBarControllerDelegate {
         let tabBarItem4 = UITabBarItem(title: "4", image: nil, selectedImage: nil)
         tab4.tabBarItem = tabBarItem4
 
-        let tab5 = UINavigationController(rootViewController: MyVocaViewController())
+        let tab5 = UINavigationController(rootViewController: MyViewController())
         let tabBarItem5 = UITabBarItem(title: "5", image: nil, selectedImage: nil)
         tab5.tabBarItem = tabBarItem5
 
