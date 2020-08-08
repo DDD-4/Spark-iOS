@@ -34,11 +34,13 @@ public class VocaManager {
     ) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             guard let managedGroups = VocaCoreDataManager.shared.fetch(predicate: identifier, context: context) else {
-                self.insertDefaultGroup() {
-                    self.fetch(
-                        identifier: identifier,
-                        completion: completion
-                    )
+                if identifier == nil {
+                    self.insertDefaultGroup() {
+                        self.fetch(
+                            identifier: identifier,
+                            completion: completion
+                        )
+                    }
                 }
                 return
             }
@@ -58,12 +60,7 @@ public class VocaManager {
     ) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             guard let managedGroups = VocaCoreDataManager.shared.fetch(predicate: visibilityType, context: context) else {
-                self.insertDefaultGroup() {
-                    self.fetch(
-                        visibilityType: visibilityType,
-                        completion: completion
-                    )
-                }
+                completion(nil)
                 return
             }
 
