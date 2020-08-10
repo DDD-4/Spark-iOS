@@ -43,13 +43,13 @@ class AddWordViewController: UIViewController {
     lazy var engTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "영어 단어를 입력해 보세요!"
-        //textField.backgroundColor = .white
+        textField.textColor = .black
         return textField
     }()
     lazy var korTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "영어 단어의 뜻을 입력해 보세요!"
-        //textField.backgroundColor = .white
+        textField.textColor = .black
         return textField
     }()
     lazy var folderButton: BaseButton = {
@@ -69,6 +69,12 @@ class AddWordViewController: UIViewController {
         return view
     }()
 
+    
+    init(image: UIImage) {
+        super.init(nibName: nil, bundle: nil)
+        self.wordImageView.image = image
+    }
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
@@ -78,6 +84,7 @@ class AddWordViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

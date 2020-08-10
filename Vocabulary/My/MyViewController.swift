@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import Voca
+import PoingVocaSubsystem
+import PoingDesignSystem
 import SnapKit
 import RxCocoa
 import RxSwift
