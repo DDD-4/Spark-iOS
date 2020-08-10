@@ -120,8 +120,8 @@ extension HomeHeaderView: UICollectionViewDataSource {
 
 class HomeHeaderCell: UICollectionViewCell {
     enum Constant {
-        static let activeColor: UIColor = .blue
-        static let deactiveColor: UIColor = .gray
+        static let activeColor: UIColor = UIColor(red: 17.0 / 255.0, green: 28.0 / 255.0, blue: 78.0 / 255.0, alpha: 1.0)
+        static let inactiveColor: UIColor = UIColor(white: 223.0 / 255.0, alpha: 1.0)
     }
 
     static let reuseIdentifier: String = String(describing: HomeHeaderCell.self)
@@ -150,7 +150,7 @@ class HomeHeaderCell: UICollectionViewCell {
         if isActive {
             titleLabel.textColor = Constant.activeColor
         } else {
-            titleLabel.textColor = Constant.deactiveColor
+            titleLabel.textColor = Constant.inactiveColor
         }
     }
 

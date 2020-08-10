@@ -2,16 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "btnAdd.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "btnGame.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "btnAdd@2x.png"
+      "filename" : "btnGame@2x.png",
+      "scale" : "2x"
     },
     {
-      "filename" : "btnAdd@3x.png",
+      "filename" : "btnGame@3x.png",
       "scale" : "3x",
       "idiom" : "universal"
     }
