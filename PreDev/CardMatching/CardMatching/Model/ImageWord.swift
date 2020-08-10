@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ImageWord {
+public struct ImageWord {
     let image: String
     let word: String
 
-    init(image: String, word: String) {
+    public init(image: String, word: String) {
         self.image = image
         self.word = word
     }
