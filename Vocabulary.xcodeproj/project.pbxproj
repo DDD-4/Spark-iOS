@@ -25,6 +25,12 @@
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
+		7D88E29624E170C4000D8559 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29424E170C4000D8559 /* ScreenView.swift */; };
+		7D88E29724E170C4000D8559 /* TakePictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29524E170C4000D8559 /* TakePictureController.swift */; };
+		7D88E29C24E170E7000D8559 /* settingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29824E170E6000D8559 /* settingCell.swift */; };
+		7D88E29D24E170E7000D8559 /* SettingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29924E170E6000D8559 /* SettingSection.swift */; };
+		7D88E29E24E170E7000D8559 /* UserinfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29A24E170E6000D8559 /* UserinfoHeader.swift */; };
+		7D88E29F24E170E7000D8559 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29B24E170E7000D8559 /* MyViewController.swift */; };
 		7DAF66B824DC477F00B68C6C /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7DAF66B924DC477F00B68C6C /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7DAF66BC24DC478100B68C6C /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
@@ -182,6 +188,12 @@
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D88E29424E170C4000D8559 /* ScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
+		7D88E29524E170C4000D8559 /* TakePictureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePictureController.swift; sourceTree = "<group>"; };
+		7D88E29824E170E6000D8559 /* settingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingCell.swift; sourceTree = "<group>"; };
+		7D88E29924E170E6000D8559 /* SettingSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingSection.swift; sourceTree = "<group>"; };
+		7D88E29A24E170E6000D8559 /* UserinfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserinfoHeader.swift; sourceTree = "<group>"; };
+		7D88E29B24E170E7000D8559 /* MyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PoingDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PoingDesignSystem.h; sourceTree = "<group>"; };
 		7DDB4AC824DC2D6B008812CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -491,6 +503,10 @@
 		CE6C9B5F24CF2D790068C3BB /* My */ = {
 			isa = PBXGroup;
 			children = (
+				7D88E29B24E170E7000D8559 /* MyViewController.swift */,
+				7D88E29824E170E6000D8559 /* settingCell.swift */,
+				7D88E29924E170E6000D8559 /* SettingSection.swift */,
+				7D88E29A24E170E6000D8559 /* UserinfoHeader.swift */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -498,6 +514,8 @@
 		CE6C9B6124CF2D870068C3BB /* AddWord */ = {
 			isa = PBXGroup;
 			children = (
+				7D88E29424E170C4000D8559 /* ScreenView.swift */,
+				7D88E29524E170C4000D8559 /* TakePictureController.swift */,
 				186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */,
 				186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */,
 			);
@@ -1000,11 +1018,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */,
+				7D88E29E24E170E7000D8559 /* UserinfoHeader.swift in Sources */,
 				186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */,
 				CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */,
 				CEFED47524D5B236002E858C /* GameCell.swift in Sources */,
 				CE1458FA24D319FC004F2700 /* EditMyVocaGroupCell.swift in Sources */,
 				186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */,
+				7D88E29C24E170E7000D8559 /* settingCell.swift in Sources */,
 				CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */,
 				1870799524D8120E0079E280 /* WordViewModel.swift in Sources */,
 				187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */,
@@ -1018,12 +1038,16 @@
 				CEFED47324D45291002E858C /* GameViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
 				186E84E724D2DB300094E9EB /* VocaForAllNavigationView.swift in Sources */,
+				7D88E29F24E170E7000D8559 /* MyViewController.swift in Sources */,
 				186E84E524D2DAC50094E9EB /* VocaForAllViewController.swift in Sources */,
 				187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
 				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
 				CEF4C3BA24D3949E001AEE97 /* AddVocaViewController.swift in Sources */,
+				7D88E29624E170C4000D8559 /* ScreenView.swift in Sources */,
+				7D88E29724E170C4000D8559 /* TakePictureController.swift in Sources */,
 				187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */,
+				7D88E29D24E170E7000D8559 /* SettingSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
