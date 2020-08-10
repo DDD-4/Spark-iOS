@@ -24,6 +24,7 @@
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
+		7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
 		7D88E29624E170C4000D8559 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29424E170C4000D8559 /* ScreenView.swift */; };
 		7D88E29724E170C4000D8559 /* TakePictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29524E170C4000D8559 /* TakePictureController.swift */; };
@@ -31,6 +32,8 @@
 		7D88E29D24E170E7000D8559 /* SettingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29924E170E6000D8559 /* SettingSection.swift */; };
 		7D88E29E24E170E7000D8559 /* UserinfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29A24E170E6000D8559 /* UserinfoHeader.swift */; };
 		7D88E29F24E170E7000D8559 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29B24E170E7000D8559 /* MyViewController.swift */; };
+		7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A024E17DD3000D8559 /* HomeViewController.swift */; };
+		7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */; };
 		7DAF66B824DC477F00B68C6C /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7DAF66B924DC477F00B68C6C /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7DAF66BC24DC478100B68C6C /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
@@ -188,12 +191,15 @@
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaEmptyCell.swift; sourceTree = "<group>"; };
 		7D88E29424E170C4000D8559 /* ScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
 		7D88E29524E170C4000D8559 /* TakePictureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePictureController.swift; sourceTree = "<group>"; };
 		7D88E29824E170E6000D8559 /* settingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingCell.swift; sourceTree = "<group>"; };
 		7D88E29924E170E6000D8559 /* SettingSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingSection.swift; sourceTree = "<group>"; };
 		7D88E29A24E170E6000D8559 /* UserinfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserinfoHeader.swift; sourceTree = "<group>"; };
 		7D88E29B24E170E7000D8559 /* MyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		7D88E2A024E17DD3000D8559 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PoingDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PoingDesignSystem.h; sourceTree = "<group>"; };
 		7DDB4AC824DC2D6B008812CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -484,6 +490,9 @@
 				CE4401B724CF33E70093D04B /* MyVocaViewController.swift */,
 				CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */,
 				CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */,
+				7D88E2A024E17DD3000D8559 /* HomeViewController.swift */,
+				7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */,
+				7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */,
 			);
 			path = MyVoca;
 			sourceTree = "<group>";
@@ -1027,7 +1036,9 @@
 				7D88E29C24E170E7000D8559 /* settingCell.swift in Sources */,
 				CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */,
 				1870799524D8120E0079E280 /* WordViewModel.swift in Sources */,
+				7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */,
 				187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */,
+				7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */,
 				7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */,
 				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
@@ -1046,6 +1057,7 @@
 				CEF4C3BA24D3949E001AEE97 /* AddVocaViewController.swift in Sources */,
 				7D88E29624E170C4000D8559 /* ScreenView.swift in Sources */,
 				7D88E29724E170C4000D8559 /* TakePictureController.swift in Sources */,
+				7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */,
 				187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */,
 				7D88E29D24E170E7000D8559 /* SettingSection.swift in Sources */,
 			);

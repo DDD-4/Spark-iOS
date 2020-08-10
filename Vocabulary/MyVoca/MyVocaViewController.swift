@@ -18,12 +18,6 @@ class MyVocaViewController: UIViewController {
     let viewModel: MyVocaViewModelType = MyVocaViewModel()
     let disposeBag = DisposeBag()
 
-    lazy var navigationViewArea: LeftTitleNavigationView = {
-        let view = LeftTitleNavigationView(title: "미진이의 단어장", rightTitle: nil)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -82,17 +76,12 @@ class MyVocaViewController: UIViewController {
     }
 
     func configureLayout() {
-        view.addSubview(navigationViewArea)
+        view.backgroundColor = .white
+
         view.addSubview(groupNameCollectionView)
 
-        navigationViewArea.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(44)
-        }
-        
         groupNameCollectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(navigationViewArea.snp.bottom).offset(20)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
 

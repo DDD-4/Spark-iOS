@@ -26,8 +26,6 @@ class MyVocaGroupReusableView: UICollectionReusableView {
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 12
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -90,6 +88,7 @@ class MyVocaGroupReusableView: UICollectionReusableView {
 
         groupNameCollectionView.reloadData()
     }
+
     func bindRx() {
         groupEditButton.rx.tap.subscribe(onNext: { [weak self] (_) in
             guard let self = self else { return }
@@ -141,5 +140,9 @@ extension MyVocaGroupReusableView: UICollectionViewDelegate, UICollectionViewDel
         collectionView.reloadItems(at: reloadIndexPaths)
 
         delegate?.myVocaViewController(didTapGroup: groups[indexPath.row], view: self)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        12
     }
 }
