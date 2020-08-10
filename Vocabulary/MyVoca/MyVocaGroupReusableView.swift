@@ -26,8 +26,6 @@ class MyVocaGroupReusableView: UICollectionReusableView {
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 12
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -35,27 +33,19 @@ class MyVocaGroupReusableView: UICollectionReusableView {
             MyVocaGroupNameCell.self,
             forCellWithReuseIdentifier: MyVocaGroupNameCell.reuseIdentifier
         )
-        collectionView.contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = UIEdgeInsets(top: 22, left: 16, bottom: 0, right: 16)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .gray
+        collectionView.backgroundColor = .white
         return collectionView
-    }()
-
-    lazy var groupEditButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .black
-        button.setTitle("편집", for: .normal)
-        return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        backgroundColor = .white
         configureLayout()
         bindRx()
-        backgroundColor = .red
     }
 
     required init?(coder: NSCoder) {
@@ -64,18 +54,10 @@ class MyVocaGroupReusableView: UICollectionReusableView {
 
     func configureLayout() {
         addSubview(groupNameCollectionView)
-        addSubview(groupEditButton)
 
         groupNameCollectionView.snp.makeConstraints { (make) in
-            make.top.bottom.leading.equalTo(self)
-            make.height.equalTo(20 + 36 + 20)
-        }
-
-        groupEditButton.snp.makeConstraints { (make) in
-            make.centerY.equalTo(groupNameCollectionView.snp.centerY)
-//            make.width.height.equalTo(24)
-            make.trailing.equalTo(-16).priority(.high)
-            make.leading.equalTo(groupNameCollectionView.snp.trailing).offset(16)
+            make.top.bottom.leading.trailing.equalTo(self)
+            make.height.equalTo(22 + 36)
         }
     }
 
@@ -90,11 +72,8 @@ class MyVocaGroupReusableView: UICollectionReusableView {
 
         groupNameCollectionView.reloadData()
     }
+
     func bindRx() {
-        groupEditButton.rx.tap.subscribe(onNext: { [weak self] (_) in
-            guard let self = self else { return }
-            self.delegate?.myVocaViewController(didTapEditGroupButton: self.groupEditButton)
-        }).disposed(by: disposeBag)
     }
 }
 
@@ -121,9 +100,9 @@ extension MyVocaGroupReusableView: UICollectionViewDelegate, UICollectionViewDel
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         let cell = groups[indexPath.row]
-        let size =  UILabel.measureSize(with: cell.title, font: UIFont.systemFont(ofSize: 12), width: .greatestFiniteMagnitude, numberOfLines: 1, lineBreakMode: .byTruncatingTail)
+        let size =  UILabel.measureSize(with: cell.title, font: MyVocaGroupNameCell.Constant.Active.font, width: .greatestFiniteMagnitude, numberOfLines: 1, lineBreakMode: .byTruncatingTail)
 
-        return CGSize(width: size.width + 32, height: 36)
+        return CGSize(width: size.width + 32, height: MyVocaGroupNameCell.Constant.height)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -141,5 +120,9 @@ extension MyVocaGroupReusableView: UICollectionViewDelegate, UICollectionViewDel
         collectionView.reloadItems(at: reloadIndexPaths)
 
         delegate?.myVocaViewController(didTapGroup: groups[indexPath.row], view: self)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        12
     }
 }
