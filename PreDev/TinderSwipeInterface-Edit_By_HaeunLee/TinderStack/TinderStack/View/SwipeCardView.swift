@@ -1,165 +1,108 @@
 //
 //  SwipeCardView.swift
-//  TinderStack
+//  VocaGame
 //
 //  Created by Osama Naeem on 16/03/2019.
+//  Edited by Haeun lee
 //  Copyright © 2019 NexThings. All rights reserved.
 //
 
 import UIKit
+import SnapKit
+import PoingDesignSystem
 
-class SwipeCardView : UIView {
-   
-    //MARK: - Properties
-    var swipeView : UIView!
-    var shadowView : UIView!
-    var imageView: UIImageView!
-  
-    var label = UILabel()
-    var moreButton = UIButton()
+class SwipeCardView: UIView {
+    enum Constant {
+        static let radius: CGFloat = 16
+    }
     
-    var delegate : SwipeCardsDelegate?
+    //MARK: - Properties
+    let index: Int
+    weak var delegate: SwipeCardsDelegate?
 
-    var divisor : CGFloat = 0
-    let baseView = UIView()
+    var dataSource : CardsDataModel? {
+        didSet {
+            swipeView.backgroundColor = .white
+            flipLabel.text = dataSource?.text
+            guard let image = dataSource?.image else { return }
+//            imageView.image = UIImage(named: image)
+        }
+    }
+
+    lazy var swipeView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = false
+        view.layer.cornerRadius = Constant.radius
+        view.layer.shadow(color: .greyblue20, alpha: 1, x: 0, y: 10, blur: 60, spread: 0)
+        view.backgroundColor = .white
+        return view
+    }()
+
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = Constant.radius
+        return imageView
+    }()
 
     var flipView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .purple
-        view.isHidden = true
-        view.layer.cornerRadius = 15
+        view.backgroundColor = .white
         view.clipsToBounds = true
+        view.layer.cornerRadius = Constant.radius
         return view
     }()
 
     var flipLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 50, weight: .bold)
-        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 46, weight: .bold)
+        label.textColor = .darkIndigo
+        label.textAlignment = .center
         return label
     }()
-    
-    
-    var dataSource : CardsDataModel? {
-        didSet {
-            swipeView.backgroundColor = .white
-//            label.text = dataSource?.text
-            flipLabel.text = dataSource?.text
-            guard let image = dataSource?.image else { return }
-//            imageView.image = UIImage(named: image)
-        }
-    }
-    
+
     
     //MARK: - Init
-     override init(frame: CGRect) {
+
+    init(index: Int) {
+        self.index = index
         super.init(frame: .zero)
-        configureShadowView()
-        configureSwipeView()
-//        configureLabelView()
-        configureImageView()
-//        configureButton()
+        configureLayout()
         addPanGestureOnCards()
         configureTapGesture()
-        configureFlipView()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Configuration
-    
-    func configureShadowView() {
-        shadowView = UIView()
-        shadowView.backgroundColor = .clear
-        shadowView.layer.shadowColor = UIColor.black.cgColor
-        shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        shadowView.layer.shadowOpacity = 0.8
-        shadowView.layer.shadowRadius = 4.0
-        addSubview(shadowView)
-        
-        shadowView.translatesAutoresizingMaskIntoConstraints = false
-        shadowView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        shadowView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        shadowView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        shadowView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-    }
-    
-    func configureSwipeView() {
-        swipeView = UIView()
-        swipeView.layer.cornerRadius = 15
-        swipeView.clipsToBounds = true
-        shadowView.addSubview(swipeView)
-        
-        swipeView.translatesAutoresizingMaskIntoConstraints = false
-        swipeView.leftAnchor.constraint(equalTo: shadowView.leftAnchor).isActive = true
-        swipeView.rightAnchor.constraint(equalTo: shadowView.rightAnchor).isActive = true
-        swipeView.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor).isActive = true
-        swipeView.topAnchor.constraint(equalTo: shadowView.topAnchor).isActive = true
-    }
-    
-    func configureLabelView() {
-        swipeView.addSubview(label)
-        label.backgroundColor = .white
-        label.textColor = .black
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.leftAnchor.constraint(equalTo: swipeView.leftAnchor).isActive = true
-        label.rightAnchor.constraint(equalTo: swipeView.rightAnchor).isActive = true
-        label.bottomAnchor.constraint(equalTo: swipeView.bottomAnchor).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 85).isActive = true
-        
-    }
-    
-    func configureImageView() {
-        imageView = UIImageView()
+    func configureLayout() {
+        addSubview(swipeView)
         swipeView.addSubview(imageView)
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: swipeView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: swipeView.bottomAnchor),
-        ])
-//        imageView.centerXAnchor.constraint(equalTo: swipeView.centerXAnchor).isActive = true
-//        imageView.centerYAnchor.constraint(equalTo: swipeView.centerYAnchor, constant: -30).isActive = true
-//        imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-//        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-    }
-    
-    func configureButton() {
-        label.addSubview(moreButton)
-        moreButton.translatesAutoresizingMaskIntoConstraints = false
-        let image = UIImage(named: "plus-tab")?.withRenderingMode(.alwaysTemplate)
-        moreButton.setImage(image, for: .normal)
-        moreButton.tintColor = UIColor.red
-        
-        moreButton.rightAnchor.constraint(equalTo: label.rightAnchor, constant: -15).isActive = true
-        moreButton.centerYAnchor.constraint(equalTo: label.centerYAnchor).isActive = true
-        moreButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        moreButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    
-    }
-
-    func configureFlipView() {
-        self.addSubview(flipView)
+        swipeView.addSubview(flipView)
         flipView.addSubview(flipLabel)
 
-        NSLayoutConstraint.activate([
-            flipView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            flipView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            flipView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            flipView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+        swipeView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(self)
+        }
 
-            flipLabel.centerYAnchor.constraint(equalTo: flipView.centerYAnchor),
-            flipLabel.centerXAnchor.constraint(equalTo: flipView.centerXAnchor)
-        ])
+        imageView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(swipeView)
+        }
+
+        flipView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(swipeView)
+        }
+
+        flipLabel.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(flipView)
+        }
     }
 
     func configureTapGesture() {
@@ -180,14 +123,11 @@ class SwipeCardView : UIView {
         let point = sender.translation(in: self)
         let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
-        
-        let distanceFromCenter = ((UIScreen.main.bounds.width / 2) - card.center.x)
-        divisor = ((UIScreen.main.bounds.width / 2) / 0.61)
-       
+
         switch sender.state {
         case .ended:
             if (card.center.x) > 400 {
-                delegate?.swipeDidEnd(on: card)
+                delegate?.swipeDidEnd(on: card, endIndex: index)
                 UIView.animate(withDuration: 0.2) {
                     card.center = CGPoint(x: centerOfParentContainer.x + point.x + 200, y: centerOfParentContainer.y + point.y + 75)
                     card.alpha = 0
@@ -195,7 +135,7 @@ class SwipeCardView : UIView {
                 }
                 return
             }else if card.center.x < -65 {
-                delegate?.swipeDidEnd(on: card)
+                delegate?.swipeDidEnd(on: card, endIndex: index)
                 UIView.animate(withDuration: 0.2) {
                     card.center = CGPoint(x: centerOfParentContainer.x + point.x - 200, y: centerOfParentContainer.y + point.y + 75)
                     card.alpha = 0

@@ -9,6 +9,18 @@
 import UIKit
 import AVFoundation
 
+protocol StackContainerViewDelegate: class {
+    func stackContainerView(
+        _ view: StackContainerView,
+        didCompleteCard: SwipeCardView
+    )
+    func stackContainerView(
+        _ view: StackContainerView,
+        didEndDisplayCard: SwipeCardView,
+        endIndex index: Int
+    )
+}
+
 class StackContainerView: UIView {
 
     //MARK: - Properties
@@ -17,22 +29,25 @@ class StackContainerView: UIView {
     var cardViews : [SwipeCardView] = []
     var remainingcards: Int = 0
     
-    let horizontalInset: CGFloat = 10.0
-    let verticalInset: CGFloat = 10.0
+    let horizontalInset: CGFloat = 16
+    let verticalInset: CGFloat = 16
     
     var visibleCards: [SwipeCardView] {
         return subviews as? [SwipeCardView] ?? []
     }
+
     var dataSource: SwipeCardsDataSource? {
         didSet {
             reloadData()
         }
     }
 
+    var maxCount: Int = 0
+
     // Speek
     let synthesizer = AVSpeechSynthesizer()
 
-    weak var delegate: FlipGameViewControllerDelegate?
+    weak var delegate: StackContainerViewDelegate?
 
     //MARK: - Init
     override init(frame: CGRect) {
@@ -45,7 +60,10 @@ class StackContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
+    func configure(maxCount: Int) {
+        self.maxCount = maxCount
+    }
+
     func reloadData() {
         removeAllCardViews()
         guard let datasource = dataSource else { return }
@@ -111,9 +129,14 @@ extension StackContainerView: SwipeCardsDelegate {
 
     }
 
-    func swipeDidEnd(on view: SwipeCardView) {
+    func swipeDidEnd(on view: SwipeCardView, endIndex index: Int) {
         guard let datasource = dataSource else { return }
         view.removeFromSuperview()
+
+        delegate?.stackContainerView(self,
+                                         didEndDisplayCard: view,
+                                         endIndex: index
+        )
 
         if remainingcards > 0 {
             let newIndex = datasource.numberOfCardsToShow() - remainingcards
@@ -127,7 +150,17 @@ extension StackContainerView: SwipeCardsDelegate {
             }
 
         } else {
-            delegate?.flipGameViewController(self, didCompleteCard: view)
+            for (cardIndex, cardView) in visibleCards.reversed().enumerated() {
+                UIView.animate(withDuration: 0.2, animations: {
+                    cardView.center = self.center
+                    self.addCardFrame(index: cardIndex, cardView: cardView)
+                    self.layoutIfNeeded()
+                })
+            }
+        }
+
+        if index == maxCount - 1 {
+            delegate?.stackContainerView(self, didCompleteCard: view)
         }
     }
 }

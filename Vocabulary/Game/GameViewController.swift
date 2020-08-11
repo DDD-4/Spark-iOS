@@ -151,7 +151,14 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegate
         let selectedGame = Constant.gameList[indexPath.row]
         switch selectedGame {
         case .flip:
-            present(FlipGameViewController(words: [Word(korean: "kor", english: "eng", image: nil, identifier: nil)]), animated: true, completion: nil)
+            present(FlipGameViewController(
+                words: [
+                    Word(korean: "kor", english: "eng1", image: nil, identifier: nil),
+                    Word(korean: "kor", english: "eng2", image: nil, identifier: nil),
+                    Word(korean: "kor", english: "eng3", image: nil, identifier: nil)]),
+                    animated: true,
+                    completion: nil
+            )
         case .matching:
             present(CardMatchingViewController(imageWords: [ImageWord(image: "icPicture", word: "eng")]), animated: true, completion: nil)
         }

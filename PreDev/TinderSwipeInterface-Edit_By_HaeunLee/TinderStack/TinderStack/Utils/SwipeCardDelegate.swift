@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol SwipeCardsDelegate {
-    func swipeDidEnd(on view: SwipeCardView)
+protocol SwipeCardsDelegate: class {
+    func swipeDidEnd(on view: SwipeCardView, endIndex index: Int)
     func swipeView(_ view: SwipeCardView)
 }
 
