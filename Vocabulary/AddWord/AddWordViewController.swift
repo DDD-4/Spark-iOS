@@ -9,13 +9,18 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import PoingDesignSystem
+import PoingVocaSubsystem
 
 class AddWordViewController: UIViewController {
 
     // MARK: - Properties
     let picker = UIImagePickerController()
     let disposeBag = DisposeBag()
-
+    let viewModel: SelectViewModelType = SelectViewModel()
+    var group: Group = Group(title: "기본폴더", visibilityType: .default, identifier: UUID(), words: [])
+    var delegate: AddWordViewController?
+    
     lazy var addWordNaviView: AddWordNavigationView = {
         let view = AddWordNavigationView()
         //view.backgroundColor = .lightGray
@@ -29,6 +34,7 @@ class AddWordViewController: UIViewController {
         button.layer.cornerRadius = 30
         button.setTitle("만들기", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(addWordButtonTap), for: .touchUpInside)
         return button
     }()
     lazy var textStack: UIStackView = {
@@ -40,6 +46,7 @@ class AddWordViewController: UIViewController {
         stack.spacing = 20
         return stack
     }()
+    
     lazy var engTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "영어 단어를 입력해 보세요!"
@@ -57,6 +64,7 @@ class AddWordViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("폴더 선택", for: .normal)
         button.setTitleColor(.gray, for: .normal)
+        button.addTarget(self, action: #selector(selectFolderButton), for: .touchUpInside)
         button.backgroundColor = .white
         return button
     }()
@@ -69,7 +77,6 @@ class AddWordViewController: UIViewController {
         return view
     }()
 
-    
     init(image: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.wordImageView.image = image
@@ -91,6 +98,16 @@ class AddWordViewController: UIViewController {
         initView()
         bindFunction()
         registerForKeyboardNotifications()
+        configureRx()
+        
+        self.delegate = self
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(vocaDataChanged),
+            name: .vocaDataChanged,
+            object: nil
+        )
     }
     
     // MARK: - View ✨
@@ -140,6 +157,26 @@ class AddWordViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     
+    func configureRx() {
+
+        viewModel.output.groups
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+                
+        }).disposed(by: disposeBag)
+        
+        viewModel.output.words
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+            
+        }).disposed(by: disposeBag)
+    }
+    
+    @objc
+    func vocaDataChanged() {
+        viewModel.input.fetchGroups()
+    }
+    
     @objc func addPicture(_ sender: Any) {
         
         self.picker.delegate = self
@@ -157,6 +194,32 @@ class AddWordViewController: UIViewController {
         alert.addAction(camera)
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func selectFolderButton(_ sender: Any) {
+        let viewController = SelectVocaViewController()
+        viewController.delegate = self
+        present(viewController, animated: true, completion: nil)
+    }
+    
+    @objc func addWordButtonTap(_ sender: Any) {
+        let word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.8), identifier: UUID())
+        
+        self.group.words.append(word)
+        
+        VocaManager.shared.update(group: self.group) { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+extension AddWordViewController: SelectVocaViewControllerDelegate {
+    func selectVocaViewController(didTapGroup group: Group) {
+        self.group = group
+    }
+    
+    func selectVocaViewController(didTapAddGroupButton button: UIButton) {
+        
     }
 }
 
