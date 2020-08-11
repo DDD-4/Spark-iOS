@@ -15,7 +15,6 @@ import PoingVocaSubsystem
 
 protocol SelectVocaViewControllerDelegate: class {
     func selectVocaViewController(didTapGroup group: Group)
-    func selectVocaViewController(didTapAddGroupButton button: UIButton)
 }
 
 class SelectVocaViewController: UIViewController{
@@ -52,10 +51,9 @@ class SelectVocaViewController: UIViewController{
     }()
     
     private var groups = [Group]()
-    var group: Group = Group(title: "", visibilityType: .default, identifier: UUID(), words: [])
     let viewModel: SelectViewModelType = SelectViewModel()
     let disposeBag = DisposeBag()
-    var delegate: SelectVocaViewControllerDelegate?
+    weak var delegate: SelectVocaViewControllerDelegate?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

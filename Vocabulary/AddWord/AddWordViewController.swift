@@ -18,7 +18,7 @@ class AddWordViewController: UIViewController {
     let picker = UIImagePickerController()
     let disposeBag = DisposeBag()
     let viewModel: SelectViewModelType = SelectViewModel()
-    var group: Group = Group(title: "기본폴더", visibilityType: .default, identifier: UUID(), words: [])
+    var newGroup: Group?
     var delegate: AddWordViewController?
     
     lazy var addWordNaviView: AddWordNavigationView = {
@@ -205,21 +205,29 @@ class AddWordViewController: UIViewController {
     @objc func addWordButtonTap(_ sender: Any) {
         let word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.8), identifier: UUID())
         
-        self.group.words.append(word)
+        self.newGroup?.words.append(word)
         
-        VocaManager.shared.update(group: self.group) { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+        guard let group = self.newGroup else {
+            return
+        }
+        
+        VocaManager.shared.update(group: group) { [weak self] in
+            let alert: UIAlertView = UIAlertView(title: "단어 만들기 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
+
+            alert.show()
+            
+            let when = DispatchTime.now() + 2
+            DispatchQueue.main.asyncAfter(deadline: when){
+                alert.dismiss(withClickedButtonIndex: 0, animated: true)
+                self?.dismiss(animated: true, completion: nil)
+            }
         }
     }
 }
 
 extension AddWordViewController: SelectVocaViewControllerDelegate {
     func selectVocaViewController(didTapGroup group: Group) {
-        self.group = group
-    }
-    
-    func selectVocaViewController(didTapAddGroupButton button: UIButton) {
-        
+        self.newGroup = group
     }
 }
 
