@@ -9,9 +9,18 @@
 import UIKit
 import SnapKit
 
-class GameCell: UITableViewCell {
+class GameCell: UICollectionViewCell {
     enum Constant {
         static let height: CGFloat = 120
+
+        enum Thumb {
+            static let height: CGFloat = 48
+            static let radius: CGFloat = 12
+        }
+        enum Title {
+            static let font = UIFont.systemFont(ofSize: 21, weight: .bold)
+            static let color = UIColor(red: 17.0 / 255.0, green: 28.0 / 255.0, blue: 78.0 / 255.0, alpha: 1.0)
+        }
     }
 
     static let reuseIdentifier = String(describing: GameCell.self)
@@ -21,24 +30,30 @@ class GameCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.layer.cornerRadius = 16
+        view.layer.shadow(color: UIColor(red: 138.0 / 255.0, green: 149.0 / 255.0, blue: 158.0 / 255.0, alpha: 0.2), alpha: 1, x: 0, y: 10, blur: 60, spread: 0)
         return view
     }()
 
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Constant.Title.font
+        label.textColor = Constant.Title.color
         return label
     }()
 
-    lazy var arrowButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .black
-        return button
+    lazy var thumbImageView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .blue
+        view.layer.cornerRadius = Constant.Thumb.radius
+        view.clipsToBounds = true
+        return view
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureLayout()
     }
 
@@ -55,12 +70,11 @@ class GameCell: UITableViewCell {
     }
 
     func configureLayout() {
-        selectionStyle = .none
-        backgroundColor = .gray
+        backgroundColor = .white
 
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
-        containerView.addSubview(arrowButton)
+        containerView.addSubview(thumbImageView)
 
         containerView.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(contentView)
@@ -71,13 +85,14 @@ class GameCell: UITableViewCell {
 
         titleLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(containerView)
-            make.centerX.equalTo(containerView)
+            make.leading.equalTo(thumbImageView.snp.trailing).offset(24)
+            make.trailing.equalTo(containerView)
         }
 
-        arrowButton.snp.makeConstraints { (make) in
+        thumbImageView.snp.makeConstraints { (make) in
             make.centerY.equalTo(containerView)
-            make.trailing.equalTo(containerView).offset(-20)
-            make.height.width.equalTo(24)
+            make.height.width.equalTo(Constant.Thumb.height)
+            make.leading.equalTo(containerView).offset(24)
         }
     }
 }

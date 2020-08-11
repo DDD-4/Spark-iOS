@@ -85,7 +85,6 @@ class HomeViewController: UIViewController {
 
         configureLayout()
         configureRx()
-        
         // start pageViewController
         pageViewController.setViewControllers(
             [myVocaViewController],

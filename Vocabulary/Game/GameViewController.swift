@@ -20,42 +20,47 @@ class GameViewController: UIViewController {
     enum Constant {
         static let gameList: [GameType] = [.flip, .matching]
         static let spacing: CGFloat = 23
+        enum Title {
+            static let text = "함께 복습 해볼까요?"
+            static let font = UIFont.systemFont(ofSize: 26, weight: .bold)
+            static let textColor: UIColor = UIColor(red: 17.0 / 255.0, green: 28.0 / 255.0, blue: 78.0 / 255.0, alpha: 1.0)
+        }
+        enum Image {
+            static let image = UIImage(named: "yellowFace")
+            static let height: CGFloat = 130
+        }
+        enum Close {
+            static let image = UIImage(named: "btnClose")
+            static let height: CGFloat = 60
+        }
     }
 
     var tableViewHeightConstraint: NSLayoutConstraint?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .gray
-        configureLayout()
-    }
+    lazy var titleStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [imageView, titleLabel])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.alignment = .center
+        stack.spacing = 30
+        return stack
+    }()
 
-    func configureLayout() {
-        view.addSubview(titleLabel)
-        view.addSubview(gameListTableView)
-
-        titleLabel.snp.makeConstraints { (make) in
-//            make.centerX.equalTo(view)
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(gameListTableView.snp.top)
-        }
-
-        gameListTableView.snp.makeConstraints { (make) in
-            make.centerY.equalTo(view.safeAreaLayoutGuide)
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.leading.trailing.equalTo(view)
-            make.bottom.lessThanOrEqualTo(view.safeAreaLayoutGuide)
-        }
-
-        tableViewHeightConstraint = gameListTableView.heightAnchor.constraint(equalToConstant: 0)
-        tableViewHeightConstraint?.constant = (CGFloat(Constant.gameList.count) * GameCell.Constant.height) + ((CGFloat(Constant.gameList.count) - 1 ) * Constant.spacing)
-        tableViewHeightConstraint?.isActive = true
-    }
+    lazy var imageView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFit
+        view.image = Constant.Image.image
+        return view
+    }()
 
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "복습 해볼까?"
+        label.text = Constant.Title.text
+        label.font = Constant.Title.font
+        label.textColor = Constant.Title.textColor
         label.textAlignment = .center
         return label
     }()
@@ -66,25 +71,84 @@ class GameViewController: UIViewController {
         return view
     }()
 
-    lazy var gameListTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(
-            GameCell.self,
-            forCellReuseIdentifier: GameCell.reuseIdentifier
-        )
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.isScrollEnabled = false
-        tableView.backgroundColor = .gray
-        return tableView
+    lazy var gameListCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.minimumLineSpacing = 20
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(GameCell.self, forCellWithReuseIdentifier: GameCell.reuseIdentifier)
+        collectionView.backgroundColor = .white
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 50, right: 0)
+        return collectionView
     }()
+
+    lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(Constant.Close.image, for: .normal)
+        button.addTarget(self, action: #selector(closeDidTap(_:)), for: .touchUpInside)
+        return button
+    }()
+
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .coverVertical
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        configureLayout()
+    }
+
+    func configureLayout() {
+        view.addSubview(titleStackView)
+        view.addSubview(gameListCollectionView)
+        view.addSubview(closeButton)
+
+        closeButton.snp.makeConstraints { (make) in
+            make.width.height.equalTo(Constant.Close.height)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
+        }
+
+        titleStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(80)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+
+        imageView.snp.makeConstraints { (make) in
+            make.height.width.equalTo(Constant.Image.height)
+        }
+
+        gameListCollectionView.snp.makeConstraints { (make) in
+            make.top.equalTo(titleStackView.snp.bottom)
+            make.leading.trailing.equalTo(view)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+
+    @objc func closeDidTap(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
-extension GameViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedGame = Constant.gameList[indexPath.section]
+extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.frame.width, height: 120)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedGame = Constant.gameList[indexPath.row]
         switch selectedGame {
         case .flip:
             present(FlipGameViewController(words: [Word(korean: "kor", english: "eng", image: nil, identifier: nil)]), animated: true, completion: nil)
@@ -94,28 +158,16 @@ extension GameViewController: UITableViewDelegate {
     }
 }
 
-extension GameViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return Constant.gameList.count
+extension GameViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        Constant.gameList.count
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return Constant.spacing
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        UIView()
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: GameCell.reuseIdentifier, for: indexPath) as? GameCell else {
-            return UITableViewCell()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCell.reuseIdentifier, for: indexPath) as? GameCell else {
+            return UICollectionViewCell()
         }
-        cell.configure(title: Constant.gameList[indexPath.section].rawValue)
+        cell.configure(title: Constant.gameList[indexPath.row].rawValue)
         return cell
     }
 }
