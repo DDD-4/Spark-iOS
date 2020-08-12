@@ -6,20 +6,25 @@
 //
 
 import UIKit
+import PoingDesignSystem
 
 class CardCell: UICollectionViewCell {
     enum Constant {
-        static let radius: CGFloat = 12
+        static let radius: CGFloat = 16
+        static let borderWidth: CGFloat = 6
+        static let font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        static let textColor = UIColor.darkIndigo
     }
     static let reuseIdentifier = String(describing: CardCell.self)
+
+    var cardMatching: CardMatching?
 
     lazy var frontView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.gray.cgColor
         view.layer.cornerRadius = Constant.radius
         view.clipsToBounds = true
+        view.backgroundColor = .white
         return view
     }()
 
@@ -34,17 +39,15 @@ class CardCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
+        label.font = Constant.font
+        label.textColor = Constant.textColor
         return label
     }()
 
-    lazy var selectedImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "checkmark")?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = .yellow
-        imageView.isHidden = true
-        return imageView
-    }()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        deselected()
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,6 +59,7 @@ class CardCell: UICollectionViewCell {
     }
 
     func configure(card: CardMatching) {
+        cardMatching = card
         if case let .image(cardImage) = card.contentType {
             imageView.image = cardImage
         } else if case let .text(cardWord) = card.contentType {
@@ -63,12 +67,28 @@ class CardCell: UICollectionViewCell {
         }
     }
 
+    func selected(color: UIColor) {
+        switch cardMatching?.contentType {
+        case .image:
+            frontView.layer.borderWidth = Constant.borderWidth
+            frontView.layer.borderColor = color.cgColor
+        case .text:
+            frontView.backgroundColor = color
+        default:
+            return
+        }
+    }
+
+    func deselected() {
+        frontView.backgroundColor = .white
+        frontView.layer.borderColor = UIColor.clear.cgColor
+    }
+
     func configureLayout() {
 
         contentView.addSubview(frontView)
         frontView.addSubview(imageView)
         frontView.addSubview(wordLabel)
-        frontView.addSubview(selectedImage)
 
         NSLayoutConstraint.activate([
             frontView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -85,11 +105,6 @@ class CardCell: UICollectionViewCell {
             wordLabel.leadingAnchor.constraint(equalTo: frontView.leadingAnchor),
             wordLabel.trailingAnchor.constraint(equalTo: frontView.trailingAnchor),
             wordLabel.bottomAnchor.constraint(equalTo: frontView.bottomAnchor),
-
-            selectedImage.topAnchor.constraint(equalTo: frontView.topAnchor),
-            selectedImage.leadingAnchor.constraint(equalTo: frontView.leadingAnchor),
-            selectedImage.trailingAnchor.constraint(equalTo: frontView.trailingAnchor),
-            selectedImage.bottomAnchor.constraint(equalTo: frontView.bottomAnchor),
 
         ])
     }

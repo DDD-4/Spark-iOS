@@ -160,7 +160,19 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegate
                     completion: nil
             )
         case .matching:
-            present(CardMatchingViewController(imageWords: [ImageWord(image: "icPicture", word: "eng")]), animated: true, completion: nil)
+            present(CardMatchingViewController(
+                imageWords: [
+                    ImageWord(image: "icPicture", word: "eng"),
+                    ImageWord(image: "icPicture", word: "eng"),
+                    ImageWord(image: "icPicture", word: "eng"),
+                    ImageWord(image: "icPicture", word: "eng"),
+                    ImageWord(image: "icPicture", word: "eng"),
+                    ImageWord(image: "icPicture", word: "eng"),
+                    ImageWord(image: "icPicture", word: "eng"),
+                    ImageWord(image: "icPicture", word: "eng")]),
+                    animated: true,
+                    completion: nil
+            )
         }
     }
 }

@@ -8,8 +8,8 @@
 
 import UIKit
 import PoingVocaSubsystem
-import SnapKit
 import PoingDesignSystem
+import SnapKit
 
 public class FlipGameViewController: UIViewController {
     enum Constant {
@@ -119,6 +119,7 @@ extension FlipGameViewController: StackContainerViewDelegate {
         didEndDisplayCard: SwipeCardView,
         endIndex index: Int
     ) {
-        navigationView.setProgress(index: index)
+        // index starts from 0.
+        navigationView.setProgress(index: index + 1)
     }
 }

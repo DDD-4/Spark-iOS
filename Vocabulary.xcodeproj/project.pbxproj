@@ -90,7 +90,7 @@
 		CEFED4B824D5D031002E858C /* ImageWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B624D5D030002E858C /* ImageWord.swift */; };
 		CEFED4B924D5D031002E858C /* CardMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B724D5D030002E858C /* CardMatching.swift */; };
 		CEFED4BB24D5D037002E858C /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BA24D5D037002E858C /* CardCell.swift */; };
-		CEFED4BD24D5D03E002E858C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BC24D5D03E002E858C /* ViewController.swift */; };
+		CEFED4BD24D5D03E002E858C /* CardMatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BC24D5D03E002E858C /* CardMatchingViewController.swift */; };
 		EA6BA5E0DA28CCF02D87124E /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AD6E985030682623744FE4E /* Pods_Vocabulary.framework */; };
 /* End PBXBuildFile section */
 
@@ -270,7 +270,7 @@
 		CEFED4B624D5D030002E858C /* ImageWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWord.swift; sourceTree = "<group>"; };
 		CEFED4B724D5D030002E858C /* CardMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatching.swift; sourceTree = "<group>"; };
 		CEFED4BA24D5D037002E858C /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardCell.swift; path = PreDev/CardMatching/CardMatching/CardCell.swift; sourceTree = SOURCE_ROOT; };
-		CEFED4BC24D5D03E002E858C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = PreDev/CardMatching/CardMatching/ViewController.swift; sourceTree = SOURCE_ROOT; };
+		CEFED4BC24D5D03E002E858C /* CardMatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardMatchingViewController.swift; path = PreDev/CardMatching/CardMatching/CardMatchingViewController.swift; sourceTree = SOURCE_ROOT; };
 		D78FA8B0F97BA5424E34FE48 /* Pods-PoingVocaSubsystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingVocaSubsystem.release.xcconfig"; path = "Target Support Files/Pods-PoingVocaSubsystem/Pods-PoingVocaSubsystem.release.xcconfig"; sourceTree = "<group>"; };
 		D89B86DD235D0CF741AA0904 /* Pods-PoingDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-PoingDesignSystem/Pods-PoingDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
 		E2F94FFE2D606B057B22ACAC /* Pods-VocaGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.release.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.release.xcconfig"; sourceTree = "<group>"; };
@@ -644,7 +644,7 @@
 		CEFED4B424D5D008002E858C /* Matching */ = {
 			isa = PBXGroup;
 			children = (
-				CEFED4BC24D5D03E002E858C /* ViewController.swift */,
+				CEFED4BC24D5D03E002E858C /* CardMatchingViewController.swift */,
 				CEFED4BA24D5D037002E858C /* CardCell.swift */,
 				CEFED4B524D5D030002E858C /* Model */,
 			);
@@ -1136,7 +1136,7 @@
 				7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */,
 				CEFED4AC24D5C8FB002E858C /* SwipeCardDelegate.swift in Sources */,
 				CEFED49F24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift in Sources */,
-				CEFED4BD24D5D03E002E858C /* ViewController.swift in Sources */,
+				CEFED4BD24D5D03E002E858C /* CardMatchingViewController.swift in Sources */,
 				CEFED4B924D5D031002E858C /* CardMatching.swift in Sources */,
 				CEFED4B124D5C900002E858C /* StackContainerView.swift in Sources */,
 				CEFED4AA24D5C8FB002E858C /* CardsDataModel.swift in Sources */,
