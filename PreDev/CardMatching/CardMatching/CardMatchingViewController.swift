@@ -235,7 +235,6 @@ extension CardMatchingViewController: UICollectionViewDelegate, UICollectionView
         let widthSpacing: CGFloat = (CGFloat((currentGridTyp.horizontal + 1)) * Constant.spacing)
         var cellWidth = Int((collectionView.bounds.width - widthSpacing) / CGFloat(currentGridTyp.horizontal))
 
-        print(collectionView.bounds)
         if cellHeight <= cellWidth {
             cellWidth = cellHeight
             let sideMargin: CGFloat = floor(((collectionView.bounds.width - widthSpacing) - (CGFloat(cellWidth) * CGFloat(currentGridTyp.horizontal))) / 2)
@@ -243,8 +242,6 @@ extension CardMatchingViewController: UICollectionViewDelegate, UICollectionView
         } else if cellHeight > cellWidth {
             cellHeight = cellWidth
             let verticalMargin: CGFloat = ((collectionView.bounds.height - heightSpacing) - (CGFloat(cellHeight) * CGFloat(currentGridTyp.vertical))) / 2
-
-            print(verticalMargin + verticalMargin + (CGFloat(currentGridTyp.vertical) * CGFloat(cellHeight)))
             return UIEdgeInsets(top: verticalMargin, left: Constant.spacing, bottom: verticalMargin, right: Constant.spacing)
         }
 
