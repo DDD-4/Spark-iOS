@@ -11,25 +11,40 @@ import PoingVocaSubsystem
 import SnapKit
 import PoingDesignSystem
 
-protocol FlipGameViewControllerDelegate: class {
-    func flipGameViewController(
-        _ view: StackContainerView,
-        didCompleteCard: SwipeCardView
-    )
-}
-
 public class FlipGameViewController: UIViewController {
+    enum Constant {
+        static let backgroundColor = #colorLiteral(red: 0.9567821622, green: 0.9569162726, blue: 0.9567400813, alpha: 1)
+        static let navigationHeight: CGFloat = 44
+
+    }
 
     //MARK: - Properties
     var viewModelData = [CardsDataModel]()
-    var stackContainer : StackContainerView!
 
-    
+    lazy var navigationView: ProgressBarNavigationView = {
+        let view = ProgressBarNavigationView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.closeButton.addTarget(
+            self,
+            action: #selector(closeDidTap(_:)),
+            for: .touchUpInside
+        )
+        return view
+    }()
+
+    lazy var stackContainer: StackContainerView = {
+        let view = StackContainerView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     //MARK: - Init
 
-    public
-    init(words: [Word]) {
+    public init(words: [Word]) {
         super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .coverVertical
+
         for word in words {
             viewModelData.append(CardsDataModel(text: word.english ?? "", image: UIImage()))
         }
@@ -39,52 +54,49 @@ public class FlipGameViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func loadView() {
-        view = UIView()
-        view.backgroundColor = UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.0)
-        stackContainer = StackContainerView()
-        stackContainer.delegate = self
-        view.addSubview(stackContainer)
-        configureStackContainer()
-        stackContainer.translatesAutoresizingMaskIntoConstraints = false
-        configureNavigationBarButtonItem()
-    }
-
     public override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Expense Tracker"
-        stackContainer.dataSource = self
-    }
-    
 
-    //MARK: - Configurations
-    func configureStackContainer() {
+        navigationView.configire(maxCount: viewModelData.count)
+        stackContainer.configure(maxCount: viewModelData.count)
+        configureLayout()
+    }
+
+    func configureLayout() {
+        stackContainer.delegate = self
+
+        view.backgroundColor = Constant.backgroundColor
+        view.addSubview(navigationView)
+        view.addSubview(stackContainer)
+
+        navigationView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(Constant.navigationHeight)
+        }
+
         stackContainer.snp.makeConstraints { (make) in
-            make.centerY.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.centerY.centerX.equalTo(view)
             make.height.equalTo(UIScreen.main.bounds.width - 32)
             make.width.equalTo(UIScreen.main.bounds.width - 32)
         }
-    }
-    
-    func configureNavigationBarButtonItem() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetTapped))
-    }
-    
-    //MARK: - Handlers
-    @objc func resetTapped() {
-        stackContainer.reloadData()
+
+        // TODO: datasource didset change
+        stackContainer.dataSource = self
+
     }
 
+    @objc func closeDidTap(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 extension FlipGameViewController : SwipeCardsDataSource {
-
     func numberOfCardsToShow() -> Int {
         return viewModelData.count
     }
     
     func card(at index: Int) -> SwipeCardView {
-        let card = SwipeCardView()
+        let card = SwipeCardView(index: index)
         card.dataSource = viewModelData[index]
         return card
     }
@@ -94,11 +106,19 @@ extension FlipGameViewController : SwipeCardsDataSource {
     }
 }
 
-extension FlipGameViewController: FlipGameViewControllerDelegate {
-    func flipGameViewController(
+extension FlipGameViewController: StackContainerViewDelegate {
+    func stackContainerView(
         _ view: StackContainerView,
         didCompleteCard: SwipeCardView
     ) {
         present(NoticePopupViewController(text: "모두 학습! 잘했어!"), animated: true, completion: nil)
+    }
+
+    func stackContainerView(
+        _ view: StackContainerView,
+        didEndDisplayCard: SwipeCardView,
+        endIndex index: Int
+    ) {
+        navigationView.setProgress(index: index)
     }
 }

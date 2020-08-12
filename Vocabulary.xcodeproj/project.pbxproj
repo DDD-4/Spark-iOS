@@ -25,8 +25,12 @@
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
 		7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */; };
-		7D477D7724E193C9004A7F17 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7624E193C9004A7F17 /* CALayer+.swift */; };
+		7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */; };
+		7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D477D7A24E2C3C7004A7F17 /* Media.xcassets */; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
+		7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
+		7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7624E193C9004A7F17 /* CALayer+.swift */; };
 		7D88E29624E170C4000D8559 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29424E170C4000D8559 /* ScreenView.swift */; };
 		7D88E29724E170C4000D8559 /* TakePictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29524E170C4000D8559 /* TakePictureController.swift */; };
 		7D88E29C24E170E7000D8559 /* settingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29824E170E6000D8559 /* settingCell.swift */; };
@@ -83,7 +87,6 @@
 		CEFED4AC24D5C8FB002E858C /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A924D5C8FB002E858C /* SwipeCardDelegate.swift */; };
 		CEFED4B124D5C900002E858C /* StackContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4AE24D5C900002E858C /* StackContainerView.swift */; };
 		CEFED4B224D5C900002E858C /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4AF24D5C900002E858C /* SwipeCardView.swift */; };
-		CEFED4B324D5C900002E858C /* SwipeableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B024D5C900002E858C /* SwipeableCardView.swift */; };
 		CEFED4B824D5D031002E858C /* ImageWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B624D5D030002E858C /* ImageWord.swift */; };
 		CEFED4B924D5D031002E858C /* CardMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B724D5D030002E858C /* CardMatching.swift */; };
 		CEFED4BB24D5D037002E858C /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BA24D5D037002E858C /* CardCell.swift */; };
@@ -92,6 +95,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7D6F9D0424E2EE3B005B6835 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DDB4AC424DC2D6B008812CD;
+			remoteInfo = PoingDesignSystem;
+		};
 		7DAF66BA24DC477F00B68C6C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
@@ -150,6 +160,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +204,8 @@
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaEmptyCell.swift; sourceTree = "<group>"; };
 		7D477D7624E193C9004A7F17 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNavigationView.swift; sourceTree = "<group>"; };
+		7D477D7A24E2C3C7004A7F17 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7D88E29424E170C4000D8559 /* ScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
 		7D88E29524E170C4000D8559 /* TakePictureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePictureController.swift; sourceTree = "<group>"; };
 		7D88E29824E170E6000D8559 /* settingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingCell.swift; sourceTree = "<group>"; };
@@ -254,7 +267,6 @@
 		CEFED4A924D5C8FB002E858C /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
 		CEFED4AE24D5C900002E858C /* StackContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackContainerView.swift; sourceTree = "<group>"; };
 		CEFED4AF24D5C900002E858C /* SwipeCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
-		CEFED4B024D5C900002E858C /* SwipeableCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableCardView.swift; sourceTree = "<group>"; };
 		CEFED4B624D5D030002E858C /* ImageWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWord.swift; sourceTree = "<group>"; };
 		CEFED4B724D5D030002E858C /* CardMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatching.swift; sourceTree = "<group>"; };
 		CEFED4BA24D5D037002E858C /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardCell.swift; path = PreDev/CardMatching/CardMatching/CardCell.swift; sourceTree = SOURCE_ROOT; };
@@ -317,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				060A2BFF3328CFC53FBFBE42 /* Pods_VocaGame.framework in Frameworks */,
+				7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +426,7 @@
 		7DDB4AC624DC2D6B008812CD /* PoingDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				7D477D7624E193C9004A7F17 /* CALayer+.swift */,
 				7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */,
 				7DDB4AC824DC2D6B008812CD /* Info.plist */,
 				7DDB4B0E24DC2E1E008812CD /* AccentButton.swift */,
@@ -541,7 +555,6 @@
 			isa = PBXGroup;
 			children = (
 				CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */,
-				7D477D7624E193C9004A7F17 /* CALayer+.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -562,6 +575,8 @@
 				CEFED49C24D5C8DC002E858C /* Flip */,
 				CEFED48124D5C8C2002E858C /* VocaGame.h */,
 				CEFED48224D5C8C2002E858C /* Info.plist */,
+				7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */,
+				7D477D7A24E2C3C7004A7F17 /* Media.xcassets */,
 			);
 			path = VocaGame;
 			sourceTree = "<group>";
@@ -621,7 +636,6 @@
 			children = (
 				CEFED4AE24D5C900002E858C /* StackContainerView.swift */,
 				CEFED4AF24D5C900002E858C /* SwipeCardView.swift */,
-				CEFED4B024D5C900002E858C /* SwipeableCardView.swift */,
 			);
 			name = View;
 			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/View";
@@ -805,6 +819,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7D6F9D0524E2EE3B005B6835 /* PBXTargetDependency */,
 			);
 			name = VocaGame;
 			productName = VocaGame;
@@ -908,6 +923,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1053,7 +1069,6 @@
 				187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
 				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
-				7D477D7724E193C9004A7F17 /* CALayer+.swift in Sources */,
 				CEF4C3BA24D3949E001AEE97 /* AddVocaViewController.swift in Sources */,
 				7D88E29624E170C4000D8559 /* ScreenView.swift in Sources */,
 				7D88E29724E170C4000D8559 /* TakePictureController.swift in Sources */,
@@ -1072,6 +1087,7 @@
 				7DDB4B1324DC2E1E008812CD /* VDSTextField.swift in Sources */,
 				7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */,
 				7DDB4B0F24DC2E1E008812CD /* AccentButton.swift in Sources */,
+				7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */,
 				7DDB4B1024DC2E1E008812CD /* NoticePopupViewController.swift in Sources */,
 				7DDB4B1124DC2E1E008812CD /* UIColor+.swift in Sources */,
 			);
@@ -1115,9 +1131,9 @@
 				CEFED4AB24D5C8FB002E858C /* SwipeCardsDataSource.swift in Sources */,
 				CEFED4A424D5C8F2002E858C /* DetailViewController.swift in Sources */,
 				CEFED4A324D5C8F2002E858C /* FlipGameViewController.swift in Sources */,
-				CEFED4B324D5C900002E858C /* SwipeableCardView.swift in Sources */,
 				CEFED4B224D5C900002E858C /* SwipeCardView.swift in Sources */,
 				CEFED4B824D5D031002E858C /* ImageWord.swift in Sources */,
+				7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */,
 				CEFED4AC24D5C8FB002E858C /* SwipeCardDelegate.swift in Sources */,
 				CEFED49F24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift in Sources */,
 				CEFED4BD24D5D03E002E858C /* ViewController.swift in Sources */,
@@ -1131,6 +1147,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7D6F9D0524E2EE3B005B6835 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */;
+			targetProxy = 7D6F9D0424E2EE3B005B6835 /* PBXContainerItemProxy */;
+		};
 		7DAF66BB24DC477F00B68C6C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */;
