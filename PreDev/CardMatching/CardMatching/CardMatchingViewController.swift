@@ -232,7 +232,7 @@ extension CardMatchingViewController: UICollectionViewDelegate, UICollectionView
         let heightSpacing: CGFloat = (CGFloat((currentGridTyp.vertical - 1)) * Constant.spacing)
         var cellHeight = Int((collectionView.bounds.height - heightSpacing) / CGFloat(currentGridTyp.vertical))
 
-        let widthSpacing: CGFloat = (CGFloat((currentGridTyp.horizontal + 1)) * Constant.spacing)
+        let widthSpacing: CGFloat = (CGFloat((currentGridTyp.horizontal - 1)) * Constant.spacing)
         var cellWidth = Int((collectionView.bounds.width - widthSpacing) / CGFloat(currentGridTyp.horizontal))
 
         if cellHeight <= cellWidth {
