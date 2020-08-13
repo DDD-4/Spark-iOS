@@ -20,6 +20,9 @@
 		187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024B24D40968008DBC8B /* WordDetailCell.swift */; };
 		187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024D24D41705008DBC8B /* VocaForAllModel.swift */; };
 		7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D14050724DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift */; };
+		7D16CBB924E5805500C95F8D /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */; };
+		7D16CBBC24E5826300C95F8D /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */; };
+		7D16CBBD24E5826400C95F8D /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */; };
 		7D1FBE5024DC3B6000D2F4A1 /* Voca.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1524DC2E67008812CD /* Voca.xcdatamodeld */; };
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
@@ -197,6 +200,7 @@
 		5AD6E985030682623744FE4E /* Pods_Vocabulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vocabulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C3389560DBDD00DE6B80C3E /* Pods-PoingDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-PoingDesignSystem/Pods-PoingDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
 		7D14050724DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupViewModel.swift; sourceTree = "<group>"; };
+		7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BalsamiqSansBold.ttf; sourceTree = "<group>"; };
 		7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "포잉포잉.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E0024BE05AF00CA4554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -366,6 +370,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7D16CBB724E5804400C95F8D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		7D276DF424BE05AF00CA4554 = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +438,7 @@
 		7DDB4AC624DC2D6B008812CD /* PoingDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				7D16CBB724E5804400C95F8D /* Resources */,
 				7D477D7624E193C9004A7F17 /* CALayer+.swift */,
 				7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */,
 				7DDB4AC824DC2D6B008812CD /* Info.plist */,
@@ -888,6 +901,7 @@
 			files = (
 				7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */,
 				7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */,
+				7D16CBBC24E5826300C95F8D /* BalsamiqSansBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -895,6 +909,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D16CBB924E5805500C95F8D /* BalsamiqSansBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -923,6 +938,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D16CBBD24E5826400C95F8D /* BalsamiqSansBold.ttf in Resources */,
 				7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

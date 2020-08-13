@@ -60,9 +60,12 @@ class SwipeCardView: UIView {
     var flipLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 46, weight: .bold)
+        label.font = UIFont.BalsamiqSansBold(size: 46)
         label.textColor = .darkIndigo
         label.textAlignment = .center
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
         return label
     }()
 

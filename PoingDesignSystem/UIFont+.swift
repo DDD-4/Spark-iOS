@@ -8,6 +8,12 @@
 
 import UIKit.UIFont
 
-extension UIFont {
-    
+public extension UIFont {
+    static func BalsamiqSansBold(size: CGFloat) -> UIFont {for family in UIFont.familyNames.sorted() {
+            let names = UIFont.fontNames(forFamilyName: family)
+            print("Family: \(family) Font names: \(names)")
+        }
+
+        return UIFont(name: "BalsamiqSansBold", size: size)!
+    }
 }
