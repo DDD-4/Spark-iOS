@@ -91,8 +91,7 @@ class ProgressBarNavigationView: UIView {
     }
 
     func setProgress(index: Int) {
-        let calculateIndex = index + 1
-        let progressWidth = self.progressWrapper.bounds.width/CGFloat(self.maxCount) * CGFloat(calculateIndex)
+        let progressWidth = self.progressWrapper.bounds.width/CGFloat(self.maxCount) * CGFloat(index)
 
         UIView.animate(withDuration: 0.6, delay: 0, options: [.curveEaseInOut], animations: { [weak self] in
             guard let self = self else { return }
