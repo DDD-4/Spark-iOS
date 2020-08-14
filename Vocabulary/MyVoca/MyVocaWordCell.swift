@@ -89,10 +89,12 @@ class MyVocaWordCell: UICollectionViewCell {
     lazy var englishLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 46, weight: .bold)
-        label.textColor = UIColor(red: 17.0 / 255.0, green: 28.0 / 255.0, blue: 78.0 / 255.0, alpha: 1.0)
+        label.font = UIFont.BalsamiqSansBold(size: 46)
+        label.textColor = UIColor.darkIndigo
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         return label
     }()
 
