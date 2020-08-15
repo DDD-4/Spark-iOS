@@ -82,14 +82,12 @@
 		CEFED47324D45291002E858C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47224D45291002E858C /* GameViewController.swift */; };
 		CEFED47524D5B236002E858C /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47424D5B236002E858C /* GameCell.swift */; };
 		CEFED49124D5C8C2002E858C /* VocaGame.h in Headers */ = {isa = PBXBuildFile; fileRef = CEFED48124D5C8C2002E858C /* VocaGame.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CEFED49F24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED49E24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift */; };
 		CEFED4A324D5C8F2002E858C /* FlipGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A124D5C8F2002E858C /* FlipGameViewController.swift */; };
-		CEFED4A424D5C8F2002E858C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A224D5C8F2002E858C /* DetailViewController.swift */; };
 		CEFED4AA24D5C8FB002E858C /* CardsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A624D5C8FB002E858C /* CardsDataModel.swift */; };
-		CEFED4AB24D5C8FB002E858C /* SwipeCardsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A824D5C8FB002E858C /* SwipeCardsDataSource.swift */; };
-		CEFED4AC24D5C8FB002E858C /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A924D5C8FB002E858C /* SwipeCardDelegate.swift */; };
+		CEFED4AB24D5C8FB002E858C /* FlipCardViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A824D5C8FB002E858C /* FlipCardViewDataSource.swift */; };
+		CEFED4AC24D5C8FB002E858C /* FlipCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A924D5C8FB002E858C /* FlipCardViewDelegate.swift */; };
 		CEFED4B124D5C900002E858C /* StackContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4AE24D5C900002E858C /* StackContainerView.swift */; };
-		CEFED4B224D5C900002E858C /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4AF24D5C900002E858C /* SwipeCardView.swift */; };
+		CEFED4B224D5C900002E858C /* FlipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4AF24D5C900002E858C /* FlipCardView.swift */; };
 		CEFED4B824D5D031002E858C /* ImageWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B624D5D030002E858C /* ImageWord.swift */; };
 		CEFED4B924D5D031002E858C /* CardMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B724D5D030002E858C /* CardMatching.swift */; };
 		CEFED4BB24D5D037002E858C /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BA24D5D037002E858C /* CardCell.swift */; };
@@ -263,14 +261,12 @@
 		CEFED47F24D5C8C2002E858C /* VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFED48124D5C8C2002E858C /* VocaGame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VocaGame.h; sourceTree = "<group>"; };
 		CEFED48224D5C8C2002E858C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEFED49E24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentDetailViewControllerTransitionAnimation.swift; sourceTree = "<group>"; };
 		CEFED4A124D5C8F2002E858C /* FlipGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipGameViewController.swift; sourceTree = "<group>"; };
-		CEFED4A224D5C8F2002E858C /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		CEFED4A624D5C8FB002E858C /* CardsDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsDataModel.swift; sourceTree = "<group>"; };
-		CEFED4A824D5C8FB002E858C /* SwipeCardsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardsDataSource.swift; sourceTree = "<group>"; };
-		CEFED4A924D5C8FB002E858C /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
+		CEFED4A824D5C8FB002E858C /* FlipCardViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipCardViewDataSource.swift; sourceTree = "<group>"; };
+		CEFED4A924D5C8FB002E858C /* FlipCardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipCardViewDelegate.swift; sourceTree = "<group>"; };
 		CEFED4AE24D5C900002E858C /* StackContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackContainerView.swift; sourceTree = "<group>"; };
-		CEFED4AF24D5C900002E858C /* SwipeCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
+		CEFED4AF24D5C900002E858C /* FlipCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipCardView.swift; sourceTree = "<group>"; };
 		CEFED4B624D5D030002E858C /* ImageWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWord.swift; sourceTree = "<group>"; };
 		CEFED4B724D5D030002E858C /* CardMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatching.swift; sourceTree = "<group>"; };
 		CEFED4BA24D5D037002E858C /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardCell.swift; path = PreDev/CardMatching/CardMatching/CardCell.swift; sourceTree = SOURCE_ROOT; };
@@ -601,25 +597,14 @@
 				CEFED4A524D5C8FB002E858C /* Model */,
 				CEFED4A724D5C8FB002E858C /* Utils */,
 				CEFED4A024D5C8F2002E858C /* Controllers */,
-				CEFED49D24D5C8E7002E858C /* Animations */,
 			);
 			path = Flip;
 			sourceTree = "<group>";
-		};
-		CEFED49D24D5C8E7002E858C /* Animations */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED49E24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift */,
-			);
-			name = Animations;
-			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Animations";
-			sourceTree = SOURCE_ROOT;
 		};
 		CEFED4A024D5C8F2002E858C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				CEFED4A124D5C8F2002E858C /* FlipGameViewController.swift */,
-				CEFED4A224D5C8F2002E858C /* DetailViewController.swift */,
 			);
 			name = Controllers;
 			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Controllers";
@@ -637,8 +622,8 @@
 		CEFED4A724D5C8FB002E858C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				CEFED4A824D5C8FB002E858C /* SwipeCardsDataSource.swift */,
-				CEFED4A924D5C8FB002E858C /* SwipeCardDelegate.swift */,
+				CEFED4A824D5C8FB002E858C /* FlipCardViewDataSource.swift */,
+				CEFED4A924D5C8FB002E858C /* FlipCardViewDelegate.swift */,
 			);
 			name = Utils;
 			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Utils";
@@ -648,7 +633,7 @@
 			isa = PBXGroup;
 			children = (
 				CEFED4AE24D5C900002E858C /* StackContainerView.swift */,
-				CEFED4AF24D5C900002E858C /* SwipeCardView.swift */,
+				CEFED4AF24D5C900002E858C /* FlipCardView.swift */,
 			);
 			name = View;
 			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/View";
@@ -1144,14 +1129,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEFED4AB24D5C8FB002E858C /* SwipeCardsDataSource.swift in Sources */,
-				CEFED4A424D5C8F2002E858C /* DetailViewController.swift in Sources */,
+				CEFED4AB24D5C8FB002E858C /* FlipCardViewDataSource.swift in Sources */,
 				CEFED4A324D5C8F2002E858C /* FlipGameViewController.swift in Sources */,
-				CEFED4B224D5C900002E858C /* SwipeCardView.swift in Sources */,
+				CEFED4B224D5C900002E858C /* FlipCardView.swift in Sources */,
 				CEFED4B824D5D031002E858C /* ImageWord.swift in Sources */,
 				7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */,
-				CEFED4AC24D5C8FB002E858C /* SwipeCardDelegate.swift in Sources */,
-				CEFED49F24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift in Sources */,
+				CEFED4AC24D5C8FB002E858C /* FlipCardViewDelegate.swift in Sources */,
 				CEFED4BD24D5D03E002E858C /* CardMatchingViewController.swift in Sources */,
 				CEFED4B924D5D031002E858C /* CardMatching.swift in Sources */,
 				CEFED4B124D5C900002E858C /* StackContainerView.swift in Sources */,

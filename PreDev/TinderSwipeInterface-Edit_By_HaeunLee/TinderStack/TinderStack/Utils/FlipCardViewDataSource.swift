@@ -11,6 +11,6 @@ import UIKit
 
 protocol FlipCardViewDataSource {
     func numberOfCardsToShow() -> Int
-    func swipeCards(at index: Int) -> FlipCardView
+    func flipCard(at index: Int) -> FlipCardView
     func emptyView() -> UIView?
 }
