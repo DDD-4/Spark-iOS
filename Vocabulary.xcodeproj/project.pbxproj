@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		060A2BFF3328CFC53FBFBE42 /* Pods_VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4478D4B7DA4E6BD69D08D8DE /* Pods_VocaGame.framework */; };
 		1238287CFA7BC45ADFF42843 /* Pods_PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED704EC38B4DD6954EB8967E /* Pods_PoingDesignSystem.framework */; };
+		1833D74A24E78A3C0085DDF6 /* SelectVocaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */; };
+		1833D74B24E78A3C0085DDF6 /* TakePictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74624E78A3C0085DDF6 /* TakePictureController.swift */; };
+		1833D74C24E78A3C0085DDF6 /* SelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74724E78A3C0085DDF6 /* SelectViewModel.swift */; };
+		1833D74D24E78A3C0085DDF6 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74824E78A3C0085DDF6 /* ScreenView.swift */; };
+		1833D74E24E78A3C0085DDF6 /* SelectVocaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74924E78A3C0085DDF6 /* SelectVocaViewController.swift */; };
+		1833D75224E78A650085DDF6 /* settingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74F24E78A640085DDF6 /* settingCell.swift */; };
+		1833D75324E78A650085DDF6 /* UserinfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D75024E78A650085DDF6 /* UserinfoHeader.swift */; };
+		1833D75424E78A650085DDF6 /* SettingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D75124E78A650085DDF6 /* SettingSection.swift */; };
+		1833D75624E78A720085DDF6 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D75524E78A720085DDF6 /* MyViewController.swift */; };
 		186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84C924D1462E0094E9EB /* BaseButton.swift */; };
 		186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */; };
 		186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */; };
@@ -161,6 +170,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectVocaTableViewCell.swift; sourceTree = "<group>"; };
+		1833D74624E78A3C0085DDF6 /* TakePictureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePictureController.swift; sourceTree = "<group>"; };
+		1833D74724E78A3C0085DDF6 /* SelectViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectViewModel.swift; sourceTree = "<group>"; };
+		1833D74824E78A3C0085DDF6 /* ScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
+		1833D74924E78A3C0085DDF6 /* SelectVocaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectVocaViewController.swift; sourceTree = "<group>"; };
+		1833D74F24E78A640085DDF6 /* settingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingCell.swift; sourceTree = "<group>"; };
+		1833D75024E78A650085DDF6 /* UserinfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserinfoHeader.swift; sourceTree = "<group>"; };
+		1833D75124E78A650085DDF6 /* SettingSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingSection.swift; sourceTree = "<group>"; };
+		1833D75524E78A720085DDF6 /* MyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		186E84C924D1462E0094E9EB /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordNavigationView.swift; sourceTree = "<group>"; };
@@ -491,6 +509,10 @@
 		CE6C9B5F24CF2D790068C3BB /* My */ = {
 			isa = PBXGroup;
 			children = (
+				1833D75524E78A720085DDF6 /* MyViewController.swift */,
+				1833D74F24E78A640085DDF6 /* settingCell.swift */,
+				1833D75124E78A650085DDF6 /* SettingSection.swift */,
+				1833D75024E78A650085DDF6 /* UserinfoHeader.swift */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -498,6 +520,11 @@
 		CE6C9B6124CF2D870068C3BB /* AddWord */ = {
 			isa = PBXGroup;
 			children = (
+				1833D74824E78A3C0085DDF6 /* ScreenView.swift */,
+				1833D74724E78A3C0085DDF6 /* SelectViewModel.swift */,
+				1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */,
+				1833D74924E78A3C0085DDF6 /* SelectVocaViewController.swift */,
+				1833D74624E78A3C0085DDF6 /* TakePictureController.swift */,
 				186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */,
 				186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */,
 			);
@@ -1002,12 +1029,18 @@
 				CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */,
 				186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */,
 				CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */,
+				1833D75324E78A650085DDF6 /* UserinfoHeader.swift in Sources */,
+				1833D75224E78A650085DDF6 /* settingCell.swift in Sources */,
 				CEFED47524D5B236002E858C /* GameCell.swift in Sources */,
+				1833D74C24E78A3C0085DDF6 /* SelectViewModel.swift in Sources */,
 				CE1458FA24D319FC004F2700 /* EditMyVocaGroupCell.swift in Sources */,
 				186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */,
 				CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */,
 				1870799524D8120E0079E280 /* WordViewModel.swift in Sources */,
+				1833D75424E78A650085DDF6 /* SettingSection.swift in Sources */,
 				187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */,
+				1833D74D24E78A3C0085DDF6 /* ScreenView.swift in Sources */,
+				1833D74E24E78A3C0085DDF6 /* SelectVocaViewController.swift in Sources */,
 				7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */,
 				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
@@ -1017,12 +1050,15 @@
 				186E84E924D2E2A30094E9EB /* VocaForAllCell.swift in Sources */,
 				CEFED47324D45291002E858C /* GameViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
+				1833D75624E78A720085DDF6 /* MyViewController.swift in Sources */,
 				186E84E724D2DB300094E9EB /* VocaForAllNavigationView.swift in Sources */,
 				186E84E524D2DAC50094E9EB /* VocaForAllViewController.swift in Sources */,
 				187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
+				1833D74A24E78A3C0085DDF6 /* SelectVocaTableViewCell.swift in Sources */,
 				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
 				CEF4C3BA24D3949E001AEE97 /* AddVocaViewController.swift in Sources */,
+				1833D74B24E78A3C0085DDF6 /* TakePictureController.swift in Sources */,
 				187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1266,7 +1302,7 @@
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				INFOPLIST_FILE = Vocabulary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1274,7 +1310,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabulary;
+				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabularya;
 				PRODUCT_NAME = "포잉포잉";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1311,7 +1347,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1369,7 +1405,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				INFOPLIST_FILE = PoingDesignSystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1413,7 +1449,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1471,7 +1507,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				INFOPLIST_FILE = PoingVocaSubsystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1515,7 +1551,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
