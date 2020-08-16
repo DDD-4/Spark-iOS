@@ -11,14 +11,14 @@ import UIKit
 import SnapKit
 import PoingDesignSystem
 
-class SwipeCardView: UIView {
+class FlipCardView: UIView {
     enum Constant {
         static let radius: CGFloat = 16
     }
     
     //MARK: - Properties
     let index: Int
-    weak var delegate: SwipeCardsDelegate?
+    weak var delegate: FlipCardViewDelegate?
 
     var dataSource : CardsDataModel? {
         didSet {
@@ -122,7 +122,7 @@ class SwipeCardView: UIView {
     
     //MARK: - Handlers
     @objc func handlePanGesture(sender: UIPanGestureRecognizer){
-        let card = sender.view as! SwipeCardView
+        let card = sender.view as! FlipCardView
         let point = sender.translation(in: self)
         let centerOfParentContainer = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         card.center = CGPoint(x: centerOfParentContainer.x + point.x, y: centerOfParentContainer.y + point.y)
@@ -130,7 +130,7 @@ class SwipeCardView: UIView {
         switch sender.state {
         case .ended:
             if (card.center.x) > 400 {
-                delegate?.swipeDidEnd(on: card, endIndex: index)
+                delegate?.flipCardDidEnd(on: card, endIndex: index)
                 UIView.animate(withDuration: 0.2) {
                     card.center = CGPoint(x: centerOfParentContainer.x + point.x + 200, y: centerOfParentContainer.y + point.y + 75)
                     card.alpha = 0
@@ -138,7 +138,7 @@ class SwipeCardView: UIView {
                 }
                 return
             }else if card.center.x < -65 {
-                delegate?.swipeDidEnd(on: card, endIndex: index)
+                delegate?.flipCardDidEnd(on: card, endIndex: index)
                 UIView.animate(withDuration: 0.2) {
                     card.center = CGPoint(x: centerOfParentContainer.x + point.x - 200, y: centerOfParentContainer.y + point.y + 75)
                     card.alpha = 0
@@ -161,7 +161,7 @@ class SwipeCardView: UIView {
     }
     
     @objc func handleTapGesture(sender: UITapGestureRecognizer){
-        delegate?.swipeView(self)
+        delegate?.flipCardDidTap(self)
     }
     
   

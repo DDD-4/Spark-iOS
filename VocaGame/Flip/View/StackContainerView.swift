@@ -3,6 +3,7 @@
 //  TinderStack
 //
 //  Created by Osama Naeem on 16/03/2019.
+//  Edited by Haeun lee
 //  Copyright © 2019 NexThings. All rights reserved.
 //
 
@@ -12,11 +13,11 @@ import AVFoundation
 protocol StackContainerViewDelegate: class {
     func stackContainerView(
         _ view: StackContainerView,
-        didCompleteCard: SwipeCardView
+        didCompleteCard: FlipCardView
     )
     func stackContainerView(
         _ view: StackContainerView,
-        didEndDisplayCard: SwipeCardView,
+        didEndDisplayCard: FlipCardView,
         endIndex index: Int
     )
 }
@@ -26,17 +27,17 @@ class StackContainerView: UIView {
     //MARK: - Properties
     var numberOfCardsToShow: Int = 0
     var cardsToBeVisible: Int = 3
-    var cardViews : [SwipeCardView] = []
+    var cardViews : [FlipCardView] = []
     var remainingcards: Int = 0
     
     let horizontalInset: CGFloat = 16
     let verticalInset: CGFloat = 16
     
-    var visibleCards: [SwipeCardView] {
-        return subviews as? [SwipeCardView] ?? []
+    var visibleCards: [FlipCardView] {
+        return subviews as? [FlipCardView] ?? []
     }
 
-    var dataSource: SwipeCardsDataSource? {
+    var dataSource: FlipCardViewDataSource? {
         didSet {
             reloadData()
         }
@@ -73,14 +74,14 @@ class StackContainerView: UIView {
         remainingcards = numberOfCardsToShow
         
         for i in 0..<min(numberOfCardsToShow,cardsToBeVisible) {
-            addCardView(cardView: datasource.card(at: i), atIndex: i )
+            addCardView(cardView: datasource.flipCard(at: i), atIndex: i )
             
         }
     }
 
     //MARK: - Configurations
 
-    private func addCardView(cardView: SwipeCardView, atIndex index: Int) {
+    private func addCardView(cardView: FlipCardView, atIndex index: Int) {
         cardView.delegate = self
         addCardFrame(index: index, cardView: cardView)
         cardViews.append(cardView)
@@ -88,7 +89,7 @@ class StackContainerView: UIView {
         remainingcards -= 1
     }
     
-    func addCardFrame(index: Int, cardView: SwipeCardView) {
+    func addCardFrame(index: Int, cardView: FlipCardView) {
         var cardViewFrame = bounds
         let horizontalInset = (CGFloat(index) * self.horizontalInset)
         let verticalInset = CGFloat(index) * self.verticalInset
@@ -108,8 +109,8 @@ class StackContainerView: UIView {
     }
 }
 
-extension StackContainerView: SwipeCardsDelegate {
-    func swipeView(_ view: SwipeCardView) {
+extension StackContainerView: FlipCardViewDelegate {
+    func flipCardDidTap(_ view: FlipCardView) {
         guard let readText = view.flipLabel.text else {
             return
         }
@@ -129,7 +130,7 @@ extension StackContainerView: SwipeCardsDelegate {
 
     }
 
-    func swipeDidEnd(on view: SwipeCardView, endIndex index: Int) {
+    func flipCardDidEnd(on view: FlipCardView, endIndex index: Int) {
         guard let datasource = dataSource else { return }
         view.removeFromSuperview()
 
@@ -140,7 +141,7 @@ extension StackContainerView: SwipeCardsDelegate {
 
         if remainingcards > 0 {
             let newIndex = datasource.numberOfCardsToShow() - remainingcards
-            addCardView(cardView: datasource.card(at: newIndex), atIndex: 2)
+            addCardView(cardView: datasource.flipCard(at: newIndex), atIndex: 2)
             for (cardIndex, cardView) in visibleCards.reversed().enumerated() {
                 UIView.animate(withDuration: 0.2, animations: {
                     cardView.center = self.center
