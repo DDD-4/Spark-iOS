@@ -22,9 +22,6 @@ private enum VocaForAllConstants {
 class VocaForAllViewController: UIViewController {
     
     // MARK: - Properties
-    let disposeBag = DisposeBag()
-    var viewModel = WordViewModel(group: nil)
-    
     lazy var VocaForAllNaviView: VocaForAllNavigationView = {
         let view = VocaForAllNavigationView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -51,9 +48,12 @@ class VocaForAllViewController: UIViewController {
     ]
     
     var groups = [Group]()
-    init(groups: [Group]) {
-        
-        self.groups = groups
+    let disposeBag = DisposeBag()
+    let viewModel = VocaForAllViewModel()
+    weak var delegate: VocaForAllViewController?
+    
+    init() {
+        //self.groups = groups
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,18 +65,16 @@ class VocaForAllViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
-        let newGroup = Group(
-            title: "test",
-            visibilityType: .public,
-            identifier: UUID(),
-            words: self.dummyWords
-        )
-        
-        self.groups.append(newGroup)
-        self.tableView.reloadData()
-        self.viewModel = WordViewModel(group: newGroup)
         configureLayout()
         bindRx()
+        
+        VocaDataChanged()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(VocaDataChanged),
+            name: .vocaDataChanged,
+            object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -123,11 +121,16 @@ class VocaForAllViewController: UIViewController {
             self?.tableView.reloadData()
         })
     }
+    
+    @objc func VocaDataChanged() {
+        viewModel.input.fetchGroups()
+        groups = viewModel.output.groups.value
+    }
 }
 
 extension VocaForAllViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        return viewModel.output.groups.value.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -135,7 +138,7 @@ extension VocaForAllViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configure(group: groups[indexPath.row])
+        cell.configure(group: viewModel.output.groups.value[indexPath.row])
         return cell
     }
 
@@ -151,7 +154,8 @@ extension VocaForAllViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let wordView = VocaDetailViewController(group: self.groups[indexPath.row])
+        
+        let wordView = VocaDetailViewController(group: viewModel.output.groups.value[indexPath.row])
         self.navigationController?.pushViewController(wordView, animated: true)
     }
     

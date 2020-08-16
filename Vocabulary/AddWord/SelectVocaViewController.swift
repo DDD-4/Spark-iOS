@@ -41,7 +41,6 @@ class SelectVocaViewController: UIViewController{
         view.backgroundColor = .green
         view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         view.separatorStyle = .none
-        //view.rowHeight = UITableView.automaticDimension
         view.rowHeight = 47
         view.register(SelectVocaTableViewCell.self, forCellReuseIdentifier: SelectVocaTableViewCell.reuseIdentifier)
         view.contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 16)
@@ -134,14 +133,10 @@ extension SelectVocaViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
         delegate?.selectVocaViewController(didTapGroup: viewModel.output.groups.value[indexPath.row])
-        //delegate?.selectVoca(selecteVoca: viewModel.output.groups.value[indexPath.row])
-        //viewModel.input.selectedGroup.accept(viewModel.output.groups.value[indexPath.row])
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectVocaTableViewCell.reuseIdentifier, for: indexPath) as? SelectVocaTableViewCell else {
             return
         }
-        
-        //cell.delegate?.selectVoca(selecteVoca: viewModel.output.groups.value[indexPath.row])
         dismiss(animated: true, completion: nil)
     }
 }

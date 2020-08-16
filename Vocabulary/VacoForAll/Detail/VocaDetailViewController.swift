@@ -15,11 +15,6 @@ import PoingVocaSubsystem
 class VocaDetailViewController: UIViewController {
     
     // MARK: - Properties
-    static let photoIdentifier = "DetailsCollectionViewCell"
-    
-    private var viewModel: WordViewModel
-    let disposeBag = DisposeBag()
-    
     lazy var vocaCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical // 스크롤 방향
@@ -42,7 +37,7 @@ class VocaDetailViewController: UIViewController {
     lazy var saveButton: BaseButton = {
         let button = BaseButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 30
+        button.layer.cornerRadius = 15
         button.setTitle("모두 저장하기", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
@@ -50,6 +45,9 @@ class VocaDetailViewController: UIViewController {
     }()
     
     var words = [Word]()
+    static let photoIdentifier = "DetailsCollectionViewCell"
+    private var viewModel: WordViewModel
+    let disposeBag = DisposeBag()
     
     // MARK: - Init
     init(group: Group) {
@@ -57,7 +55,6 @@ class VocaDetailViewController: UIViewController {
         defer {
             self.words = group.words
             self.navigationItem.title = group.title
-            //self.naviTitle.text = group.title
         }
         super.init(nibName: nil, bundle: nil)
     }
@@ -87,37 +84,47 @@ class VocaDetailViewController: UIViewController {
         view.addSubview(vocaCollectionView)
         
         saveButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
         vocaCollectionView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(saveButton.snp.top).offset(-10)
         }
         
     }
     
     func configureRx() {
         
+        self.saveButton.rx.tap.subscribe(onNext: {[weak self] (_) in
+            let viewController = SelectVocaViewController()
+            viewController.delegate = self
+            self?.present(viewController, animated: true, completion: nil)
+        })
+        
         viewModel.output.words
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (_) in
-                self?.vocaCollectionView.reloadData()
+            .subscribe(onNext: {[weak self] (_) in
+                
             }).disposed(by: disposeBag)
+    }
+}
+
+extension VocaDetailViewController: SelectVocaViewControllerDelegate {
+    func selectVocaViewController(didTapGroup group: Group) {
+        // 받아온 group 안에 현재 VocaDetailViewController가 가지고 있는 단어들을 추가해야 한다.
+        // viewModel.input.selectedGroup.accept(<#T##event: Group##Group#>) ????
         
-        viewModel.output.groups
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (_) in
-                 self?.vocaCollectionView.reloadData()
-            })
+        let alert: UIAlertView = UIAlertView(title: "단어 추가 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
         
-        self.vocaCollectionView.rx.modelSelected(Group.self)
-        .subscribe(onNext : { [weak self] (groupData) in
-            // present dim view..
-        }).disposed(by: disposeBag)
-    
+        alert.show()
+        
+        let when = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: when){
+            alert.dismiss(withClickedButtonIndex: 0, animated: true)
+        }
     }
 }
 
