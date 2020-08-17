@@ -15,6 +15,15 @@ public class VocaCoreDataManager: NSObject {
     let cloudKitID = "iCloud.Spark.Vocabulary"
     let vocaBundleID = "LEE-HAEUN.PoingVocaSubsystem"
 
+    /**
+     An operation queue for handling history processing tasks: watching changes, deduplicating tags, and triggering UI updates if needed.
+     */
+    private lazy var historyQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
+
     lazy var persistentContainer: NSPersistentContainer = {
         // MARK: - vaca data model 을 다른 target에 생성했기 때문에 bundle을 직접 명시
         let vocaBundle = Bundle(identifier: vocaBundleID)
@@ -29,6 +38,25 @@ public class VocaCoreDataManager: NSObject {
                 fatalError("❌ Loading of store failed:\(err)")
             }
         }
+
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+//        container.viewContext.transactionAuthor = appTransactionAuthorName
+
+        // Pin the viewContext to the current generation token and set it to keep itself up to date with local changes.
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        do {
+            try container.viewContext.setQueryGenerationFrom(.current)
+        } catch {
+            fatalError("###\(#function): Failed to pin viewContext to the current generation:\(error)")
+        }
+
+        // Observe Core Data remote change notifications.
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(type(of: self).storeRemoteChange(_:)),
+            name: .NSPersistentStoreRemoteChange,
+            object: container
+        )
 
         // 아래부터는 Configurations load
         // Put our stores into Application Support
@@ -196,6 +224,23 @@ public class VocaCoreDataManager: NSObject {
 
     @objc private func contextObjectDidChange(_ notification: NSNotification) {
         NotificationCenter.default.post(name: .vocaDataChanged, object: self)
+    }
+}
+
+// MARK: - Notifications
+
+extension VocaCoreDataManager {
+    /**
+     Handle remote store change notifications (.NSPersistentStoreRemoteChange).
+     */
+    @objc
+    func storeRemoteChange(_ notification: Notification) {
+        print("###\(#function): Merging changes from the other persistent store coordinator.")
+
+        // Process persistent history to merge changes from other coordinators.
+        historyQueue.addOperation {
+//            self.processPersistentHistory()
+        }
     }
 }
 
