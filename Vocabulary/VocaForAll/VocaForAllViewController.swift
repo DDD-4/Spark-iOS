@@ -31,8 +31,7 @@ class VocaForAllViewController: UIViewController {
     lazy var tableView: UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green
-        view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        view.backgroundColor = .white
         view.separatorStyle = .none
         view.rowHeight = UITableView.automaticDimension
         view.register(VocaForAllCell.self, forCellReuseIdentifier: VocaForAllCell.reuseIdentifier)
@@ -41,19 +40,12 @@ class VocaForAllViewController: UIViewController {
         return view
     }()
     
-    let dummyWords = [
-        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-        Word(korean: "한글", english: "eng", image: nil, identifier: UUID()),
-        Word(korean: "한글", english: "eng", image: nil, identifier: UUID())
-    ]
-    
     var groups = [Group]()
     let disposeBag = DisposeBag()
     let viewModel = VocaForAllViewModel()
     weak var delegate: VocaForAllViewController?
     
     init() {
-        //self.groups = groups
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -67,7 +59,6 @@ class VocaForAllViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
         configureLayout()
         bindRx()
-        
         VocaDataChanged()
         
         NotificationCenter.default.addObserver(
@@ -77,15 +68,19 @@ class VocaForAllViewController: UIViewController {
             object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        VocaDataChanged()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
     }
     
     // MARK: - View ✨
     func configureLayout() {
+        view.backgroundColor = .white
         view.addSubview(VocaForAllNaviView)
         view.addSubview(tableView)
-        view.backgroundColor = .white
         
         VocaForAllNaviView.snp.makeConstraints { (make) in
             if #available(iOS 11, *) {
@@ -111,15 +106,28 @@ class VocaForAllViewController: UIViewController {
     
     // MARK: - Bind 🏷
     func bindRx() {
-        self.VocaForAllNaviView.sortButton.rx.tap
+        self.VocaForAllNaviView.sortPopularButton.rx.tap
             .subscribe(onNext: { [weak self] (_) in
-                // openNavigation
-                print("hello!!")
+                // sort popular
+                // we need to group's properties about popularty and latest.
+            }).disposed(by: disposeBag)
+
+        self.VocaForAllNaviView.sortLatestButton.rx.tap
+            .subscribe(onNext: { [weak self] (_) in
+                // sort Latest
             }).disposed(by: disposeBag)
         
-        self.viewModel.output.words.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] (_) in
-            self?.tableView.reloadData()
-        })
+        self.viewModel.output.groups
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+                self?.tableView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        self.viewModel.output.words
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+                self?.tableView.reloadData()
+            }).disposed(by: disposeBag)
     }
     
     @objc func VocaDataChanged() {
@@ -156,17 +164,13 @@ extension VocaForAllViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let wordView = VocaDetailViewController(group: viewModel.output.groups.value[indexPath.row])
-        self.navigationController?.pushViewController(wordView, animated: true)
+        
+        present(wordView, animated: true, completion: nil)
+        
+        //self.navigationController?.pushViewController(wordView, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-    }
-}
-
-extension VocaForAllViewController {
-    // MARK: - Notification
-    @objc func didNotifyChangedVoca(_ notification: Notification) {
-        
     }
 }

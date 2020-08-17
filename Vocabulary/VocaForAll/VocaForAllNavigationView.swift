@@ -9,43 +9,51 @@
 import UIKit
 import SnapKit
 
-private enum VocaForAllConstants {
-  enum Title {
-    static let Title: String = "모두의 단어장"
-    static let color: UIColor = .black
-    static let Font: UIFont = .systemFont(ofSize: 20, weight: .heavy)
-  }
-  enum Button {
-    static let title: String = "최신순"
-    static let width: CGFloat = 34
-    static let height: CGFloat = 34
-    static let color: UIColor = .black
-  }
-  enum Divider {
-    static let height: CGFloat = 4
-    static let color: UIColor = .black
-  }
-}
 class VocaForAllNavigationView: UIView {
-    
+    enum Constant {
+        enum Active {
+            static let font = UIFont.systemFont(ofSize: 14, weight: .bold)
+            static let backgroundColor = UIColor(red: 74.0 / 255.0, green: 191.0 / 255.0, blue: 1.0, alpha: 1.0)
+            static let fontColor = UIColor.white
+        }
+        enum Inactive {
+            static let font = UIFont.systemFont(ofSize: 14, weight: .regular)
+            static let backgroundColor = UIColor(white: 244.0 / 255.0, alpha: 1.0)
+            static let fontColor = UIColor(red: 127.0 / 255.0, green: 129.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0)
+        }
+
+        static let height: CGFloat = 36
+    }
     // MARK: - Properties
     lazy var containerView: UIView = {
       let view = UIView()
       view.translatesAutoresizingMaskIntoConstraints = false
       return view
     }()
-    lazy var titleLabel: UILabel = {
-      let label = UILabel()
-      label.translatesAutoresizingMaskIntoConstraints = false
-      label.textColor = VocaForAllConstants.Title.color
-      label.font = VocaForAllConstants.Title.Font
-      label.text = VocaForAllConstants.Title.Title
-      return label
-    }()
-    lazy var sortButton: BaseButton = {
+    
+    lazy var sortPopularButton: BaseButton = {
       let button = BaseButton()
       button.translatesAutoresizingMaskIntoConstraints = false
-      button.setTitle(VocaForAllConstants.Button.title, for: .normal)
+      button.setTitle("인기순", for: .normal)
+      button.addTarget(self, action: #selector(PopularSelected), for: .touchUpInside)
+        button.backgroundColor = Constant.Active.backgroundColor
+        button.setTitleColor(Constant.Active.fontColor, for: .normal)
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        button.titleLabel?.font = Constant.Active.font
+        button.layer.cornerRadius = 15
+      return button
+    }()
+    
+    lazy var sortLatestButton: BaseButton = {
+      let button = BaseButton()
+      button.translatesAutoresizingMaskIntoConstraints = false
+      button.setTitle("최신순", for: .normal)
+        button.addTarget(self, action: #selector(LatestSelected), for: .touchUpInside)
+        button.backgroundColor = Constant.Inactive.backgroundColor
+        button.setTitleColor(Constant.Inactive.fontColor, for: .normal)
+        button.titleLabel?.font = Constant.Inactive.font
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        button.layer.cornerRadius = 15
       return button
     }()
     
@@ -59,36 +67,57 @@ class VocaForAllNavigationView: UIView {
     func initView() {
         self.addSubview(containerView)
     //
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(sortButton)
+        containerView.addSubview(sortPopularButton)
+        containerView.addSubview(sortLatestButton)
     //
         containerView.snp.makeConstraints { (make) in
           make.top.leading.trailing.bottom.equalTo(self)
-          make.height.equalTo(44)
+          make.height.equalTo(22 + 36)
         }
         
-        titleLabel.snp.makeConstraints { (make) in
-          make.leading.equalTo(containerView).offset(20)
+        sortPopularButton.snp.makeConstraints { (make) in
+          make.leading.equalTo(containerView).offset(16)
           make.centerY.equalTo(containerView)
-          make.height.equalTo(29)
+          make.height.equalTo(36)
         }
         
-        sortButton.snp.makeConstraints { (make) in
-          make.trailing.equalTo(containerView).offset(-16)
+        sortLatestButton.snp.makeConstraints { (make) in
+            make.leading.equalTo(sortPopularButton.snp.trailing).offset(10)
           make.centerY.equalTo(containerView)
+            make.height.equalTo(36)
         }
-        
       }
     
     func setAppearance() {
         self.backgroundColor = .white
-        self.titleLabel.textColor = .black
-        self.sortButton.setTitleColor(.black, for: .normal)
+        PopularSelected()
+    }
+    
+    @objc func PopularSelected() {
+
+        sortLatestButton.backgroundColor = Constant.Inactive.backgroundColor
+        sortLatestButton.setTitleColor(Constant.Inactive.fontColor, for: .normal)
+        sortLatestButton.titleLabel?.font = Constant.Inactive.font
+        
+        sortPopularButton.backgroundColor = Constant.Active.backgroundColor
+        sortPopularButton.setTitleColor(Constant.Active.fontColor, for: .normal)
+        sortPopularButton.titleLabel?.font = Constant.Active.font
+        
+    }
+    
+    @objc func LatestSelected() {
+
+        sortPopularButton.backgroundColor = Constant.Inactive.backgroundColor
+        sortPopularButton.setTitleColor(Constant.Inactive.fontColor, for: .normal)
+        sortPopularButton.titleLabel?.font = Constant.Inactive.font
+        
+        sortLatestButton.backgroundColor = Constant.Active.backgroundColor
+        sortLatestButton.setTitleColor(Constant.Active.fontColor, for: .normal)
+        sortLatestButton.titleLabel?.font = Constant.Active.font
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
 }

@@ -22,7 +22,7 @@ class VocaDetailViewController: UIViewController {
         flowLayout.minimumInteritemSpacing = 0 // 최소 내부 여백
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .gray
+        collectionView.backgroundColor = .white
         collectionView.register(
             WordDetailCell.self,
             forCellWithReuseIdentifier: WordDetailCell.reuseIdentifier
@@ -79,6 +79,7 @@ class VocaDetailViewController: UIViewController {
     }
     
     func configureLayout() {
+        view.backgroundColor = .white
         view.addSubview(saveButton)
         view.bringSubviewToFront(saveButton)
         view.addSubview(vocaCollectionView)
@@ -114,23 +115,25 @@ class VocaDetailViewController: UIViewController {
 
 extension VocaDetailViewController: SelectVocaViewControllerDelegate {
     func selectVocaViewController(didTapGroup group: Group) {
-        // 받아온 group 안에 현재 VocaDetailViewController가 가지고 있는 단어들을 추가해야 한다.
-        // viewModel.input.selectedGroup.accept(<#T##event: Group##Group#>) ????
         
-        let alert: UIAlertView = UIAlertView(title: "단어 추가 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
-        
-        alert.show()
-        
-        let when = DispatchTime.now() + 2
-        DispatchQueue.main.asyncAfter(deadline: when){
-            alert.dismiss(withClickedButtonIndex: 0, animated: true)
+        VocaManager.shared.update(group: group, addWords: words) {
+            let alert: UIAlertView = UIAlertView(title: "단어 추가 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
+            
+            alert.show()
+            
+            let when = DispatchTime.now() + 2
+            DispatchQueue.main.asyncAfter(deadline: when){
+                alert.dismiss(withClickedButtonIndex: 0, animated: true)
+            }
+            self.dismiss(animated: true, completion: nil)
         }
+        
     }
 }
 
 extension VocaDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.output.words.value.count
+        return words.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -138,7 +141,7 @@ extension VocaDetailViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.configure(word:
-            viewModel.output.words.value[indexPath.row])
+            words[indexPath.row])
         
         return cell
     }
