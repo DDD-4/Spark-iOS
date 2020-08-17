@@ -94,7 +94,6 @@ class VocaDetailViewController: UIViewController {
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(saveButton.snp.top).offset(-10)
         }
-        
     }
     
     func configureRx() {

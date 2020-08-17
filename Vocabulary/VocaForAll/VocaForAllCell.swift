@@ -125,7 +125,5 @@ class VocaForAllCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
     }
 }
