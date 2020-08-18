@@ -9,7 +9,7 @@
     <entity name="Word" representedClassName="ManagedWord" syncable="YES">
         <attribute name="english" optional="YES" attributeType="String"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="image" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="korean" optional="YES" attributeType="String"/>
         <relationship name="ofGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="words" inverseEntity="Group"/>
     </entity>

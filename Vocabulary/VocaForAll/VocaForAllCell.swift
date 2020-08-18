@@ -16,6 +16,25 @@ class VocaForAllCell: UITableViewCell {
     
     static let reuseIdentifier = String(describing: VocaForAllCell.self)
     
+    enum Constant {
+        static let sideMargin: CGFloat = 16
+        enum Image {
+            static let height: CGFloat = 263
+        }
+        enum TextContents {
+            static let contentTopMargin: CGFloat = 60
+            static let height: CGFloat = 343
+            static let radius: CGFloat = 32
+        }
+        enum Edit {
+            static let width: CGFloat = 18
+        }
+        static let micImage: UIImage? = UIImage(named: "icVoice")
+        static let micImageHeight: CGFloat = 48
+        static let imageRadius: CGFloat = 12
+
+    }
+    
     lazy var vocaImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -78,33 +97,33 @@ class VocaForAllCell: UITableViewCell {
     }
     
     func configureLayout() {
+        
         contentView.addSubview(baseView)
-        baseView.addSubview(stackView)
+        baseView.addSubview(titleLabel)
         baseView.addSubview(vocaImageView)
-        baseView.addSubview(numberView)
+        //baseView.addSubview(numberView)
         
         baseView.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(contentView)
-            make.leading.equalTo(contentView).offset(16)
-            make.trailing.equalTo(contentView).offset(-16)
+            make.leading.equalTo(contentView)
+            make.trailing.equalTo(contentView)
         }
         
         vocaImageView.snp.makeConstraints { (make) in
-            make.leading.top.bottom.equalTo(baseView)
-            make.height.width.equalTo(88)
+            make.trailing.equalTo(baseView).offset(-12)
+            make.top.equalTo(baseView).offset(12)
+            make.bottom.equalTo(baseView).offset(-12)
+            make.height.width.equalTo(96)
         }
         
-        numberView.snp.makeConstraints { (make) in
-            make.trailing.equalTo(baseView).offset(-16)
+        titleLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(baseView).offset(24)
             make.centerY.equalTo(baseView)
-        }
-        
-        stackView.snp.makeConstraints { (make) in
-            make.centerY.equalTo(baseView)
-            make.leading.equalTo(vocaImageView.snp.trailing).offset(16)
-            make.trailing.equalTo(numberView).offset(-8)
         }
         
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
 }

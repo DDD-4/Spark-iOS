@@ -14,7 +14,7 @@ public struct Word {
     public init(
         korean: String? = nil,
         english: String? = nil,
-        image: Date? = nil,
+        image: Data? = nil,
         identifier: UUID? = nil
     ) {
         self.korean = korean
@@ -25,7 +25,7 @@ public struct Word {
 
     public var korean: String?
     public var english: String?
-    public var image: Date?
+    public var image: Data?
     public var identifier: UUID?
 
     func toManaged(context: NSManagedObjectContext) -> ManagedWord{
@@ -46,7 +46,7 @@ extension ManagedWord {
 
     @NSManaged public var korean: String?
     @NSManaged public var english: String?
-    @NSManaged public var image: Date?
+    @NSManaged public var image: Data?
     @NSManaged public var identifier: UUID?
     @NSManaged public var ofGroup: ManagedGroup?
 
