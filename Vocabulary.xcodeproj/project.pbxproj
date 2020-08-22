@@ -44,6 +44,7 @@
 		7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7624E193C9004A7F17 /* CALayer+.swift */; };
+		7D7F602224F16387007021C6 /* Load.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D7F602024F16387007021C6 /* Load.xcdatamodeld */; };
 		7D88E29624E170C4000D8559 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29424E170C4000D8559 /* ScreenView.swift */; };
 		7D88E29724E170C4000D8559 /* TakePictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29524E170C4000D8559 /* TakePictureController.swift */; };
 		7D88E29C24E170E7000D8559 /* settingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29824E170E6000D8559 /* settingCell.swift */; };
@@ -218,6 +219,7 @@
 		7D477D7624E193C9004A7F17 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNavigationView.swift; sourceTree = "<group>"; };
 		7D477D7A24E2C3C7004A7F17 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		7D7F602124F16387007021C6 /* Load.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Load.xcdatamodel; sourceTree = "<group>"; };
 		7D88E29424E170C4000D8559 /* ScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
 		7D88E29524E170C4000D8559 /* TakePictureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePictureController.swift; sourceTree = "<group>"; };
 		7D88E29824E170E6000D8559 /* settingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingCell.swift; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 				7DDB4B1524DC2E67008812CD /* Voca.xcdatamodeld */,
 				7DDB4AEC24DC2DF2008812CD /* PoingVocaSubsystem.h */,
 				7DDB4AED24DC2DF2008812CD /* Info.plist */,
+				7D7F602024F16387007021C6 /* Load.xcdatamodeld */,
 			);
 			path = PoingVocaSubsystem;
 			sourceTree = "<group>";
@@ -1106,6 +1109,7 @@
 				7DDB4B2024DC2E6E008812CD /* ManagedWord+CoreDataClass.swift in Sources */,
 				7DDB4B1D24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift in Sources */,
 				7DE758D224DDBB0E001922C6 /* Notification.Name+.swift in Sources */,
+				7D7F602224F16387007021C6 /* Load.xcdatamodeld in Sources */,
 				7DDB4B1C24DC2E6E008812CD /* ManagedWord+CoreDataProperties.swift in Sources */,
 				7DDB4B1E24DC2E6E008812CD /* VocaCoreDataManager.swift in Sources */,
 				7DDB4B2124DC2E6E008812CD /* ManagedGroup+CoreDataProperties.swift in Sources */,
@@ -1688,6 +1692,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		7D7F602024F16387007021C6 /* Load.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7D7F602124F16387007021C6 /* Load.xcdatamodel */,
+			);
+			currentVersion = 7D7F602124F16387007021C6 /* Load.xcdatamodel */;
+			path = Load.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		7DDB4B1524DC2E67008812CD /* Voca.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
