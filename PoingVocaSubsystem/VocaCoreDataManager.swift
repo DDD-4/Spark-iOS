@@ -39,6 +39,13 @@ public class VocaCoreDataManager: NSObject {
             }
         }
 
+        // Enable history tracking and remote notifications
+        guard let description = container.persistentStoreDescriptions.first else {
+            fatalError("###\(#function): Failed to retrieve a persistent store description.")
+        }
+        description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 //        container.viewContext.transactionAuthor = appTransactionAuthorName
 
@@ -118,6 +125,14 @@ public class VocaCoreDataManager: NSObject {
             name: .NSManagedObjectContextObjectsDidChange,
             object: persistentContainer.viewContext
         )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(fetchChanges),
+            name: .NSPersistentStoreRemoteChange,
+            object: persistentContainer.persistentStoreCoordinator
+        )
+
     }
 
     func performBackgroundTask(_ completion: @escaping (NSManagedObjectContext) -> Void) {
@@ -225,6 +240,10 @@ public class VocaCoreDataManager: NSObject {
     @objc private func contextObjectDidChange(_ notification: NSNotification) {
         NotificationCenter.default.post(name: .vocaDataChanged, object: self)
     }
+
+    @objc func fetchChanges(_ notification: NSNotification) {
+        print("###\(#function): fetchChange.")
+    }
 }
 
 // MARK: - Notifications
@@ -232,11 +251,13 @@ public class VocaCoreDataManager: NSObject {
 extension VocaCoreDataManager {
     /**
      Handle remote store change notifications (.NSPersistentStoreRemoteChange).
+     merge 공부중임
      */
     @objc
     func storeRemoteChange(_ notification: Notification) {
         print("###\(#function): Merging changes from the other persistent store coordinator.")
 
+        print(fetch(predicate: .default, context: backgroundContext))
         // Process persistent history to merge changes from other coordinators.
         historyQueue.addOperation {
 //            self.processPersistentHistory()

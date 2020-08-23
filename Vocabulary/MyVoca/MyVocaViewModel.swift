@@ -60,7 +60,6 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
             guard let self = self else { return }
             guard let groups = groups, groups.isEmpty == false else {
                 self.groups.accept([])
-                VocaManager.shared.insertDefaultGroup { }
                 return
             }
             self.groups.accept(groups)
