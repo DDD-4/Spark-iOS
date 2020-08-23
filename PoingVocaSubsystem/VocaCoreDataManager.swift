@@ -32,12 +32,6 @@ public class VocaCoreDataManager: NSObject {
 
         // MARK: - NSPersistentContainer to NSPersistentCloudKitContainer for CloudKit ☁️
         let container = NSPersistentCloudKitContainer(name: modelName, managedObjectModel: managedObjectModel!)
-        container.loadPersistentStores { (storeDescription, error) in
-
-            if let err = error{
-                fatalError("❌ Loading of store failed:\(err)")
-            }
-        }
 
         // Enable history tracking and remote notifications
         guard let description = container.persistentStoreDescriptions.first else {
@@ -219,7 +213,7 @@ public class VocaCoreDataManager: NSObject {
         saveContext(context: context)
         completion()
     }
-
+    
     public func reset() {
         let container = persistentContainer
         let coordinator = container.persistentStoreCoordinator
