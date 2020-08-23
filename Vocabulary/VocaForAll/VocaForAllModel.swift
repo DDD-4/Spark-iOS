@@ -19,7 +19,7 @@ protocol VocaForAllViewModelOutput {
 protocol VocaForAllViewModelInput {
     func fetchGroups()
     var selectedGroupIndex: BehaviorRelay<Int?> { get }
-    var selectedGroup: PublishSubject<Group> { get }
+    var selectedGroup: BehaviorRelay<Group?> { get }
 }
 
 protocol VocaForAllViewModelType {
@@ -35,20 +35,20 @@ class VocaForAllViewModel: VocaForAllViewModelInput, VocaForAllViewModelOutput, 
     
     var words: BehaviorRelay<[Word]>
     
-    var selectedGroup: PublishSubject<Group>
+    var selectedGroup: BehaviorRelay<Group?>
     
-    var groups: BehaviorRelay<[Group]>
+    var groups = BehaviorRelay<[Group]>(value: [])
     
     var selectedGroupIndex: BehaviorRelay<Int?>
     
     init( ) {
         words = BehaviorRelay<[Word]>(value: [])
-        selectedGroup = PublishSubject<Group>()
+        selectedGroup = BehaviorRelay<Group?>(value: nil)
         groups = BehaviorRelay<[Group]>(value: [])
         selectedGroupIndex = BehaviorRelay<Int?>(value: nil)
         
         selectedGroup.map { (group) -> [Word] in
-            group.words
+            group?.words ?? []
         }
         .bind(to: words)
         .disposed(by: disposeBag)
@@ -62,6 +62,16 @@ class VocaForAllViewModel: VocaForAllViewModelInput, VocaForAllViewModelOutput, 
                 return
             }
             self.groups.accept(groups)
+            
+            let currentSelectedGroup = groups.filter { (group) -> Bool in
+                group.identifier == self.selectedGroup.value?.identifier
+            }
+
+            if currentSelectedGroup.isEmpty == false {
+                self.selectedGroup.accept(currentSelectedGroup.first)
+            } else {
+                self.selectedGroup.accept(groups.first!)
+            }
         }
     }
 }

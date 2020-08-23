@@ -11,6 +11,12 @@ import UIKit
 
 public class NoticePopupViewController: UIViewController {
 
+    lazy var tapGestureView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +35,8 @@ public class NoticePopupViewController: UIViewController {
 
     public init(text: String) {
         super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .overFullScreen
+        modalTransitionStyle = .crossDissolve
         contentLabel.text = text
     }
 
@@ -39,12 +47,14 @@ public class NoticePopupViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+        configureGesture()
     }
 
     func configureLayout() {
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.6080639983)
         view.addSubview(contentView)
         contentView.addSubview(contentLabel)
+        view.addSubview(tapGestureView)
 
         NSLayoutConstraint.activate([
             contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -57,6 +67,23 @@ public class NoticePopupViewController: UIViewController {
             contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            tapGestureView.topAnchor.constraint(equalTo: view.topAnchor),
+            tapGestureView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tapGestureView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tapGestureView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+
+    func configureGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapDidTap(_:)))
+        tapGestureView.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func tapDidTap(_ sender: UITapGestureRecognizer) {
+        presentingViewController?.presentingViewController?.dismiss(
+            animated: true,
+            completion: nil
+        )
     }
 }

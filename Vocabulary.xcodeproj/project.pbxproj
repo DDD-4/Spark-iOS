@@ -9,6 +9,19 @@
 /* Begin PBXBuildFile section */
 		060A2BFF3328CFC53FBFBE42 /* Pods_VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4478D4B7DA4E6BD69D08D8DE /* Pods_VocaGame.framework */; };
 		1238287CFA7BC45ADFF42843 /* Pods_PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED704EC38B4DD6954EB8967E /* Pods_PoingDesignSystem.framework */; };
+		1819E55224E90CB100E3ECDB /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819E54E24E90CB100E3ECDB /* MyViewController.swift */; };
+		1819E55324E90CB100E3ECDB /* SettingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819E54F24E90CB100E3ECDB /* SettingSection.swift */; };
+		1819E55424E90CB100E3ECDB /* UserinfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819E55024E90CB100E3ECDB /* UserinfoHeader.swift */; };
+		1819E55524E90CB100E3ECDB /* settingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819E55124E90CB100E3ECDB /* settingCell.swift */; };
+		1833D74A24E78A3C0085DDF6 /* SelectVocaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */; };
+		1833D74B24E78A3C0085DDF6 /* TakePictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74624E78A3C0085DDF6 /* TakePictureController.swift */; };
+		1833D74C24E78A3C0085DDF6 /* SelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74724E78A3C0085DDF6 /* SelectViewModel.swift */; };
+		1833D74D24E78A3C0085DDF6 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74824E78A3C0085DDF6 /* ScreenView.swift */; };
+		1833D74E24E78A3C0085DDF6 /* SelectVocaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74924E78A3C0085DDF6 /* SelectVocaViewController.swift */; };
+		1833D75224E78A650085DDF6 /* settingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74F24E78A640085DDF6 /* settingCell.swift */; };
+		1833D75324E78A650085DDF6 /* UserinfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D75024E78A650085DDF6 /* UserinfoHeader.swift */; };
+		1833D75424E78A650085DDF6 /* SettingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D75124E78A650085DDF6 /* SettingSection.swift */; };
+		1833D75624E78A720085DDF6 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D75524E78A720085DDF6 /* MyViewController.swift */; };
 		186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84C924D1462E0094E9EB /* BaseButton.swift */; };
 		186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */; };
 		186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */; };
@@ -20,17 +33,32 @@
 		187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024B24D40968008DBC8B /* WordDetailCell.swift */; };
 		187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024D24D41705008DBC8B /* VocaForAllModel.swift */; };
 		7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D14050724DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift */; };
+		7D16CBB924E5805500C95F8D /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */; };
+		7D16CBBC24E5826300C95F8D /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */; };
+		7D16CBBD24E5826400C95F8D /* BalsamiqSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */; };
+		7D16CBD224E8D6AD00C95F8D /* FlipCardViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBC124E8D6AC00C95F8D /* FlipCardViewDataSource.swift */; };
+		7D16CBD324E8D6AD00C95F8D /* FlipCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBC224E8D6AC00C95F8D /* FlipCardViewDelegate.swift */; };
+		7D16CBD424E8D6AD00C95F8D /* CardsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBC424E8D6AC00C95F8D /* CardsDataModel.swift */; };
+		7D16CBD524E8D6AD00C95F8D /* StackContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBC624E8D6AC00C95F8D /* StackContainerView.swift */; };
+		7D16CBD624E8D6AD00C95F8D /* FlipCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBC724E8D6AC00C95F8D /* FlipCardView.swift */; };
+		7D16CBD824E8D6AD00C95F8D /* FlipGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBCA24E8D6AC00C95F8D /* FlipGameViewController.swift */; };
+		7D16CBD924E8D6AD00C95F8D /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBCC24E8D6AD00C95F8D /* CardCell.swift */; };
+		7D16CBDA24E8D6AD00C95F8D /* CardMatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBCD24E8D6AD00C95F8D /* CardMatchingViewController.swift */; };
+		7D16CBDB24E8D6AD00C95F8D /* ImageWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBCF24E8D6AD00C95F8D /* ImageWord.swift */; };
+		7D16CBDC24E8D6AD00C95F8D /* CardMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D16CBD024E8D6AD00C95F8D /* CardMatching.swift */; };
 		7D1FBE5024DC3B6000D2F4A1 /* Voca.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1524DC2E67008812CD /* Voca.xcdatamodeld */; };
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
+		7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */; };
+		7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */; };
+		7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D477D7A24E2C3C7004A7F17 /* Media.xcassets */; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
-		7D88E29624E170C4000D8559 /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29424E170C4000D8559 /* ScreenView.swift */; };
-		7D88E29724E170C4000D8559 /* TakePictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29524E170C4000D8559 /* TakePictureController.swift */; };
-		7D88E29C24E170E7000D8559 /* settingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29824E170E6000D8559 /* settingCell.swift */; };
-		7D88E29D24E170E7000D8559 /* SettingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29924E170E6000D8559 /* SettingSection.swift */; };
-		7D88E29E24E170E7000D8559 /* UserinfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29A24E170E6000D8559 /* UserinfoHeader.swift */; };
-		7D88E29F24E170E7000D8559 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E29B24E170E7000D8559 /* MyViewController.swift */; };
+		7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
+		7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7624E193C9004A7F17 /* CALayer+.swift */; };
+		7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A024E17DD3000D8559 /* HomeViewController.swift */; };
+		7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */; };
 		7DAF66B824DC477F00B68C6C /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7DAF66B924DC477F00B68C6C /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7DAF66BC24DC478100B68C6C /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
@@ -57,7 +85,6 @@
 		7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0724DC2E0A008812CD /* LeftTitleNavigationView.swift */; };
 		7DDB4B3324DC337E008812CD /* SideNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0824DC2E0A008812CD /* SideNavigationView.swift */; };
 		7DE758D224DDBB0E001922C6 /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE758D124DDBB0E001922C6 /* Notification.Name+.swift */; };
-		7DE758D424DDC2AE001922C6 /* EmptyWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE758D324DDC2AE001922C6 /* EmptyWordView.swift */; };
 		A91F18267FD4A3A62A3F5C72 /* Pods_PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70808E337B2129DF638A462 /* Pods_PoingVocaSubsystem.framework */; };
 		CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */; };
 		CE1458FA24D319FC004F2700 /* EditMyVocaGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */; };
@@ -72,23 +99,17 @@
 		CEFED47324D45291002E858C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47224D45291002E858C /* GameViewController.swift */; };
 		CEFED47524D5B236002E858C /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED47424D5B236002E858C /* GameCell.swift */; };
 		CEFED49124D5C8C2002E858C /* VocaGame.h in Headers */ = {isa = PBXBuildFile; fileRef = CEFED48124D5C8C2002E858C /* VocaGame.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CEFED49F24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED49E24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift */; };
-		CEFED4A324D5C8F2002E858C /* FlipGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A124D5C8F2002E858C /* FlipGameViewController.swift */; };
-		CEFED4A424D5C8F2002E858C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A224D5C8F2002E858C /* DetailViewController.swift */; };
-		CEFED4AA24D5C8FB002E858C /* CardsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A624D5C8FB002E858C /* CardsDataModel.swift */; };
-		CEFED4AB24D5C8FB002E858C /* SwipeCardsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A824D5C8FB002E858C /* SwipeCardsDataSource.swift */; };
-		CEFED4AC24D5C8FB002E858C /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4A924D5C8FB002E858C /* SwipeCardDelegate.swift */; };
-		CEFED4B124D5C900002E858C /* StackContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4AE24D5C900002E858C /* StackContainerView.swift */; };
-		CEFED4B224D5C900002E858C /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4AF24D5C900002E858C /* SwipeCardView.swift */; };
-		CEFED4B324D5C900002E858C /* SwipeableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B024D5C900002E858C /* SwipeableCardView.swift */; };
-		CEFED4B824D5D031002E858C /* ImageWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B624D5D030002E858C /* ImageWord.swift */; };
-		CEFED4B924D5D031002E858C /* CardMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4B724D5D030002E858C /* CardMatching.swift */; };
-		CEFED4BB24D5D037002E858C /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BA24D5D037002E858C /* CardCell.swift */; };
-		CEFED4BD24D5D03E002E858C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFED4BC24D5D03E002E858C /* ViewController.swift */; };
 		EA6BA5E0DA28CCF02D87124E /* Pods_Vocabulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AD6E985030682623744FE4E /* Pods_Vocabulary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7D6F9D0424E2EE3B005B6835 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DDB4AC424DC2D6B008812CD;
+			remoteInfo = PoingDesignSystem;
+		};
 		7DAF66BA24DC477F00B68C6C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
@@ -147,6 +168,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,6 +189,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1819E54E24E90CB100E3ECDB /* MyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyViewController.swift; path = Vocabulary/My/MyViewController.swift; sourceTree = "<group>"; };
+		1819E54F24E90CB100E3ECDB /* SettingSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingSection.swift; path = Vocabulary/My/SettingSection.swift; sourceTree = "<group>"; };
+		1819E55024E90CB100E3ECDB /* UserinfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserinfoHeader.swift; path = Vocabulary/My/UserinfoHeader.swift; sourceTree = "<group>"; };
+		1819E55124E90CB100E3ECDB /* settingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = settingCell.swift; path = Vocabulary/My/settingCell.swift; sourceTree = "<group>"; };
+		1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectVocaTableViewCell.swift; sourceTree = "<group>"; };
+		1833D74624E78A3C0085DDF6 /* TakePictureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePictureController.swift; sourceTree = "<group>"; };
+		1833D74724E78A3C0085DDF6 /* SelectViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectViewModel.swift; sourceTree = "<group>"; };
+		1833D74824E78A3C0085DDF6 /* ScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
+		1833D74924E78A3C0085DDF6 /* SelectVocaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectVocaViewController.swift; sourceTree = "<group>"; };
+		1833D74F24E78A640085DDF6 /* settingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingCell.swift; sourceTree = "<group>"; };
+		1833D75024E78A650085DDF6 /* UserinfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserinfoHeader.swift; sourceTree = "<group>"; };
+		1833D75124E78A650085DDF6 /* SettingSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingSection.swift; sourceTree = "<group>"; };
+		1833D75524E78A720085DDF6 /* MyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		186E84C924D1462E0094E9EB /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordNavigationView.swift; sourceTree = "<group>"; };
@@ -183,17 +218,28 @@
 		5AD6E985030682623744FE4E /* Pods_Vocabulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vocabulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C3389560DBDD00DE6B80C3E /* Pods-PoingDesignSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingDesignSystem.debug.xcconfig"; path = "Target Support Files/Pods-PoingDesignSystem/Pods-PoingDesignSystem.debug.xcconfig"; sourceTree = "<group>"; };
 		7D14050724DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupViewModel.swift; sourceTree = "<group>"; };
+		7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BalsamiqSansBold.ttf; sourceTree = "<group>"; };
+		7D16CBC124E8D6AC00C95F8D /* FlipCardViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipCardViewDataSource.swift; sourceTree = "<group>"; };
+		7D16CBC224E8D6AC00C95F8D /* FlipCardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipCardViewDelegate.swift; sourceTree = "<group>"; };
+		7D16CBC424E8D6AC00C95F8D /* CardsDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsDataModel.swift; sourceTree = "<group>"; };
+		7D16CBC624E8D6AC00C95F8D /* StackContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackContainerView.swift; sourceTree = "<group>"; };
+		7D16CBC724E8D6AC00C95F8D /* FlipCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipCardView.swift; sourceTree = "<group>"; };
+		7D16CBCA24E8D6AC00C95F8D /* FlipGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipGameViewController.swift; sourceTree = "<group>"; };
+		7D16CBCC24E8D6AD00C95F8D /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		7D16CBCD24E8D6AD00C95F8D /* CardMatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatchingViewController.swift; sourceTree = "<group>"; };
+		7D16CBCF24E8D6AD00C95F8D /* ImageWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWord.swift; sourceTree = "<group>"; };
+		7D16CBD024E8D6AD00C95F8D /* CardMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatching.swift; sourceTree = "<group>"; };
 		7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "포잉포잉.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E0024BE05AF00CA4554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7D88E29424E170C4000D8559 /* ScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
-		7D88E29524E170C4000D8559 /* TakePictureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePictureController.swift; sourceTree = "<group>"; };
-		7D88E29824E170E6000D8559 /* settingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = settingCell.swift; sourceTree = "<group>"; };
-		7D88E29924E170E6000D8559 /* SettingSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingSection.swift; sourceTree = "<group>"; };
-		7D88E29A24E170E6000D8559 /* UserinfoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserinfoHeader.swift; sourceTree = "<group>"; };
-		7D88E29B24E170E7000D8559 /* MyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaEmptyCell.swift; sourceTree = "<group>"; };
+		7D477D7624E193C9004A7F17 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNavigationView.swift; sourceTree = "<group>"; };
+		7D477D7A24E2C3C7004A7F17 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		7D88E2A024E17DD3000D8559 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PoingDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PoingDesignSystem.h; sourceTree = "<group>"; };
 		7DDB4AC824DC2D6B008812CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -221,7 +267,6 @@
 		7DDB4B1A24DC2E6D008812CD /* VocaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaManager.swift; sourceTree = "<group>"; };
 		7DDB4B1B24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
 		7DE758D124DDBB0E001922C6 /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
-		7DE758D324DDC2AE001922C6 /* EmptyWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyWordView.swift; sourceTree = "<group>"; };
 		94DF691E8589FC4D1A442062 /* Pods-VocaGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.debug.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.debug.xcconfig"; sourceTree = "<group>"; };
 		CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupViewController.swift; sourceTree = "<group>"; };
 		CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupCell.swift; sourceTree = "<group>"; };
@@ -240,19 +285,6 @@
 		CEFED47F24D5C8C2002E858C /* VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFED48124D5C8C2002E858C /* VocaGame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VocaGame.h; sourceTree = "<group>"; };
 		CEFED48224D5C8C2002E858C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEFED49E24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentDetailViewControllerTransitionAnimation.swift; sourceTree = "<group>"; };
-		CEFED4A124D5C8F2002E858C /* FlipGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipGameViewController.swift; sourceTree = "<group>"; };
-		CEFED4A224D5C8F2002E858C /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		CEFED4A624D5C8FB002E858C /* CardsDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsDataModel.swift; sourceTree = "<group>"; };
-		CEFED4A824D5C8FB002E858C /* SwipeCardsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardsDataSource.swift; sourceTree = "<group>"; };
-		CEFED4A924D5C8FB002E858C /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
-		CEFED4AE24D5C900002E858C /* StackContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackContainerView.swift; sourceTree = "<group>"; };
-		CEFED4AF24D5C900002E858C /* SwipeCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
-		CEFED4B024D5C900002E858C /* SwipeableCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableCardView.swift; sourceTree = "<group>"; };
-		CEFED4B624D5D030002E858C /* ImageWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWord.swift; sourceTree = "<group>"; };
-		CEFED4B724D5D030002E858C /* CardMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatching.swift; sourceTree = "<group>"; };
-		CEFED4BA24D5D037002E858C /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardCell.swift; path = PreDev/CardMatching/CardMatching/CardCell.swift; sourceTree = SOURCE_ROOT; };
-		CEFED4BC24D5D03E002E858C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = PreDev/CardMatching/CardMatching/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		D78FA8B0F97BA5424E34FE48 /* Pods-PoingVocaSubsystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingVocaSubsystem.release.xcconfig"; path = "Target Support Files/Pods-PoingVocaSubsystem/Pods-PoingVocaSubsystem.release.xcconfig"; sourceTree = "<group>"; };
 		D89B86DD235D0CF741AA0904 /* Pods-PoingDesignSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoingDesignSystem.release.xcconfig"; path = "Target Support Files/Pods-PoingDesignSystem/Pods-PoingDesignSystem.release.xcconfig"; sourceTree = "<group>"; };
 		E2F94FFE2D606B057B22ACAC /* Pods-VocaGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.release.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.release.xcconfig"; sourceTree = "<group>"; };
@@ -311,12 +343,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				060A2BFF3328CFC53FBFBE42 /* Pods_VocaGame.framework in Frameworks */,
+				7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1819E54D24E9092C00E3ECDB /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				1819E54E24E90CB100E3ECDB /* MyViewController.swift */,
+				1819E55124E90CB100E3ECDB /* settingCell.swift */,
+				1819E54F24E90CB100E3ECDB /* SettingSection.swift */,
+				1819E55024E90CB100E3ECDB /* UserinfoHeader.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		186E84C824D146110094E9EB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +391,78 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7D16CBB724E5804400C95F8D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7D16CBBE24E8D6AC00C95F8D /* Flip */ = {
+			isa = PBXGroup;
+			children = (
+				7D16CBBF24E8D6AC00C95F8D /* Utils */,
+				7D16CBC324E8D6AC00C95F8D /* Model */,
+				7D16CBC524E8D6AC00C95F8D /* View */,
+				7D16CBC824E8D6AC00C95F8D /* Controllers */,
+			);
+			path = Flip;
+			sourceTree = "<group>";
+		};
+		7D16CBBF24E8D6AC00C95F8D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7D16CBC124E8D6AC00C95F8D /* FlipCardViewDataSource.swift */,
+				7D16CBC224E8D6AC00C95F8D /* FlipCardViewDelegate.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		7D16CBC324E8D6AC00C95F8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7D16CBC424E8D6AC00C95F8D /* CardsDataModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7D16CBC524E8D6AC00C95F8D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7D16CBC624E8D6AC00C95F8D /* StackContainerView.swift */,
+				7D16CBC724E8D6AC00C95F8D /* FlipCardView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7D16CBC824E8D6AC00C95F8D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7D16CBCA24E8D6AC00C95F8D /* FlipGameViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7D16CBCB24E8D6AD00C95F8D /* Matching */ = {
+			isa = PBXGroup;
+			children = (
+				7D16CBCC24E8D6AD00C95F8D /* CardCell.swift */,
+				7D16CBCD24E8D6AD00C95F8D /* CardMatchingViewController.swift */,
+				7D16CBCE24E8D6AD00C95F8D /* Model */,
+			);
+			path = Matching;
+			sourceTree = "<group>";
+		};
+		7D16CBCE24E8D6AD00C95F8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7D16CBCF24E8D6AD00C95F8D /* ImageWord.swift */,
+				7D16CBD024E8D6AD00C95F8D /* CardMatching.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		7D276DF424BE05AF00CA4554 = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +475,7 @@
 				7D276DFE24BE05AF00CA4554 /* Products */,
 				DCBEF7D8D78A53C7ED1BCF92 /* Pods */,
 				7C5637AC6CE1EDE31F81695F /* Frameworks */,
+				1819E54D24E9092C00E3ECDB /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -407,6 +524,8 @@
 		7DDB4AC624DC2D6B008812CD /* PoingDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				7D16CBB724E5804400C95F8D /* Resources */,
+				7D477D7624E193C9004A7F17 /* CALayer+.swift */,
 				7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */,
 				7DDB4AC824DC2D6B008812CD /* Info.plist */,
 				7DDB4B0E24DC2E1E008812CD /* AccentButton.swift */,
@@ -478,7 +597,9 @@
 				CE1458F924D319FC004F2700 /* EditMyVocaGroupCell.swift */,
 				CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */,
 				7D14050724DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift */,
-				7DE758D324DDC2AE001922C6 /* EmptyWordView.swift */,
+				7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */,
+				7D88E2A024E17DD3000D8559 /* HomeViewController.swift */,
+				7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */,
 				CE381A1224D1DECF00FDEBAC /* MyVocaGroupNameCell.swift */,
 				CE84996A24D300D300D934C3 /* MyVocaGroupReusableView.swift */,
 				CE4401B724CF33E70093D04B /* MyVocaViewController.swift */,
@@ -503,10 +624,10 @@
 		CE6C9B5F24CF2D790068C3BB /* My */ = {
 			isa = PBXGroup;
 			children = (
-				7D88E29B24E170E7000D8559 /* MyViewController.swift */,
-				7D88E29824E170E6000D8559 /* settingCell.swift */,
-				7D88E29924E170E6000D8559 /* SettingSection.swift */,
-				7D88E29A24E170E6000D8559 /* UserinfoHeader.swift */,
+				1833D75524E78A720085DDF6 /* MyViewController.swift */,
+				1833D74F24E78A640085DDF6 /* settingCell.swift */,
+				1833D75124E78A650085DDF6 /* SettingSection.swift */,
+				1833D75024E78A650085DDF6 /* UserinfoHeader.swift */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -514,8 +635,11 @@
 		CE6C9B6124CF2D870068C3BB /* AddWord */ = {
 			isa = PBXGroup;
 			children = (
-				7D88E29424E170C4000D8559 /* ScreenView.swift */,
-				7D88E29524E170C4000D8559 /* TakePictureController.swift */,
+				1833D74824E78A3C0085DDF6 /* ScreenView.swift */,
+				1833D74724E78A3C0085DDF6 /* SelectViewModel.swift */,
+				1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */,
+				1833D74924E78A3C0085DDF6 /* SelectVocaViewController.swift */,
+				1833D74624E78A3C0085DDF6 /* TakePictureController.swift */,
 				186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */,
 				186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */,
 			);
@@ -549,94 +673,15 @@
 		CEFED48024D5C8C2002E858C /* VocaGame */ = {
 			isa = PBXGroup;
 			children = (
-				CEFED4B424D5D008002E858C /* Matching */,
-				CEFED49C24D5C8DC002E858C /* Flip */,
+				7D16CBBE24E8D6AC00C95F8D /* Flip */,
+				7D16CBCB24E8D6AD00C95F8D /* Matching */,
 				CEFED48124D5C8C2002E858C /* VocaGame.h */,
 				CEFED48224D5C8C2002E858C /* Info.plist */,
+				7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */,
+				7D477D7A24E2C3C7004A7F17 /* Media.xcassets */,
 			);
 			path = VocaGame;
 			sourceTree = "<group>";
-		};
-		CEFED49C24D5C8DC002E858C /* Flip */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED4AD24D5C900002E858C /* View */,
-				CEFED4A524D5C8FB002E858C /* Model */,
-				CEFED4A724D5C8FB002E858C /* Utils */,
-				CEFED4A024D5C8F2002E858C /* Controllers */,
-				CEFED49D24D5C8E7002E858C /* Animations */,
-			);
-			path = Flip;
-			sourceTree = "<group>";
-		};
-		CEFED49D24D5C8E7002E858C /* Animations */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED49E24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift */,
-			);
-			name = Animations;
-			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Animations";
-			sourceTree = SOURCE_ROOT;
-		};
-		CEFED4A024D5C8F2002E858C /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED4A124D5C8F2002E858C /* FlipGameViewController.swift */,
-				CEFED4A224D5C8F2002E858C /* DetailViewController.swift */,
-			);
-			name = Controllers;
-			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Controllers";
-			sourceTree = SOURCE_ROOT;
-		};
-		CEFED4A524D5C8FB002E858C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED4A624D5C8FB002E858C /* CardsDataModel.swift */,
-			);
-			name = Model;
-			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Model";
-			sourceTree = SOURCE_ROOT;
-		};
-		CEFED4A724D5C8FB002E858C /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED4A824D5C8FB002E858C /* SwipeCardsDataSource.swift */,
-				CEFED4A924D5C8FB002E858C /* SwipeCardDelegate.swift */,
-			);
-			name = Utils;
-			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/Utils";
-			sourceTree = SOURCE_ROOT;
-		};
-		CEFED4AD24D5C900002E858C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED4AE24D5C900002E858C /* StackContainerView.swift */,
-				CEFED4AF24D5C900002E858C /* SwipeCardView.swift */,
-				CEFED4B024D5C900002E858C /* SwipeableCardView.swift */,
-			);
-			name = View;
-			path = "PreDev/TinderSwipeInterface-Edit_By_HaeunLee/TinderStack/TinderStack/View";
-			sourceTree = SOURCE_ROOT;
-		};
-		CEFED4B424D5D008002E858C /* Matching */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED4BC24D5D03E002E858C /* ViewController.swift */,
-				CEFED4BA24D5D037002E858C /* CardCell.swift */,
-				CEFED4B524D5D030002E858C /* Model */,
-			);
-			path = Matching;
-			sourceTree = "<group>";
-		};
-		CEFED4B524D5D030002E858C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CEFED4B624D5D030002E858C /* ImageWord.swift */,
-				CEFED4B724D5D030002E858C /* CardMatching.swift */,
-			);
-			name = Model;
-			path = PreDev/CardMatching/CardMatching/Model;
-			sourceTree = SOURCE_ROOT;
 		};
 		DCBEF7D8D78A53C7ED1BCF92 /* Pods */ = {
 			isa = PBXGroup;
@@ -796,6 +841,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7D6F9D0524E2EE3B005B6835 /* PBXTargetDependency */,
 			);
 			name = VocaGame;
 			productName = VocaGame;
@@ -864,6 +910,7 @@
 			files = (
 				7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */,
 				7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */,
+				7D16CBBC24E5826300C95F8D /* BalsamiqSansBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -871,6 +918,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D16CBB924E5805500C95F8D /* BalsamiqSansBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -899,6 +947,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D16CBBD24E5826400C95F8D /* BalsamiqSansBold.ttf in Resources */,
+				7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1018,36 +1068,45 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */,
-				7D88E29E24E170E7000D8559 /* UserinfoHeader.swift in Sources */,
+				1819E55224E90CB100E3ECDB /* MyViewController.swift in Sources */,
 				186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */,
 				CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */,
+				1833D75324E78A650085DDF6 /* UserinfoHeader.swift in Sources */,
+				1833D75224E78A650085DDF6 /* settingCell.swift in Sources */,
 				CEFED47524D5B236002E858C /* GameCell.swift in Sources */,
+				1833D74C24E78A3C0085DDF6 /* SelectViewModel.swift in Sources */,
 				CE1458FA24D319FC004F2700 /* EditMyVocaGroupCell.swift in Sources */,
 				186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */,
-				7D88E29C24E170E7000D8559 /* settingCell.swift in Sources */,
 				CE4401BA24CF35360093D04B /* TabbarViewController.swift in Sources */,
 				1870799524D8120E0079E280 /* WordViewModel.swift in Sources */,
+				1833D75424E78A650085DDF6 /* SettingSection.swift in Sources */,
+				7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */,
 				187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */,
+				1833D74D24E78A3C0085DDF6 /* ScreenView.swift in Sources */,
+				1833D74E24E78A3C0085DDF6 /* SelectVocaViewController.swift in Sources */,
+				7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */,
+				1819E55524E90CB100E3ECDB /* settingCell.swift in Sources */,
 				7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */,
+				1819E55424E90CB100E3ECDB /* UserinfoHeader.swift in Sources */,
 				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
 				CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */,
-				7DE758D424DDC2AE001922C6 /* EmptyWordView.swift in Sources */,
 				186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */,
 				186E84E924D2E2A30094E9EB /* VocaForAllCell.swift in Sources */,
 				CEFED47324D45291002E858C /* GameViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
+				1833D75624E78A720085DDF6 /* MyViewController.swift in Sources */,
 				186E84E724D2DB300094E9EB /* VocaForAllNavigationView.swift in Sources */,
-				7D88E29F24E170E7000D8559 /* MyViewController.swift in Sources */,
+				1819E55324E90CB100E3ECDB /* SettingSection.swift in Sources */,
 				186E84E524D2DAC50094E9EB /* VocaForAllViewController.swift in Sources */,
 				187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
+				1833D74A24E78A3C0085DDF6 /* SelectVocaTableViewCell.swift in Sources */,
 				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
 				CEF4C3BA24D3949E001AEE97 /* AddVocaViewController.swift in Sources */,
-				7D88E29624E170C4000D8559 /* ScreenView.swift in Sources */,
-				7D88E29724E170C4000D8559 /* TakePictureController.swift in Sources */,
+				1833D74B24E78A3C0085DDF6 /* TakePictureController.swift in Sources */,
+				7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */,
 				187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */,
-				7D88E29D24E170E7000D8559 /* SettingSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1060,6 +1119,7 @@
 				7DDB4B1324DC2E1E008812CD /* VDSTextField.swift in Sources */,
 				7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */,
 				7DDB4B0F24DC2E1E008812CD /* AccentButton.swift in Sources */,
+				7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */,
 				7DDB4B1024DC2E1E008812CD /* NoticePopupViewController.swift in Sources */,
 				7DDB4B1124DC2E1E008812CD /* UIColor+.swift in Sources */,
 			);
@@ -1100,25 +1160,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEFED4AB24D5C8FB002E858C /* SwipeCardsDataSource.swift in Sources */,
-				CEFED4A424D5C8F2002E858C /* DetailViewController.swift in Sources */,
-				CEFED4A324D5C8F2002E858C /* FlipGameViewController.swift in Sources */,
-				CEFED4B324D5C900002E858C /* SwipeableCardView.swift in Sources */,
-				CEFED4B224D5C900002E858C /* SwipeCardView.swift in Sources */,
-				CEFED4B824D5D031002E858C /* ImageWord.swift in Sources */,
-				CEFED4AC24D5C8FB002E858C /* SwipeCardDelegate.swift in Sources */,
-				CEFED49F24D5C8E7002E858C /* PresentDetailViewControllerTransitionAnimation.swift in Sources */,
-				CEFED4BD24D5D03E002E858C /* ViewController.swift in Sources */,
-				CEFED4B924D5D031002E858C /* CardMatching.swift in Sources */,
-				CEFED4B124D5C900002E858C /* StackContainerView.swift in Sources */,
-				CEFED4AA24D5C8FB002E858C /* CardsDataModel.swift in Sources */,
-				CEFED4BB24D5D037002E858C /* CardCell.swift in Sources */,
+				7D16CBD324E8D6AD00C95F8D /* FlipCardViewDelegate.swift in Sources */,
+				7D16CBDC24E8D6AD00C95F8D /* CardMatching.swift in Sources */,
+				7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */,
+				7D16CBD224E8D6AD00C95F8D /* FlipCardViewDataSource.swift in Sources */,
+				7D16CBD424E8D6AD00C95F8D /* CardsDataModel.swift in Sources */,
+				7D16CBD624E8D6AD00C95F8D /* FlipCardView.swift in Sources */,
+				7D16CBDB24E8D6AD00C95F8D /* ImageWord.swift in Sources */,
+				7D16CBDA24E8D6AD00C95F8D /* CardMatchingViewController.swift in Sources */,
+				7D16CBD924E8D6AD00C95F8D /* CardCell.swift in Sources */,
+				7D16CBD524E8D6AD00C95F8D /* StackContainerView.swift in Sources */,
+				7D16CBD824E8D6AD00C95F8D /* FlipGameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7D6F9D0524E2EE3B005B6835 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */;
+			targetProxy = 7D6F9D0424E2EE3B005B6835 /* PBXContainerItemProxy */;
+		};
 		7DAF66BB24DC477F00B68C6C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */;
@@ -1290,7 +1353,7 @@
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				INFOPLIST_FILE = Vocabulary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1298,7 +1361,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabulary;
+				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabularya;
 				PRODUCT_NAME = "포잉포잉";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1335,7 +1398,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1393,7 +1456,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				INFOPLIST_FILE = PoingDesignSystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1437,7 +1500,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1495,7 +1558,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				INFOPLIST_FILE = PoingVocaSubsystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1539,7 +1602,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = M96L4WMU9C;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
