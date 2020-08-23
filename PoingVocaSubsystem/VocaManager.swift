@@ -128,4 +128,18 @@ public class VocaManager {
             }
         }
     }
+    
+    public func update(group: Group, addWords: [Word], completion: (() -> Void)? = nil) {
+        let currentWords = addWords
+        
+        var currentGroup = group
+        currentGroup.words.append(contentsOf: currentWords)
+        
+        update(group: currentGroup) {
+            guard let completion = completion else {
+                return
+            }
+            completion()
+        }
+    }
 }

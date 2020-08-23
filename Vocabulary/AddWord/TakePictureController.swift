@@ -336,6 +336,7 @@ extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
         }
         
         DispatchQueue.main.async {
+            
             self.present(AddWordViewController(image: image), animated: true, completion: nil)
         }
         
