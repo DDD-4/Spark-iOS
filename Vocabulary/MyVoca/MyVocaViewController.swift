@@ -14,31 +14,28 @@ import PoingVocaSubsystem
 import PoingDesignSystem
 
 class MyVocaViewController: UIViewController {
+    enum Constant {
+
+    }
 
     let viewModel: MyVocaViewModelType = MyVocaViewModel()
     let disposeBag = DisposeBag()
 
-    lazy var navigationViewArea: LeftTitleNavigationView = {
-        let view = LeftTitleNavigationView(title: "미진이의 단어장", rightTitle: nil)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 16
+        flowLayout.minimumLineSpacing = 20
         flowLayout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .gray
-        collectionView.register(
-            MyVocaGroupNameCell.self,
-            forCellWithReuseIdentifier: MyVocaGroupNameCell.reuseIdentifier
-        )
+        collectionView.backgroundColor = .white
         collectionView.register(
             MyVocaWordCell.self,
             forCellWithReuseIdentifier: MyVocaWordCell.reuseIdentifier
+        )
+        collectionView.register(
+            MyVocaEmptyCell.self,
+            forCellWithReuseIdentifier: MyVocaEmptyCell.reuseIdentifier
         )
         collectionView.register(
             MyVocaGroupReusableView.self,
@@ -52,15 +49,9 @@ class MyVocaViewController: UIViewController {
         return collectionView
     }()
 
-    lazy var emptyWordView: EmptyWordView = {
-        let view = EmptyWordView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
+        view.backgroundColor = .white
         configureLayout()
         configureRx()
 
@@ -82,24 +73,18 @@ class MyVocaViewController: UIViewController {
     }
 
     func configureLayout() {
-        view.addSubview(navigationViewArea)
+        view.backgroundColor = .white
+
         view.addSubview(groupNameCollectionView)
 
-        navigationViewArea.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(44)
-        }
-        
         groupNameCollectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(navigationViewArea.snp.bottom).offset(20)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
 
     }
 
     func configureRx() {
-
         viewModel.output.groups
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
@@ -117,35 +102,13 @@ class MyVocaViewController: UIViewController {
     func vocaDataChanged() {
         viewModel.input.fetchGroups()
     }
-
-    func setWordEmptyView() {
-        clearWordEmptyView()
-
-        groupNameCollectionView.addSubview(emptyWordView)
-        groupNameCollectionView.sendSubviewToBack(emptyWordView)
-
-        emptyWordView.snp.makeConstraints { (make) in
-            make.top.leading.trailing.bottom.equalTo(view)
-        }
-    }
-
-    func clearWordEmptyView() {
-        emptyWordView.removeFromSuperview()
-    }
 }
 
 extension MyVocaViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
         let wordCount = viewModel.output.words.value.count
-
-        if wordCount == 0 {
-            setWordEmptyView()
-        } else {
-            clearWordEmptyView()
-        }
-
-        return wordCount
+        return wordCount == 0 ? 1 : wordCount
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -153,6 +116,16 @@ extension MyVocaViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        print(viewModel.output.words.value)
+        
+        guard viewModel.output.words.value.count != 0 else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaEmptyCell.reuseIdentifier, for: indexPath) as? MyVocaEmptyCell else {
+                return UICollectionViewCell()
+            }
+            return cell
+        }
+
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaWordCell.reuseIdentifier, for: indexPath) as? MyVocaWordCell else {
             return UICollectionViewCell()
         }
@@ -184,12 +157,15 @@ extension MyVocaViewController: UICollectionViewDataSource {
 }
 
 extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
+    }
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 444)
+        return CGSize(width: collectionView.frame.width, height: 403)
     }
 
     func collectionView(
@@ -197,7 +173,7 @@ extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollection
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForHeaderInSection section: Int
     ) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 20 + 36 + 20)
+        CGSize(width: collectionView.frame.width, height: 22 + 36)
     }
 }
 

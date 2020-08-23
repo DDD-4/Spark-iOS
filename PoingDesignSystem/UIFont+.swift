@@ -8,6 +8,8 @@
 
 import UIKit.UIFont
 
-extension UIFont {
-    
+public extension UIFont {
+    static func BalsamiqSansBold(size: CGFloat) -> UIFont {
+        return UIFont(name: "BalsamiqSansBold", size: size)!
+    }
 }

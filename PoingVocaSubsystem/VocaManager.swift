@@ -15,7 +15,7 @@ import Foundation
 public class VocaManager {
     public static let shared = VocaManager()
 
-    private func insertDefaultGroup(completion: @escaping (() -> Void)) {
+    public func insertDefaultGroup(completion: @escaping (() -> Void)) {
         let defaultGroup = Group(
             title: "기본 폴더",
             visibilityType: .default,
@@ -23,7 +23,11 @@ public class VocaManager {
             words: []
         )
 
-        insert(group: defaultGroup) {
+        VocaCoreDataManager.shared.performBackgroundTask { (context) in
+            let groups = VocaCoreDataManager.shared.fetch(predicate: .default, context: context)
+            if groups?.isEmpty ?? true {
+                VocaCoreDataManager.shared.insert(group: defaultGroup, context: context)
+            }
             completion()
         }
     }
@@ -34,14 +38,7 @@ public class VocaManager {
     ) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             guard let managedGroups = VocaCoreDataManager.shared.fetch(predicate: identifier, context: context) else {
-                if identifier == nil {
-                    self.insertDefaultGroup() {
-                        self.fetch(
-                            identifier: identifier,
-                            completion: completion
-                        )
-                    }
-                }
+                completion(nil)
                 return
             }
 
@@ -119,6 +116,20 @@ public class VocaManager {
                 }
                 completion()
             }
+        }
+    }
+    
+    public func update(group: Group, addWords: [Word], completion: (() -> Void)? = nil) {
+        let currentWords = addWords
+        
+        var currentGroup = group
+        currentGroup.words.append(contentsOf: currentWords)
+        
+        update(group: currentGroup) {
+            guard let completion = completion else {
+                return
+            }
+            completion()
         }
     }
 }

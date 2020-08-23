@@ -10,6 +10,21 @@ import UIKit
 import SnapKit
 
 class MyVocaGroupNameCell: UICollectionViewCell {
+    enum Constant {
+        enum Active {
+            static let font = UIFont.systemFont(ofSize: 14, weight: .bold)
+            static let backgroundColor = UIColor(red: 74.0 / 255.0, green: 191.0 / 255.0, blue: 1.0, alpha: 1.0)
+            static let fontColor = UIColor.white
+        }
+        enum Inactive {
+            static let font = UIFont.systemFont(ofSize: 14, weight: .regular)
+            static let backgroundColor = UIColor(white: 244.0 / 255.0, alpha: 1.0)
+            static let fontColor = UIColor(red: 127.0 / 255.0, green: 129.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0)
+        }
+
+        static let height: CGFloat = 36
+    }
+
     static let reuseIdentifier = String(describing: MyVocaGroupNameCell.self)
 
     override var isSelected: Bool {
@@ -40,10 +55,8 @@ class MyVocaGroupNameCell: UICollectionViewCell {
         layer.cornerRadius = 18
         contentView.addSubview(name)
         name.snp.makeConstraints { (make) in
-            make.top.equalTo(contentView.snp.top).offset(8)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-8)
-            make.leading.equalTo(contentView.snp.leading).offset(16)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
+            make.center.equalTo(contentView)
+            make.height.equalTo(Constant.height)
         }
     }
 
@@ -52,12 +65,14 @@ class MyVocaGroupNameCell: UICollectionViewCell {
     }
 
     func selected() {
-        backgroundColor = .black
-        name.textColor = .white
+        backgroundColor = Constant.Active.backgroundColor
+        name.textColor = Constant.Active.fontColor
+        name.font = Constant.Active.font
     }
 
     func deSelected() {
-        backgroundColor = .white
-        name.textColor = .black
+        backgroundColor = Constant.Inactive.backgroundColor
+        name.textColor = Constant.Inactive.fontColor
+        name.font = Constant.Inactive.font
     }
 }
