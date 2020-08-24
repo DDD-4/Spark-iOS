@@ -12,8 +12,17 @@ import CloudKit
 public class VocaCoreDataManager: NSObject {
     public static let shared = VocaCoreDataManager()
     let modelName = "Voca"
-    let cloudKitID = "iCloud.Spark.Vocabularya"
+    let cloudKitID = "iCloud.Spark.Vocabulary"
     let vocaBundleID = "LEE-HAEUN.PoingVocaSubsystem"
+
+    /**
+     An operation queue for handling history processing tasks: watching changes, deduplicating tags, and triggering UI updates if needed.
+     */
+    private lazy var historyQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
 
     lazy var persistentContainer: NSPersistentContainer = {
         // MARK: - vaca data model 을 다른 target에 생성했기 때문에 bundle을 직접 명시
@@ -23,12 +32,32 @@ public class VocaCoreDataManager: NSObject {
 
         // MARK: - NSPersistentContainer to NSPersistentCloudKitContainer for CloudKit ☁️
         let container = NSPersistentCloudKitContainer(name: modelName, managedObjectModel: managedObjectModel!)
-        container.loadPersistentStores { (storeDescription, error) in
 
-            if let err = error{
-                fatalError("❌ Loading of store failed:\(err)")
-            }
+        // Enable history tracking and remote notifications
+        guard let description = container.persistentStoreDescriptions.first else {
+            fatalError("###\(#function): Failed to retrieve a persistent store description.")
         }
+        description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+//        container.viewContext.transactionAuthor = appTransactionAuthorName
+
+        // Pin the viewContext to the current generation token and set it to keep itself up to date with local changes.
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        do {
+            try container.viewContext.setQueryGenerationFrom(.current)
+        } catch {
+            fatalError("###\(#function): Failed to pin viewContext to the current generation:\(error)")
+        }
+
+        // Observe Core Data remote change notifications.
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(type(of: self).storeRemoteChange(_:)),
+            name: .NSPersistentStoreRemoteChange,
+            object: container
+        )
 
         // 아래부터는 Configurations load
         // Put our stores into Application Support
@@ -90,6 +119,14 @@ public class VocaCoreDataManager: NSObject {
             name: .NSManagedObjectContextObjectsDidChange,
             object: persistentContainer.viewContext
         )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(fetchChanges),
+            name: .NSPersistentStoreRemoteChange,
+            object: persistentContainer.persistentStoreCoordinator
+        )
+
     }
 
     func performBackgroundTask(_ completion: @escaping (NSManagedObjectContext) -> Void) {
@@ -176,7 +213,7 @@ public class VocaCoreDataManager: NSObject {
         saveContext(context: context)
         completion()
     }
-
+    
     public func reset() {
         let container = persistentContainer
         let coordinator = container.persistentStoreCoordinator
@@ -196,6 +233,29 @@ public class VocaCoreDataManager: NSObject {
 
     @objc private func contextObjectDidChange(_ notification: NSNotification) {
         NotificationCenter.default.post(name: .vocaDataChanged, object: self)
+    }
+
+    @objc func fetchChanges(_ notification: NSNotification) {
+        print("###\(#function): fetchChange.")
+    }
+}
+
+// MARK: - Notifications
+
+extension VocaCoreDataManager {
+    /**
+     Handle remote store change notifications (.NSPersistentStoreRemoteChange).
+     merge 공부중임
+     */
+    @objc
+    func storeRemoteChange(_ notification: Notification) {
+        print("###\(#function): Merging changes from the other persistent store coordinator.")
+
+        print(fetch(predicate: .default, context: backgroundContext))
+        // Process persistent history to merge changes from other coordinators.
+        historyQueue.addOperation {
+//            self.processPersistentHistory()
+        }
     }
 }
 

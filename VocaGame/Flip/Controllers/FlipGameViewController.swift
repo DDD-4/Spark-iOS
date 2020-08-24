@@ -15,7 +15,6 @@ public class FlipGameViewController: UIViewController {
     enum Constant {
         static let backgroundColor = #colorLiteral(red: 0.9567821622, green: 0.9569162726, blue: 0.9567400813, alpha: 1)
         static let navigationHeight: CGFloat = 44
-
     }
 
     //MARK: - Properties
@@ -90,13 +89,13 @@ public class FlipGameViewController: UIViewController {
     }
 }
 
-extension FlipGameViewController : SwipeCardsDataSource {
+extension FlipGameViewController : FlipCardViewDataSource {
     func numberOfCardsToShow() -> Int {
         return viewModelData.count
     }
     
-    func card(at index: Int) -> SwipeCardView {
-        let card = SwipeCardView(index: index)
+    func flipCard(at index: Int) -> FlipCardView {
+        let card = FlipCardView(index: index)
         card.dataSource = viewModelData[index]
         return card
     }
@@ -109,14 +108,14 @@ extension FlipGameViewController : SwipeCardsDataSource {
 extension FlipGameViewController: StackContainerViewDelegate {
     func stackContainerView(
         _ view: StackContainerView,
-        didCompleteCard: SwipeCardView
+        didCompleteCard: FlipCardView
     ) {
         present(NoticePopupViewController(text: "모두 학습! 잘했어!"), animated: true, completion: nil)
     }
 
     func stackContainerView(
         _ view: StackContainerView,
-        didEndDisplayCard: SwipeCardView,
+        didEndDisplayCard: FlipCardView,
         endIndex index: Int
     ) {
         // index starts from 0.

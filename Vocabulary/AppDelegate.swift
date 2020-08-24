@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PoingVocaSubsystem
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = HomeViewController()
         self.window?.makeKeyAndVisible()
 
+        if FileManager.default.ubiquityIdentityToken != nil {
+            LoadCoreDataManager.shared.fetchLoad()
+        } else {
+            LoadCoreDataManager.shared.insertDefaultGroupForUnavailableiCloudUser()
+        }
 
 //        if #available(iOS 13.0, *) {
 //            VocaCoreDataManager.shared

@@ -68,6 +68,16 @@ class PoingVocaSubsystemTests: XCTestCase {
         }
     }
 
+    func test_deleteAllGroup() {
+        VocaManager.shared.fetch(identifier: nil) { (groups) in
+            guard let groups = groups else { return }
+
+            for group in groups {
+                VocaManager.shared.delete(group: group)
+            }
+        }
+    }
+
     func test_initGroup() {
         VocaCoreDataManager.shared.reset()
 
