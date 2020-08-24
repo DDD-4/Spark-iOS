@@ -88,7 +88,11 @@ class VocaForAllCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    func configure(dummy: VocaForAll) {
+        titleLabel.text = dummy.title
+    }
+
     func configure(group: Group) {
         titleLabel.text = group.title
         authorLabel.text = "\(group.identifier)"

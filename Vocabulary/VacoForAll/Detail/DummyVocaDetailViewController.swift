@@ -1,19 +1,19 @@
 //
-//  VocaDetailViewController.swift
+//  DummyVocaDetailViewController.swift
 //  Vocabulary
 //
-//  Created by apple on 2020/07/31.
+//  Created by LEE HAEUN on 2020/08/24.
 //  Copyright © 2020 LEE HAEUN. All rights reserved.
 //
 
 import UIKit
+import PoingVocaSubsystem
 import RxSwift
 import RxCocoa
 import SnapKit
-import PoingVocaSubsystem
 
-class VocaDetailViewController: UIViewController {
-    
+class DummyVocaDetailViewController: UIViewController {
+
     // MARK: - Properties
     lazy var vocaCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -33,7 +33,7 @@ class VocaDetailViewController: UIViewController {
         collectionView.dataSource = self
         return collectionView
     }()
-    
+
     lazy var saveButton: BaseButton = {
         let button = BaseButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -43,26 +43,20 @@ class VocaDetailViewController: UIViewController {
         button.backgroundColor = .black
         return button
     }()
-    
-    var words = [Word]()
+
     static let photoIdentifier = "DetailsCollectionViewCell"
-    private var viewModel: WordViewModel
     let disposeBag = DisposeBag()
-    
-    // MARK: - Init
-    init(group: Group) {
-        self.viewModel = WordViewModel(group: group)
-        defer {
-            self.words = group.words
-            self.navigationItem.title = group.title
-        }
+    let wordDownload: [WordDownload]
+
+    init(wordDownload: [WordDownload]) {
+        self.wordDownload = wordDownload
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,83 +64,82 @@ class VocaDetailViewController: UIViewController {
         }
         configureLayout()
         configureRx()
-        viewModel.input.fetchGroups()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         if let tabBarController = tabBarController as? TabbarViewController { tabBarController.hiddenTabBar(false)
         }
     }
-    
+
     func configureLayout() {
         view.backgroundColor = .white
         view.addSubview(saveButton)
         view.bringSubviewToFront(saveButton)
         view.addSubview(vocaCollectionView)
-        
+
         saveButton.snp.makeConstraints { (make) in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
         }
-        
+
         vocaCollectionView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(saveButton.snp.top).offset(-10)
         }
     }
-    
+
     func configureRx() {
-        
+
         self.saveButton.rx.tap.subscribe(onNext: {[weak self] (_) in
             let viewController = SelectVocaViewController()
             viewController.delegate = self
             self?.present(viewController, animated: true, completion: nil)
         }).disposed(by: disposeBag)
-
-        viewModel.output.words
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: {[weak self] (_) in
-                
-            }).disposed(by: disposeBag)
     }
 }
 
-extension VocaDetailViewController: SelectVocaViewControllerDelegate {
+extension DummyVocaDetailViewController: SelectVocaViewControllerDelegate {
     func selectVocaViewController(didTapGroup group: Group) {
-        
-        VocaManager.shared.update(group: group, addWords: words) {
-            let alert: UIAlertView = UIAlertView(title: "단어 추가 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
-            
-            alert.show()
-            
-            let when = DispatchTime.now() + 2
-            DispatchQueue.main.asyncAfter(deadline: when){
-                alert.dismiss(withClickedButtonIndex: 0, animated: true)
+
+        LoadingView.show()
+        let agent = VocaDownloadAgent(data: wordDownload)
+        agent.download { [weak self] (words) in
+            guard let self = self else {
+                LoadingView.hide()
+                return
             }
-            self.dismiss(animated: true, completion: nil)
+
+            VocaManager.shared.update(group: group, addWords: words) {
+
+                LoadingView.hide()
+                
+                self.dismiss(animated: true, completion: nil)
+            }
         }
-        
     }
 }
 
-extension VocaDetailViewController: UICollectionViewDataSource {
+extension DummyVocaDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return words.count
+        return wordDownload.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WordDetailCell.reuseIdentifier, for: indexPath) as? WordDetailCell else {
+        guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: WordDetailCell.reuseIdentifier,
+                for: indexPath
+        ) as? WordDetailCell else {
             return UICollectionViewCell()
         }
-        cell.configure(word:
-            words[indexPath.row])
-        
+//        cell.configure(word: words[indexPath.row])
+        cell.configure(wordDownload: wordDownload[indexPath.row])
+
         return cell
     }
 }
 
-extension VocaDetailViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension DummyVocaDetailViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
