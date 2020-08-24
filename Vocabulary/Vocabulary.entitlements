@@ -6,7 +6,8 @@
 	<string>development</string>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
-		<string>iCloud.Spark.Vocabularya</string>
+		<string>iCloud.Spark.Vocabulary</string>
+		<string>iCloud.Spark.LoadTime</string>
 	</array>
 	<key>com.apple.developer.icloud-services</key>
 	<array>

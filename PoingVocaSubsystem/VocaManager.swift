@@ -32,6 +32,16 @@ public class VocaManager {
         }
     }
 
+    public func deleteAllGroup() {
+        VocaManager.shared.fetch(identifier: nil) { (groups) in
+            guard let groups = groups else { return }
+
+            for group in groups {
+                VocaManager.shared.delete(group: group)
+            }
+        }
+    }
+
     public func fetch(
         identifier: UUID?,
         completion: @escaping (([Group]?) -> Void)
