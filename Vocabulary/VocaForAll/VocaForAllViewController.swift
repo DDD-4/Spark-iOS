@@ -138,15 +138,19 @@ class VocaForAllViewController: UIViewController {
 
 extension VocaForAllViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.output.groups.value.count
+        return DummyData.vocaForAll.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: VocaForAllCell.reuseIdentifier, for: indexPath) as? VocaForAllCell else {
+        guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: VocaForAllCell.reuseIdentifier,
+                for: indexPath
+        ) as? VocaForAllCell else {
             return UITableViewCell()
         }
         
-        cell.configure(group: viewModel.output.groups.value[indexPath.row])
+//        cell.configure(group: viewModel.output.groups.value[indexPath.row])
+        cell.configure(dummy: DummyData.vocaForAll[indexPath.row])
         return cell
     }
     
@@ -163,7 +167,9 @@ extension VocaForAllViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let wordView = VocaDetailViewController(group: viewModel.output.groups.value[indexPath.row])
+//        let wordView = VocaDetailViewController(group: viewModel.output.groups.value[indexPath.row])
+
+        let wordView = DummyVocaDetailViewController(wordDownload: DummyData.vocaForAll[indexPath.row].words)
         
         present(wordView, animated: true, completion: nil)
     }

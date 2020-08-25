@@ -50,13 +50,18 @@
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
+		7D4081BD24F3EA49004FDC60 /* VocaDownloadAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4081BC24F3EA49004FDC60 /* VocaDownloadAgent.swift */; };
 		7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */; };
 		7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */; };
 		7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D477D7A24E2C3C7004A7F17 /* Media.xcassets */; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
+		7D6E2E7324F3E6250015483C /* VocaDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */; };
 		7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7624E193C9004A7F17 /* CALayer+.swift */; };
+		7D72ABEA24F3FBFF00A01BCC /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72ABE924F3FBFF00A01BCC /* DummyData.swift */; };
+		7D72ABEC24F4007200A01BCC /* DummyVocaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72ABEB24F4007200A01BCC /* DummyVocaDetailViewController.swift */; };
+		7D72ABEE24F404BD00A01BCC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72ABED24F404BD00A01BCC /* LoadingView.swift */; };
 		7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A024E17DD3000D8559 /* HomeViewController.swift */; };
 		7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */; };
 		7DAF66B824DC477F00B68C6C /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
@@ -234,10 +239,15 @@
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D4081BC24F3EA49004FDC60 /* VocaDownloadAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaDownloadAgent.swift; sourceTree = "<group>"; };
 		7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaEmptyCell.swift; sourceTree = "<group>"; };
 		7D477D7624E193C9004A7F17 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNavigationView.swift; sourceTree = "<group>"; };
 		7D477D7A24E2C3C7004A7F17 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaDownloadOperation.swift; sourceTree = "<group>"; };
+		7D72ABE924F3FBFF00A01BCC /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
+		7D72ABEB24F4007200A01BCC /* DummyVocaDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyVocaDetailViewController.swift; sourceTree = "<group>"; };
+		7D72ABED24F404BD00A01BCC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		7D88E2A024E17DD3000D8559 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PoingDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -375,6 +385,7 @@
 				187B024B24D40968008DBC8B /* WordDetailCell.swift */,
 				187B024924D4065B008DBC8B /* VocaDetailViewController.swift */,
 				1870799424D8120E0079E280 /* WordViewModel.swift */,
+				7D72ABEB24F4007200A01BCC /* DummyVocaDetailViewController.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -495,6 +506,7 @@
 		7D276DFF24BE05AF00CA4554 /* Vocabulary */ = {
 			isa = PBXGroup;
 			children = (
+				7D6E2E7124F3E5C90015483C /* Data */,
 				CEFED47624D5BAC7002E858C /* Game */,
 				CE8703C124D2F9F100DDFAD4 /* Utills */,
 				186E84C824D146110094E9EB /* View */,
@@ -509,6 +521,7 @@
 				7D276E0024BE05AF00CA4554 /* AppDelegate.swift */,
 				CE4401B924CF35360093D04B /* TabbarViewController.swift */,
 				7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */,
+				7D72ABED24F404BD00A01BCC /* LoadingView.swift */,
 			);
 			path = Vocabulary;
 			sourceTree = "<group>";
@@ -519,6 +532,30 @@
 				7D276E0924BE05B200CA4554 /* Assets.xcassets */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		7D6E2E7124F3E5C90015483C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		7D6E2E7424F3E6290015483C /* VocaDownload */ = {
+			isa = PBXGroup;
+			children = (
+				7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */,
+				7D4081BC24F3EA49004FDC60 /* VocaDownloadAgent.swift */,
+			);
+			path = VocaDownload;
+			sourceTree = "<group>";
+		};
+		7D72ABE824F3FBF100A01BCC /* DummyData */ = {
+			isa = PBXGroup;
+			children = (
+				7D72ABE924F3FBFF00A01BCC /* DummyData.swift */,
+			);
+			path = DummyData;
 			sourceTree = "<group>";
 		};
 		7DDB4AC624DC2D6B008812CD /* PoingDesignSystem */ = {
@@ -550,6 +587,8 @@
 		7DDB4AEB24DC2DF2008812CD /* PoingVocaSubsystem */ = {
 			isa = PBXGroup;
 			children = (
+				7D72ABE824F3FBF100A01BCC /* DummyData */,
+				7D6E2E7424F3E6290015483C /* VocaDownload */,
 				7DE758D024DDBAFF001922C6 /* Utills */,
 				7DDB4B1724DC2E6D008812CD /* VocaCoreDataManager.swift */,
 				7DDB4B1A24DC2E6D008812CD /* VocaManager.swift */,
@@ -1071,6 +1110,8 @@
 				1819E55224E90CB100E3ECDB /* MyViewController.swift in Sources */,
 				186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */,
 				CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */,
+				7D72ABEC24F4007200A01BCC /* DummyVocaDetailViewController.swift in Sources */,
+				7D72ABEE24F404BD00A01BCC /* LoadingView.swift in Sources */,
 				1833D75324E78A650085DDF6 /* UserinfoHeader.swift in Sources */,
 				1833D75224E78A650085DDF6 /* settingCell.swift in Sources */,
 				CEFED47524D5B236002E858C /* GameCell.swift in Sources */,
@@ -1137,13 +1178,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D6E2E7324F3E6250015483C /* VocaDownloadOperation.swift in Sources */,
 				7D1FBE5024DC3B6000D2F4A1 /* Voca.xcdatamodeld in Sources */,
 				7DDB4B1F24DC2E6E008812CD /* VocaManager.swift in Sources */,
 				7DDB4B2024DC2E6E008812CD /* ManagedWord+CoreDataClass.swift in Sources */,
 				7DDB4B1D24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift in Sources */,
 				7DE758D224DDBB0E001922C6 /* Notification.Name+.swift in Sources */,
+				7D4081BD24F3EA49004FDC60 /* VocaDownloadAgent.swift in Sources */,
 				7DDB4B1C24DC2E6E008812CD /* ManagedWord+CoreDataProperties.swift in Sources */,
 				7DDB4B1E24DC2E6E008812CD /* VocaCoreDataManager.swift in Sources */,
+				7D72ABEA24F3FBFF00A01BCC /* DummyData.swift in Sources */,
 				7DDB4B2124DC2E6E008812CD /* ManagedGroup+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1353,7 +1397,7 @@
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M96L4WMU9C;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = Vocabulary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1361,7 +1405,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabularya;
+				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabulary;
 				PRODUCT_NAME = "포잉포잉";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1398,7 +1442,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = M96L4WMU9C;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1428,7 +1472,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1456,7 +1500,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M96L4WMU9C;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = PoingDesignSystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1500,7 +1544,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = M96L4WMU9C;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1530,7 +1574,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1558,7 +1602,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M96L4WMU9C;
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = PoingVocaSubsystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1602,7 +1646,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = M96L4WMU9C;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1632,7 +1676,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L47YWQ7AFX;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
