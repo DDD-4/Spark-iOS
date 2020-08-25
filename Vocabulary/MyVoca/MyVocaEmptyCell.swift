@@ -16,8 +16,8 @@ class MyVocaEmptyCell: UICollectionViewCell {
 
     enum Constant_ {
         static let imageHeight: CGFloat = 231
-        static let mainText = "앗 단어장이 없어요..!"
-        static let descriptionText = "아래 버튼을 눌러서\n나만의 단어장을 만들어요!"
+        static let mainText = "앗 단어카드가 없어요..!"
+        static let descriptionText = "아래 버튼을 눌러서\n나만의 단어장을 만들어 보아요!"
         static let image = UIImage(named: "emptyFace")
     }
 

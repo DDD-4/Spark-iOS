@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "icnSetting.png",
+      "scale" : "1x",
       "idiom" : "universal",
-      "scale" : "1x"
+      "filename" : "icSetting.png"
     },
     {
       "scale" : "2x",
-      "filename" : "icnSetting@2x.png",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "icSetting@2x.png"
     },
     {
-      "idiom" : "universal",
-      "filename" : "icnSetting@3x.png",
-      "scale" : "3x"
+      "filename" : "icSetting@3x.png",
+      "scale" : "3x",
+      "idiom" : "universal"
     }
   ],
   "info" : {

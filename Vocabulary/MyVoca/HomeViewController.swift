@@ -62,7 +62,13 @@ class HomeViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "btnAdd"), for: .normal)
         button.layer.shadow(
-            color: UIColor(red: 1.0, green: 221.0 / 255.0, blue: 14.0 / 255.0, alpha: 0.5), alpha: 1, x: 0, y: 5, blur: 20, spread: 0)
+            color: .brightSkyBlue50,
+            alpha: 1,
+            x: 0,
+            y: 5,
+            blur: 20,
+            spread: 0
+        )
         button.layer.masksToBounds = false
         return button
     }()
@@ -72,7 +78,13 @@ class HomeViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "btnGame"), for: .normal)
         button.layer.shadow(
-            color: UIColor(red: 138.0 / 255.0, green: 149.0 / 255.0, blue: 158.0 / 255.0, alpha: 0.5), alpha: 1, x: 0, y: 5, blur: 20, spread: 0)
+            color: .greyblue50,
+            alpha: 1,
+            x: 0,
+            y: 5,
+            blur: 20,
+            spread: 0
+        )
         button.layer.masksToBounds = false
         return button
     }()
@@ -156,7 +168,9 @@ extension HomeViewController: HomeHeaderDelegate {
 
     func homeHeader(_ view: HomeHeaderView, settingDidTap button: UIButton) {
         let myViewController = MyViewController()
-        present(myViewController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: myViewController)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true, completion: nil)
     }
 }
 

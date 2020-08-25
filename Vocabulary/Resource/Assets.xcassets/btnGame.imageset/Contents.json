@@ -7,13 +7,13 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "btnGame@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "btnGame@2x.png"
     },
     {
       "filename" : "btnGame@3x.png",
-      "scale" : "3x",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
