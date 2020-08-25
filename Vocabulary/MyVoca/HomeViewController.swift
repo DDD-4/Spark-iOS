@@ -170,6 +170,8 @@ extension HomeViewController: HomeHeaderDelegate {
         let myViewController = MyViewController()
         let navigationController = UINavigationController(rootViewController: myViewController)
         navigationController.isNavigationBarHidden = true
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .coverVertical
         present(navigationController, animated: true, completion: nil)
     }
 }

@@ -45,4 +45,12 @@ public extension UIColor {
     class var brightSkyBlue50: UIColor {
         return UIColor(red: 9.0 / 255.0, green: 208.0 / 255.0, blue: 250.0 / 255.0, alpha: 0.5)
     }
+
+    class var brightSkyBlue: UIColor {
+      return UIColor(red: 9.0 / 255.0, green: 208.0 / 255.0, blue: 250.0 / 255.0, alpha: 1.0)
+    }
+
+    class var whiteTwo: UIColor {
+      return UIColor(white: 247.0 / 255.0, alpha: 1.0)
+    }
 }
