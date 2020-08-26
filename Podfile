@@ -15,6 +15,7 @@ target 'Vocabulary' do
   pod 'Moya', '~> 14.0'
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod "KeyboardObserver", '~> 2.1'
 end
 
 target 'VocaGame' do

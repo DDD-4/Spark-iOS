@@ -23,25 +23,12 @@ class EditMyVocaGroupViewController: UIViewController {
         enum Floating {
             static let height: CGFloat = 60
         }
-
-        enum Delete {
-            static let height: CGFloat = 60
-            static let width: CGFloat = 206
-            enum Active {
-                static let color: UIColor = .white
-                static let backgroundColor: UIColor = .brightSkyBlue
-            }
-            enum InActive {
-                static let color: UIColor = UIColor(white: 174.0 / 255.0, alpha: 1.0)
-                static let backgroundColor: UIColor = .veryLightPink
-            }
-        }
     }
 
-    private var currentState: BehaviorRelay<State> = BehaviorRelay(value: .normal)
     let viewModel: EditMyVocaGroupViewModel
-    let disposeBag = DisposeBag()
-    var deleteSelectedGroup: BehaviorRelay<[Group]> = BehaviorRelay(value: [])
+    private var currentState: BehaviorRelay<State> = BehaviorRelay(value: .normal)
+    private let disposeBag = DisposeBag()
+    private var deleteSelectedGroup: BehaviorRelay<[Group]> = BehaviorRelay(value: [])
 
     lazy var navigationViewArea: SideNavigationView = {
         let view = SideNavigationView(
@@ -99,7 +86,7 @@ class EditMyVocaGroupViewController: UIViewController {
         button.backgroundColor = .veryLightPink
         button.setTitleColor(UIColor(white: 174.0 / 255.0, alpha: 1.0), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.layer.cornerRadius = Constant.Delete.height * 0.5
+        button.layer.cornerRadius = 30
         button.addTarget(self, action: #selector(deleteGroupDidTap(_:)), for: .touchUpInside)
         return button
     }()
@@ -163,10 +150,11 @@ class EditMyVocaGroupViewController: UIViewController {
         }
 
         deleteButton.snp.makeConstraints { (make) in
+            let constant = AddFolderViewController.Constant.Confirm.self
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
             make.centerX.equalTo(view)
-            make.height.equalTo(Constant.Delete.height)
-            make.width.equalTo(Constant.Delete.width)
+            make.height.equalTo(constant.height)
+            make.width.greaterThanOrEqualTo(constant.minWidth)
         }
     }
 
@@ -203,7 +191,7 @@ class EditMyVocaGroupViewController: UIViewController {
 
         deleteSelectedGroup.subscribe(onNext: { [weak self] (groups) in
             guard let self = self else { return }
-            let constant = Constant.Delete.self
+            let constant = AddFolderViewController.Constant.Confirm.self
             if groups.isEmpty {
                 self.deleteButton.setTitle("삭제", for: .normal)
                 self.deleteButton.backgroundColor = constant.InActive.backgroundColor
@@ -231,7 +219,7 @@ class EditMyVocaGroupViewController: UIViewController {
     }
 
     @objc func addDidTap(_ sender: UIButton) {
-        present(AddVocaViewController(), animated: true, completion: nil)
+        navigationController?.pushViewController(AddFolderViewController(), animated: true)
     }
 
     @objc func dismissDidTap(_ sender: UIButton) {
