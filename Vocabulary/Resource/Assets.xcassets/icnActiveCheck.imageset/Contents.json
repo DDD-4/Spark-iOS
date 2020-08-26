@@ -1,19 +1,19 @@
 {
   "images" : [
     {
+      "filename" : "icnActiveCheck.png",
       "scale" : "1x",
-      "idiom" : "universal",
-      "filename" : "btnAdd.png"
+      "idiom" : "universal"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "btnAdd@2x.png"
+      "filename" : "icnActiveCheck@2x.png",
+      "scale" : "2x"
     },
     {
-      "scale" : "3x",
       "idiom" : "universal",
-      "filename" : "btnAdd@3x.png"
+      "filename" : "icnActiveCheck@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

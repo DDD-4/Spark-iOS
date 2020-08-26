@@ -9,19 +9,17 @@
 import UIKit
 
 public class SideNavigationView: UIView {
-    lazy var stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .horizontal
-        stack.alignment = .fill
-        stack.distribution = .fill
-        return stack
+    lazy var navigationView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     public lazy var leftSideButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFit
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
         return button
     }()
 
@@ -36,6 +34,7 @@ public class SideNavigationView: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFit
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
         return button
     }()
 
@@ -58,20 +57,28 @@ public class SideNavigationView: UIView {
     }
 
     func configureLayout() {
-        addSubview(stackView)
-        stackView.addArrangedSubview(leftSideButton)
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(rightSideButton)
+        addSubview(navigationView)
+        navigationView.addSubview(leftSideButton)
+        navigationView.addSubview(titleLabel)
+        navigationView.addSubview(rightSideButton)
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: LeftTitleNavigationView.Constant.height),
+            navigationView.topAnchor.constraint(equalTo: topAnchor),
+            navigationView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            navigationView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            navigationView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            navigationView.heightAnchor.constraint(equalToConstant: LeftTitleNavigationView.Constant.height),
 
-            leftSideButton.widthAnchor.constraint(equalToConstant: 24),
-            rightSideButton.widthAnchor.constraint(equalToConstant: 24)
+            titleLabel.centerXAnchor.constraint(equalTo: navigationView.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: navigationView.centerYAnchor),
+
+
+            leftSideButton.centerYAnchor.constraint(equalTo: navigationView.centerYAnchor),
+            leftSideButton.leadingAnchor.constraint(equalTo: navigationView.leadingAnchor),
+
+            rightSideButton.centerYAnchor.constraint(equalTo: navigationView.centerYAnchor),
+            rightSideButton.trailingAnchor.constraint(equalTo: navigationView.trailingAnchor)
+
         ])
     }
 }

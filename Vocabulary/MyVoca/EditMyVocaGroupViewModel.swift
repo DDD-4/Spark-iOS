@@ -18,7 +18,7 @@ class EditMyVocaGroupViewModel {
         self.groups = BehaviorRelay<[Group]>(value: filteredGroup(groups: groups))
     }
 
-    func filteredFetchGroup() {
+    func filteredFetchGroup(completion: (() -> Void)?) {
         VocaManager.shared.fetch(identifier: nil) { [weak self] (groups) in
             guard let self = self else { return }
             guard let groups = groups else {
@@ -28,6 +28,10 @@ class EditMyVocaGroupViewModel {
 
             let filteredGroups = self.filteredGroup(groups: groups)
             self.groups.accept(filteredGroups)
+
+            if let completion = completion {
+                completion()
+            }
         }
     }
 
