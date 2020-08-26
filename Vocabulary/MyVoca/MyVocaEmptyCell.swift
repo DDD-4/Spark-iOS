@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import PoingDesignSystem
 
 class MyVocaEmptyCell: UICollectionViewCell {
   static let reuseIdentifier = String(describing: MyVocaEmptyCell.self)
@@ -74,7 +75,7 @@ class MyVocaEmptyCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textColor = UIColor(red: 127.0 / 255.0, green: 129.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0)
+        label.textColor = .slateGrey
         label.textAlignment = .center
         label.numberOfLines = 0
         label.text = Constant_.descriptionText

@@ -13,11 +13,13 @@ class CardMatching {
         case text(_ text: String)
     }
 
+    let color: UIColor
     let contentType: ContentType
     let uuid: UUID
 
-    init(contentType: ContentType, uuid: UUID) {
+    init(contentType: ContentType, uuid: UUID, color: UIColor) {
         self.contentType = contentType
         self.uuid = uuid
+        self.color = color
     }
 }

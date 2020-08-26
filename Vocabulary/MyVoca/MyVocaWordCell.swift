@@ -11,7 +11,8 @@ import SnapKit
 import PoingVocaSubsystem
 
 protocol MyVocaWordCellDelegate: class {
-    func MyVocaWord(didTapEdit button: UIButton, selectedWord word: Word)
+    func myVocaWord(didTapEdit button: UIButton, selectedWord word: Word)
+    func myVocaWord(didTapMic button: UIButton, selectedWord word: Word)
 }
 
 class MyVocaWordCell: UICollectionViewCell {
@@ -55,6 +56,7 @@ class MyVocaWordCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(Constant.micImage, for: .normal)
+        button.addTarget(self, action: #selector(micButtonDidTap(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -102,7 +104,7 @@ class MyVocaWordCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = UIColor(red: 127.0 / 255.0, green: 129.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0)
+        label.textColor = .slateGrey
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -169,11 +171,17 @@ class MyVocaWordCell: UICollectionViewCell {
 
     }
 
-    @objc
-    func editButtonDidTap(_ sender: UIButton) {
+    @objc func editButtonDidTap(_ sender: UIButton) {
         guard let word = word else {
             return
         }
-        delegate?.MyVocaWord(didTapEdit: sender, selectedWord: word)
+        delegate?.myVocaWord(didTapEdit: sender, selectedWord: word)
+    }
+
+    @objc func micButtonDidTap(_ sender: UIButton) {
+        guard let word = word else {
+            return
+        }
+        delegate?.myVocaWord(didTapMic: sender, selectedWord: word)
     }
 }

@@ -18,19 +18,20 @@ class GameViewController: UIViewController {
     }
 
     enum Constant {
+        static let backgroundColor = UIColor.gameBackgroundColor
         static let gameList: [GameType] = [.flip, .matching]
-        static let spacing: CGFloat = 23
+        static let spacing: CGFloat = 32
         enum Title {
             static let text = "함께 복습 해볼까요?"
             static let font = UIFont.systemFont(ofSize: 26, weight: .bold)
-            static let textColor: UIColor = UIColor(red: 17.0 / 255.0, green: 28.0 / 255.0, blue: 78.0 / 255.0, alpha: 1.0)
+            static let textColor: UIColor = .midnight
         }
         enum Image {
             static let image = UIImage(named: "yellowFace")
             static let height: CGFloat = 130
         }
         enum Close {
-            static let image = UIImage(named: "btnClose")
+            static let image = UIImage(named: "btnCloseWhite")
             static let height: CGFloat = 60
         }
     }
@@ -43,7 +44,7 @@ class GameViewController: UIViewController {
         stack.axis = .vertical
         stack.distribution = .fill
         stack.alignment = .center
-        stack.spacing = 30
+        stack.spacing = Constant.spacing
         return stack
     }()
 
@@ -74,14 +75,14 @@ class GameViewController: UIViewController {
     lazy var gameListCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 20
+        flowLayout.minimumLineSpacing = 16
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(GameCell.self, forCellWithReuseIdentifier: GameCell.reuseIdentifier)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Constant.backgroundColor
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 50, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 60, left: 0, bottom: 60, right: 0)
         return collectionView
     }()
 
@@ -90,6 +91,14 @@ class GameViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(Constant.Close.image, for: .normal)
         button.addTarget(self, action: #selector(closeDidTap(_:)), for: .touchUpInside)
+        button.layer.shadow(
+            color: .cement20,
+            alpha: 1,
+            x: 0,
+            y: 4,
+            blur: 20,
+            spread: 0
+        )
         return button
     }()
 
@@ -106,7 +115,7 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Constant.backgroundColor
         configureLayout()
     }
 
@@ -118,11 +127,11 @@ class GameViewController: UIViewController {
         closeButton.snp.makeConstraints { (make) in
             make.width.height.equalTo(Constant.Close.height)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.centerX.equalTo(view)
         }
 
         titleStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(80)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(106)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
 
@@ -144,7 +153,7 @@ class GameViewController: UIViewController {
 
 extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width, height: 120)
+        CGSize(width: collectionView.frame.width, height: 96)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

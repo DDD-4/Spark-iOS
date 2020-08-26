@@ -83,7 +83,10 @@ extension MyVocaGroupReusableView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaGroupNameCell.reuseIdentifier, for: indexPath) as? MyVocaGroupNameCell else {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: MyVocaGroupNameCell.reuseIdentifier,
+            for: indexPath
+            ) as? MyVocaGroupNameCell else {
             return UICollectionViewCell()
         }
         cell.configure(groupName: groups[indexPath.row].title)
