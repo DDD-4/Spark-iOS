@@ -13,7 +13,7 @@ import PoingDesignSystem
 import PoingVocaSubsystem
 
 class AddWordViewController: UIViewController {
-
+    
     // MARK: - Properties
     let picker = UIImagePickerController()
     let disposeBag = DisposeBag()
@@ -72,11 +72,12 @@ class AddWordViewController: UIViewController {
         let view = UIImageView()
         view.image = UIImage(named: "icPicture")
         view.layer.cornerRadius = 15
+        view.contentMode = .scaleToFill
         view.clipsToBounds = true
         view.isUserInteractionEnabled = true
         return view
     }()
-
+    
     init(image: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.wordImageView.image = image
@@ -87,7 +88,7 @@ class AddWordViewController: UIViewController {
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -150,7 +151,7 @@ class AddWordViewController: UIViewController {
     func bindFunction() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(addPicture))
         self.wordImageView.addGestureRecognizer(tap)
-
+        
         addWordNaviView.settingButton.rx.tap
             .subscribe(onNext: { [weak self] (_) in
                 self?.dismiss(animated: true, completion: nil)
@@ -158,18 +159,18 @@ class AddWordViewController: UIViewController {
     }
     
     func configureRx() {
-
+        
         viewModel.output.groups
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
                 
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         viewModel.output.words
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
-            
-        }).disposed(by: disposeBag)
+                
+            }).disposed(by: disposeBag)
     }
     
     @objc
@@ -189,7 +190,7 @@ class AddWordViewController: UIViewController {
             self.openCamera()
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-
+        
         alert.addAction(library)
         alert.addAction(camera)
         alert.addAction(cancel)
@@ -213,7 +214,7 @@ class AddWordViewController: UIViewController {
         
         VocaManager.shared.update(group: group) { [weak self] in
             let alert: UIAlertView = UIAlertView(title: "단어 만들기 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
-
+            
             alert.show()
             
             let when = DispatchTime.now() + 2
@@ -234,21 +235,36 @@ extension AddWordViewController: SelectVocaViewControllerDelegate {
 extension AddWordViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func openLibrary(){
-        picker.sourceType = .photoLibrary
-        present(picker, animated: true, completion: nil)
+        
+        self.picker.delegate = self
+        self.picker.sourceType = .photoLibrary
+        self.picker.allowsEditing = true
+        
+        self.present(self.picker, animated: true)
+        
+//        picker.sourceType = .photoLibrary
+//        present(picker, animated: true, completion: nil)
     }
     func openCamera(){
-        if(UIImagePickerController .isSourceTypeAvailable(.camera)){
-            picker.sourceType = .camera
-            present(picker, animated: true, completion: nil)
+        
+        if(UIImagePickerController.isSourceTypeAvailable(.camera)){
+            self.picker.delegate = self
+            self.picker.sourceType = .camera
+            self.picker.allowsEditing = true
+            
+            self.present(self.picker, animated: true)
         } else {
             print("Camera not available")
         }
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+        
+        let image = UIImagePickerController.InfoKey.editedImage
+        
+        if let possibleImage = info[image] as? UIImage{
             self.wordImageView.image = possibleImage
         }
+        
         dismiss(animated: true, completion: nil)
     }
 }
@@ -264,7 +280,7 @@ extension AddWordViewController: UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     // 옵저버 등록 해제
     func unregisterForKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -288,3 +304,4 @@ extension AddWordViewController: UITextFieldDelegate {
         return true
     }
 }
+
