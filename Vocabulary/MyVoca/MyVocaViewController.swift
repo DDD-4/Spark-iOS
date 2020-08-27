@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -20,6 +21,7 @@ class MyVocaViewController: UIViewController {
 
     let viewModel: MyVocaViewModelType = MyVocaViewModel()
     let disposeBag = DisposeBag()
+    let synthesizer = AVSpeechSynthesizer()
 
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -190,7 +192,7 @@ extension MyVocaViewController: MyVocaViewControllerDelegate {
 }
 
 extension MyVocaViewController: MyVocaWordCellDelegate {
-    func MyVocaWord(didTapEdit button: UIButton, selectedWord word: Word) {
+    func myVocaWord(didTapEdit button: UIButton, selectedWord word: Word) {
 
         let actionSheetData: [UIAlertAction] = [
             UIAlertAction(title: "단어 수정", style: .default, handler: { (_) in
@@ -213,5 +215,14 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
             actionsheet.addAction(data)
         }
         present(actionsheet, animated: true, completion: nil)
+    }
+
+    func myVocaWord(didTapMic button: UIButton, selectedWord word: Word) {
+        guard let englishWord = word.english else { return }
+        synthesizer.stopSpeaking(at: .immediate)
+        let utterance = AVSpeechUtterance(string: englishWord)
+        utterance.rate = 0.3
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        synthesizer.speak(utterance)
     }
 }

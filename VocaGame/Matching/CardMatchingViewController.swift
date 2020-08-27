@@ -94,13 +94,16 @@ public class CardMatchingViewController: UIViewController {
                 continue
             }
             let currentUUID = UUID()
+            let color = UIColor().HSBRandomColor()
             let image = CardMatching(
                 contentType: .image(wordImage),
-                uuid: currentUUID
+                uuid: currentUUID,
+                color: color
             )
             let word = CardMatching(
                 contentType: .text(word.word),
-                uuid: currentUUID
+                uuid: currentUUID,
+                color: color
             )
             cards.append(image)
             cards.append(word)
@@ -181,7 +184,7 @@ public class CardMatchingViewController: UIViewController {
         guard let cell = cardCollectionView.cellForItem(at: IndexPath(row: row, section: 0)) as? CardCell else {
             return
         }
-        cell.selected(color: .brightCyan)
+        cell.selected()
         cell.setNeedsLayout()
     }
 
@@ -205,7 +208,10 @@ extension CardMatchingViewController: UICollectionViewDataSource {
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCell.reuseIdentifier, for: indexPath) as? CardCell else {
+        guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CardCell.reuseIdentifier,
+                for: indexPath
+        ) as? CardCell else {
             return UICollectionViewCell()
         }
         cell.configure(card: cards[indexPath.row])

@@ -22,8 +22,31 @@ class MyViewController: UIViewController {
 //        view.backgroundColor = .red
 //        return view
 //    }()
-    
+
+    enum Constant {
+        enum Floating {
+            static let height: CGFloat = 60
+        }
+    }
+
     var userInforHeader: UserinfoHeader!
+
+    lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "btnClose"), for: .normal)
+        button.layer.shadow(
+            color: .greyblue50,
+            alpha: 1,
+            x: 0,
+            y: 5,
+            blur: 20,
+            spread: 0
+        )
+        button.layer.masksToBounds = false
+        button.addTarget(self, action: #selector(closeButton(_:)), for: .touchUpInside)
+        return button
+    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -65,6 +88,13 @@ class MyViewController: UIViewController {
         
         //view.addSubview(profileView)
         view.addSubview(tableView)
+        view.addSubview(closeButton)
+
+        closeButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
+            make.centerX.equalTo(view)
+            make.height.width.equalTo(Constant.Floating.height)
+        }
         
 //        profileView.snp.makeConstraints { (make) in
 //            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -75,6 +105,10 @@ class MyViewController: UIViewController {
 //            //make.top.equalTo(profileView.snp.bottom)
 //            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
 //        }
+    }
+
+    @objc func closeButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -146,11 +180,15 @@ extension MyViewController: UITableViewDelegate, UITableViewDataSource {
         guard let section = SettingsSection(rawValue: indexPath.section) else {
             return
         }
-        
         switch section {
         case .Social:
+            self.present(AddFolderViewController(), animated: true, completion: nil)
             print(SocialOptions(rawValue: indexPath.row)?.description)
         case .Communications:
+            VocaManager.shared.fetch(identifier: nil) { [weak self] (groups) in
+                guard let groups = groups, let self = self else { return }
+                self.navigationController?.pushViewController(EditMyVocaGroupViewController(groups: groups), animated: true)
+            }
             print(CommunicationsOptions(rawValue: indexPath.row)?.description)
         }
     }

@@ -8,18 +8,17 @@
 
 import UIKit
 import SnapKit
+import PoingDesignSystem
 
 class GameCell: UICollectionViewCell {
     enum Constant {
-        static let height: CGFloat = 120
-
         enum Thumb {
             static let height: CGFloat = 48
             static let radius: CGFloat = 12
         }
         enum Title {
-            static let font = UIFont.systemFont(ofSize: 21, weight: .bold)
-            static let color = UIColor(red: 17.0 / 255.0, green: 28.0 / 255.0, blue: 78.0 / 255.0, alpha: 1.0)
+            static let font = UIFont.systemFont(ofSize: 20, weight: .bold)
+            static let color = UIColor.midnight
         }
     }
 
@@ -29,8 +28,15 @@ class GameCell: UICollectionViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
-        view.layer.cornerRadius = 16
-        view.layer.shadow(color: UIColor(red: 138.0 / 255.0, green: 149.0 / 255.0, blue: 158.0 / 255.0, alpha: 0.2), alpha: 1, x: 0, y: 10, blur: 60, spread: 0)
+        view.layer.cornerRadius = 20
+        view.layer.shadow(
+            color: .cement20,
+            alpha: 1,
+            x: 0,
+            y: 4,
+            blur: 20,
+            spread: 0
+        )
         return view
     }()
 
@@ -70,8 +76,6 @@ class GameCell: UICollectionViewCell {
     }
 
     func configureLayout() {
-        backgroundColor = .white
-
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(thumbImageView)
@@ -80,7 +84,6 @@ class GameCell: UICollectionViewCell {
             make.top.bottom.equalTo(contentView)
             make.leading.equalTo(contentView).offset(16)
             make.trailing.equalTo(contentView).offset(-16)
-            make.height.equalTo(Constant.height)
         }
 
         titleLabel.snp.makeConstraints { (make) in
