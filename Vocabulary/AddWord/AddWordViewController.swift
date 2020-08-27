@@ -251,7 +251,6 @@ extension AddWordViewController: UIImagePickerControllerDelegate, UINavigationCo
             self.picker.delegate = self
             self.picker.sourceType = .camera
             self.picker.allowsEditing = true
-            self.picker.setEditing(true, animated: true)
             
             self.present(self.picker, animated: true)
         } else {

@@ -160,7 +160,7 @@ extension TakePictureViewController {
             let currentVideoDevice = self.videoDeviceInput.device
             let currentPosition = currentVideoDevice.position
             let isFront = currentPosition == .front
-            let preferredPosition: AVCaptureDevice.Position = isFront ? .back :  .front
+            let preferredPosition: AVCaptureDevice.Position = isFront ? .back : .front
             
             let devices = self.videoDeviceDiscoverySession.devices
             var newVideoDevice: AVCaptureDevice?
@@ -221,13 +221,28 @@ extension TakePictureViewController {
             // 요청을 하는것
             // 미디어에서 들어온 데이터가 photoOutput이 되어 사진이 되서 바깥으로 나갈건데
             // 그 오리엔테이션을 설정을 해주는것
-            let connectino = self.photoOuput.connection(with: .video)
-            connectino?.videoOrientation = videoPreviewLayerOrientation!
+            let connection = self.photoOuput.connection(with: .video)
+            connection?.videoOrientation = videoPreviewLayerOrientation!
             
             // 오리엔테이션이 완료되었으면 포토아웃풋한테 사진을 찍자고 알려주는것
             let setting = AVCapturePhotoSettings()
             self.photoOuput.capturePhoto(with: setting, delegate: self)
+
         }
+    }
+    
+    func resizeImage(_ image: UIImage, newWidthX: CGFloat , newHeightX: CGFloat) -> UIImage {
+        var newWidth = newWidthX
+        var newHeight = newHeightX
+        if (image.size.width < newWidth){
+            newWidth = image.size.width
+            newHeight = image.size.width
+        }
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
     }
     
     func savePhotoLibrary(image: UIImage) {
@@ -239,8 +254,8 @@ extension TakePictureViewController {
                 PHPhotoLibrary.shared().performChanges({
                     PHAssetChangeRequest.creationRequestForAsset(from: image)
                 }) { (success, error) in
-                    if let err = error {
-                        print("\(error?.localizedDescription)" )
+                    if let error = error {
+                        print("\(error.localizedDescription)" )
                     }
                     print("image saved? : \(success)")
                 }
@@ -270,11 +285,9 @@ extension TakePictureViewController {
         
         // add video input
         // 인풋인 경우 먼저 디바이스를 찾고 연결을 세션이랑 해 주어야한다.
-        var defaultVideoDevice: AVCaptureDevice?
         guard let camera = videoDeviceDiscoverySession.devices.first else {
             captureSession.commitConfiguration()
             return
-            
         }
         //실제 카메라를 가져와야지 캡쳐디바이스를 구성할 수 있기 때문이다.
         do {
@@ -282,12 +295,13 @@ extension TakePictureViewController {
             
             if captureSession.canAddInput(deviceInput) {
                 captureSession.addInput(deviceInput)
+                
                 self.videoDeviceInput = deviceInput
             } else {
                 captureSession.commitConfiguration()
                 return
             }
-        } catch let error {
+        } catch let _ {
             captureSession.commitConfiguration()
             return
         }
@@ -321,6 +335,39 @@ extension TakePictureViewController {
             }
         }
     }
+    
+    func cropCameraImage(_ original: UIImage, previewLayer: AVCaptureVideoPreviewLayer) -> UIImage? {
+        
+        var image = UIImage()
+        
+        let previewImageLayerBounds = previewLayer.bounds
+        
+        let originalWidth = original.size.width
+        let originalHeight = original.size.height
+        
+        let A = previewImageLayerBounds.origin
+        let B = CGPoint(x: previewImageLayerBounds.size.width, y: previewImageLayerBounds.origin.y)
+        let D = CGPoint(x: previewImageLayerBounds.size.width, y: previewImageLayerBounds.size.height)
+        
+        let a = previewLayer.captureDevicePointConverted(fromLayerPoint: A)
+        let b = previewLayer.captureDevicePointConverted(fromLayerPoint: B)
+        let d = previewLayer.captureDevicePointConverted(fromLayerPoint: D)
+        
+        let posX = floor(b.x * originalHeight)
+        let posY = floor(b.y * originalWidth)
+        
+        let width: CGFloat = d.x * originalHeight - b.x * originalHeight
+        let height: CGFloat = a.y * originalWidth - b.y * originalWidth
+        
+        let cropRect = CGRect(x: posX, y: posY, width: width, height: height)
+        
+        if let imageRef = original.cgImage?.cropping(to: cropRect) {
+            image = UIImage(cgImage: imageRef, scale: original.scale, orientation: original.imageOrientation)
+        }
+        
+        return image
+    }
+    
 }
 
 extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
@@ -335,9 +382,10 @@ extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
             return
         }
         
+        let myImage = cropCameraImage(image, previewLayer: self.screenView.videoPreviewLayer)!
+        
         DispatchQueue.main.async {
-            
-            self.present(AddWordViewController(image: image), animated: true, completion: nil)
+            self.present(AddWordViewController(image: myImage), animated: true, completion: nil)
         }
         
         self.savePhotoLibrary(image: image)
