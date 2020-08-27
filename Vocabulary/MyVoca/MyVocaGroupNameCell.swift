@@ -8,18 +8,19 @@
 
 import UIKit
 import SnapKit
+import PoingDesignSystem
 
 class MyVocaGroupNameCell: UICollectionViewCell {
     enum Constant {
         enum Active {
             static let font = UIFont.systemFont(ofSize: 14, weight: .bold)
-            static let backgroundColor = UIColor(red: 74.0 / 255.0, green: 191.0 / 255.0, blue: 1.0, alpha: 1.0)
+            static let backgroundColor = UIColor.brightSkyBlue
             static let fontColor = UIColor.white
         }
         enum Inactive {
             static let font = UIFont.systemFont(ofSize: 14, weight: .regular)
             static let backgroundColor = UIColor(white: 244.0 / 255.0, alpha: 1.0)
-            static let fontColor = UIColor(red: 127.0 / 255.0, green: 129.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0)
+            static let fontColor = UIColor.slateGrey
         }
 
         static let height: CGFloat = 36

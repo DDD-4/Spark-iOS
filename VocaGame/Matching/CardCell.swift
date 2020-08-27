@@ -71,19 +71,21 @@ class CardCell: UICollectionViewCell {
         }
     }
 
-    func selected(color: UIColor) {
+    func selected() {
         switch cardMatching?.contentType {
         case .image:
             frontView.layer.borderWidth = Constant.borderWidth
-            frontView.layer.borderColor = color.cgColor
+            frontView.layer.borderColor = cardMatching?.color.cgColor
         case .text:
-            frontView.backgroundColor = color
+            frontView.backgroundColor = cardMatching?.color
+            wordLabel.textColor = .white
         default:
             return
         }
     }
 
     func deselected() {
+        wordLabel.textColor = Constant.textColor
         frontView.backgroundColor = .white
         frontView.layer.borderColor = UIColor.clear.cgColor
     }
