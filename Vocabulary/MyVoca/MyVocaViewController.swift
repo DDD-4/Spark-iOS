@@ -69,9 +69,6 @@ class MyVocaViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        if let tabBarController = tabBarController as? TabbarViewController { tabBarController.hiddenTabBar(false)
-        }
     }
 
     func configureLayout() {

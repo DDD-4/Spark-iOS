@@ -133,6 +133,9 @@ class MyVocaWordCell: UICollectionViewCell {
         self.word = word
         englishLabel.text = word.english
         koreanLabel.text = word.korean
+        if let data = word.image {
+            imageView.image = UIImage(data: data)
+        }
     }
 
     func configureLayout() {

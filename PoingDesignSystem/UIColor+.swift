@@ -79,23 +79,7 @@ public extension UIColor {
             alpha: 1
         )
     }
-
-    @nonobjc class var slateGrey: UIColor {
-      return UIColor(red: 90.0 / 255.0, green: 92.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0)
-    }
-
-    @nonobjc class var gameBackgroundColor: UIColor {
-      return UIColor(red: 1.0, green: 253.0 / 255.0, blue: 240.0 / 255.0, alpha: 1.0)
-    }
-
-    @nonobjc class var cement20: UIColor {
-      return UIColor(red: 158.0 / 255.0, green: 155.0 / 255.0, blue: 138.0 / 255.0, alpha: 0.2)
-    }
-
-    @nonobjc class var midnight: UIColor {
-      return UIColor(red: 4.0 / 255.0, green: 10.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
-    }
-
+    
     @nonobjc class var brownGrey: UIColor {
       return UIColor(white: 174.0 / 255.0, alpha: 1.0)
     }
