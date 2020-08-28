@@ -41,5 +41,9 @@ public extension UIColor {
     class var dandelion: UIColor {
     return UIColor(red: 1.0, green: 221.0 / 255.0, blue: 14.0 / 255.0, alpha: 1.0)
   }
+    
+    class var slateGrey: UIColor {
+        return UIColor(red: 90.0 / 255.0, green: 92.0 / 255.0, blue: 102.0 / 255.0, alpha: 1.0)
+    }
 
 }
