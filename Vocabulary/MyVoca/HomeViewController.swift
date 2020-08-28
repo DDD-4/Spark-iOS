@@ -89,8 +89,8 @@ class HomeViewController: UIViewController {
         return button
     }()
 
-    lazy var myVocaViewController = MyVocaViewController()
-    lazy var vocaForAllViewController = VocaForAllViewController()
+    lazy var myVocaViewController = MyVocaViewController(viewType: .myVoca)
+    lazy var vocaForAllViewController = MyVocaViewController(viewType: .vocaForAll)
 
     override func viewDidLoad() {
         super.viewDidLoad()
