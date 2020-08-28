@@ -46,13 +46,18 @@ class VocaForAllCell: UITableViewCell {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
-        view.layoutMargins = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        view.layoutMargins = UIEdgeInsets(
+            top: 4,
+            left: 4,
+            bottom: 4,
+            right: 4)
+        view.textColor = .white
         return view
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .BalsamiqSansBold(size: 30)
+        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 26)
         label.numberOfLines = 0
         label.textColor = .darkIndigo
         return label
@@ -66,22 +71,30 @@ class VocaForAllCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.textColor = .gray
+        label.textColor = .slateGrey
         return label
     }()
     lazy var authorImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "icPicture")
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = Constant.imageRadius
+        imageView.layer.cornerRadius = 24 * 0.5
         return imageView
     }()
     lazy var baseView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        //view.clipsToBounds = true
         view.layer.cornerRadius = 32
+        view.layer.shadow(
+            color: .greyblue20,
+            alpha: 1,
+            x: 0,
+            y: 10,
+            blur: 60,
+            spread: 0)
         view.backgroundColor = .white
         return view
     }()
@@ -117,7 +130,8 @@ class VocaForAllCell: UITableViewCell {
     }
     
     func configureLayout() {
-        contentView.backgroundColor = .none
+        contentView.backgroundColor = .white
+        //contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
         contentView.addSubview(baseView)
         baseView.addSubview(vocaImageView)
         baseView.addSubview(numberView)
@@ -129,9 +143,9 @@ class VocaForAllCell: UITableViewCell {
         authorContentView.addSubview(authorLabel)
         
         baseView.snp.makeConstraints { (make) in
-            make.top.bottom.equalTo(contentView)
-            make.leading.equalTo(contentView)
-            make.trailing.equalTo(contentView)
+            make.top.bottom.equalTo(contentView).offset(16)
+            make.leading.equalTo(contentView).offset(16)
+            make.trailing.equalTo(contentView).offset(-16)
             make.width.height.equalTo(343)
         }
         
@@ -142,15 +156,15 @@ class VocaForAllCell: UITableViewCell {
         }
         
         authorContentView.snp.makeConstraints { (make) in
-            make.height.equalTo(24)
-            make.leading.equalTo(baseView.snp.leading).offset(5)
+            make.leading.equalTo(baseView.snp.leading).offset(32)
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         authorImageView.snp.makeConstraints { (make) in
             make.leading.top.bottom.equalTo(authorContentView)
+            make.width.height.equalTo(24)
         }
         authorLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(authorImageView.snp.trailing).offset(-16)
+            make.leading.equalTo(authorImageView.snp.trailing).offset(8)
             make.centerY.equalTo(authorImageView)
         }
         
