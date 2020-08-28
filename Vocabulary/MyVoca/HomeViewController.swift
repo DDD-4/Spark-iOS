@@ -167,9 +167,9 @@ extension HomeViewController: HomeHeaderDelegate {
     }
 
     func homeHeader(_ view: HomeHeaderView, settingDidTap button: UIButton) {
-        let myViewController = MyViewController()
+        let myViewController = SettingViewController()
         let navigationController = UINavigationController(rootViewController: myViewController)
-        navigationController.isNavigationBarHidden = true
+        navigationController.navigationBar.isHidden = true
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.modalTransitionStyle = .coverVertical
         present(navigationController, animated: true, completion: nil)
