@@ -86,7 +86,6 @@ class VocaForAllCell: UITableViewCell {
     lazy var baseView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        //view.clipsToBounds = true
         view.layer.cornerRadius = 32
         view.layer.shadow(
             color: .greyblue20,
@@ -131,7 +130,6 @@ class VocaForAllCell: UITableViewCell {
     
     func configureLayout() {
         contentView.backgroundColor = .white
-        //contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
         contentView.addSubview(baseView)
         baseView.addSubview(vocaImageView)
         baseView.addSubview(numberView)
