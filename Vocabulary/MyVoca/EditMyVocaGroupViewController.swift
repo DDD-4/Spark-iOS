@@ -116,10 +116,6 @@ class EditMyVocaGroupViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        if let tabBarController = tabBarController as? TabbarViewController {
-            tabBarController.hiddenTabBar(true)
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
