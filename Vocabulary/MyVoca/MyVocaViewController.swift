@@ -175,7 +175,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VocaForAllCell.reuseIdentifier,
                 for: indexPath
-                ) as? VocaForAllCell1 else {
+                ) as? VocaForAllCell else {
                 return UICollectionViewCell()
             }
             cell.configure(dummy: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row])
