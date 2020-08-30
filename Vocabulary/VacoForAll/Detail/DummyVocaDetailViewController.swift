@@ -8,13 +8,32 @@
 
 import UIKit
 import PoingVocaSubsystem
+import PoingDesignSystem
 import RxSwift
 import RxCocoa
 import SnapKit
 
 class DummyVocaDetailViewController: UIViewController {
-
+    enum Constant {
+        enum Floating {
+            static let height: CGFloat = 60
+            static let width: CGFloat = 206
+        }
+        static let buttonRadius: CGFloat = 30
+    }
+    
     // MARK: - Properties
+    lazy var naviView: SideNavigationView = {
+        let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: nil, rightImage: nil)
+        view.leftSideButton.addTarget(self, action: #selector(tapLeftButton), for: .touchUpInside)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    lazy var headerView: VocaHeaderView = {
+        let view = VocaHeaderView(vocaTitle: vocaTitle, profileName: "홍길동", profileImage: nil)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     lazy var vocaCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical // 스크롤 방향
@@ -37,20 +56,26 @@ class DummyVocaDetailViewController: UIViewController {
     lazy var saveButton: BaseButton = {
         let button = BaseButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = Constant.buttonRadius
         button.setTitle("모두 저장하기", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 18)
+        button.backgroundColor = .brightSkyBlue
+        button.layer.masksToBounds = false
         return button
     }()
 
     static let photoIdentifier = "DetailsCollectionViewCell"
     let disposeBag = DisposeBag()
     let wordDownload: [WordDownload]
+    let vocaTitle: String
 
-    init(wordDownload: [WordDownload]) {
+    init(title: String, wordDownload: [WordDownload]) {
+        self.vocaTitle = title
         self.wordDownload = wordDownload
         super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .coverVertical
     }
 
     required init?(coder: NSCoder) {
@@ -69,19 +94,32 @@ class DummyVocaDetailViewController: UIViewController {
 
     func configureLayout() {
         view.backgroundColor = .white
-        view.addSubview(saveButton)
-        view.bringSubviewToFront(saveButton)
+        view.addSubview(naviView)
+        view.addSubview(headerView)
         view.addSubview(vocaCollectionView)
+        view.addSubview(saveButton)
 
+        naviView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        headerView.snp.makeConstraints { (make) in
+            make.top.equalTo(naviView.snp.bottom).offset(34)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(57)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-57)
+        }
+        
         saveButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
-            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
+            make.centerX.equalTo(view)
+            make.height.equalTo(Constant.Floating.height)
+            make.width.equalTo(Constant.Floating.width)
         }
 
         vocaCollectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(saveButton.snp.top).offset(-10)
+            make.bottom.equalTo(view)
         }
     }
 
@@ -92,6 +130,10 @@ class DummyVocaDetailViewController: UIViewController {
             viewController.delegate = self
             self?.present(viewController, animated: true, completion: nil)
         }).disposed(by: disposeBag)
+    }
+    
+    @objc func tapLeftButton() {
+        dismiss(animated: true, completion: nil)
     }
 }
 

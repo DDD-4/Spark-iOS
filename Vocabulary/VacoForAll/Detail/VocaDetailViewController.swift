@@ -34,13 +34,14 @@ class VocaDetailViewController: UIViewController {
         return collectionView
     }()
     
-    lazy var saveButton: BaseButton = {
-        let button = BaseButton()
+    lazy var saveButton: UIButton = {
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 15
         button.setTitle("모두 저장하기", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
+        button.backgroundColor = .brightSkyBlue
+        button.layer.masksToBounds = false
         return button
     }()
     
@@ -77,18 +78,18 @@ class VocaDetailViewController: UIViewController {
     func configureLayout() {
         view.backgroundColor = .white
         view.addSubview(saveButton)
-        view.bringSubviewToFront(saveButton)
         view.addSubview(vocaCollectionView)
         
         saveButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
-            make.centerX.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
+            make.centerX.equalTo(view)
+            make.height.equalTo(60)
         }
         
         vocaCollectionView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(saveButton.snp.top).offset(-10)
+            make.bottom.equalTo(view)
         }
     }
     

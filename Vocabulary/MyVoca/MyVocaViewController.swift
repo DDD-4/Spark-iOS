@@ -218,8 +218,9 @@ extension MyVocaViewController: UICollectionViewDataSource {
         }
 
         let words = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row].words
-
-        let wordView = DummyVocaDetailViewController(wordDownload: words)
+        let title = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row].title
+        
+        let wordView = DummyVocaDetailViewController(title: title, wordDownload: words)
         present(wordView, animated: true, completion: nil)
     }
 }
