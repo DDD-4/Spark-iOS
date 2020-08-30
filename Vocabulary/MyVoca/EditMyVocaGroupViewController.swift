@@ -91,8 +91,9 @@ class EditMyVocaGroupViewController: UIViewController {
         return button
     }()
 
-    init(groups: [Group]) {
-        viewModel = EditMyVocaGroupViewModel(groups: groups)
+    init() {
+        viewModel = EditMyVocaGroupViewModel()
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -104,6 +105,10 @@ class EditMyVocaGroupViewController: UIViewController {
         super.viewDidLoad()
         configureLayout()
         configureRx()
+
+        viewModel.filteredFetchGroup { [weak self] in
+            self?.groupCollectionView.reloadData()
+        }
 
         NotificationCenter.default.addObserver(
             self,
@@ -164,7 +169,7 @@ class EditMyVocaGroupViewController: UIViewController {
                     self.addFolderButton.isHidden = true
                     self.deleteButton.isHidden = false
                     self.navigationViewArea.rightSideButton.setImage(nil, for: .normal)
-                    self.navigationViewArea.rightSideButton.setTitle("삭제", for: .normal)
+                    self.navigationViewArea.rightSideButton.setTitle("취소", for: .normal)
                     self.navigationViewArea.rightSideButton.setTitleColor(.black, for: .normal)
                     self.groupCollectionView.dragInteractionEnabled = false
                 case .normal:

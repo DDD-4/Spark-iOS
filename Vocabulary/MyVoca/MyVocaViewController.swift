@@ -19,7 +19,15 @@ class MyVocaViewController: UIViewController {
 
     }
 
+    enum ViewType {
+        case myVoca
+        case vocaForAll
+    }
+
     let viewModel: MyVocaViewModelType = MyVocaViewModel()
+    let vocaForAllViewModel: VocaForAllViewModelType = VocaForAllViewModel()
+    let currentViewType: ViewType
+
     let disposeBag = DisposeBag()
     let synthesizer = AVSpeechSynthesizer()
 
@@ -40,6 +48,10 @@ class MyVocaViewController: UIViewController {
             forCellWithReuseIdentifier: MyVocaEmptyCell.reuseIdentifier
         )
         collectionView.register(
+            VocaForAllCell.self,
+            forCellWithReuseIdentifier: VocaForAllCell.reuseIdentifier
+        )
+        collectionView.register(
             MyVocaGroupReusableView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: MyVocaGroupReusableView.reuseIdentifier
@@ -51,20 +63,36 @@ class MyVocaViewController: UIViewController {
         return collectionView
     }()
 
+    init(viewType: ViewType) {
+        currentViewType = viewType
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureLayout()
-        configureRx()
 
-        viewModel.input.fetchGroups()
+        switch currentViewType {
+        case .myVoca:
+            configureRx()
+            viewModel.input.fetchGroups()
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(vocaDataChanged),
-            name: .vocaDataChanged,
-            object: nil
-        )
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(vocaDataChanged),
+                name: .vocaDataChanged,
+                object: nil
+            )
+
+        case .vocaForAll:
+            configureVocaForAllRx()
+            vocaForAllViewModel.inputs.fetchVocaForAllData()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -97,6 +125,14 @@ class MyVocaViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
 
+    func configureVocaForAllRx() {
+        vocaForAllViewModel.outputs.vocaForAllList
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+            self?.groupNameCollectionView.reloadData()
+        }).disposed(by: disposeBag)
+    }
+
     @objc
     func vocaDataChanged() {
         viewModel.input.fetchGroups()
@@ -105,9 +141,13 @@ class MyVocaViewController: UIViewController {
 
 extension MyVocaViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-        let wordCount = viewModel.output.words.value.count
-        return wordCount == 0 ? 1 : wordCount
+        switch currentViewType {
+        case .myVoca:
+            let wordCount = viewModel.output.words.value.count
+            return wordCount == 0 ? 1 : wordCount
+        case .vocaForAll:
+            return vocaForAllViewModel.outputs.vocaForAllList.value.count
+        }
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -116,21 +156,31 @@ extension MyVocaViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        print(viewModel.output.words.value)
-        
-        guard viewModel.output.words.value.count != 0 else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaEmptyCell.reuseIdentifier, for: indexPath) as? MyVocaEmptyCell else {
+        switch currentViewType {
+        case.myVoca:
+            guard viewModel.output.words.value.count != 0 else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaEmptyCell.reuseIdentifier, for: indexPath) as? MyVocaEmptyCell else {
+                    return UICollectionViewCell()
+                }
+                return cell
+            }
+
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaWordCell.reuseIdentifier, for: indexPath) as? MyVocaWordCell else {
                 return UICollectionViewCell()
             }
+            cell.delegate = self
+            cell.configure(word: viewModel.output.words.value[indexPath.row])
+            return cell
+        case .vocaForAll:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: VocaForAllCell.reuseIdentifier,
+                for: indexPath
+                ) as? VocaForAllCell else {
+                return UICollectionViewCell()
+            }
+            cell.configure(dummy: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row])
             return cell
         }
-
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyVocaWordCell.reuseIdentifier, for: indexPath) as? MyVocaWordCell else {
-            return UICollectionViewCell()
-        }
-        cell.delegate = self
-        cell.configure(word: viewModel.output.words.value[indexPath.row])
-        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -143,16 +193,35 @@ extension MyVocaViewController: UICollectionViewDataSource {
                     return UICollectionReusableView()
             }
             reusableview.delegate = self
-            reusableview.configure(
-                groups: viewModel.output.groups.value,
-                selectedGroup: viewModel.input.selectedGroup.value
-            )
+            switch currentViewType {
+            case .myVoca:
+                reusableview.configure(
+                    groups: viewModel.output.groups.value,
+                    selectedGroup: viewModel.input.selectedGroup.value
+                )
+            case .vocaForAll:
+                let test = VocaForAllOrderType.allCases
+                reusableview.configure(
+                    orderTypes: test,
+                    currentType: vocaForAllViewModel.inputs.orderType.value
+                )
+            }
             return reusableview
         default:
             return UICollectionReusableView()
         }
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard currentViewType == .vocaForAll else {
+            return
+        }
+
+        let words = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row].words
+
+        let wordView = DummyVocaDetailViewController(wordDownload: words)
+        present(wordView, animated: true, completion: nil)
+    }
 }
 
 extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
@@ -164,7 +233,9 @@ extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollection
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 403)
+        currentViewType == .myVoca
+            ? CGSize(width: collectionView.frame.width, height: 403)
+            : CGSize(width: collectionView.frame.width, height: 343)
     }
 
     func collectionView(
@@ -174,12 +245,20 @@ extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollection
     ) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 22 + 36)
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        currentViewType == .myVoca ? 20 : 16
+    }
 }
 
 
 extension MyVocaViewController: MyVocaViewControllerDelegate {
+    func myVocaGroupReusableView(didTapOrderType type: VocaForAllOrderType, view: MyVocaGroupReusableView) {
+
+    }
+
     func myVocaViewController(didTapEditGroupButton button: UIButton) {
-        let editGroupViewController = EditMyVocaGroupViewController(groups: viewModel.output.groups.value)
+        let editGroupViewController = EditMyVocaGroupViewController()
         navigationController?.pushViewController(editGroupViewController, animated: true)
     }
 

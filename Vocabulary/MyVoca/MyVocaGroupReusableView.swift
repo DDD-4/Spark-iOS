@@ -13,7 +13,9 @@ import RxSwift
 protocol MyVocaViewControllerDelegate: class {
     func myVocaViewController(didTapGroup group: Group, view: MyVocaGroupReusableView)
     func myVocaViewController(didTapEditGroupButton button: UIButton)
+    func myVocaGroupReusableView(didTapOrderType type: VocaForAllOrderType, view: MyVocaGroupReusableView)
 }
+
 class MyVocaGroupReusableView: UICollectionReusableView {
 
     static let reuseIdentifier = String(describing: MyVocaGroupReusableView.self)
@@ -21,7 +23,11 @@ class MyVocaGroupReusableView: UICollectionReusableView {
 
     private var groups = [Group]()
     private var selectedRow: Int?
+
+    private var orderTypes = [VocaForAllOrderType]()
     private let disposeBag = DisposeBag()
+
+    var currentViewType: MyVocaViewController.ViewType?
 
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -62,11 +68,21 @@ class MyVocaGroupReusableView: UICollectionReusableView {
     }
 
     func configure(groups: [Group], selectedGroup: Group?) {
+        currentViewType = .myVoca
         self.groups = groups
-        for index in 0 ..< groups.count {
-            if groups[index].identifier == selectedGroup?.identifier {
-                selectedRow = index
-            }
+        for index in 0 ..< groups.count where groups[index].identifier == selectedGroup?.identifier {
+            selectedRow = index
+            break
+        }
+
+        groupNameCollectionView.reloadData()
+    }
+
+    func configure(orderTypes: [VocaForAllOrderType], currentType: VocaForAllOrderType) {
+        currentViewType = .vocaForAll
+        self.orderTypes = orderTypes
+        for index in 0 ..< orderTypes.count where orderTypes[index] == currentType {
+            selectedRow = index
             break
         }
 
@@ -79,17 +95,24 @@ class MyVocaGroupReusableView: UICollectionReusableView {
 
 extension MyVocaGroupReusableView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        groups.count
+        currentViewType == .myVoca ? groups.count : orderTypes.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
+        guard let viewType = currentViewType,
+            let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: MyVocaGroupNameCell.reuseIdentifier,
             for: indexPath
             ) as? MyVocaGroupNameCell else {
             return UICollectionViewCell()
         }
-        cell.configure(groupName: groups[indexPath.row].title)
+
+        switch viewType {
+        case .myVoca:
+            cell.configure(groupName: groups[indexPath.row].title)
+        case .vocaForAll:
+            cell.configure(groupName: orderTypes[indexPath.row].description)
+        }
 
         indexPath.row == selectedRow ? cell.selected() : cell.deSelected()
         return cell
@@ -102,14 +125,30 @@ extension MyVocaGroupReusableView: UICollectionViewDelegate, UICollectionViewDel
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let cell = groups[indexPath.row]
-        let size =  UILabel.measureSize(with: cell.title, font: MyVocaGroupNameCell.Constant.Active.font, width: .greatestFiniteMagnitude, numberOfLines: 1, lineBreakMode: .byTruncatingTail)
+        guard let viewType = currentViewType else {
+            return .zero
+        }
 
-        return CGSize(width: size.width + 32, height: MyVocaGroupNameCell.Constant.height)
+        let string: String  = (viewType == .myVoca)
+            ? groups[indexPath.row].title
+            : orderTypes[indexPath.row].description
+        
+        let size =  UILabel.measureSize(
+            with: string,
+            font: MyVocaGroupNameCell.Constant.Active.font,
+            width: .greatestFiniteMagnitude,
+            numberOfLines: 1,
+            lineBreakMode: .byTruncatingTail
+        )
+
+        return CGSize(
+            width: size.width + 32,
+            height: MyVocaGroupNameCell.Constant.height
+        )
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard selectedRow != indexPath.row else {
+        guard selectedRow != indexPath.row, let viewType = currentViewType else {
             return
         }
         let beforeSelectedRow = selectedRow
@@ -122,7 +161,12 @@ extension MyVocaGroupReusableView: UICollectionViewDelegate, UICollectionViewDel
         }
         collectionView.reloadItems(at: reloadIndexPaths)
 
-        delegate?.myVocaViewController(didTapGroup: groups[indexPath.row], view: self)
+        switch viewType {
+        case .myVoca:
+            delegate?.myVocaViewController(didTapGroup: groups[indexPath.row], view: self)
+        case .vocaForAll:
+            delegate?.myVocaGroupReusableView(didTapOrderType: orderTypes[indexPath.row], view: self)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

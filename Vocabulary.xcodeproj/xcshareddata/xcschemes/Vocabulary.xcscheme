@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7D276DFC24BE05AF00CA4554"
-               BuildableName = "&#x1111;&#x1169;&#x110b;&#x1175;&#x11bc;&#x1111;&#x1169;&#x110b;&#x1175;&#x11bc;.app"
+               BuildableName = "Poing.app"
                BlueprintName = "Vocabulary"
                ReferencedContainer = "container:Vocabulary.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7D276DFC24BE05AF00CA4554"
-            BuildableName = "&#x1111;&#x1169;&#x110b;&#x1175;&#x11bc;&#x1111;&#x1169;&#x110b;&#x1175;&#x11bc;.app"
+            BuildableName = "Poing.app"
             BlueprintName = "Vocabulary"
             ReferencedContainer = "container:Vocabulary.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7D276DFC24BE05AF00CA4554"
-            BuildableName = "&#x1111;&#x1169;&#x110b;&#x1175;&#x11bc;&#x1111;&#x1169;&#x110b;&#x1175;&#x11bc;.app"
+            BuildableName = "Poing.app"
             BlueprintName = "Vocabulary"
             ReferencedContainer = "container:Vocabulary.xcodeproj">
          </BuildableReference>

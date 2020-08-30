@@ -129,7 +129,6 @@ class HomeHeaderCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Test"
         label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
         label.textColor = Constant.activeColor
         return label

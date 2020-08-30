@@ -14,8 +14,7 @@ import PoingVocaSubsystem
 class EditMyVocaGroupViewModel {
     var groups = BehaviorRelay<[Group]>(value: [])
 
-    init(groups: [Group]) {
-        self.groups = BehaviorRelay<[Group]>(value: filteredGroup(groups: groups))
+    init() {
     }
 
     func filteredFetchGroup(completion: (() -> Void)?) {

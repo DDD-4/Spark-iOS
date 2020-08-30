@@ -27,6 +27,8 @@ public class SideNavigationView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .midnight
         return label
     }()
 
@@ -35,6 +37,8 @@ public class SideNavigationView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentMode = .scaleAspectFit
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+        button.setTitleColor(.midnight, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         return button
     }()
 
