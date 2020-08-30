@@ -21,8 +21,6 @@ class MyProfileViewController: UIViewController {
             static let image = UIImage(named: "icCamera")
         }
         enum Name {
-            static let font = UIFont.systemFont(ofSize: 20, weight: .bold)
-            static let color = UIColor.midnight
             static let sideMargin: CGFloat = 32
             static let height: CGFloat = 56
         }
@@ -99,7 +97,7 @@ class MyProfileViewController: UIViewController {
             make.leading.equalTo(view).offset(Constant.Name.sideMargin)
             make.trailing.equalTo(view).offset(-Constant.Name.sideMargin)
             make.height.equalTo(Constant.Name.height)
-        }        
+        }
     }
 
     @objc func closeDidTap(_ sender: UIButton) {
