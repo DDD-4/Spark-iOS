@@ -12,23 +12,22 @@ import RxSwift
 import RxCocoa
 import PoingVocaSubsystem
 
-class VocaForAllCell: UITableViewCell {
-    
+class VocaForAllCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: VocaForAllCell.self)
-    
+
     enum Constant {
-        enum Image {
-            static let height: CGFloat = 166
+        enum VocaImage {
+            static let length: CGFloat = 166
         }
         static let imageRadius: CGFloat = 12
     }
-    
+
     lazy var vocaImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
-        view.layer.cornerRadius = Constant.Image.height * 0.5
+        view.layer.cornerRadius = Constant.VocaImage.length * 0.5
         view.backgroundColor = .lightGray
         return view
     }()
@@ -72,6 +71,7 @@ class VocaForAllCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .slateGrey
+        label.font = .systemFont(ofSize: 14, weight: .regular)
         return label
     }()
     lazy var authorImageView: UIImageView = {
@@ -97,9 +97,9 @@ class VocaForAllCell: UITableViewCell {
         view.backgroundColor = .white
         return view
     }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureLayout()
     }
     
@@ -127,7 +127,7 @@ class VocaForAllCell: UITableViewCell {
         authorImageView.image = UIImage(named: "icPicture")
         numberLable.text = "\(group.words.count)"
     }
-    
+
     func configureLayout() {
         contentView.backgroundColor = .white
         contentView.addSubview(baseView)
@@ -139,23 +139,22 @@ class VocaForAllCell: UITableViewCell {
         numberView.addSubview(numberLable)
         authorContentView.addSubview(authorImageView)
         authorContentView.addSubview(authorLabel)
-        
+
         baseView.snp.makeConstraints { (make) in
-            make.top.bottom.equalTo(contentView).offset(16)
+            make.top.bottom.equalTo(contentView)
             make.leading.equalTo(contentView).offset(16)
             make.trailing.equalTo(contentView).offset(-16)
-            make.width.height.equalTo(343)
         }
-        
+
         titleLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(baseView.snp.leading).offset(32)
             make.top.equalTo(baseView.snp.top).offset(32)
-            make.width.equalTo(196)
+            make.trailing.equalTo(baseView).offset(-(Constant.VocaImage.length * 0.5) - 32)
         }
-        
+
         authorContentView.snp.makeConstraints { (make) in
             make.leading.equalTo(baseView.snp.leading).offset(32)
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.top.equalTo(titleLabel.snp.bottom).offset(12)
         }
         authorImageView.snp.makeConstraints { (make) in
             make.leading.top.bottom.equalTo(authorContentView)
@@ -165,24 +164,24 @@ class VocaForAllCell: UITableViewCell {
             make.leading.equalTo(authorImageView.snp.trailing).offset(8)
             make.centerY.equalTo(authorImageView)
         }
-        
+
         vocaImageView.snp.makeConstraints { (make) in
-            make.height.width.equalTo(Constant.Image.height)
+            make.height.width.equalTo(Constant.VocaImage.length)
             make.bottom.equalTo(baseView.snp.bottom).offset(-32)
             make.trailing.equalTo(baseView.snp.trailing).offset(-32)
         }
-        
+
         numberView.snp.makeConstraints { (make) in
             make.centerY.equalTo(vocaImageView).offset(-20)
             make.trailing.equalTo(vocaImageView.snp.trailing)
         }
-        
+
         numberLable.snp.makeConstraints { (make) in
             make.leading.top.trailing.bottom.equalTo(numberView)
         }
-        
+
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
     }

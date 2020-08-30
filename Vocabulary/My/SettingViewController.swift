@@ -80,7 +80,7 @@ class SettingViewController: UIViewController {
 
             }),
             Option(title: "폴더 편집", rightType: .arrow, handler: { [weak self] in
-                let viewController = AddFolderViewController()
+                let viewController = EditMyVocaGroupViewController()
                 self?.navigationController?.pushViewController(viewController, animated: true)
 
             }),

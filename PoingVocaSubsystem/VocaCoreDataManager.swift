@@ -13,7 +13,7 @@ public class VocaCoreDataManager: NSObject {
     public static let shared = VocaCoreDataManager()
     let modelName = "Voca"
     let cloudKitID = "iCloud.Spark.Vocabulary"
-    let vocaBundleID = "LEE-HAEUN.PoingVocaSubsystem"
+    let vocaBundleID = "Spark.PoingVocaSubsystem"
 
     /**
      An operation queue for handling history processing tasks: watching changes, deduplicating tags, and triggering UI updates if needed.

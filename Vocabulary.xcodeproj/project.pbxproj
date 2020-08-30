@@ -19,13 +19,9 @@
 		186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84C924D1462E0094E9EB /* BaseButton.swift */; };
 		186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */; };
 		186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */; };
-		186E84E524D2DAC50094E9EB /* VocaForAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84E424D2DAC50094E9EB /* VocaForAllViewController.swift */; };
-		186E84E724D2DB300094E9EB /* VocaForAllNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84E624D2DB300094E9EB /* VocaForAllNavigationView.swift */; };
-		186E84E924D2E2A30094E9EB /* VocaForAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84E824D2E2A30094E9EB /* VocaForAllCell.swift */; };
 		1870799524D8120E0079E280 /* WordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870799424D8120E0079E280 /* WordViewModel.swift */; };
 		187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024924D4065B008DBC8B /* VocaDetailViewController.swift */; };
 		187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024B24D40968008DBC8B /* WordDetailCell.swift */; };
-		187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024D24D41705008DBC8B /* VocaForAllModel.swift */; };
 		7D0F433324F912B3006CC32B /* DummyVocaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72ABEB24F4007200A01BCC /* DummyVocaDetailViewController.swift */; };
 		7D0F433424F912CC006CC32B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72ABED24F404BD00A01BCC /* LoadingView.swift */; };
 		7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D14050724DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift */; };
@@ -51,11 +47,19 @@
 		7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */; };
 		7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D477D7A24E2C3C7004A7F17 /* Media.xcassets */; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
+		7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */; };
 		7D6E2E7324F3E6250015483C /* VocaDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */; };
 		7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7624E193C9004A7F17 /* CALayer+.swift */; };
+		7D702D3B24F98473008F21F9 /* VocaForAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D702D3A24F98473008F21F9 /* VocaForAllCell.swift */; };
 		7D72ABEA24F3FBFF00A01BCC /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72ABE924F3FBFF00A01BCC /* DummyData.swift */; };
+		7D790FA224F9624A0034BC1D /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
+		7D790FA324F9624A0034BC1D /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D790FA724F9624D0034BC1D /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
+		7D790FA824F9624D0034BC1D /* PoingVocaSubsystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D790FAB24F962500034BC1D /* VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; };
+		7D790FAC24F962500034BC1D /* VocaGame.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D7F602424F29226007021C6 /* LoadCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7F602324F29226007021C6 /* LoadCoreDataManager.swift */; };
 		7D88184E24F6AA8A005A157E /* AccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88184D24F6AA8A005A157E /* AccentButton.swift */; };
 		7D88185224F6C960005A157E /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88185124F6C960005A157E /* String+.swift */; };
@@ -63,12 +67,6 @@
 		7D88185624F7686A005A157E /* SettingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88185524F7686A005A157E /* SettingSection.swift */; };
 		7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A024E17DD3000D8559 /* HomeViewController.swift */; };
 		7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */; };
-		7DAF66B824DC477F00B68C6C /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
-		7DAF66B924DC477F00B68C6C /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7DAF66BC24DC478100B68C6C /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
-		7DAF66BD24DC478100B68C6C /* PoingVocaSubsystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7DAF66C024DC478400B68C6C /* VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; };
-		7DAF66C124DC478400B68C6C /* VocaGame.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7DDB4ACE24DC2D6B008812CD /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7DDB4AD524DC2D6B008812CD /* PoingDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4AD424DC2D6B008812CD /* PoingDesignSystemTests.swift */; };
 		7DDB4AD724DC2D6B008812CD /* PoingDesignSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -113,21 +111,21 @@
 			remoteGlobalIDString = 7DDB4AC424DC2D6B008812CD;
 			remoteInfo = PoingDesignSystem;
 		};
-		7DAF66BA24DC477F00B68C6C /* PBXContainerItemProxy */ = {
+		7D790FA424F9624A0034BC1D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7DDB4AC424DC2D6B008812CD;
 			remoteInfo = PoingDesignSystem;
 		};
-		7DAF66BE24DC478100B68C6C /* PBXContainerItemProxy */ = {
+		7D790FA924F9624D0034BC1D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7DDB4AE924DC2DF2008812CD;
 			remoteInfo = PoingVocaSubsystem;
 		};
-		7DAF66C224DC478400B68C6C /* PBXContainerItemProxy */ = {
+		7D790FAD24F962500034BC1D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
 			proxyType = 1;
@@ -176,15 +174,15 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7DF7233A24DC452A00C9745F /* Embed Frameworks */ = {
+		7D790FA624F9624A0034BC1D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7DAF66C124DC478400B68C6C /* VocaGame.framework in Embed Frameworks */,
-				7DAF66B924DC477F00B68C6C /* PoingDesignSystem.framework in Embed Frameworks */,
-				7DAF66BD24DC478100B68C6C /* PoingVocaSubsystem.framework in Embed Frameworks */,
+				7D790FAC24F962500034BC1D /* VocaGame.framework in Embed Frameworks */,
+				7D790FA324F9624A0034BC1D /* PoingDesignSystem.framework in Embed Frameworks */,
+				7D790FA824F9624D0034BC1D /* PoingVocaSubsystem.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,13 +200,9 @@
 		186E84C924D1462E0094E9EB /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordNavigationView.swift; sourceTree = "<group>"; };
-		186E84E424D2DAC50094E9EB /* VocaForAllViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VocaForAllViewController.swift; path = Vocabulary/VocaForAll/VocaForAllViewController.swift; sourceTree = SOURCE_ROOT; };
-		186E84E624D2DB300094E9EB /* VocaForAllNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VocaForAllNavigationView.swift; path = Vocabulary/VocaForAll/VocaForAllNavigationView.swift; sourceTree = SOURCE_ROOT; };
-		186E84E824D2E2A30094E9EB /* VocaForAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VocaForAllCell.swift; path = Vocabulary/VocaForAll/VocaForAllCell.swift; sourceTree = SOURCE_ROOT; };
 		1870799424D8120E0079E280 /* WordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewModel.swift; sourceTree = "<group>"; };
 		187B024924D4065B008DBC8B /* VocaDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VocaDetailViewController.swift; path = Vocabulary/VacoForAll/Detail/VocaDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		187B024B24D40968008DBC8B /* WordDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WordDetailCell.swift; path = Vocabulary/VacoForAll/Detail/WordDetailCell.swift; sourceTree = SOURCE_ROOT; };
-		187B024D24D41705008DBC8B /* VocaForAllModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VocaForAllModel.swift; path = Vocabulary/VocaForAll/VocaForAllModel.swift; sourceTree = SOURCE_ROOT; };
 		2F9AD3A526916EA462BD8F5D /* Pods-Vocabulary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.release.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.release.xcconfig"; sourceTree = "<group>"; };
 		3058D476938174BA00AE76FD /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
 		4478D4B7DA4E6BD69D08D8DE /* Pods_VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,7 +220,7 @@
 		7D16CBCD24E8D6AD00C95F8D /* CardMatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatchingViewController.swift; sourceTree = "<group>"; };
 		7D16CBCF24E8D6AD00C95F8D /* ImageWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWord.swift; sourceTree = "<group>"; };
 		7D16CBD024E8D6AD00C95F8D /* CardMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMatching.swift; sourceTree = "<group>"; };
-		7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "포잉포잉.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D276DFD24BE05AF00CA4554 /* Poing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D276E0024BE05AF00CA4554 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -236,7 +230,9 @@
 		7D477D7624E193C9004A7F17 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNavigationView.swift; sourceTree = "<group>"; };
 		7D477D7A24E2C3C7004A7F17 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaForAllViewModel.swift; sourceTree = "<group>"; };
 		7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaDownloadOperation.swift; sourceTree = "<group>"; };
+		7D702D3A24F98473008F21F9 /* VocaForAllCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocaForAllCell.swift; sourceTree = "<group>"; };
 		7D72ABE924F3FBFF00A01BCC /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		7D72ABEB24F4007200A01BCC /* DummyVocaDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyVocaDetailViewController.swift; sourceTree = "<group>"; };
 		7D72ABED24F404BD00A01BCC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -304,9 +300,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DAF66C024DC478400B68C6C /* VocaGame.framework in Frameworks */,
-				7DAF66B824DC477F00B68C6C /* PoingDesignSystem.framework in Frameworks */,
-				7DAF66BC24DC478100B68C6C /* PoingVocaSubsystem.framework in Frameworks */,
+				7D790FAB24F962500034BC1D /* VocaGame.framework in Frameworks */,
+				7D790FA224F9624A0034BC1D /* PoingDesignSystem.framework in Frameworks */,
+				7D790FA724F9624D0034BC1D /* PoingVocaSubsystem.framework in Frameworks */,
 				7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */,
 				EA6BA5E0DA28CCF02D87124E /* Pods_Vocabulary.framework in Frameworks */,
 			);
@@ -477,7 +473,7 @@
 		7D276DFE24BE05AF00CA4554 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */,
+				7D276DFD24BE05AF00CA4554 /* Poing.app */,
 				CEFED47F24D5C8C2002E858C /* VocaGame.framework */,
 				7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */,
 				7DDB4ACD24DC2D6B008812CD /* PoingDesignSystemTests.xctest */,
@@ -629,6 +625,7 @@
 				CE4401B724CF33E70093D04B /* MyVocaViewController.swift */,
 				CE381A1024D1DE5B00FDEBAC /* MyVocaViewModel.swift */,
 				CE8703C424D2FD9C00DDFAD4 /* MyVocaWordCell.swift */,
+				7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */,
 			);
 			path = MyVoca;
 			sourceTree = "<group>";
@@ -636,11 +633,8 @@
 		CE6C9B5E24CF2D3F0068C3BB /* VacoForAll */ = {
 			isa = PBXGroup;
 			children = (
+				7D702D3A24F98473008F21F9 /* VocaForAllCell.swift */,
 				1870799324D8113A0079E280 /* Detail */,
-				186E84E424D2DAC50094E9EB /* VocaForAllViewController.swift */,
-				186E84E624D2DB300094E9EB /* VocaForAllNavigationView.swift */,
-				186E84E824D2E2A30094E9EB /* VocaForAllCell.swift */,
-				187B024D24D41705008DBC8B /* VocaForAllModel.swift */,
 			);
 			path = VacoForAll;
 			sourceTree = "<group>";
@@ -761,19 +755,19 @@
 				7D276DF924BE05AF00CA4554 /* Sources */,
 				7D276DFA24BE05AF00CA4554 /* Frameworks */,
 				7D276DFB24BE05AF00CA4554 /* Resources */,
-				7DF7233A24DC452A00C9745F /* Embed Frameworks */,
 				9C5A6B5D748F83F18ACBB517 /* [CP] Embed Pods Frameworks */,
+				7D790FA624F9624A0034BC1D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7DAF66BB24DC477F00B68C6C /* PBXTargetDependency */,
-				7DAF66BF24DC478100B68C6C /* PBXTargetDependency */,
-				7DAF66C324DC478400B68C6C /* PBXTargetDependency */,
+				7D790FA524F9624A0034BC1D /* PBXTargetDependency */,
+				7D790FAA24F9624D0034BC1D /* PBXTargetDependency */,
+				7D790FAE24F962500034BC1D /* PBXTargetDependency */,
 			);
 			name = Vocabulary;
 			productName = Vocabulary;
-			productReference = 7D276DFD24BE05AF00CA4554 /* 포잉포잉.app */;
+			productReference = 7D276DFD24BE05AF00CA4554 /* Poing.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */ = {
@@ -785,6 +779,7 @@
 				7DDB4AC124DC2D6B008812CD /* Sources */,
 				7DDB4AC224DC2D6B008812CD /* Frameworks */,
 				7DDB4AC324DC2D6B008812CD /* Resources */,
+				7D702D3724F97515008F21F9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -823,6 +818,7 @@
 				7DDB4AE624DC2DF2008812CD /* Sources */,
 				7DDB4AE724DC2DF2008812CD /* Frameworks */,
 				7DDB4AE824DC2DF2008812CD /* Resources */,
+				7D702D3824F9751A008F21F9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -862,6 +858,7 @@
 				CEFED47C24D5C8C2002E858C /* Frameworks */,
 				CEFED47D24D5C8C2002E858C /* Resources */,
 				7D30807524D9A39D0001D850 /* Embed Frameworks */,
+				7D702D3624F9750A008F21F9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1024,6 +1021,57 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7D702D3624F9750A008F21F9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then \n    rm -fr Frameworks\nfi\n";
+		};
+		7D702D3724F97515008F21F9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then \n    rm -fr Frameworks\nfi\n";
+		};
+		7D702D3824F9751A008F21F9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then \n    rm -fr Frameworks\nfi\n";
+		};
 		9C5A6B5D748F83F18ACBB517 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1096,6 +1144,7 @@
 				186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */,
 				CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */,
 				7D88185224F6C960005A157E /* String+.swift in Sources */,
+				7D702D3B24F98473008F21F9 /* VocaForAllCell.swift in Sources */,
 				1833D75224E78A650085DDF6 /* SettingCell.swift in Sources */,
 				CEFED47524D5B236002E858C /* GameCell.swift in Sources */,
 				7D88185624F7686A005A157E /* SettingSection.swift in Sources */,
@@ -1105,22 +1154,19 @@
 				186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */,
 				1870799524D8120E0079E280 /* WordViewModel.swift in Sources */,
 				7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */,
-				187B024E24D41705008DBC8B /* VocaForAllModel.swift in Sources */,
 				1833D74D24E78A3C0085DDF6 /* ScreenView.swift in Sources */,
 				1833D74E24E78A3C0085DDF6 /* SelectVocaViewController.swift in Sources */,
 				7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */,
 				7D0F433424F912CC006CC32B /* LoadingView.swift in Sources */,
 				7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */,
 				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
+				7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */,
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
 				CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */,
 				186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */,
-				186E84E924D2E2A30094E9EB /* VocaForAllCell.swift in Sources */,
 				CEFED47324D45291002E858C /* GameViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
 				1833D75624E78A720085DDF6 /* SettingViewController.swift in Sources */,
-				186E84E724D2DB300094E9EB /* VocaForAllNavigationView.swift in Sources */,
-				186E84E524D2DAC50094E9EB /* VocaForAllViewController.swift in Sources */,
 				187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
 				1833D74A24E78A3C0085DDF6 /* SelectVocaTableViewCell.swift in Sources */,
@@ -1210,20 +1256,20 @@
 			target = 7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */;
 			targetProxy = 7D6F9D0424E2EE3B005B6835 /* PBXContainerItemProxy */;
 		};
-		7DAF66BB24DC477F00B68C6C /* PBXTargetDependency */ = {
+		7D790FA524F9624A0034BC1D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */;
-			targetProxy = 7DAF66BA24DC477F00B68C6C /* PBXContainerItemProxy */;
+			targetProxy = 7D790FA424F9624A0034BC1D /* PBXContainerItemProxy */;
 		};
-		7DAF66BF24DC478100B68C6C /* PBXTargetDependency */ = {
+		7D790FAA24F9624D0034BC1D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7DDB4AE924DC2DF2008812CD /* PoingVocaSubsystem */;
-			targetProxy = 7DAF66BE24DC478100B68C6C /* PBXContainerItemProxy */;
+			targetProxy = 7D790FA924F9624D0034BC1D /* PBXContainerItemProxy */;
 		};
-		7DAF66C324DC478400B68C6C /* PBXTargetDependency */ = {
+		7D790FAE24F962500034BC1D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CEFED47E24D5C8C2002E858C /* VocaGame */;
-			targetProxy = 7DAF66C224DC478400B68C6C /* PBXContainerItemProxy */;
+			targetProxy = 7D790FAD24F962500034BC1D /* PBXContainerItemProxy */;
 		};
 		7DDB4AD024DC2D6B008812CD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1380,7 +1426,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = Vocabulary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1388,11 +1434,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabulary;
-				PRODUCT_NAME = "포잉포잉";
+				PRODUCT_NAME = Poing;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1403,7 +1449,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = Vocabulary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1411,11 +1457,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Spark.Vocabulary;
-				PRODUCT_NAME = "포잉포잉";
+				PRODUCT_NAME = Poing;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1438,7 +1484,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingDesignSystem";
+				PRODUCT_BUNDLE_IDENTIFIER = Spark.PoingDesignSystem;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1468,7 +1514,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingDesignSystem";
+				PRODUCT_BUNDLE_IDENTIFIER = Spark.PoingDesignSystem;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1540,7 +1586,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingVocaSubsystem";
+				PRODUCT_BUNDLE_IDENTIFIER = Spark.PoingVocaSubsystem;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1570,7 +1616,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "LEE-HAEUN.PoingVocaSubsystem";
+				PRODUCT_BUNDLE_IDENTIFIER = Spark.PoingVocaSubsystem;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1642,7 +1688,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = voca.VocaGame;
+				PRODUCT_BUNDLE_IDENTIFIER = Spark.VocaGame;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1672,7 +1718,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = voca.VocaGame;
+				PRODUCT_BUNDLE_IDENTIFIER = Spark.VocaGame;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
