@@ -24,10 +24,7 @@ class MyProfileViewController: UIViewController {
             static let font = UIFont.systemFont(ofSize: 20, weight: .bold)
             static let color = UIColor.midnight
             static let sideMargin: CGFloat = 32
-        }
-        enum Line {
-            static let color = UIColor.grey244
-            static let height: CGFloat = 1
+            static let height: CGFloat = 56
         }
     }
 
@@ -61,22 +58,11 @@ class MyProfileViewController: UIViewController {
         return button
     }()
 
-    lazy var nameLabel: UITextField = {
-        let text = UITextField()
+    lazy var nameTextField: VDSTextField = {
+        let text = VDSTextField()
         text.translatesAutoresizingMaskIntoConstraints = false
         text.text = "홍길동"
-        text.font = Constant.Name.font
-        text.textColor = Constant.Name.color
-        text.tintColor = Constant.Name.color
-        text.textAlignment = .center
         return text
-    }()
-
-    lazy var lineView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.Line.color
-        return view
     }()
 
     override func viewDidLoad() {
@@ -90,8 +76,7 @@ class MyProfileViewController: UIViewController {
         view.addSubview(navView)
         view.addSubview(profileImageView)
         view.addSubview(cameraButton)
-        view.addSubview(nameLabel)
-        view.addSubview(lineView)
+        view.addSubview(nameTextField)
 
         navView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -109,17 +94,12 @@ class MyProfileViewController: UIViewController {
             make.width.height.equalTo(Constant.Camera.length)
         }
 
-        nameLabel.snp.makeConstraints { (make) in
+        nameTextField.snp.makeConstraints { (make) in
             make.top.equalTo(profileImageView.snp.bottom).offset(27)
             make.leading.equalTo(view).offset(Constant.Name.sideMargin)
             make.trailing.equalTo(view).offset(-Constant.Name.sideMargin)
-        }
-
-        lineView.snp.makeConstraints { (make) in
-            make.height.equalTo(Constant.Line.height)
-            make.leading.trailing.equalTo(nameLabel)
-            make.top.equalTo(nameLabel.snp.bottom).offset(12)
-        }
+            make.height.equalTo(Constant.Name.height)
+        }        
     }
 
     @objc func closeDidTap(_ sender: UIButton) {
