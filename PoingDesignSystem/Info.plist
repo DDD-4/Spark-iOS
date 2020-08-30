@@ -20,6 +20,7 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Quicksand-Bold.ttf</string>
 		<string>BalsamiqSansBold.ttf</string>
 	</array>
 </dict>
