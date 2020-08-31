@@ -9,16 +9,39 @@
 import UIKit
 
 public class VDSTextField: UITextField {
-
-    public enum Theme {
-        case gray
-        case white
+    enum Constant {
+        enum TextField {
+            static let font = UIFont.systemFont(ofSize: 20, weight: .bold)
+            static let color = UIColor.midnight
+        }
+        enum Line {
+            static let color = UIColor.grey244
+            static let height: CGFloat = 1
+        }
     }
 
-    let themeType: Theme
+    public override var placeholder: String? {
+        didSet {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            let attributes: [NSAttributedString.Key : Any] = [
+                .font: UIFont(name: "AppleSDGothicNeo-Bold", size: 20) as Any,
+                .paragraphStyle: paragraphStyle,
+                .foregroundColor: UIColor.veryLightPink,
+            ]
+            let attrString = NSAttributedString(string: placeholder ?? "", attributes: attributes)
 
-    public init(theme: Theme) {
-        themeType = theme
+            self.attributedPlaceholder = attrString
+        }
+    }
+
+    lazy var lineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Constant.Line.color
+        return view
+    }()
+
+    public init() {
         super.init(frame: .zero)
 
         configureLayout()
@@ -28,20 +51,18 @@ public class VDSTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureLayout() {
-        leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-        leftViewMode = .always
-        rightView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-        rightViewMode = .always
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        lineView.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: Constant.Line.height)
+    }
 
-        switch themeType {
-        case .gray:
-            backgroundColor = .gray
-            textColor = .white
-        case .white:
-            backgroundColor = .white
-            textColor = .black
-        }
+    func configureLayout() {
+        textAlignment = .center
+        font = Constant.TextField.font
+        tintColor = Constant.TextField.color
+        textColor = Constant.TextField.color
+
+        addSubview(lineView)
     }
     
 }

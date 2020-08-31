@@ -151,23 +151,27 @@ extension SettingViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let cell: UITableViewCell?
         switch section {
         case .profile:
-            cell = tableView.dequeueReusableCell(
+            if let cell = tableView.dequeueReusableCell(
                 withIdentifier: SettingMyInfoCell.reuseIdentifier,
                 for: indexPath
-            ) as? SettingMyInfoCell
+                ) as? SettingMyInfoCell {
+                cell.delegate = self
+                return cell
+            }
         case .options:
-            cell = tableView.dequeueReusableCell(
+            if let cell = tableView.dequeueReusableCell(
                 withIdentifier: SettingCell.reuseIdentifier,
                 for: indexPath
-            ) as? SettingCell
-            (cell as? SettingCell)?.configure(
+                ) as? SettingCell {
+                cell.configure(
                 option: options[indexPath.row],
                 isLast: indexPath.row == options.count - 1)
+                return cell
+            }
         }
-        return cell ?? UITableViewCell()
+        return UITableViewCell()
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -186,5 +190,11 @@ extension SettingViewController: UITableViewDelegate {
         case .options:
             options[indexPath.row].handler()
         }
+    }
+}
+
+extension SettingViewController: SettingMyInfoCellDelegate {
+    func settingMyInfoCell(_ cell: SettingMyInfoCell, didTapEdit button: UIButton) {
+        navigationController?.pushViewController(MyProfileViewController(), animated: true)
     }
 }

@@ -65,6 +65,10 @@ public extension UIColor {
     class var midnight: UIColor {
         return UIColor(red: 4.0 / 255.0, green: 10.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
       }
+
+    class var grey244: UIColor {
+      return UIColor(white: 244.0 / 255.0, alpha: 1.0)
+    }
 }
 
 public extension UIColor {

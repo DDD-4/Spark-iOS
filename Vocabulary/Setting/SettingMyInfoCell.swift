@@ -9,6 +9,10 @@
 import UIKit
 import SnapKit
 
+protocol SettingMyInfoCellDelegate: class {
+    func settingMyInfoCell(_ cell: SettingMyInfoCell, didTapEdit button: UIButton)
+}
+
 class SettingMyInfoCell: UITableViewCell {
     static let reuseIdentifier = String(describing: SettingMyInfoCell.self)
     enum Constant {
@@ -31,6 +35,8 @@ class SettingMyInfoCell: UITableViewCell {
             static let text = "프로필 수정"
         }
     }
+
+    weak var delegate: SettingMyInfoCellDelegate?
 
     lazy var containerView: UIView = {
         let view = UIView()
@@ -74,6 +80,7 @@ class SettingMyInfoCell: UITableViewCell {
         button.clipsToBounds = true
         button.backgroundColor = Constant.Edit.backgroundColor
         button.titleLabel?.font = Constant.Edit.font
+        button.addTarget(self, action: #selector(editDidTap(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -122,5 +129,9 @@ class SettingMyInfoCell: UITableViewCell {
             make.width.equalTo(Constant.Edit.width)
             make.height.equalTo(Constant.Edit.height)
         }
+    }
+
+    @objc func editDidTap(_ sender: UIButton) {
+        delegate?.settingMyInfoCell(self, didTapEdit: sender)
     }
 }
