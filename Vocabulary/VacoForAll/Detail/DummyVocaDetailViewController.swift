@@ -37,11 +37,12 @@ class DummyVocaDetailViewController: UIViewController {
     lazy var vocaCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical // 스크롤 방향
-        flowLayout.minimumLineSpacing = 16 // 최소라인간격
-        flowLayout.minimumInteritemSpacing = 0 // 최소 내부 여백
+        flowLayout.minimumLineSpacing = 11 // 최소라인간격
+        flowLayout.minimumInteritemSpacing = 11 // 최소 내부 여백
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         collectionView.register(
             WordDetailCell.self,
             forCellWithReuseIdentifier: WordDetailCell.reuseIdentifier
@@ -104,7 +105,7 @@ class DummyVocaDetailViewController: UIViewController {
         }
         
         headerView.snp.makeConstraints { (make) in
-            make.top.equalTo(naviView.snp.bottom).offset(34)
+            make.top.equalTo(naviView.snp.bottom).offset(24)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(57)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-57)
         }
@@ -117,7 +118,7 @@ class DummyVocaDetailViewController: UIViewController {
         }
 
         vocaCollectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(headerView.snp.bottom)
+            make.top.equalTo(headerView.snp.bottom).offset(37)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view)
         }
@@ -133,7 +134,7 @@ class DummyVocaDetailViewController: UIViewController {
     }
     
     @objc func tapLeftButton() {
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -183,7 +184,9 @@ extension DummyVocaDetailViewController: UICollectionViewDelegateFlowLayout, UIC
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: (collectionView.frame.width - 11) / 2 , height: (collectionView.frame.width - 11) / 2 + 70)
+        let width = (collectionView.frame.width - (11) - (16 * 2)) / 2
+        return CGSize(width: width, height: width * 1.28)
+        //return CGSize(width: (collectionView.frame.width - 11) / 2 , height: (collectionView.frame.width - 11) / 2 + 70)
     }
 }
 

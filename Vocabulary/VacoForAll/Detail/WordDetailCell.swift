@@ -81,7 +81,8 @@ class WordDetailCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .clear
+        clipsToBounds = false
         configureLayout()
     }
     
@@ -118,8 +119,8 @@ class WordDetailCell: UICollectionViewCell {
         }
         textContentView.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).offset(Constant.TextContents.contentTopMargin)
-            make.leading.equalTo(Constant.sideMargin)
-            make.trailing.equalTo(-Constant.sideMargin)
+            make.leading.equalTo(contentView)
+            make.trailing.equalTo(contentView)
         }
         textStackView.snp.makeConstraints { (make) in
             make.top.equalTo(textContentView).offset(138)

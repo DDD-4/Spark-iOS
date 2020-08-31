@@ -63,7 +63,6 @@ class VocaHeaderView: UIView {
     }
     
     func configureLayout() {
-        //self.backgroundColor = .lightGray
         self.addSubview(vocaTitle)
         self.addSubview(profileContentView)
         
@@ -76,8 +75,7 @@ class VocaHeaderView: UIView {
         
         profileContentView.snp.makeConstraints { (make) in
             make.top.equalTo(vocaTitle.snp.bottom).offset(8)
-            make.centerX.equalTo(self).offset(-8 - Constant.Profile.imageHeight)
-            // there are something better than this codes. i tried, but can't find better answer.
+            make.centerX.equalTo(self)
             make.bottom.equalTo(self)
         }
         
@@ -87,6 +85,7 @@ class VocaHeaderView: UIView {
         }
         profileLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(profileImageView.snp.trailing).offset(8)
+            make.trailing.equalTo(profileContentView)
             make.centerY.equalTo(profileImageView)
         }
     }
