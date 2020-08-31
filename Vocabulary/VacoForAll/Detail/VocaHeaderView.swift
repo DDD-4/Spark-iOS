@@ -11,9 +11,6 @@ import SnapKit
 
 class VocaHeaderView: UIView {
     enum Constant {
-        enum Title {
-            static let width: CGFloat = 261
-        }
         enum Profile {
             static let height: CGFloat = 18
             static let imageHeight: CGFloat = 24
@@ -26,6 +23,9 @@ class VocaHeaderView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 26)
         label.textAlignment = .center
+        label.baselineAdjustment = .alignCenters
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         return label
     }()
     lazy var profileContentView: UIView = {
@@ -70,19 +70,20 @@ class VocaHeaderView: UIView {
         profileContentView.addSubview(profileLabel)
         
         vocaTitle.snp.makeConstraints { (make) in
-            make.top.leading.trailing.equalTo(self)
+            make.top.equalTo(self).offset(24)
+            make.leading.trailing.equalTo(self)
         }
         
         profileContentView.snp.makeConstraints { (make) in
             make.top.equalTo(vocaTitle.snp.bottom).offset(8)
             make.centerX.equalTo(self)
-            make.bottom.equalTo(self)
         }
         
         profileImageView.snp.makeConstraints { (make) in
             make.leading.top.bottom.equalTo(profileContentView)
             make.width.height.equalTo(Constant.Profile.imageHeight)
         }
+
         profileLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(profileImageView.snp.trailing).offset(8)
             make.trailing.equalTo(profileContentView)

@@ -65,6 +65,7 @@ class FlipCardView: UIView {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
+        label.baselineAdjustment = .alignCenters
         label.minimumScaleFactor = 0.1
         return label
     }()

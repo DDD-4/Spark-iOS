@@ -33,7 +33,7 @@ class WordDetailCell: UICollectionViewCell {
         view.backgroundColor = .lightGray
         return view
     }()
-    lazy var textContentView: UIView = {
+    lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.shadow(
@@ -53,7 +53,7 @@ class WordDetailCell: UICollectionViewCell {
         let stack = UIStackView(arrangedSubviews: [englishLabel, koreanLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.alignment = .fill
+        stack.alignment = .center
         stack.distribution = .fill
         stack.spacing = 6
         return stack
@@ -65,17 +65,21 @@ class WordDetailCell: UICollectionViewCell {
         label.textAlignment = .center
         label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.adjustsFontSizeToFitWidth = true
+        label.baselineAdjustment = .alignCenters
+        label.minimumScaleFactor = 0.8
         return label
     }()
     lazy var englishLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.BalsamiqSansBold(size: 24)
-        label.textColor = UIColor.darkIndigo
+        label.font = UIFont.QuicksandBold(size: 24)
+        label.textColor = UIColor.midnight
         label.textAlignment = .center
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
-        //label.minimumScaleFactor = 0.5
+        label.minimumScaleFactor = 0.8
+        label.baselineAdjustment = .alignCenters
         return label
     }()
     
@@ -94,6 +98,10 @@ class WordDetailCell: UICollectionViewCell {
         vocaImageView.sd_cancelCurrentImageLoad()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+
     func configure(wordDownload: WordDownload) {
         englishLabel.text = wordDownload.english
         koreanLabel.text = wordDownload.korean
@@ -108,24 +116,30 @@ class WordDetailCell: UICollectionViewCell {
     }
 
     func configureLayout() {
-        contentView.addSubview(textContentView)
-        contentView.addSubview(vocaImageView)
-        textContentView.addSubview(textStackView)
+        contentView.addSubview(containerView)
+        containerView.addSubview(vocaImageView)
+        containerView.addSubview(englishLabel)
+        containerView.addSubview(koreanLabel)
+
+        containerView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalTo(contentView)
+        }
 
         vocaImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(textContentView.safeAreaLayoutGuide.snp.top).offset(24)
-            make.centerX.equalTo(contentView.snp.centerX)
+            make.top.equalTo(containerView).offset(24)
+            make.centerX.equalTo(containerView.snp.centerX)
             make.height.width.equalTo(Constant.Image.height)
         }
-        textContentView.snp.makeConstraints { (make) in
-            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).offset(Constant.TextContents.contentTopMargin)
-            make.leading.equalTo(contentView)
-            make.trailing.equalTo(contentView)
+
+        englishLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(vocaImageView.snp.bottom).offset(12)
+            make.leading.trailing.equalTo(containerView)
         }
-        textStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(textContentView).offset(138)
-            make.leading.trailing.equalTo(textContentView)
-            make.bottom.equalTo(textContentView).offset(-24)
+
+        koreanLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(englishLabel.snp.bottom).offset(6)
+            make.leading.trailing.equalTo(containerView)
+            make.bottom.lessThanOrEqualTo(containerView)
         }
     }
 }

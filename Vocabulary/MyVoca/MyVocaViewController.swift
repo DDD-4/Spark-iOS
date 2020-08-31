@@ -106,7 +106,7 @@ class MyVocaViewController: UIViewController {
         
         groupNameCollectionView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view)
         }
         
     }
@@ -228,7 +228,12 @@ extension MyVocaViewController: UICollectionViewDataSource {
 
 extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
+        UIEdgeInsets(
+            top: 24,
+            left: 0,
+            bottom: HomeViewController.Constant.Floating.height + (hasTopNotch ? bottomSafeInset : 32),
+            right: 0
+        )
     }
     func collectionView(
         _ collectionView: UICollectionView,

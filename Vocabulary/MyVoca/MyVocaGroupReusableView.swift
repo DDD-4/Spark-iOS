@@ -42,14 +42,14 @@ class MyVocaGroupReusableView: UICollectionReusableView {
         collectionView.contentInset = UIEdgeInsets(top: 22, left: 16, bottom: 0, right: 16)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = .white
+        backgroundColor = .clear
         configureLayout()
         bindRx()
     }

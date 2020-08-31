@@ -21,10 +21,16 @@ class DummyVocaDetailViewController: UIViewController {
         }
         static let buttonRadius: CGFloat = 30
     }
-    
+
+    var headerHeightConstraint: NSLayoutConstraint?
+    let maximumHeaderHeight: CGFloat = 130
+    let minimumHeaderHeight: CGFloat = 0
+
     // MARK: - Properties
     lazy var naviView: SideNavigationView = {
-        let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: nil, rightImage: nil)
+        let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: vocaTitle, rightImage: nil)
+        view.backgroundColor = .white
+        view.titleLabel.alpha = 0
         view.leftSideButton.addTarget(self, action: #selector(tapLeftButton), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -42,7 +48,12 @@ class DummyVocaDetailViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = UIEdgeInsets(
+            top: 0,
+            left: 16,
+            bottom: Constant.Floating.height + (hasTopNotch ? bottomSafeInset : 32),
+            right: 16
+        )
         collectionView.register(
             WordDetailCell.self,
             forCellWithReuseIdentifier: WordDetailCell.reuseIdentifier
@@ -51,6 +62,7 @@ class DummyVocaDetailViewController: UIViewController {
         collectionView.allowsMultipleSelection = false
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.clipsToBounds = false
         return collectionView
     }()
 
@@ -95,21 +107,35 @@ class DummyVocaDetailViewController: UIViewController {
 
     func configureLayout() {
         view.backgroundColor = .white
-        view.addSubview(naviView)
         view.addSubview(headerView)
         view.addSubview(vocaCollectionView)
+        view.addSubview(naviView)
         view.addSubview(saveButton)
+
+        let notchTopView = UIView()
+        notchTopView.translatesAutoresizingMaskIntoConstraints = false
+        notchTopView.backgroundColor = .white
+
+        view.addSubview(notchTopView)
+
+        notchTopView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(view)
+            make.bottom.equalTo(naviView.snp.top)
+        }
 
         naviView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
         headerView.snp.makeConstraints { (make) in
-            make.top.equalTo(naviView.snp.bottom).offset(24)
+            make.top.equalTo(naviView.snp.bottom)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(57)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-57)
         }
-        
+
+        headerHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: maximumHeaderHeight)
+        headerHeightConstraint?.isActive = true
+
         saveButton.snp.makeConstraints { (make) in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
             make.centerX.equalTo(view)
@@ -118,7 +144,7 @@ class DummyVocaDetailViewController: UIViewController {
         }
 
         vocaCollectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(headerView.snp.bottom).offset(37)
+            make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view)
         }
@@ -185,8 +211,33 @@ extension DummyVocaDetailViewController: UICollectionViewDelegateFlowLayout, UIC
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         let width = (collectionView.frame.width - (11) - (16 * 2)) / 2
-        return CGSize(width: width, height: width * 1.28)
-        //return CGSize(width: (collectionView.frame.width - 11) / 2 , height: (collectionView.frame.width - 11) / 2 + 70)
+        return CGSize(width: width, height: 214)
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView == vocaCollectionView else {
+            return
+        }
+
+        let y: CGFloat = scrollView.contentOffset.y
+        let headerHeightConstant: CGFloat = headerHeightConstraint?.constant ?? 0
+        let newHeaderHeight = headerHeightConstant - y
+
+        if newHeaderHeight > maximumHeaderHeight {
+            naviView.titleLabel.alpha = 0
+            headerView.alpha = 1
+            headerHeightConstraint?.constant = maximumHeaderHeight
+        } else if newHeaderHeight < minimumHeaderHeight {
+            naviView.titleLabel.alpha = 1
+            headerView.alpha = 0
+            headerHeightConstraint?.constant = minimumHeaderHeight
+        } else {
+            let ratio = newHeaderHeight / maximumHeaderHeight
+            naviView.titleLabel.alpha = 1 - ratio
+            headerView.alpha = ratio
+            headerHeightConstraint?.constant = newHeaderHeight
+            scrollView.contentOffset.y = 0
+        }
     }
 }
 
