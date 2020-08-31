@@ -23,6 +23,7 @@ class WordDetailCell: UICollectionViewCell {
             static let radius: CGFloat = 20
         }
     }
+
     lazy var vocaImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +34,7 @@ class WordDetailCell: UICollectionViewCell {
         view.backgroundColor = .lightGray
         return view
     }()
+
     lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -49,15 +51,7 @@ class WordDetailCell: UICollectionViewCell {
         view.backgroundColor = .white
         return view
     }()
-    lazy var textStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [englishLabel, koreanLabel])
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.alignment = .center
-        stack.distribution = .fill
-        stack.spacing = 6
-        return stack
-    }()
+
     lazy var koreanLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -70,6 +64,7 @@ class WordDetailCell: UICollectionViewCell {
         label.minimumScaleFactor = 0.8
         return label
     }()
+    
     lazy var englishLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
