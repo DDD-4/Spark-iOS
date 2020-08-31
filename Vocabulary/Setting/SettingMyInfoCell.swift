@@ -94,6 +94,9 @@ class SettingMyInfoCell: UITableViewCell {
     }
 
     func configureLayout() {
+        selectionStyle = .none
+        backgroundColor = .clear
+        clipsToBounds = false
 
         // FIXIT: delete dummy data
         nameLabel.text = "홍길동"

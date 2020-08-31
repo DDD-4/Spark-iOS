@@ -96,6 +96,7 @@ class MyVocaWordCell: UICollectionViewCell {
         label.textAlignment = .center
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
+        label.baselineAdjustment = .alignCenters
         label.minimumScaleFactor = 0.5
         return label
     }()
@@ -121,7 +122,8 @@ class MyVocaWordCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .clear
+        clipsToBounds = false
         configureLayout()
     }
 
