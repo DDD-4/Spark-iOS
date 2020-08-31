@@ -44,6 +44,7 @@ class CardCell: UICollectionViewCell {
         label.font = UIFont.BalsamiqSansBold(size: 24)
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
+        label.baselineAdjustment = .alignCenters
         label.minimumScaleFactor = 0.1
         return label
     }()

@@ -20,7 +20,11 @@ public struct VocaForAll {
 }
 
 public class DummyData {
-    public static let vocaForAll: [VocaForAll] = [VocaForAll(title: "Dummy", words: DummyData.vocaDownload)]
+    public static let vocaForAll: [VocaForAll] = [
+        VocaForAll(title: "Dummy", words: DummyData.vocaDownload),
+        VocaForAll(title: "Dummy", words: DummyData.vocaDownload),
+        VocaForAll(title: "Dummy", words: DummyData.vocaDownload)
+    ]
     public static let vocaDownload: [WordDownload] = [
         WordDownload(korean: "한글", english: "english", imageURL: "https://images.unsplash.com/photo-1594476664296-8c552053aef3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80"),
         WordDownload(korean: "한글", english: "english", imageURL: "https://images.unsplash.com/photo-1594476664296-8c552053aef3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80"),

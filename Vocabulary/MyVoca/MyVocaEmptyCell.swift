@@ -84,7 +84,8 @@ class MyVocaEmptyCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .clear
+        clipsToBounds = false
         configureLayout()
     }
 

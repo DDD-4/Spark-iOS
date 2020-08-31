@@ -23,7 +23,7 @@ public class SideNavigationView: UIView {
         return button
     }()
 
-    lazy var titleLabel: UILabel = {
+    public lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -73,6 +73,8 @@ public class SideNavigationView: UIView {
             navigationView.bottomAnchor.constraint(equalTo: bottomAnchor),
             navigationView.heightAnchor.constraint(equalToConstant: LeftTitleNavigationView.Constant.height),
 
+            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leftSideButton.trailingAnchor),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: rightSideButton.leadingAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: navigationView.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: navigationView.centerYAnchor),
 

@@ -11,6 +11,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import PoingVocaSubsystem
+import PoingDesignSystem
 
 class VocaForAllCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: VocaForAllCell.self)
@@ -18,6 +19,9 @@ class VocaForAllCell: UICollectionViewCell {
     enum Constant {
         enum VocaImage {
             static let length: CGFloat = 166
+        }
+        enum Count {
+            static let length: CGFloat = 32
         }
         static let imageRadius: CGFloat = 12
     }
@@ -31,27 +35,17 @@ class VocaForAllCell: UICollectionViewCell {
         view.backgroundColor = .lightGray
         return view
     }()
-    lazy var numberView: UIView = {
-       let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 7
-        view.layer.borderWidth = 1.7
-        view.layer.borderColor = UIColor.white.cgColor
-        view.backgroundColor = .orange
-        return view
-    }()
     lazy var numberLable: UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = true
-        view.layoutMargins = UIEdgeInsets(
-            top: 4,
-            left: 4,
-            bottom: 4,
-            right: 4)
-        view.textColor = .white
-        return view
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.clipsToBounds = true
+        label.layer.cornerRadius = Constant.Count.length * 0.5
+        label.textColor = .white
+        label.backgroundColor = .brightSkyBlue
+        label.font = UIFont.QuicksandBold(size: 14)
+        label.textAlignment = .center
+        label.lineBreakMode = .byTruncatingTail
+        return label
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -129,14 +123,14 @@ class VocaForAllCell: UICollectionViewCell {
     }
 
     func configureLayout() {
-        contentView.backgroundColor = .white
+        backgroundColor = .clear
+        clipsToBounds = false
+        
         contentView.addSubview(baseView)
         baseView.addSubview(vocaImageView)
-        baseView.addSubview(numberView)
+        baseView.addSubview(numberLable)
         baseView.addSubview(titleLabel)
         baseView.addSubview(authorContentView)
-        baseView.addSubview(numberView)
-        numberView.addSubview(numberLable)
         authorContentView.addSubview(authorImageView)
         authorContentView.addSubview(authorLabel)
 
@@ -171,15 +165,11 @@ class VocaForAllCell: UICollectionViewCell {
             make.trailing.equalTo(baseView.snp.trailing).offset(-32)
         }
 
-        numberView.snp.makeConstraints { (make) in
-            make.centerY.equalTo(vocaImageView).offset(-20)
-            make.trailing.equalTo(vocaImageView.snp.trailing)
-        }
-
         numberLable.snp.makeConstraints { (make) in
-            make.leading.top.trailing.bottom.equalTo(numberView)
+            make.top.equalTo(vocaImageView).offset(8)
+            make.trailing.equalTo(vocaImageView).offset(-8)
+            make.width.height.equalTo(Constant.Count.length)
         }
-
     }
 
     override func layoutSubviews() {

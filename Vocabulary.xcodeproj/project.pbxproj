@@ -67,6 +67,7 @@
 		7D88185624F7686A005A157E /* SettingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88185524F7686A005A157E /* SettingSection.swift */; };
 		7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A024E17DD3000D8559 /* HomeViewController.swift */; };
 		7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */; };
+		7DA59C7D24FCFFDF001E7D7D /* VocaHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA59C7C24FCFFDF001E7D7D /* VocaHeaderView.swift */; };
 		7DDB4ACE24DC2D6B008812CD /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7DDB4AD524DC2D6B008812CD /* PoingDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4AD424DC2D6B008812CD /* PoingDesignSystemTests.swift */; };
 		7DDB4AD724DC2D6B008812CD /* PoingDesignSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -247,6 +248,7 @@
 		7D88185524F7686A005A157E /* SettingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSection.swift; sourceTree = "<group>"; };
 		7D88E2A024E17DD3000D8559 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		7DA59C7C24FCFFDF001E7D7D /* VocaHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocaHeaderView.swift; sourceTree = "<group>"; };
 		7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PoingDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PoingDesignSystem.h; sourceTree = "<group>"; };
 		7DDB4AC824DC2D6B008812CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 		1870799324D8113A0079E280 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				7DA59C7C24FCFFDF001E7D7D /* VocaHeaderView.swift */,
 				187B024B24D40968008DBC8B /* WordDetailCell.swift */,
 				187B024924D4065B008DBC8B /* VocaDetailViewController.swift */,
 				1870799424D8120E0079E280 /* WordViewModel.swift */,
@@ -1165,6 +1168,7 @@
 				186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */,
 				1870799524D8120E0079E280 /* WordViewModel.swift in Sources */,
 				7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */,
+				7DA59C7D24FCFFDF001E7D7D /* VocaHeaderView.swift in Sources */,
 				1833D74D24E78A3C0085DDF6 /* ScreenView.swift in Sources */,
 				1833D74E24E78A3C0085DDF6 /* SelectVocaViewController.swift in Sources */,
 				7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */,

@@ -62,6 +62,9 @@ class SettingCell: UITableViewCell {
 
     func configureLayout() {
         selectionStyle = .none
+        backgroundColor = .clear
+        clipsToBounds = false
+
         textLabel?.font = Constant.Title.font
         textLabel?.textColor = Constant.Title.color
 
