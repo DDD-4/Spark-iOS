@@ -86,6 +86,9 @@
 		7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0724DC2E0A008812CD /* LeftTitleNavigationView.swift */; };
 		7DDB4B3324DC337E008812CD /* SideNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0824DC2E0A008812CD /* SideNavigationView.swift */; };
 		7DE758D224DDBB0E001922C6 /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE758D124DDBB0E001922C6 /* Notification.Name+.swift */; };
+		7DEF533D24FC10A0003F3AC9 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DEF533C24FC10A0003F3AC9 /* Quicksand-Bold.ttf */; };
+		7DEF533E24FC10A0003F3AC9 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DEF533C24FC10A0003F3AC9 /* Quicksand-Bold.ttf */; };
+		7DEF533F24FC10A0003F3AC9 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DEF533C24FC10A0003F3AC9 /* Quicksand-Bold.ttf */; };
 		7DF47BEE24F6A4CF00C4E2CB /* AccentLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF47BED24F6A4CF00C4E2CB /* AccentLineTextField.swift */; };
 		A91F18267FD4A3A62A3F5C72 /* Pods_PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70808E337B2129DF638A462 /* Pods_PoingVocaSubsystem.framework */; };
 		CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */; };
@@ -269,6 +272,7 @@
 		7DDB4B1A24DC2E6D008812CD /* VocaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaManager.swift; sourceTree = "<group>"; };
 		7DDB4B1B24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
 		7DE758D124DDBB0E001922C6 /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
+		7DEF533C24FC10A0003F3AC9 /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.ttf"; sourceTree = "<group>"; };
 		7DF47BED24F6A4CF00C4E2CB /* AccentLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentLineTextField.swift; sourceTree = "<group>"; };
 		94DF691E8589FC4D1A442062 /* Pods-VocaGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocaGame.debug.xcconfig"; path = "Target Support Files/Pods-VocaGame/Pods-VocaGame.debug.xcconfig"; sourceTree = "<group>"; };
 		CE1458F724D3193D004F2700 /* EditMyVocaGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyVocaGroupViewController.swift; sourceTree = "<group>"; };
@@ -386,6 +390,7 @@
 		7D16CBB724E5804400C95F8D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7DEF533C24FC10A0003F3AC9 /* Quicksand-Bold.ttf */,
 				7D16CBB824E5805500C95F8D /* BalsamiqSansBold.ttf */,
 			);
 			path = Resources;
@@ -933,6 +938,7 @@
 				7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */,
 				7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */,
 				7D16CBBC24E5826300C95F8D /* BalsamiqSansBold.ttf in Resources */,
+				7DEF533D24FC10A0003F3AC9 /* Quicksand-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +947,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D16CBB924E5805500C95F8D /* BalsamiqSansBold.ttf in Resources */,
+				7DEF533F24FC10A0003F3AC9 /* Quicksand-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,6 +977,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D16CBBD24E5826400C95F8D /* BalsamiqSansBold.ttf in Resources */,
+				7DEF533E24FC10A0003F3AC9 /* Quicksand-Bold.ttf in Resources */,
 				7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

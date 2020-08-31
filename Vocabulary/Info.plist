@@ -26,6 +26,7 @@
 	<string>please allow access if you want to access your album.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Quicksand-Bold.ttf</string>
 		<string>BalsamiqSansBold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
