@@ -26,6 +26,7 @@ class VocaHeaderView: UIView {
         label.baselineAdjustment = .alignCenters
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
+        label.textColor = .midnight
         return label
     }()
     lazy var profileContentView: UIView = {
