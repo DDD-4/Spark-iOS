@@ -108,7 +108,7 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         
         captureButton.snp.makeConstraints { (make) in
             make.centerX.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(hasTopNotch ? 0 : -16)
             make.height.width.equalTo(80)
         }
         
