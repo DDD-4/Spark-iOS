@@ -20,7 +20,7 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 15
-        button.backgroundColor = .black
+        button.setImage(UIImage(named: "btnPhoto"), for: .normal)
         button.addTarget(self, action:#selector(capturePhoto) , for: .touchUpInside)
         return button
     }()
@@ -34,13 +34,11 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
     lazy var photoLibraryButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "ic_photo_camera"), for: .normal)
-        button.layer.cornerRadius = 10
+        button.setImage(UIImage(named: "icCamera"), for: .normal)
+        button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
-        button.layer.borderColor = #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1)
-        button.layer.borderWidth = 1
         button.addTarget(self, action: #selector(photoLibraryButtonTapped), for: .touchUpInside)
-        captureButton.layer.cornerRadius = captureButton.bounds.height/2
+        button.tintColor = .midnight
         return button
     }()
     
@@ -49,13 +47,13 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "ic_camera_rear"), for: .normal)
         button.addTarget(self, action: #selector(switchCamera), for: .touchUpInside)
+        button.tintColor = .midnight
         return button
     }()
     lazy var cancelButton: BaseButton = {
         let button = BaseButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("취소", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(named: "btnClose"), for: .normal)
         return button
     }()
     
@@ -110,15 +108,14 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         
         captureButton.snp.makeConstraints { (make) in
             make.centerX.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
-            make.height.width.equalTo(44)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(hasTopNotch ? 0 : -16)
+            make.height.width.equalTo(80)
         }
         
         photoLibraryButton.snp.makeConstraints { (make) in
-            make.centerY.equalTo(captureButton)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
-            make.width.height.equalTo(44)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.centerY.equalTo(captureButton.snp.centerY)
+            make.width.height.equalTo(48)
         }
         
         switchButton.snp.makeConstraints { (make) in
@@ -127,8 +124,9 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         }
         
         cancelButton.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.centerY.equalTo(captureButton.snp.centerY)
+            make.width.height.equalTo(60)
         }
     }
     
