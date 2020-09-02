@@ -146,6 +146,6 @@ extension SelectFolderViewController: UICollectionViewDelegate, UICollectionView
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let width = (collectionView.frame.width - (11) - (16 * 2)) / 2
-        return CGSize(width: width, height: 166)
+        return CGSize(width: width, height: width)
     }
 }
