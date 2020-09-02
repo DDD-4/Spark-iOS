@@ -37,7 +37,7 @@ class SelectFolderViewCell: UICollectionViewCell {
     weak var delegate: MyVocaWordCellDelegate?
     var Folder: VocaForAll?
     
-    lazy var ContentView: UIView = {
+    lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.shadow(
@@ -91,12 +91,19 @@ class SelectFolderViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        folderImageView.isHidden = false
+        folderTitleLabel.isHidden = false
+        addImageView.isHidden = false
+    }
+    
     func configure(folder: VocaForAll, type: SelectFolderCellType) {
         
-        if type == .add {
+        switch type {
+        case .add:
             self.folderImageView.isHidden = true
             self.folderTitleLabel.isHidden = true
-        } else {
+        case .read:
             self.addImageView.isHidden = true
         }
         
@@ -108,29 +115,30 @@ class SelectFolderViewCell: UICollectionViewCell {
     }
     
     func configureLayout() {
-        contentView.addSubview(ContentView)
-        ContentView.addSubview(folderImageView)
-        ContentView.addSubview(folderTitleLabel)
-        ContentView.addSubview(addImageView)
+        contentView.addSubview(containerView)
+        containerView.addSubview(folderImageView)
+        containerView.addSubview(folderTitleLabel)
+        containerView.addSubview(addImageView)
         
-        ContentView.snp.makeConstraints { (make) in
+        containerView.snp.makeConstraints { (make) in
             make.leading.trailing.bottom.top.equalTo(self)
         }
         
         folderImageView.snp.makeConstraints { (make) in
-            make.leading.equalTo(ContentView).offset(20)
-            make.top.equalTo(ContentView).offset(20)
+            make.leading.equalTo(containerView).offset(20)
+            make.top.equalTo(containerView).offset(20)
             make.width.height.equalTo(Constant.Image.height)
         }
         
         folderTitleLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(ContentView).offset(20)
-            make.bottom.equalTo(ContentView).offset(-20)
+            make.leading.equalTo(containerView).offset(20)
+            make.bottom.equalTo(containerView).offset(-20)
+            make.trailing.equalTo(containerView).offset(-50)
         }
         
         addImageView.snp.makeConstraints { (make) in
-            make.leading.top.equalTo(ContentView).offset(63)
-            make.trailing.bottom.equalTo(ContentView).offset(-63)
+            make.leading.top.equalTo(containerView).offset(63)
+            make.trailing.bottom.equalTo(containerView).offset(-63)
         }
     }
 }

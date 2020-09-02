@@ -92,7 +92,7 @@ class SelectFolderViewController: UIViewController {
         folderCollectionView.snp.makeConstraints { (make) in
             make.top.equalTo(naviView.snp.bottom)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -Constant.Collection.topMargin)
+            make.bottom.equalTo(view)
         }
     }
     
@@ -142,6 +142,7 @@ extension SelectFolderViewController: UICollectionViewDataSource {
 //                group: viewModel.outputs.vocaForAllList.value[indexPath.row - 1],
 //                addWords: self.words
 //            )
+            self.navigationController?.popToRootViewController(animated: true)
         }
     }
 }
@@ -149,7 +150,7 @@ extension SelectFolderViewController: UICollectionViewDataSource {
 extension SelectFolderViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(
-            top: 24,
+            top: 32,
             left: 0,
             bottom: HomeViewController.Constant.Floating.height + (hasTopNotch ? bottomSafeInset : 32),
             right: 0
