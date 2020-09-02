@@ -18,7 +18,7 @@ protocol SelectFolderViewControllerDelegate: class {
 }
 
 class SelectFolderViewController: UIViewController {
-
+    
     enum Constant {
         static let spacing: CGFloat = 11
         enum Collection {
@@ -27,8 +27,7 @@ class SelectFolderViewController: UIViewController {
     }
     
     // MARK: - Properties
-    var folderHeightConstraint: NSLayoutConstraint?
-    private var folders: [Group] = []
+    private var words: [WordDownload] = []
     let disposeBag = DisposeBag()
     let viewModel = VocaForAllViewModel()
     weak var delegate: SelectFolderViewControllerDelegate?
@@ -59,8 +58,12 @@ class SelectFolderViewController: UIViewController {
         return collectionView
     }()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    init(words: [WordDownload]?) {
         super.init(nibName: nil, bundle: nil)
+        guard let words = words else {
+            return
+        }
+        self.words = words
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
     }
@@ -81,11 +84,11 @@ class SelectFolderViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(naviView)
         view.addSubview(folderCollectionView)
-
+        
         naviView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
-
+        
         folderCollectionView.snp.makeConstraints { (make) in
             make.top.equalTo(naviView.snp.bottom)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -95,14 +98,16 @@ class SelectFolderViewController: UIViewController {
     
     @objc func tapLeftButton() {
         //self.dismiss(animated: true, completion: nil)
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        //self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func configureRx() {
         viewModel.outputs.vocaForAllList
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
-                self?.folderCollectionView.reloadData()
+                //self?.navigationController?.popToRootViewController(animated: true)
+                // here is function that update group and pop to rootview.
             }).disposed(by: disposeBag)
     }
 }
@@ -111,13 +116,13 @@ extension SelectFolderViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.outputs.vocaForAllList.value.count + 1
     }
-
+    
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: SelectFolderViewCell.reuseIdentifier,
-                for: indexPath
-        ) as? SelectFolderViewCell else {
-            return UICollectionViewCell()
+            withReuseIdentifier: SelectFolderViewCell.reuseIdentifier,
+            for: indexPath
+            ) as? SelectFolderViewCell else {
+                return UICollectionViewCell()
         }
         
         if indexPath.row == 0 {
@@ -127,9 +132,17 @@ extension SelectFolderViewController: UICollectionViewDataSource {
         }
         return cell
     }
-
+    
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if indexPath.row == 0 {
+            navigationController?.pushViewController(AddFolderViewController(), animated: true)
+        } else {
+//            추후에 해줄 vocaManager update part.
+//            VocaManager.shared.update(
+//                group: viewModel.outputs.vocaForAllList.value[indexPath.row - 1],
+//                addWords: self.words
+//            )
+        }
     }
 }
 
@@ -142,9 +155,9 @@ extension SelectFolderViewController: UICollectionViewDelegate, UICollectionView
             right: 0
         )
     }
-
+    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         let width = (collectionView.frame.width - (11) - (16 * 2)) / 2
         return CGSize(width: width, height: width)
     }

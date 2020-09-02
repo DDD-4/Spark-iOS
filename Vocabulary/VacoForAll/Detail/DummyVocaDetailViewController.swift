@@ -153,9 +153,10 @@ class DummyVocaDetailViewController: UIViewController {
     func configureRx() {
 
         self.saveButton.rx.tap.subscribe(onNext: {[weak self] (_) in
-            let viewController = SelectFolderViewController()
+            let viewController = SelectFolderViewController(words: self?.wordDownload)
             viewController.delegate = self
-            self?.present(viewController, animated: true, completion: nil)
+            self?.navigationController?.pushViewController(viewController, animated: true)
+            //self?.present(viewController, animated: true, completion: nil)
         }).disposed(by: disposeBag)
     }
     
