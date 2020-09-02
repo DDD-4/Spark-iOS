@@ -153,9 +153,10 @@ class DummyVocaDetailViewController: UIViewController {
     func configureRx() {
 
         self.saveButton.rx.tap.subscribe(onNext: {[weak self] (_) in
-            let viewController = SelectVocaViewController()
+            let viewController = SelectFolderViewController(words: self?.wordDownload)
             viewController.delegate = self
-            self?.present(viewController, animated: true, completion: nil)
+            self?.navigationController?.pushViewController(viewController, animated: true)
+            //self?.present(viewController, animated: true, completion: nil)
         }).disposed(by: disposeBag)
     }
     
@@ -164,9 +165,8 @@ class DummyVocaDetailViewController: UIViewController {
     }
 }
 
-extension DummyVocaDetailViewController: SelectVocaViewControllerDelegate {
-    func selectVocaViewController(didTapGroup group: Group) {
-
+extension DummyVocaDetailViewController: SelectFolderViewControllerDelegate {
+    func selectFolderViewController(didTapFolder folder: Group) {
         LoadingView.show()
         let agent = VocaDownloadAgent(data: wordDownload)
         agent.download { [weak self] (words) in
@@ -175,7 +175,7 @@ extension DummyVocaDetailViewController: SelectVocaViewControllerDelegate {
                 return
             }
 
-            VocaManager.shared.update(group: group, addWords: words) {
+            VocaManager.shared.update(group: folder, addWords: words) {
 
                 LoadingView.hide()
                 
