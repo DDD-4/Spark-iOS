@@ -21,24 +21,60 @@ class AddWordViewController: UIViewController {
     var newGroup: Group?
     var delegate: AddWordViewController?
     
-    lazy var addWordNaviView: AddWordNavigationView = {
-        let view = AddWordNavigationView()
-        //view.backgroundColor = .lightGray
+    enum Constant {
+        enum Image {
+            static let height: CGFloat = 166
+        }
+        enum Text {
+            static let height: CGFloat = 56
+        }
+        enum Count {
+            static let maxCount = 15
+        }
+    }
+    
+    lazy var naviView: SideNavigationView = {
+        let view = SideNavigationView(leftImage: UIImage(named: "iconClose"), centerTitle: nil, rightImage: nil)
+        view.backgroundColor = .white
+        view.titleLabel.alpha = 0
+        view.leftSideButton.addTarget(self, action: #selector(tapLeftButton), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    lazy var addWordButton: BaseButton = {
-        let button = BaseButton()
-        button.backgroundColor = .black
+    lazy var wordImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "icPicture")
+        view.layer.cornerRadius = 84
+        view.contentMode = .scaleToFill
+        view.clipsToBounds = true
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    lazy var cameraButton: UIButton = {
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 30
-        button.setTitle("만들기", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(addWordButtonTap), for: .touchUpInside)
+        button.setImage(UIImage(named: "iconCamera"), for: .normal)
+        button.addTarget(self, action: #selector(addPicture), for: .touchUpInside)
         return button
     }()
+    lazy var containerView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.shadow(
+            color: UIColor(red: 138.0 / 255.0, green: 149.0 / 255.0, blue: 158.0 / 255.0, alpha: 1),
+            alpha: 0.2,
+            x: 0,
+            y: 10,
+            blur: 60,
+            spread: 0
+        )
+        view.layer.cornerRadius = 32
+        view.clipsToBounds = false
+        view.backgroundColor = .white
+        return view
+    }()
     lazy var textStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [engTextField, korTextField, folderButton])
+        let stack = UIStackView(arrangedSubviews: [engTextField, korTextField])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.alignment = .fill
@@ -46,41 +82,84 @@ class AddWordViewController: UIViewController {
         stack.spacing = 20
         return stack
     }()
-    
-    lazy var engTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "영어 단어를 입력해 보세요!"
-        textField.textColor = .black
-        return textField
-    }()
-    lazy var korTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "영어 단어의 뜻을 입력해 보세요!"
-        textField.textColor = .black
-        return textField
-    }()
-    lazy var folderButton: BaseButton = {
-        let button = BaseButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("폴더 선택", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
-        button.addTarget(self, action: #selector(selectFolderButton), for: .touchUpInside)
-        button.backgroundColor = .white
-        return button
-    }()
-    lazy var wordImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "icPicture")
-        view.layer.cornerRadius = 15
-        view.contentMode = .scaleToFill
-        view.clipsToBounds = true
-        view.isUserInteractionEnabled = true
+    lazy var engTextField: AddWordTextField = {
+        let view = AddWordTextField()
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.minimumLineHeight = 31
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let attributes: [NSAttributedString.Key : Any] = [
+            .font: UIFont.systemFont(ofSize: 20, weight: .bold),
+            .foregroundColor: UIColor.veryLightPink,
+            .paragraphStyle: paragraphStyle,
+            .kern: -0.5
+        ]
+        view.attributedPlaceholder = NSAttributedString(
+            string: "영어 단어 입력",
+            attributes: attributes
+        )
+        
+        view.textAlignment = .center
+        view.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        
         return view
     }()
+    lazy var korTextField: AddWordTextField = {
+        let view = AddWordTextField()
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.minimumLineHeight = 31
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let attributes: [NSAttributedString.Key : Any] = [
+            .font: UIFont.systemFont(ofSize: 20, weight: .bold),
+            .foregroundColor: UIColor.veryLightPink,
+            .paragraphStyle: paragraphStyle,
+            .kern: -0.5
+        ]
+        view.attributedPlaceholder = NSAttributedString(
+            string: "단어 뜻 입력(한글)",
+            attributes: attributes
+        )
+        view.textAlignment = .center
+        view.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        
+        return view
+    }()
+    lazy var folderButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "arrow2"), for: .normal)
+        button.semanticContentAttribute = .forceRightToLeft
+        button.setTitle("기본 폴더", for: .normal)
+        button.setTitleColor(.gray, for: .normal)
+        button.backgroundColor = .grey244
+        button.titleLabel?.textAlignment = .left
+        button.layer.cornerRadius = 20
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 16)
+        return button
+    }()
+    lazy var confirmButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .veryLightPink
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 30
+        button.setTitle("단어 저장하기", for: .normal)
+        button.setTitleColor(.brownGrey, for: .normal)
+        button.setTitleColor(UIColor.white, for: .selected)
+        button.addTarget(self, action: #selector(confirmDidTap), for: .touchUpInside)
+        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 18)
+        return button
+    }()
+    
     
     init(image: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.wordImageView.image = image
+        view.clipsToBounds = false
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -97,7 +176,6 @@ class AddWordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        bindFunction()
         registerForKeyboardNotifications()
         configureRx()
         
@@ -113,49 +191,60 @@ class AddWordViewController: UIViewController {
     
     // MARK: - View ✨
     func initView() {
-        
-        view.addSubview(addWordNaviView)
-        view.addSubview(addWordButton)
-        view.addSubview(textStack)
-        view.addSubview(wordImageView)
         view.backgroundColor = .white
+        view.addSubview(naviView)
+        view.addSubview(containerView)
+        containerView.addSubview(textStack)
+        containerView.addSubview(folderButton)
+        view.addSubview(wordImageView)
+        view.addSubview(cameraButton)
+        view.addSubview(confirmButton)
         
-        addWordNaviView.snp.makeConstraints { (make) in
+        naviView.snp.makeConstraints { (make) in
             make.leading.trailing.equalTo(view)
             make.top.equalTo(view).offset(8)
             make.height.equalTo(50)
         }
         
-        addWordButton.snp.makeConstraints { (make) in
-            make.height.equalTo(60)
-            make.width.equalTo(186)
-            make.bottom.equalTo(view).offset(-8)
-            make.centerX.equalTo(view)
-        }
-        
         wordImageView.snp.makeConstraints { (make) in
             make.centerX.equalTo(view)
-            make.height.width.equalTo(240)
-            make.top.equalTo(addWordNaviView.snp.bottom).offset(47)
+            make.height.width.equalTo(166)
+            make.top.equalTo(naviView.snp.bottom).offset(14)
+        }
+        
+        cameraButton.snp.makeConstraints { (make) in
+            make.trailing.equalTo(wordImageView.snp.trailing)
+            make.bottom.equalTo(wordImageView.snp.bottom)
+            make.width.height.equalTo(40)
+        }
+        
+        containerView.snp.makeConstraints { (make) in
+            make.top.equalTo(naviView.snp.bottom).offset(69)
+            make.leading.equalTo(view).offset(16)
+            make.trailing.equalTo(view).offset(-16)
+            make.height.equalTo(view.layer.bounds.width - 32)
         }
         
         textStack.snp.makeConstraints { (make) in
-            make.centerX.equalTo(view)
-            make.leading.equalTo(view).offset(16)
-            make.trailing.equalTo(view).offset(-16)
-            make.bottom.equalTo(addWordButton.snp.top).offset(-20)
+            make.centerX.equalTo(containerView)
+            make.leading.equalTo(containerView).offset(16)
+            make.trailing.equalTo(containerView).offset(-16)
+            make.bottom.equalTo(folderButton.snp.top).offset(-33)
         }
-    }
-    
-    // MARK: - Bind 🏷
-    func bindFunction() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(addPicture))
-        self.wordImageView.addGestureRecognizer(tap)
         
-        addWordNaviView.settingButton.rx.tap
-            .subscribe(onNext: { [weak self] (_) in
-                self?.dismiss(animated: true, completion: nil)
-            }).disposed(by: disposeBag)
+        folderButton.snp.makeConstraints { (make) in
+            make.leading.equalTo(containerView).offset(16)
+            make.trailing.equalTo(containerView).offset(-16)
+            make.bottom.equalTo(containerView).offset(-16)
+            make.height.equalTo(56)
+        }
+        
+        confirmButton.snp.makeConstraints { (make) in
+            make.height.equalTo(60)
+            make.width.equalTo(343)
+            make.bottom.equalTo(view).offset(hasTopNotch ? -34 : -20 )
+            make.centerX.equalTo(view)
+        }
     }
     
     func configureRx() {
@@ -171,6 +260,54 @@ class AddWordViewController: UIViewController {
             .subscribe(onNext: { [weak self] (_) in
                 
             }).disposed(by: disposeBag)
+        
+        engTextField.rx.controlEvent(.editingChanged)
+            .subscribe { [weak self] (_) in
+                guard let self = self else {
+                    return
+                }
+                guard let engText = self.engTextField.text else {
+                    return
+                }
+                guard let korText = self.korTextField.text else {
+                    return
+                }
+                if engText.count > Constant.Count.maxCount {
+                    self.engTextField.text = engText[0..<Constant.Count.maxCount]
+                }
+                
+                self.confirmButton.isSelected = (engText.count == 0 || korText.count == 0 ) ? false : true
+                
+                self.updateConfirmButton()
+        }.disposed(by: disposeBag)
+        
+        korTextField.rx.controlEvent(.editingChanged)
+            .subscribe { [weak self] (_) in
+                guard let self = self else {
+                    return
+                }
+                guard let engText = self.engTextField.text else {
+                    return
+                }
+                guard let korText = self.korTextField.text else {
+                    return
+                }
+                if korText.count > Constant.Count.maxCount {
+                    self.engTextField.text = korText[0..<Constant.Count.maxCount]
+                }
+                
+                self.confirmButton.isSelected = (engText.count == 0 || korText.count == 0 ) ? false : true
+                
+                self.updateConfirmButton()
+        }.disposed(by: disposeBag)
+        
+        folderButton.rx.tap.subscribe(onNext: {[weak self] (_) in
+            let viewController = SelectFolderViewController(words: [])
+            let navigationController = UINavigationController(rootViewController: viewController)
+            navigationController.navigationBar.isHidden = true
+            self?.present(navigationController, animated: true)
+        }).disposed(by: disposeBag)
+        
     }
     
     @objc
@@ -181,7 +318,6 @@ class AddWordViewController: UIViewController {
     @objc func addPicture(_ sender: Any) {
         
         self.picker.delegate = self
-        
         let alert =  UIAlertController(title: "Add New Word", message: "단어에 넣을 사진을 찍어 주세요!", preferredStyle: .actionSheet)
         let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
             self.openLibrary()
@@ -198,12 +334,16 @@ class AddWordViewController: UIViewController {
     }
     
     @objc func selectFolderButton(_ sender: Any) {
-        let viewController = SelectVocaViewController()
-        viewController.delegate = self
-        present(viewController, animated: true, completion: nil)
+        
+        var word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.5), identifier: UUID())
+        
+        let viewController = SelectFolderViewController(words: [])
+        
+        navigationController?.pushViewController(viewController, animated: true)
+        //present(viewController, animated: true, completion: nil)
     }
     
-    @objc func addWordButtonTap(_ sender: Any) {
+    @objc func confirmDidTap(_ sender: Any) {
         let word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.8), identifier: UUID())
         
         self.newGroup?.words.append(word)
@@ -224,6 +364,16 @@ class AddWordViewController: UIViewController {
             }
         }
     }
+    
+    @objc func tapLeftButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func updateConfirmButton() {
+        confirmButton.backgroundColor = confirmButton.isSelected
+            ? .brightSkyBlue
+            : .veryLightPink
+    }
 }
 
 extension AddWordViewController: SelectVocaViewControllerDelegate {
@@ -241,9 +391,6 @@ extension AddWordViewController: UIImagePickerControllerDelegate, UINavigationCo
         self.picker.allowsEditing = true
         
         self.present(self.picker, animated: true)
-        
-//        picker.sourceType = .photoLibrary
-//        present(picker, animated: true, completion: nil)
     }
     func openCamera(){
         
