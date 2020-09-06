@@ -44,7 +44,7 @@ class AddWordViewController: UIViewController {
     lazy var wordImageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "icPicture")
-        view.layer.cornerRadius = 84
+        view.layer.cornerRadius = Constant.Image.height / 2
         view.contentMode = .scaleToFill
         view.clipsToBounds = true
         view.isUserInteractionEnabled = true
@@ -79,7 +79,7 @@ class AddWordViewController: UIViewController {
         stack.axis = .vertical
         stack.alignment = .fill
         stack.distribution = .fillEqually
-        stack.spacing = 20
+        stack.spacing = 26
         return stack
     }()
     lazy var engTextField: AddWordTextField = {

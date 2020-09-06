@@ -55,7 +55,7 @@ public class AddWordTextField: UITextField {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        lineView.frame = CGRect(x: 0, y: bounds.height + 12, width: bounds.width, height: Constant.Line.height)
+        lineView.frame = CGRect(x: 0, y: bounds.height + 11, width: bounds.width, height: Constant.Line.height)
     }
 
     func configureLayout() {
