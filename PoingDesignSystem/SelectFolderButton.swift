@@ -25,6 +25,12 @@ public class SelectFolderButton: UIButton {
         return imageView
     }()
     
+    public init() {
+        super.init(frame: .zero)
+        
+        configureLayout()
+    }
+    
     override init(frame: CGRect){
         super.init(frame: frame)
     }
@@ -33,8 +39,7 @@ public class SelectFolderButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func layoutSubviews() {
-        super.layoutSubviews()
+    func configureLayout() {
         addSubview(folderLabel)
         addSubview(arrowImageView)
         
