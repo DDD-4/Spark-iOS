@@ -101,6 +101,7 @@ class AddWordViewController: UIViewController {
             attributes: attributes
         )
         
+        view.keyboardType = .asciiCapable
         view.textAlignment = .center
         view.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         
@@ -126,20 +127,13 @@ class AddWordViewController: UIViewController {
         )
         view.textAlignment = .center
         view.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        
         return view
     }()
-    lazy var folderButton: UIButton = {
-        let button = UIButton()
+    lazy var folderButton: SelectFolderButton = {
+        let button = SelectFolderButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "arrow2"), for: .normal)
-        button.semanticContentAttribute = .forceRightToLeft
-        button.setTitle("기본 폴더", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
         button.backgroundColor = .grey244
-        button.titleLabel?.textAlignment = .left
         button.layer.cornerRadius = 20
-        button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 16)
         return button
     }()
     lazy var confirmButton: UIButton = {
@@ -154,7 +148,6 @@ class AddWordViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 18)
         return button
     }()
-    
     
     init(image: UIImage) {
         super.init(nibName: nil, bundle: nil)
@@ -305,6 +298,8 @@ class AddWordViewController: UIViewController {
             let viewController = SelectFolderViewController(words: [])
             let navigationController = UINavigationController(rootViewController: viewController)
             navigationController.navigationBar.isHidden = true
+            
+            self?.folderButton.folderLabel.text = "Dummy Folder"
             self?.present(navigationController, animated: true)
         }).disposed(by: disposeBag)
         
@@ -333,24 +328,14 @@ class AddWordViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    @objc func selectFolderButton(_ sender: Any) {
-        
-        var word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.5), identifier: UUID())
-        
-        let viewController = SelectFolderViewController(words: [])
-        
-        navigationController?.pushViewController(viewController, animated: true)
-        //present(viewController, animated: true, completion: nil)
-    }
-    
     @objc func confirmDidTap(_ sender: Any) {
         let word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.8), identifier: UUID())
-        
-        self.newGroup?.words.append(word)
         
         guard let group = self.newGroup else {
             return
         }
+        
+        self.newGroup?.words.append(word)
         
         VocaManager.shared.update(group: group) { [weak self] in
             let alert: UIAlertView = UIAlertView(title: "단어 만들기 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
