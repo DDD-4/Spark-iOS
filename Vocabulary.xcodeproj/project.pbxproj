@@ -48,6 +48,10 @@
 		7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D477D7A24E2C3C7004A7F17 /* Media.xcassets */; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
 		7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */; };
+		7D6AFDC22507974C0050CED4 /* AddWordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */; };
+		7D6AFDC42507976A0050CED4 /* SelectFolderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */; };
+		7D6AFDC6250797930050CED4 /* SelectFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC5250797930050CED4 /* SelectFolderViewController.swift */; };
+		7D6AFDC8250797BA0050CED4 /* SelectFolderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC7250797BA0050CED4 /* SelectFolderViewCell.swift */; };
 		7D6E2E7324F3E6250015483C /* VocaDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */; };
 		7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -236,6 +240,10 @@
 		7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNavigationView.swift; sourceTree = "<group>"; };
 		7D477D7A24E2C3C7004A7F17 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaForAllViewModel.swift; sourceTree = "<group>"; };
+		7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordTextField.swift; sourceTree = "<group>"; };
+		7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFolderButton.swift; sourceTree = "<group>"; };
+		7D6AFDC5250797930050CED4 /* SelectFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFolderViewController.swift; sourceTree = "<group>"; };
+		7D6AFDC7250797BA0050CED4 /* SelectFolderViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectFolderViewCell.swift; path = Detail/SelectFolderViewCell.swift; sourceTree = "<group>"; };
 		7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaDownloadOperation.swift; sourceTree = "<group>"; };
 		7D702D3A24F98473008F21F9 /* VocaForAllCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocaForAllCell.swift; sourceTree = "<group>"; };
 		7D72ABE924F3FBFF00A01BCC /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
@@ -371,6 +379,7 @@
 		1870799324D8113A0079E280 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				7D6AFDC5250797930050CED4 /* SelectFolderViewController.swift */,
 				7DA59C7C24FCFFDF001E7D7D /* VocaHeaderView.swift */,
 				187B024B24D40968008DBC8B /* WordDetailCell.swift */,
 				187B024924D4065B008DBC8B /* VocaDetailViewController.swift */,
@@ -550,6 +559,8 @@
 		7DDB4AC624DC2D6B008812CD /* PoingDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */,
+				7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */,
 				7D16CBB724E5804400C95F8D /* Resources */,
 				7D477D7624E193C9004A7F17 /* CALayer+.swift */,
 				7D88184D24F6AA8A005A157E /* AccentButton.swift */,
@@ -643,6 +654,7 @@
 		CE6C9B5E24CF2D3F0068C3BB /* VacoForAll */ = {
 			isa = PBXGroup;
 			children = (
+				7D6AFDC7250797BA0050CED4 /* SelectFolderViewCell.swift */,
 				7D702D3A24F98473008F21F9 /* VocaForAllCell.swift */,
 				1870799324D8113A0079E280 /* Detail */,
 			);
@@ -1181,6 +1193,7 @@
 				7DEF533724FC054D003F3AC9 /* MyProfileViewController.swift in Sources */,
 				186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */,
 				CEFED47324D45291002E858C /* GameViewController.swift in Sources */,
+				7D6AFDC6250797930050CED4 /* SelectFolderViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
 				1833D75624E78A720085DDF6 /* SettingViewController.swift in Sources */,
 				187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */,
@@ -1189,6 +1202,7 @@
 				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
 				7D0F433324F912B3006CC32B /* DummyVocaDetailViewController.swift in Sources */,
 				CEF4C3BA24D3949E001AEE97 /* AddFolderViewController.swift in Sources */,
+				7D6AFDC8250797BA0050CED4 /* SelectFolderViewCell.swift in Sources */,
 				1833D74B24E78A3C0085DDF6 /* TakePictureController.swift in Sources */,
 				7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */,
 				187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */,
@@ -1203,11 +1217,13 @@
 				7DF47BEE24F6A4CF00C4E2CB /* AccentLineTextField.swift in Sources */,
 				7DDB4B3324DC337E008812CD /* SideNavigationView.swift in Sources */,
 				7DDB4B1324DC2E1E008812CD /* VDSTextField.swift in Sources */,
+				7D6AFDC42507976A0050CED4 /* SelectFolderButton.swift in Sources */,
 				7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */,
 				7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */,
 				7D88184E24F6AA8A005A157E /* AccentButton.swift in Sources */,
 				7DDB4B1024DC2E1E008812CD /* NoticePopupViewController.swift in Sources */,
 				7DDB4B1124DC2E1E008812CD /* UIColor+.swift in Sources */,
+				7D6AFDC22507974C0050CED4 /* AddWordTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
