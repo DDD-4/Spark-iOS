@@ -381,9 +381,14 @@ extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
         }
         
         let myImage = cropCameraImage(image, previewLayer: self.screenView.videoPreviewLayer)!
-        
+
+        let rootViewController = AddWordViewController(image: myImage)
+        let navController = UINavigationController(rootViewController: rootViewController)
+        navController.navigationBar.isHidden = true
+        navController.modalPresentationStyle = .fullScreen
+        navController.modalTransitionStyle = .coverVertical
         DispatchQueue.main.async {
-            self.present(AddWordViewController(image: myImage), animated: true, completion: nil)
+            self.present(navController, animated: true, completion: nil)
         }
         
         self.savePhotoLibrary(image: image)

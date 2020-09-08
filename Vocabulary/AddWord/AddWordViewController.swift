@@ -151,16 +151,13 @@ class AddWordViewController: UIViewController {
     
     init(image: UIImage) {
         super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .coverVertical
+
         self.wordImageView.image = image
         view.clipsToBounds = false
     }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle = .fullScreen
-        modalTransitionStyle = .coverVertical
-    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -194,9 +191,9 @@ class AddWordViewController: UIViewController {
         view.addSubview(confirmButton)
         
         naviView.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalTo(view)
-            make.top.equalTo(view).offset(8)
-            make.height.equalTo(50)
+            make.height.equalTo(44)
         }
         
         wordImageView.snp.makeConstraints { (make) in
@@ -296,11 +293,8 @@ class AddWordViewController: UIViewController {
         
         folderButton.rx.tap.subscribe(onNext: {[weak self] (_) in
             let viewController = SelectFolderViewController(words: [])
-            let navigationController = UINavigationController(rootViewController: viewController)
-            navigationController.navigationBar.isHidden = true
-            
             self?.folderButton.folderLabel.text = "Dummy Folder"
-            self?.present(navigationController, animated: true)
+            self?.navigationController?.pushViewController(viewController, animated: true)
         }).disposed(by: disposeBag)
         
     }
@@ -317,8 +311,8 @@ class AddWordViewController: UIViewController {
         let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
             self.openLibrary()
         }
-        let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in
-            self.openCamera()
+        let camera = UIAlertAction(title: "카메라", style: .default) { [weak self] (action) in
+            self?.dismiss(animated: true, completion: nil)
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
