@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import PoingVocaSubsystem
 
 var hasTopNotch: Bool {
   if #available(iOS 11.0, tvOS 11.0, *) {
@@ -46,9 +47,9 @@ public class CardMatchingViewController: UIViewController {
         let wordCount = cards.count / 2
         if wordCount < 4 {
             return nil
-        } else if wordCount <= 4 {
+        } else if wordCount <= 4 && wordCount < 6{
             return CardMatchingGrid(horizontal: 2, vertical: 4)
-        } else if wordCount <= 6 {
+        } else if wordCount <= 6 && wordCount < 8 {
             return CardMatchingGrid(horizontal: 3, vertical: 4)
         } else if wordCount <= 8 {
             return CardMatchingGrid(horizontal: 4, vertical: 4)
@@ -56,7 +57,6 @@ public class CardMatchingViewController: UIViewController {
 
         return nil
     }
-
     lazy var progressNavigationView: ProgressBarNavigationView = {
         let view = ProgressBarNavigationView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -88,9 +88,18 @@ public class CardMatchingViewController: UIViewController {
 
     var cardHeightConstraint: NSLayoutConstraint?
 
-    public init(imageWords: [ImageWord]) {
-        for word in imageWords {
-            guard let wordImage = UIImage(named: word.image) else {
+    public init(words: [Word]) {
+        super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .coverVertical
+
+        let shuffledWord = words.shuffled()
+        let currentWord = shuffledWord[0...getMaxCount(words: words) - 1]
+
+        for word in currentWord {
+            guard let imageData = word.image,
+                let wordImage = UIImage(data: imageData),
+                let english = word.english else {
                 continue
             }
             let currentUUID = UUID()
@@ -101,7 +110,7 @@ public class CardMatchingViewController: UIViewController {
                 color: color
             )
             let word = CardMatching(
-                contentType: .text(word.word),
+                contentType: .text(english),
                 uuid: currentUUID,
                 color: color
             )
@@ -111,11 +120,7 @@ public class CardMatchingViewController: UIViewController {
 
         cards.shuffle()
 
-        super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle = .fullScreen
-        modalTransitionStyle = .coverVertical
-
-        progressNavigationView.configire(maxCount: imageWords.count)
+        progressNavigationView.configire(maxCount: currentWord.count)
     }
 
     required init?(coder: NSCoder) {
@@ -199,6 +204,20 @@ public class CardMatchingViewController: UIViewController {
 
     @objc func closeDidTap(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+
+    func getMaxCount(words: [Word]) -> Int {
+        let wordCount = words.count / 2
+        if wordCount < 4 {
+            return 0
+        } else if 4 <= wordCount && wordCount < 6 {
+            return 4
+        } else if 6 <= wordCount && wordCount < 8 {
+            return 6
+        } else if 8 <= wordCount {
+            return 8
+        }
+        return 0
     }
 }
 

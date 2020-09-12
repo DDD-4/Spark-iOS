@@ -51,7 +51,7 @@ class VocaDownloadOperation: Operation {
 
                 let data = try! Data(contentsOf: localURL!)
 
-                completionHandler(Word(korean: download.korean, english: download.english, image: data, identifier: nil), nil)
+                completionHandler(Word(korean: download.korean, english: download.english, image: data, identifier: nil, order: 0), nil)
             }
 
             /*

@@ -321,10 +321,10 @@ class AddWordViewController: UIViewController {
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
     }
-    
+
     @objc func confirmDidTap(_ sender: Any) {
         let word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.8), identifier: UUID())
-        
+
         guard let group = self.newGroup else {
             return
         }

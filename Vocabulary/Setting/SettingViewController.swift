@@ -91,6 +91,10 @@ class SettingViewController: UIViewController {
             Option(title: "탈퇴하기", rightType: nil, handler: {
 
             }),
+            Option(title: "모든 데이터 삭제하기", rightType: nil, handler: {
+                VocaManager.shared.deleteAllGroup()
+                LoadCoreDataManager.shared.deleteLoadTime()
+            }),
         ]
     }
 

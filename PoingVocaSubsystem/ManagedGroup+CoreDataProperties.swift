@@ -22,18 +22,21 @@ public struct Group {
         title: String,
         visibilityType: VisibilityType,
         identifier: UUID,
-        words: [Word]
+        words: [Word],
+        order: Int16
     ) {
         self.title = title
         self.visibilityType = visibilityType
         self.identifier = identifier
         self.words = words
+        self.order = order
     }
 
     public var title: String
     public var visibilityType: VisibilityType
     public var identifier: UUID
     public var words: [Word]
+    public var order: Int16
 }
 
 extension Group {
@@ -48,6 +51,7 @@ extension Group {
         managed.visibilityType = visibilityType.rawValue
         managed.identifier = identifier
         managed.words = NSSet(array: managedWords)
+        managed.order = order
     }
 }
 
@@ -61,7 +65,7 @@ extension ManagedGroup {
     @NSManaged public var visibilityType: String?
     @NSManaged public var identifier: UUID?
     @NSManaged public var words: NSSet?
-
+    @NSManaged public var order: Int16
 }
 
 // MARK: Generated accessors for words
@@ -89,15 +93,20 @@ extension ManagedGroup {
             for managedWord in managedWords {
                 processedWords.append(managedWord.toWord())
             }
+
+            processedWords = processedWords.sorted {
+                $0.order < $1.order
+            }
         }
 
-        let isVailableVisibilityType = VisibilityType(rawValue: visibilityType ?? "") ?? .private
+         let isVailableVisibilityType = VisibilityType(rawValue: visibilityType ?? "") ?? .private
 
         let group = Group(
             title: title ?? "",
             visibilityType: isVailableVisibilityType,
             identifier: identifier ?? UUID(),
-            words: processedWords
+            words: processedWords,
+            order: order
         )
         return group
     }
