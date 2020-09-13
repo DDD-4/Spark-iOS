@@ -31,7 +31,7 @@ protocol VocaForAllViewModelInput {
 }
 
 protocol VocaForAllViewModelOutput {
-    var vocaForAllList: BehaviorRelay<[VocaForAll]> { get }
+    var vocaForAllList: BehaviorRelay<[Group]> { get }
 }
 
 protocol VocaForAllViewModelType {
@@ -40,21 +40,32 @@ protocol VocaForAllViewModelType {
 }
 
 class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, VocaForAllViewModelOutput {
+    
     var inputs: VocaForAllViewModelInput { return self }
     var outputs: VocaForAllViewModelOutput { return self }
 
     // Input
     var orderType: BehaviorRelay<VocaForAllOrderType>
     // Output
-    var vocaForAllList: BehaviorRelay<[VocaForAll]>
-
+    var vocaForAllList: BehaviorRelay<[Group]>
+    
     init() {
         orderType = BehaviorRelay<VocaForAllOrderType>(value: .recent)
-        vocaForAllList = BehaviorRelay<[VocaForAll]>(value: [])
+        vocaForAllList = BehaviorRelay<[Group]>(value: [])
     }
 
     func fetchVocaForAllData() {
         // TODO: Fix Real Data
-        vocaForAllList.accept(DummyData.vocaForAll)
+        //vocaForAllList.accept(DummyData.vocaForAll)
+        VocaManager.shared.fetch(identifier: nil) { [weak self]( groups ) in
+            guard let self = self else { return }
+            guard let groups = groups, groups.isEmpty == false else {
+                self.vocaForAllList.accept([])
+                return
+            }
+            
+            self.vocaForAllList.accept(groups)
+            
+        }
     }
 }

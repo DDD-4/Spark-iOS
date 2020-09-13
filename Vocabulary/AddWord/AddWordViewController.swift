@@ -292,9 +292,15 @@ class AddWordViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         folderButton.rx.tap.subscribe(onNext: {[weak self] (_) in
-            let viewController = SelectFolderViewController(words: [])
-            self?.folderButton.folderLabel.text = "Dummy Folder"
-            self?.navigationController?.pushViewController(viewController, animated: true)
+            let viewController = SelectVocaViewController()
+            viewController.delegate = self
+            
+            let navigationController = UINavigationController(rootViewController: viewController)
+            navigationController.navigationBar.isHidden = true
+            navigationController.modalPresentationStyle = .fullScreen
+            navigationController.modalTransitionStyle = .coverVertical
+            
+            self?.present(navigationController, animated: true)
         }).disposed(by: disposeBag)
         
     }
@@ -323,15 +329,22 @@ class AddWordViewController: UIViewController {
     }
 
     @objc func confirmDidTap(_ sender: Any) {
-        let word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.8), identifier: UUID())
-
-        guard let group = self.newGroup else {
+        guard let groups = self.newGroup else {
+            let alert: UIAlertView = UIAlertView(title: nil, message: "단어장을 선택해 주세요!", delegate: nil, cancelButtonTitle: nil);
+            
+            alert.show()
+            
+            let when = DispatchTime.now() + 2
+            DispatchQueue.main.asyncAfter(deadline: when){
+                alert.dismiss(withClickedButtonIndex: 0, animated: true)
+            }
             return
         }
         
+        let word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.8), identifier: UUID(), order: Int16( groups.words.count + 1 ))
         self.newGroup?.words.append(word)
         
-        VocaManager.shared.update(group: group) { [weak self] in
+        VocaManager.shared.update(group: groups, addWords: [word]) { [weak self] in
             let alert: UIAlertView = UIAlertView(title: "단어 만들기 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
             
             alert.show()
@@ -339,7 +352,8 @@ class AddWordViewController: UIViewController {
             let when = DispatchTime.now() + 2
             DispatchQueue.main.asyncAfter(deadline: when){
                 alert.dismiss(withClickedButtonIndex: 0, animated: true)
-                self?.dismiss(animated: true, completion: nil)
+                
+                self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -358,6 +372,7 @@ class AddWordViewController: UIViewController {
 extension AddWordViewController: SelectVocaViewControllerDelegate {
     func selectVocaViewController(didTapGroup group: Group) {
         self.newGroup = group
+        self.folderButton.folderLabel.text = group.title
     }
 }
 

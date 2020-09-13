@@ -54,7 +54,7 @@ class AddFolderViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let keyboard = KeyboardObserver()
     private var confirmButtonConstraint: NSLayoutConstraint?
-
+    
     lazy var navigationView: SideNavigationView = {
         let view = SideNavigationView(
             leftImage: UIImage.init(named: "icArrow"),

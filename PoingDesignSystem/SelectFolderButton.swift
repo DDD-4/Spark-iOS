@@ -12,7 +12,7 @@ public class SelectFolderButton: UIButton {
     public lazy var folderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "기본 폴더"
+        label.text = "폴더를 선택하세요"
         label.textColor = .gray
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 16)
         return label

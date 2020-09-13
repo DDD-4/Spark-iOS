@@ -65,6 +65,7 @@ class VocaForAllCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .slateGrey
+        label.numberOfLines = 1
         label.font = .systemFont(ofSize: 14, weight: .regular)
         return label
     }()
@@ -115,10 +116,15 @@ class VocaForAllCell: UICollectionViewCell {
     func configure(group: Group) {
         titleLabel.text = group.title
         authorLabel.text = "\(group.identifier)"
-        if let data = group.words[0].image {
-            vocaImageView.image = UIImage(data: data)
+        
+        if group.words.isEmpty {
+            vocaImageView.image = UIImage(named: "emptyFace")
+        } else {
+            if let data = group.words[0].image {
+                vocaImageView.image = UIImage(data: data)
+            }
         }
-        authorImageView.image = UIImage(named: "icPicture")
+        authorImageView.image = UIImage(named: "emptyFace")
         numberLable.text = "\(group.words.count)"
     }
 
@@ -148,6 +154,7 @@ class VocaForAllCell: UICollectionViewCell {
 
         authorContentView.snp.makeConstraints { (make) in
             make.leading.equalTo(baseView.snp.leading).offset(32)
+            make.trailing.equalTo(baseView.snp.trailing).offset(-32)
             make.top.equalTo(titleLabel.snp.bottom).offset(12)
         }
         authorImageView.snp.makeConstraints { (make) in
@@ -156,6 +163,7 @@ class VocaForAllCell: UICollectionViewCell {
         }
         authorLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(authorImageView.snp.trailing).offset(8)
+            make.trailing.equalTo(authorContentView.snp.trailing).offset(-8)
             make.centerY.equalTo(authorImageView)
         }
 

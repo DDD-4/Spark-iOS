@@ -27,9 +27,10 @@ class SelectFolderViewController: UIViewController {
     }
     
     // MARK: - Properties
-    private var words: [WordDownload] = []
+    private var groups = [Group]()
+    private var words: [Word] = []
     let disposeBag = DisposeBag()
-    let viewModel = VocaForAllViewModel()
+    let viewModel = SelectViewModel()
     weak var delegate: SelectFolderViewControllerDelegate?
     
     lazy var naviView: SideNavigationView = {
@@ -63,6 +64,16 @@ class SelectFolderViewController: UIViewController {
         guard let words = words else {
             return
         }
+        //self.words = words
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .coverVertical
+    }
+    
+    init(words: [Word]?) {
+        super.init(nibName: nil, bundle: nil)
+        guard let words = words else {
+            return
+        }
         self.words = words
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
@@ -76,8 +87,15 @@ class SelectFolderViewController: UIViewController {
         super.viewDidLoad()
         
         configureLayout()
-        viewModel.inputs.fetchVocaForAllData()
         configureRx()
+        
+        VocaDataChanged()
+        
+        NotificationCenter.default.addObserver(
+        self,
+        selector: #selector(VocaDataChanged),
+        name: .vocaDataChanged,
+        object: nil)
     }
     
     func configureLayout() {
@@ -103,18 +121,28 @@ class SelectFolderViewController: UIViewController {
     }
     
     func configureRx() {
-        viewModel.outputs.vocaForAllList
+        viewModel.output.groups
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
-                //self?.navigationController?.popToRootViewController(animated: true)
-                // here is function that update group and pop to rootview.
+                self?.folderCollectionView.reloadData()
             }).disposed(by: disposeBag)
+        
+        viewModel.output.words
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+                self?.folderCollectionView.reloadData()
+            }).disposed(by: disposeBag)
+    }
+    
+    @objc func VocaDataChanged() {
+        viewModel.input.fetchGroups()
+        groups = viewModel.output.groups.value
     }
 }
 
 extension SelectFolderViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.outputs.vocaForAllList.value.count + 1
+        return viewModel.output.groups.value.count + 1
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -126,9 +154,9 @@ extension SelectFolderViewController: UICollectionViewDataSource {
         }
         
         if indexPath.row == 0 {
-            cell.configure(folder: viewModel.outputs.vocaForAllList.value[indexPath.row], type: .add)
+            cell.configure(type: .add)
         } else {
-            cell.configure(folder: viewModel.outputs.vocaForAllList.value[indexPath.row - 1], type: .read)
+            cell.configure(folder: viewModel.output.groups.value[indexPath.row - 1], type: .read)
         }
         return cell
     }
@@ -137,11 +165,9 @@ extension SelectFolderViewController: UICollectionViewDataSource {
         if indexPath.row == 0 {
             navigationController?.pushViewController(AddFolderViewController(), animated: true)
         } else {
-//            추후에 해줄 vocaManager update part.
-//            VocaManager.shared.update(
-//                group: viewModel.outputs.vocaForAllList.value[indexPath.row - 1],
-//                addWords: self.words
-//            )
+            
+            delegate?.selectFolderViewController(didTapFolder: viewModel.output.groups.value[indexPath.item - 1])
+            
             self.navigationController?.popToRootViewController(animated: true)
         }
     }

@@ -108,6 +108,8 @@ class WordDetailCell: UICollectionViewCell {
     func configure(word: Word) {
         englishLabel.text = word.english
         koreanLabel.text = word.korean
+        guard let image = word.image else { return }
+        vocaImageView.image = UIImage(data: image)
     }
 
     func configureLayout() {

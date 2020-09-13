@@ -82,17 +82,17 @@ class MyVocaViewController: UIViewController {
             configureRx()
             viewModel.input.fetchGroups()
             
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(vocaDataChanged),
-                name: .vocaDataChanged,
-                object: nil
-            )
-            
         case .vocaForAll:
             configureVocaForAllRx()
             vocaForAllViewModel.inputs.fetchVocaForAllData()
         }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(vocaDataChanged),
+            name: .vocaDataChanged,
+            object: nil
+        )
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -136,6 +136,7 @@ class MyVocaViewController: UIViewController {
     @objc
     func vocaDataChanged() {
         viewModel.input.fetchGroups()
+        vocaForAllViewModel.inputs.fetchVocaForAllData()
     }
 }
 
@@ -178,7 +179,9 @@ extension MyVocaViewController: UICollectionViewDataSource {
                 ) as? VocaForAllCell else {
                     return UICollectionViewCell()
             }
-            cell.configure(dummy: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row])
+            //cell.configure(dummy: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row])
+            
+            cell.configure(group: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
             return cell
         }
     }
@@ -220,7 +223,9 @@ extension MyVocaViewController: UICollectionViewDataSource {
         let words = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row].words
         let title = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row].title
         
-        let wordView = DummyVocaDetailViewController(title: title, wordDownload: words)
+        //let wordView = DummyVocaDetailViewController(title: title, wordDownload: words)
+        
+        let wordView = VocaDetailViewController(group: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
         
         self.navigationController?.pushViewController(wordView, animated: true)
     }
