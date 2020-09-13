@@ -48,6 +48,15 @@
 		7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D477D7A24E2C3C7004A7F17 /* Media.xcassets */; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
 		7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */; };
+		7D4C992B250D27DE005F1619 /* UITapGestureRecognizer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */; };
+		7D4C992E250D27F2005F1619 /* SignInNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C992D250D27F2005F1619 /* SignInNameViewController.swift */; };
+		7D4C9933250D27FA005F1619 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9930250D27FA005F1619 /* LoginViewController.swift */; };
+		7D4C9934250D27FA005F1619 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */; };
+		7D4C9935250D27FA005F1619 /* AppleLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */; };
+		7D6AFDC22507974C0050CED4 /* AddWordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */; };
+		7D6AFDC42507976A0050CED4 /* SelectFolderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */; };
+		7D6AFDC6250797930050CED4 /* SelectFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC5250797930050CED4 /* SelectFolderViewController.swift */; };
+		7D6AFDC8250797BA0050CED4 /* SelectFolderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC7250797BA0050CED4 /* SelectFolderViewCell.swift */; };
 		7D6E2E7324F3E6250015483C /* VocaDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */; };
 		7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -60,6 +69,8 @@
 		7D790FA824F9624D0034BC1D /* PoingVocaSubsystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D790FAB24F962500034BC1D /* VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; };
 		7D790FAC24F962500034BC1D /* VocaGame.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D7B4B0024FAAD16004F7493 /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
+		7D7B4B0124FAAD16004F7493 /* PoingVocaSubsystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D7F602424F29226007021C6 /* LoadCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7F602324F29226007021C6 /* LoadCoreDataManager.swift */; };
 		7D88184E24F6AA8A005A157E /* AccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88184D24F6AA8A005A157E /* AccentButton.swift */; };
 		7D88185224F6C960005A157E /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88185124F6C960005A157E /* String+.swift */; };
@@ -137,6 +148,13 @@
 			remoteGlobalIDString = CEFED47E24D5C8C2002E858C;
 			remoteInfo = VocaGame;
 		};
+		7D7B4B0224FAAD16004F7493 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DDB4AE924DC2DF2008812CD;
+			remoteInfo = PoingVocaSubsystem;
+		};
 		7DDB4ACF24DC2D6B008812CD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
@@ -175,6 +193,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */,
+				7D7B4B0124FAAD16004F7493 /* PoingVocaSubsystem.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +255,15 @@
 		7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNavigationView.swift; sourceTree = "<group>"; };
 		7D477D7A24E2C3C7004A7F17 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaForAllViewModel.swift; sourceTree = "<group>"; };
+		7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecognizer+.swift"; sourceTree = "<group>"; };
+		7D4C992D250D27F2005F1619 /* SignInNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInNameViewController.swift; sourceTree = "<group>"; };
+		7D4C9930250D27FA005F1619 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginButton.swift; sourceTree = "<group>"; };
+		7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginHelper.swift; sourceTree = "<group>"; };
+		7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordTextField.swift; sourceTree = "<group>"; };
+		7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFolderButton.swift; sourceTree = "<group>"; };
+		7D6AFDC5250797930050CED4 /* SelectFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFolderViewController.swift; sourceTree = "<group>"; };
+		7D6AFDC7250797BA0050CED4 /* SelectFolderViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectFolderViewCell.swift; path = Detail/SelectFolderViewCell.swift; sourceTree = "<group>"; };
 		7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaDownloadOperation.swift; sourceTree = "<group>"; };
 		7D702D3A24F98473008F21F9 /* VocaForAllCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocaForAllCell.swift; sourceTree = "<group>"; };
 		7D72ABE924F3FBFF00A01BCC /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
@@ -353,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				060A2BFF3328CFC53FBFBE42 /* Pods_VocaGame.framework in Frameworks */,
+				7D7B4B0024FAAD16004F7493 /* PoingVocaSubsystem.framework in Frameworks */,
 				7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +400,7 @@
 		1870799324D8113A0079E280 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				7D6AFDC5250797930050CED4 /* SelectFolderViewController.swift */,
 				7DA59C7C24FCFFDF001E7D7D /* VocaHeaderView.swift */,
 				187B024B24D40968008DBC8B /* WordDetailCell.swift */,
 				187B024924D4065B008DBC8B /* VocaDetailViewController.swift */,
@@ -496,6 +526,8 @@
 		7D276DFF24BE05AF00CA4554 /* Vocabulary */ = {
 			isa = PBXGroup;
 			children = (
+				7D4C992F250D27FA005F1619 /* Login */,
+				7D4C992C250D27F2005F1619 /* SignIn */,
 				7D6E2E7124F3E5C90015483C /* Data */,
 				CEFED47624D5BAC7002E858C /* Game */,
 				CE8703C124D2F9F100DDFAD4 /* Utills */,
@@ -521,6 +553,24 @@
 				7D276E0924BE05B200CA4554 /* Assets.xcassets */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		7D4C992C250D27F2005F1619 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				7D4C992D250D27F2005F1619 /* SignInNameViewController.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		7D4C992F250D27FA005F1619 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7D4C9930250D27FA005F1619 /* LoginViewController.swift */,
+				7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */,
+				7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		7D6E2E7124F3E5C90015483C /* Data */ = {
@@ -550,6 +600,8 @@
 		7DDB4AC624DC2D6B008812CD /* PoingDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */,
+				7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */,
 				7D16CBB724E5804400C95F8D /* Resources */,
 				7D477D7624E193C9004A7F17 /* CALayer+.swift */,
 				7D88184D24F6AA8A005A157E /* AccentButton.swift */,
@@ -643,6 +695,7 @@
 		CE6C9B5E24CF2D3F0068C3BB /* VacoForAll */ = {
 			isa = PBXGroup;
 			children = (
+				7D6AFDC7250797BA0050CED4 /* SelectFolderViewCell.swift */,
 				7D702D3A24F98473008F21F9 /* VocaForAllCell.swift */,
 				1870799324D8113A0079E280 /* Detail */,
 			);
@@ -687,6 +740,7 @@
 			children = (
 				CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */,
 				7D88185124F6C960005A157E /* String+.swift */,
+				7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -875,6 +929,7 @@
 			);
 			dependencies = (
 				7D6F9D0524E2EE3B005B6835 /* PBXTargetDependency */,
+				7D7B4B0324FAAD16004F7493 /* PBXTargetDependency */,
 			);
 			name = VocaGame;
 			productName = VocaGame;
@@ -1175,20 +1230,27 @@
 				7D0F433424F912CC006CC32B /* LoadingView.swift in Sources */,
 				7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */,
 				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
+				7D4C992E250D27F2005F1619 /* SignInNameViewController.swift in Sources */,
 				7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */,
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
+				7D4C9934250D27FA005F1619 /* AppleLoginButton.swift in Sources */,
 				CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */,
 				7DEF533724FC054D003F3AC9 /* MyProfileViewController.swift in Sources */,
 				186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */,
 				CEFED47324D45291002E858C /* GameViewController.swift in Sources */,
+				7D4C992B250D27DE005F1619 /* UITapGestureRecognizer+.swift in Sources */,
+				7D6AFDC6250797930050CED4 /* SelectFolderViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
 				1833D75624E78A720085DDF6 /* SettingViewController.swift in Sources */,
+				7D4C9935250D27FA005F1619 /* AppleLoginHelper.swift in Sources */,
 				187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
+				7D4C9933250D27FA005F1619 /* LoginViewController.swift in Sources */,
 				1833D74A24E78A3C0085DDF6 /* SelectVocaTableViewCell.swift in Sources */,
 				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
 				7D0F433324F912B3006CC32B /* DummyVocaDetailViewController.swift in Sources */,
 				CEF4C3BA24D3949E001AEE97 /* AddFolderViewController.swift in Sources */,
+				7D6AFDC8250797BA0050CED4 /* SelectFolderViewCell.swift in Sources */,
 				1833D74B24E78A3C0085DDF6 /* TakePictureController.swift in Sources */,
 				7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */,
 				187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */,
@@ -1203,11 +1265,13 @@
 				7DF47BEE24F6A4CF00C4E2CB /* AccentLineTextField.swift in Sources */,
 				7DDB4B3324DC337E008812CD /* SideNavigationView.swift in Sources */,
 				7DDB4B1324DC2E1E008812CD /* VDSTextField.swift in Sources */,
+				7D6AFDC42507976A0050CED4 /* SelectFolderButton.swift in Sources */,
 				7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */,
 				7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */,
 				7D88184E24F6AA8A005A157E /* AccentButton.swift in Sources */,
 				7DDB4B1024DC2E1E008812CD /* NoticePopupViewController.swift in Sources */,
 				7DDB4B1124DC2E1E008812CD /* UIColor+.swift in Sources */,
+				7D6AFDC22507974C0050CED4 /* AddWordTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1286,6 +1350,11 @@
 			isa = PBXTargetDependency;
 			target = CEFED47E24D5C8C2002E858C /* VocaGame */;
 			targetProxy = 7D790FAD24F962500034BC1D /* PBXContainerItemProxy */;
+		};
+		7D7B4B0324FAAD16004F7493 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DDB4AE924DC2DF2008812CD /* PoingVocaSubsystem */;
+			targetProxy = 7D7B4B0224FAAD16004F7493 /* PBXContainerItemProxy */;
 		};
 		7DDB4AD024DC2D6B008812CD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1648,7 +1717,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = PoingVocaSubsystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1660,7 +1729,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/포잉포잉.app/포잉포잉";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Poing.app/Poing";
 			};
 			name = Debug;
 		};
@@ -1669,7 +1738,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = PoingVocaSubsystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1681,7 +1750,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/포잉포잉.app/포잉포잉";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Poing.app/Poing";
 			};
 			name = Release;
 		};

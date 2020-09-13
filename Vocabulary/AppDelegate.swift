@@ -18,8 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.main.bounds)
 
-        self.window?.rootViewController = UINavigationController(rootViewController: HomeViewController())
-        
+        let viewController = UINavigationController(rootViewController: LoginViewController())
+        viewController.navigationBar.isHidden = true
+
+        self.window?.rootViewController = viewController
         self.window?.makeKeyAndVisible()
 
         if FileManager.default.ubiquityIdentityToken != nil {

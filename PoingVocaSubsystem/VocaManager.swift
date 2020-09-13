@@ -15,12 +15,15 @@ import Foundation
 public class VocaManager {
     public static let shared = VocaManager()
 
+    public var groups: [Group]?
+
     public func insertDefaultGroup(completion: @escaping (() -> Void)) {
         let defaultGroup = Group(
             title: "기본 폴더",
             visibilityType: .default,
             identifier: UUID(),
-            words: []
+            words: [],
+            order: -1
         )
 
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
@@ -57,6 +60,7 @@ public class VocaManager {
                 groups.append(managedGroup.toGroup())
             }
 
+            self.groups = groups
             completion(groups)
         }
     }
@@ -130,11 +134,16 @@ public class VocaManager {
     }
     
     public func update(group: Group, addWords: [Word], completion: (() -> Void)? = nil) {
-        let currentWords = addWords
-        
         var currentGroup = group
-        currentGroup.words.append(contentsOf: currentWords)
+        var currentWords = addWords
+
+        for index in 0 ..< currentWords.count {
+            let wordCount = currentGroup.words.count == 0 ? 0 : currentGroup.words.count - 1
+            currentWords[index].order = Int16(index + wordCount)
+        }
         
+        currentGroup.words.append(contentsOf: currentWords)
+
         update(group: currentGroup) {
             guard let completion = completion else {
                 return
