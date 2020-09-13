@@ -237,11 +237,13 @@ class AddFolderViewController: UIViewController {
     }
 
     @objc func confirmDidTap(_ sender: UIButton) {
+        let order = VocaManager.shared.groups?.count ?? 0
         let newGroup = Group(
             title: textFieldView.textField.text ?? "이름 없음",
             visibilityType: visibilityButton.isSelected ? .public : .private,
             identifier: UUID(),
-            words: []
+            words: [],
+            order: Int16(order == 0 ? 0 : order)
         )
 
         VocaManager.shared.insert(group: newGroup) { [weak self] in

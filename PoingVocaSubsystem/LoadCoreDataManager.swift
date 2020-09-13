@@ -54,7 +54,17 @@ public class LoadCoreDataManager {
         }
     }
 
-    public func deleteLoadTime(record: CKRecord) {
+    public func deleteLoadTime() {
+        let query = CKQuery(recordType: recordType, predicate: NSPredicate(value: true))
+
+        privateDataBase.perform(query, inZoneWith: nil) { (record, error) in
+            guard error == nil else { return }
+
+            self.deleteLoadTime(record: (record?.first)!)
+        }
+    }
+
+    private func deleteLoadTime(record: CKRecord) {
         privateDataBase.delete(withRecordID: record.recordID) { (recordId, error) in
             print(recordId)
             print(error)

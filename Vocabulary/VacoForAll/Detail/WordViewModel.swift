@@ -18,7 +18,7 @@ protocol WordViewModelOutput {
 
 protocol WordViewModelInput {
     func fetchGroups()
-    var selectedGroup: BehaviorRelay<Group> { get }
+    var selectedGroup: BehaviorRelay<Group?> { get }
 }
 
 protocol WordViewModelType {
@@ -29,7 +29,7 @@ protocol WordViewModelType {
 class WordViewModel: WordViewModelInput, WordViewModelOutput, WordViewModelType {
     var groups: BehaviorRelay<[Group]>
     
-    var selectedGroup: BehaviorRelay<Group>
+    var selectedGroup: BehaviorRelay<Group?>
     
     let disposeBag = DisposeBag()
 
@@ -46,12 +46,7 @@ class WordViewModel: WordViewModelInput, WordViewModelOutput, WordViewModelType 
         } else {
             words = BehaviorRelay<[Word]>(value: [])
             groups = BehaviorRelay<[Group]>(value: [])
-            selectedGroup = BehaviorRelay<Group>(value: Group(title: "", visibilityType: .public, identifier: UUID(), words: []))
-            selectedGroup.map { (group) -> [Word] in
-                group.words
-            }
-            .bind(to: words)
-            .disposed(by: disposeBag)
+            selectedGroup = BehaviorRelay<Group?>(value: nil)
         }
     }
     func fetchGroups() {

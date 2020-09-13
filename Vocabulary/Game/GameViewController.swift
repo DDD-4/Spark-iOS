@@ -161,27 +161,19 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegate
         switch selectedGame {
         case .flip:
             present(FlipGameViewController(
-                words: [
-                    Word(korean: "kor", english: "eng1", image: nil, identifier: nil),
-                    Word(korean: "kor", english: "eng2", image: nil, identifier: nil),
-                    Word(korean: "kor", english: "eng3", image: nil, identifier: nil)]),
+                words: []),
                     animated: true,
                     completion: nil
             )
         case .matching:
-            present(CardMatchingViewController(
-                imageWords: [
-                    ImageWord(image: "icPicture", word: "eng"),
-                    ImageWord(image: "icPicture", word: "eng"),
-                    ImageWord(image: "icPicture", word: "eng"),
-                    ImageWord(image: "icPicture", word: "eng"),
-                    ImageWord(image: "icPicture", word: "eng"),
-                    ImageWord(image: "icPicture", word: "eng"),
-                    ImageWord(image: "icPicture", word: "eng"),
-                    ImageWord(image: "icPicture", word: "eng")]),
-                    animated: true,
-                    completion: nil
-            )
+            if let filtered = VocaManager.shared.groups?.filter({ (groups) -> Bool in
+                groups.visibilityType == .default
+            }) {
+                present(CardMatchingViewController(words: filtered.first?.words ?? []),
+                        animated: true,
+                        completion: nil
+                )
+            }
         }
     }
 }

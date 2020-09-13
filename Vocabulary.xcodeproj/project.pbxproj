@@ -64,6 +64,8 @@
 		7D790FA824F9624D0034BC1D /* PoingVocaSubsystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D790FAB24F962500034BC1D /* VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; };
 		7D790FAC24F962500034BC1D /* VocaGame.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFED47F24D5C8C2002E858C /* VocaGame.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D7B4B0024FAAD16004F7493 /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
+		7D7B4B0124FAAD16004F7493 /* PoingVocaSubsystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D7F602424F29226007021C6 /* LoadCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7F602324F29226007021C6 /* LoadCoreDataManager.swift */; };
 		7D88184E24F6AA8A005A157E /* AccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88184D24F6AA8A005A157E /* AccentButton.swift */; };
 		7D88185224F6C960005A157E /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88185124F6C960005A157E /* String+.swift */; };
@@ -141,6 +143,13 @@
 			remoteGlobalIDString = CEFED47E24D5C8C2002E858C;
 			remoteInfo = VocaGame;
 		};
+		7D7B4B0224FAAD16004F7493 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DDB4AE924DC2DF2008812CD;
+			remoteInfo = PoingVocaSubsystem;
+		};
 		7DDB4ACF24DC2D6B008812CD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7D276DF524BE05AF00CA4554 /* Project object */;
@@ -179,6 +188,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7D6F9D0324E2EE3B005B6835 /* PoingDesignSystem.framework in Embed Frameworks */,
+				7D7B4B0124FAAD16004F7493 /* PoingVocaSubsystem.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				060A2BFF3328CFC53FBFBE42 /* Pods_VocaGame.framework in Frameworks */,
+				7D7B4B0024FAAD16004F7493 /* PoingVocaSubsystem.framework in Frameworks */,
 				7D6F9D0224E2EE3B005B6835 /* PoingDesignSystem.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -887,6 +898,7 @@
 			);
 			dependencies = (
 				7D6F9D0524E2EE3B005B6835 /* PBXTargetDependency */,
+				7D7B4B0324FAAD16004F7493 /* PBXTargetDependency */,
 			);
 			name = VocaGame;
 			productName = VocaGame;
@@ -1303,6 +1315,11 @@
 			target = CEFED47E24D5C8C2002E858C /* VocaGame */;
 			targetProxy = 7D790FAD24F962500034BC1D /* PBXContainerItemProxy */;
 		};
+		7D7B4B0324FAAD16004F7493 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DDB4AE924DC2DF2008812CD /* PoingVocaSubsystem */;
+			targetProxy = 7D7B4B0224FAAD16004F7493 /* PBXContainerItemProxy */;
+		};
 		7DDB4AD024DC2D6B008812CD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7DDB4AC424DC2D6B008812CD /* PoingDesignSystem */;
@@ -1664,7 +1681,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = PoingVocaSubsystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1676,7 +1693,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/포잉포잉.app/포잉포잉";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Poing.app/Poing";
 			};
 			name = Debug;
 		};
@@ -1685,7 +1702,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = L47YWQ7AFX;
 				INFOPLIST_FILE = PoingVocaSubsystemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1697,7 +1714,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/포잉포잉.app/포잉포잉";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Poing.app/Poing";
 			};
 			name = Release;
 		};
