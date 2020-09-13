@@ -48,6 +48,11 @@
 		7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D477D7A24E2C3C7004A7F17 /* Media.xcassets */; };
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
 		7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */; };
+		7D4C992B250D27DE005F1619 /* UITapGestureRecognizer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */; };
+		7D4C992E250D27F2005F1619 /* SignInNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C992D250D27F2005F1619 /* SignInNameViewController.swift */; };
+		7D4C9933250D27FA005F1619 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9930250D27FA005F1619 /* LoginViewController.swift */; };
+		7D4C9934250D27FA005F1619 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */; };
+		7D4C9935250D27FA005F1619 /* AppleLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */; };
 		7D6AFDC22507974C0050CED4 /* AddWordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */; };
 		7D6AFDC42507976A0050CED4 /* SelectFolderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */; };
 		7D6AFDC6250797930050CED4 /* SelectFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC5250797930050CED4 /* SelectFolderViewController.swift */; };
@@ -250,6 +255,11 @@
 		7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNavigationView.swift; sourceTree = "<group>"; };
 		7D477D7A24E2C3C7004A7F17 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaForAllViewModel.swift; sourceTree = "<group>"; };
+		7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecognizer+.swift"; sourceTree = "<group>"; };
+		7D4C992D250D27F2005F1619 /* SignInNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInNameViewController.swift; sourceTree = "<group>"; };
+		7D4C9930250D27FA005F1619 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginButton.swift; sourceTree = "<group>"; };
+		7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginHelper.swift; sourceTree = "<group>"; };
 		7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordTextField.swift; sourceTree = "<group>"; };
 		7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFolderButton.swift; sourceTree = "<group>"; };
 		7D6AFDC5250797930050CED4 /* SelectFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFolderViewController.swift; sourceTree = "<group>"; };
@@ -516,6 +526,8 @@
 		7D276DFF24BE05AF00CA4554 /* Vocabulary */ = {
 			isa = PBXGroup;
 			children = (
+				7D4C992F250D27FA005F1619 /* Login */,
+				7D4C992C250D27F2005F1619 /* SignIn */,
 				7D6E2E7124F3E5C90015483C /* Data */,
 				CEFED47624D5BAC7002E858C /* Game */,
 				CE8703C124D2F9F100DDFAD4 /* Utills */,
@@ -541,6 +553,24 @@
 				7D276E0924BE05B200CA4554 /* Assets.xcassets */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		7D4C992C250D27F2005F1619 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				7D4C992D250D27F2005F1619 /* SignInNameViewController.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		7D4C992F250D27FA005F1619 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7D4C9930250D27FA005F1619 /* LoginViewController.swift */,
+				7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */,
+				7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		7D6E2E7124F3E5C90015483C /* Data */ = {
@@ -710,6 +740,7 @@
 			children = (
 				CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */,
 				7D88185124F6C960005A157E /* String+.swift */,
+				7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -1199,17 +1230,22 @@
 				7D0F433424F912CC006CC32B /* LoadingView.swift in Sources */,
 				7D14050824DE5F8E00F57260 /* EditMyVocaGroupViewModel.swift in Sources */,
 				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
+				7D4C992E250D27F2005F1619 /* SignInNameViewController.swift in Sources */,
 				7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */,
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
+				7D4C9934250D27FA005F1619 /* AppleLoginButton.swift in Sources */,
 				CE1458F824D3193D004F2700 /* EditMyVocaGroupViewController.swift in Sources */,
 				7DEF533724FC054D003F3AC9 /* MyProfileViewController.swift in Sources */,
 				186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */,
 				CEFED47324D45291002E858C /* GameViewController.swift in Sources */,
+				7D4C992B250D27DE005F1619 /* UITapGestureRecognizer+.swift in Sources */,
 				7D6AFDC6250797930050CED4 /* SelectFolderViewController.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
 				1833D75624E78A720085DDF6 /* SettingViewController.swift in Sources */,
+				7D4C9935250D27FA005F1619 /* AppleLoginHelper.swift in Sources */,
 				187B024A24D4065B008DBC8B /* VocaDetailViewController.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
+				7D4C9933250D27FA005F1619 /* LoginViewController.swift in Sources */,
 				1833D74A24E78A3C0085DDF6 /* SelectVocaTableViewCell.swift in Sources */,
 				CE84996B24D300D300D934C3 /* MyVocaGroupReusableView.swift in Sources */,
 				7D0F433324F912B3006CC32B /* DummyVocaDetailViewController.swift in Sources */,

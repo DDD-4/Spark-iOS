@@ -31,6 +31,20 @@ public class AccentLineTextField: UIView {
 
     var accentLineWidthConstraint: NSLayoutConstraint?
 
+    public var placeholder: String? {
+        didSet {
+            let paragraphStyle = NSMutableParagraphStyle()
+            let attributes: [NSAttributedString.Key : Any] = [
+                .font: Constant.font as Any,
+                .paragraphStyle: paragraphStyle,
+                .foregroundColor: UIColor.veryLightPink,
+            ]
+            let attrString = NSAttributedString(string: placeholder ?? "", attributes: attributes)
+
+            textField.attributedPlaceholder = attrString
+        }
+    }
+
     public lazy var textField: UITextField = {
         let text = UITextField()
         text.translatesAutoresizingMaskIntoConstraints = false
