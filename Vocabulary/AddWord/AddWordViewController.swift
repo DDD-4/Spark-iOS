@@ -142,8 +142,9 @@ class AddWordViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 30
         button.setTitle("단어 저장하기", for: .normal)
-        button.setTitleColor(.brownGrey, for: .normal)
-        button.setTitleColor(UIColor.white, for: .selected)
+        button.setTitleColor(.brownGrey, for: .disabled)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.isEnabled = false
         button.addTarget(self, action: #selector(confirmDidTap), for: .touchUpInside)
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 18)
         return button
@@ -266,7 +267,7 @@ class AddWordViewController: UIViewController {
                     self.engTextField.text = engText[0..<Constant.Count.maxCount]
                 }
                 
-                self.confirmButton.isSelected = (engText.count == 0 || korText.count == 0 ) ? false : true
+                self.confirmButton.isEnabled = (engText.count == 0 || korText.count == 0 ) ? false : true
                 
                 self.updateConfirmButton()
         }.disposed(by: disposeBag)
@@ -286,7 +287,7 @@ class AddWordViewController: UIViewController {
                     self.engTextField.text = korText[0..<Constant.Count.maxCount]
                 }
                 
-                self.confirmButton.isSelected = (engText.count == 0 || korText.count == 0 ) ? false : true
+                self.confirmButton.isEnabled = (engText.count == 0 || korText.count == 0 ) ? false : true
                 
                 self.updateConfirmButton()
         }.disposed(by: disposeBag)
@@ -323,11 +324,17 @@ class AddWordViewController: UIViewController {
     }
 
     @objc func confirmDidTap(_ sender: Any) {
-        let word = Word(korean: self.korTextField.text, english: self.engTextField.text, image: self.wordImageView.image?.jpegData(compressionQuality: 0.8), identifier: UUID())
-
         guard let group = self.newGroup else {
             return
         }
+
+        let word = Word(
+            korean: self.korTextField.text,
+            english: self.engTextField.text,
+            image: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
+            identifier: UUID(),
+            order: Int16(group.words.count)
+        )
         
         self.newGroup?.words.append(word)
         
@@ -349,7 +356,7 @@ class AddWordViewController: UIViewController {
     }
     
     func updateConfirmButton() {
-        confirmButton.backgroundColor = confirmButton.isSelected
+        confirmButton.backgroundColor = confirmButton.isEnabled
             ? .brightSkyBlue
             : .veryLightPink
     }
