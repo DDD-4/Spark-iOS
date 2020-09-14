@@ -63,9 +63,10 @@ class SignInNameViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("완료", for: .normal)
+        button.isEnabled = false
         button.backgroundColor = .veryLightPink
-        button.setTitleColor(UIColor(white: 174.0 / 255.0, alpha: 1.0), for: .normal)
-        button.setTitleColor(UIColor.white, for: .selected)
+        button.setTitleColor(UIColor(white: 174.0 / 255.0, alpha: 1.0), for: .disabled)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         button.layer.cornerRadius = Constant.Confirm.height * 0.5
         button.addTarget(self, action: #selector(confirmDidTap(_:)), for: .touchUpInside)
@@ -120,7 +121,7 @@ class SignInNameViewController: UIViewController {
     }
 
     func updateConfirmButton() {
-        confirmButton.backgroundColor = confirmButton.isSelected
+        confirmButton.backgroundColor = confirmButton.isEnabled
             ? Constant.Confirm.Active.backgroundColor
             : Constant.Confirm.InActive.backgroundColor
     }
@@ -132,7 +133,7 @@ class SignInNameViewController: UIViewController {
                 guard let self = self,
                       let text = self.nameTextField.textField.text
                 else { return }
-                self.confirmButton.isSelected = (text.count == 0) ? false : true
+                self.confirmButton.isEnabled = (text.count == 0) ? false : true
                 self.updateConfirmButton()
             }.disposed(by: disposeBag)
     }

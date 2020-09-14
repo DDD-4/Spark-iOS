@@ -115,8 +115,9 @@ class AddFolderViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("새 폴더 만들기", for: .normal)
         button.backgroundColor = .veryLightPink
-        button.setTitleColor(UIColor(white: 174.0 / 255.0, alpha: 1.0), for: .normal)
-        button.setTitleColor(UIColor.white, for: .selected)
+        button.setTitleColor(UIColor(white: 174.0 / 255.0, alpha: 1.0), for: .disabled)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.isEnabled = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         button.layer.cornerRadius = Constant.Confirm.height * 0.5
         button.addTarget(self, action: #selector(confirmDidTap(_:)), for: .touchUpInside)
@@ -186,7 +187,7 @@ class AddFolderViewController: UIViewController {
     }
 
     func updateConfirmButton() {
-        confirmButton.backgroundColor = confirmButton.isSelected
+        confirmButton.backgroundColor = confirmButton.isEnabled
             ? Constant.Confirm.Active.backgroundColor
             : Constant.Confirm.InActive.backgroundColor
     }
@@ -201,7 +202,7 @@ class AddFolderViewController: UIViewController {
                     self.textFieldView.textField.text = text[0..<Constant.Count.maxCount]
                 }
 
-                self.confirmButton.isSelected = (text.count == 0) ? false : true
+                self.confirmButton.isEnabled = (text.count == 0) ? false : true
 
                 self.updateConfirmButton()
 
