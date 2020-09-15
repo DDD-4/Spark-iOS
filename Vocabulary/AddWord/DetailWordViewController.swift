@@ -12,8 +12,6 @@ import RxCocoa
 import PoingDesignSystem
 import PoingVocaSubsystem
 import SnapKit
-import KeyboardObserver
-
 
 class DetailWordViewController: UIViewController {
     
@@ -38,7 +36,7 @@ class DetailWordViewController: UIViewController {
     private let picker = UIImagePickerController()
     private let disposeBag = DisposeBag()
     private let viewModel: SelectViewModelType = SelectViewModel()
-    private let keyboard = KeyboardObserver()
+    
     var newGroup: Group?
     var delegate: DetailWordViewController?
     var currentState: State
@@ -247,7 +245,6 @@ class DetailWordViewController: UIViewController {
         contentView.addSubview(confirmButton)
         
         scrollView.snp.makeConstraints { (make) in
-             //make.edges.equalToSuperview() // 스크롤뷰가 표현될 영역
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -375,24 +372,6 @@ class DetailWordViewController: UIViewController {
         }).disposed(by: disposeBag)
         
     }
-    
-    func observeKeyboard() {
-           keyboard.observe { [weak self] (event) -> Void in
-               guard let self = self else { return }
-               switch event.type {
-               case .willShow, .willHide, .willChangeFrame:
-                   let keyboardFrameEnd = event.keyboardFrameEnd
-                   let bottom = keyboardFrameEnd.height - self.view.safeAreaInsets.bottom
-
-                   UIView.animate(withDuration: event.duration, delay: 0.0, options: [event.options], animations: { () -> Void in
-                       
-                       }, completion: nil)
-                // 어떻게 쓰는건질 모르겠음
-               default:
-                   break
-               }
-           }
-       }
     
     @objc
     func vocaDataChanged() {
@@ -556,12 +535,6 @@ extension DetailWordViewController: UITextFieldDelegate {
     }
     
     @objc func keyboardWillShow(_ note: NSNotification) {
-//        let height = self.view.frame.size.height
-//        if let keyboardFrame: NSValue = note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-//            let keyboardRectangle = keyboardFrame.cgRectValue
-//            let keyboardHeight = keyboardRectangle.height
-//            self.view.frame.origin.y = -self.view.frame.origin.y - keyboardHeight
-//        }
         
         guard let keyboardFrame = (note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         
