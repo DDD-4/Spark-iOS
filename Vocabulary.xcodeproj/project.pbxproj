@@ -17,7 +17,7 @@
 		1833D75224E78A650085DDF6 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74F24E78A640085DDF6 /* SettingCell.swift */; };
 		1833D75624E78A720085DDF6 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D75524E78A720085DDF6 /* SettingViewController.swift */; };
 		186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84C924D1462E0094E9EB /* BaseButton.swift */; };
-		186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */; };
+		186E84CC24D15DFD0094E9EB /* DetailWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CB24D15DFD0094E9EB /* DetailWordViewController.swift */; };
 		186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */; };
 		1870799524D8120E0079E280 /* WordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870799424D8120E0079E280 /* WordViewModel.swift */; };
 		1877BFFF250359E100C29ECE /* AddWordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1877BFFE250359E100C29ECE /* AddWordTextField.swift */; };
@@ -58,8 +58,6 @@
 		7D4C9933250D27FA005F1619 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9930250D27FA005F1619 /* LoginViewController.swift */; };
 		7D4C9934250D27FA005F1619 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */; };
 		7D4C9935250D27FA005F1619 /* AppleLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */; };
-		7D6AFDC22507974C0050CED4 /* AddWordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */; };
-		7D6AFDC42507976A0050CED4 /* SelectFolderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */; };
 		7D6AFDC6250797930050CED4 /* SelectFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC5250797930050CED4 /* SelectFolderViewController.swift */; };
 		7D6AFDC8250797BA0050CED4 /* SelectFolderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6AFDC7250797BA0050CED4 /* SelectFolderViewCell.swift */; };
 		7D6E2E7324F3E6250015483C /* VocaDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E2E7224F3E6250015483C /* VocaDownloadOperation.swift */; };
@@ -227,7 +225,7 @@
 		1833D74F24E78A640085DDF6 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		1833D75524E78A720085DDF6 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		186E84C924D1462E0094E9EB /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
-		186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
+		186E84CB24D15DFD0094E9EB /* DetailWordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailWordViewController.swift; sourceTree = "<group>"; };
 		186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordNavigationView.swift; sourceTree = "<group>"; };
 		1870799424D8120E0079E280 /* WordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewModel.swift; sourceTree = "<group>"; };
 		1877BFFE250359E100C29ECE /* AddWordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordTextField.swift; sourceTree = "<group>"; };
@@ -737,7 +735,7 @@
 				1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */,
 				1833D74924E78A3C0085DDF6 /* SelectVocaViewController.swift */,
 				1833D74624E78A3C0085DDF6 /* TakePictureController.swift */,
-				186E84CB24D15DFD0094E9EB /* AddWordViewController.swift */,
+				186E84CB24D15DFD0094E9EB /* DetailWordViewController.swift */,
 				186E84CD24D15E150094E9EB /* AddWordNavigationView.swift */,
 			);
 			path = AddWord;
@@ -1235,7 +1233,7 @@
 				1833D74C24E78A3C0085DDF6 /* SelectViewModel.swift in Sources */,
 				CE1458FA24D319FC004F2700 /* EditMyVocaGroupCell.swift in Sources */,
 				7D88185424F7609E005A157E /* SettingMyInfoCell.swift in Sources */,
-				186E84CC24D15DFD0094E9EB /* AddWordViewController.swift in Sources */,
+				186E84CC24D15DFD0094E9EB /* DetailWordViewController.swift in Sources */,
 				1870799524D8120E0079E280 /* WordViewModel.swift in Sources */,
 				7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */,
 				7DA59C7D24FCFFDF001E7D7D /* VocaHeaderView.swift in Sources */,

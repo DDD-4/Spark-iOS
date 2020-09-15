@@ -116,6 +116,7 @@ class MyVocaViewController: UIViewController {
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
                 self?.groupNameCollectionView.reloadData()
+                
             }).disposed(by: disposeBag)
         
         viewModel.output.words
@@ -220,14 +221,10 @@ extension MyVocaViewController: UICollectionViewDataSource {
             return
         }
         
-        let words = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row].words
-        let title = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row].title
-        
-        //let wordView = DummyVocaDetailViewController(title: title, wordDownload: words)
-        
         let wordView = VocaDetailViewController(group: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
         
-        self.navigationController?.pushViewController(wordView, animated: true)
+        self.present(wordView, animated: true, completion: nil)
+        //self.navigationController?.pushViewController(wordView, animated: true)
     }
 }
 
@@ -284,7 +281,9 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
         
         let actionSheetData: [UIAlertAction] = [
             UIAlertAction(title: "단어 수정", style: .default, handler: { (_) in
-                
+                let viewController = DetailWordViewController(group: self.viewModel.input.selectedGroup.value, word: word)
+                               
+                self.present(viewController, animated: true, completion: nil)
             }),
             UIAlertAction(title: "단어 삭제", style: .destructive, handler: { [weak self] (_) in
                 guard let group = self?.viewModel.input.selectedGroup.value else {

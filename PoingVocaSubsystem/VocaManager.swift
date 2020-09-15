@@ -151,4 +151,33 @@ public class VocaManager {
             completion()
         }
     }
+    
+    public func update(deleteGroup: Group, addGroup: Group, deleteWords: [Word], addWords: [Word], completion: (() -> Void)? = nil) {
+        var currentGroup = deleteGroup
+        var currentWords = deleteGroup.words.filter { (groupWord) -> Bool in
+            deleteWords.contains { (word) -> Bool in
+                word.identifier != groupWord.identifier
+            }
+        }
+        currentGroup.words = currentWords
+        
+        update(group: currentGroup)
+        
+        currentGroup = addGroup
+        currentWords = addWords
+        
+        for index in 0 ..< currentWords.count {
+            let wordCount = currentGroup.words.count == 0 ? 0 : currentGroup.words.count - 1
+            currentWords[index].order = Int16(index + wordCount)
+        }
+        
+        currentGroup.words.append(contentsOf: currentWords)
+
+        update(group: currentGroup) {
+            guard let completion = completion else {
+                return
+            }
+            completion()
+        }
+    }
 }
