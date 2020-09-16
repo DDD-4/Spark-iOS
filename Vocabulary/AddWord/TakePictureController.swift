@@ -382,7 +382,7 @@ extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
         
         let myImage = cropCameraImage(image, previewLayer: self.screenView.videoPreviewLayer)!
 
-        let rootViewController = AddWordViewController(image: myImage)
+        let rootViewController = DetailWordViewController(image: myImage)
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.navigationBar.isHidden = true
         navController.modalPresentationStyle = .fullScreen
@@ -406,7 +406,7 @@ extension TakePictureViewController: UIImagePickerControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
         
         DispatchQueue.main.async {
-            self.present(AddWordViewController(image: self.image), animated: true, completion: nil)
+            self.present(DetailWordViewController(image: self.image), animated: true, completion: nil)
         }
     }
 }

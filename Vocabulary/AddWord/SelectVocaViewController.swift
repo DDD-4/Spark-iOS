@@ -1,8 +1,8 @@
 //
-//  AddVocaViewController.swift
+//  SelectFolderViewController.swift
 //  Vocabulary
 //
-//  Created by user on 2020/07/31.
+//  Created by apple on 2020/08/30.
 //  Copyright © 2020 LEE HAEUN. All rights reserved.
 //
 
@@ -10,55 +10,59 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
-import PoingDesignSystem
 import PoingVocaSubsystem
+import PoingDesignSystem
 
 protocol SelectVocaViewControllerDelegate: class {
     func selectVocaViewController(didTapGroup group: Group)
 }
 
-class SelectVocaViewController: UIViewController{
+class SelectVocaViewController: UIViewController {
     
-    lazy var containerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 12
-        return view
-    }()
+    enum Constant {
+        static let spacing: CGFloat = 11
+        enum Collection {
+            static let topMargin: CGFloat = 44
+        }
+    }
+    
+    // MARK: - Properties
+    private var groups = [Group]()
+    private var words: [Word] = []
+    let disposeBag = DisposeBag()
+    let viewModel = SelectViewModel()
+    weak var delegate: SelectVocaViewControllerDelegate?
     
     lazy var naviView: SideNavigationView = {
-        let view = SideNavigationView(leftImage: nil, centerTitle: "폴더 선택", rightImage: UIImage(named: "btnAdd"))
+        let view = SideNavigationView(leftImage: nil, centerTitle: "폴더 선택", rightImage: nil)
         view.leftSideButton.setImage(UIImage(named: "icArrow"), for: .normal)
         view.leftSideButton.addTarget(self, action: #selector(tapLeftButton), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var tableview: UITableView = {
-        let view = UITableView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green
-        view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        view.separatorStyle = .none
-        view.rowHeight = 47
-        view.register(SelectVocaTableViewCell.self, forCellReuseIdentifier: SelectVocaTableViewCell.reuseIdentifier)
-        view.contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 16)
-        view.delegate = self
-        view.dataSource = self
-        return view
+    lazy var folderCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.minimumInteritemSpacing = Constant.spacing
+        flowLayout.minimumLineSpacing = Constant.spacing
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(
+            SelectFolderViewCell.self,
+            forCellWithReuseIdentifier: SelectFolderViewCell.reuseIdentifier
+        )
+        collectionView.backgroundColor = .white
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
     }()
     
-    private var groups = [Group]()
-    let viewModel: SelectViewModelType = SelectViewModel()
-    let disposeBag = DisposeBag()
-    weak var delegate: SelectVocaViewControllerDelegate?
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        modalPresentationStyle = .overFullScreen
-        modalTransitionStyle = .crossDissolve
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .coverVertical
     }
     
     required init?(coder: NSCoder) {
@@ -67,91 +71,105 @@ class SelectVocaViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
+        
         configureLayout()
         configureRx()
         
         VocaDataChanged()
         
         NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(VocaDataChanged),
-            name: .vocaDataChanged,
-            object: nil)
+        self,
+        selector: #selector(VocaDataChanged),
+        name: .vocaDataChanged,
+        object: nil)
     }
     
     func configureLayout() {
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        view.addSubview(containerView)
-        containerView.addSubview(naviView)
-        containerView.addSubview(tableview)
-        
-        containerView.snp.makeConstraints { (make) in
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            make.centerY.centerX.equalTo(view)
-            make.height.equalTo(308)
-        }
+        view.backgroundColor = .white
+        view.addSubview(naviView)
+        view.addSubview(folderCollectionView)
         
         naviView.snp.makeConstraints { (make) in
-            make.top.equalTo(containerView.snp.top).offset(32)
-            make.leading.trailing.equalTo(containerView)
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
-        tableview.snp.makeConstraints { (make) in
-            make.top.equalTo(naviView.snp.bottom).offset(34)
-            make.leading.equalTo(containerView).offset(16)
-            make.trailing.equalTo(containerView).offset(-16)
-            make.bottom.equalTo(containerView).offset(-4)
+        folderCollectionView.snp.makeConstraints { (make) in
+            make.top.equalTo(naviView.snp.bottom)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view)
         }
+    }
+    
+    @objc func tapLeftButton() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func configureRx() {
         viewModel.output.groups
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
-                self?.tableview.reloadData()
+                self?.folderCollectionView.reloadData()
             }).disposed(by: disposeBag)
         
         viewModel.output.words
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
-                self?.tableview.reloadData()
+                self?.folderCollectionView.reloadData()
             }).disposed(by: disposeBag)
     }
+    
     @objc func VocaDataChanged() {
         viewModel.input.fetchGroups()
         groups = viewModel.output.groups.value
     }
-    
-    @objc func tapLeftButton() {
-        dismiss(animated: true, completion: nil)
-    }
 }
 
-extension SelectVocaViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension SelectVocaViewController: UICollectionViewDataSource {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.output.groups.value.count + 1
+    }
     
-        delegate?.selectVocaViewController(didTapGroup: viewModel.output.groups.value[indexPath.row])
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: SelectFolderViewCell.reuseIdentifier,
+            for: indexPath
+            ) as? SelectFolderViewCell else {
+                return UICollectionViewCell()
+        }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectVocaTableViewCell.reuseIdentifier, for: indexPath) as? SelectVocaTableViewCell else {
-            return
+        if indexPath.row == 0 {
+            cell.configure(type: .add)
+        } else {
+            cell.configure(folder: viewModel.output.groups.value[indexPath.row - 1], type: .read)
         }
-        dismiss(animated: true, completion: nil)
+        return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            navigationController?.pushViewController(AddFolderViewController(), animated: true)
+        } else {
+            
+            delegate?.selectVocaViewController(didTapGroup: viewModel.output.groups.value[indexPath.item - 1])
+            self.dismiss(animated: true, completion: nil)
+            
+        }
     }
 }
 
-extension SelectVocaViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.output.groups.value.count
+extension SelectVocaViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(
+            top: 32,
+            left: 0,
+            bottom: HomeViewController.Constant.Floating.height + (hasTopNotch ? bottomSafeInset : 32),
+            right: 0
+        )
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectVocaTableViewCell.reuseIdentifier, for: indexPath) as? SelectVocaTableViewCell else {
-            return UITableViewCell()
-        }
-    
-        cell.configure(group: viewModel.output.groups.value[indexPath.row])
-        return cell
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = (collectionView.frame.width - (11) - (16 * 2)) / 2
+        return CGSize(width: width, height: width)
     }
 }

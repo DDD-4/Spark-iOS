@@ -166,7 +166,11 @@ class SignInNameViewController: UIViewController {
         guard let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
           return
         }
-        let viewController = HomeViewController()
+        //let viewController = HomeViewController()
+        
+        let viewController = UINavigationController(rootViewController: HomeViewController())
+        viewController.navigationBar.isHidden = true
+        
         window.rootViewController = viewController
         let options: UIView.AnimationOptions = .transitionCrossDissolve
         let duration: TimeInterval = 0.3

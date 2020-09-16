@@ -11,6 +11,20 @@ import RxSwift
 import RxCocoa
 import PoingVocaSubsystem
 
+enum VocaOrderType: Int, CaseIterable {
+    case recent
+    case popular
+
+    var description: String {
+        switch self {
+        case .popular:
+            return "인기순"
+        case .recent:
+            return "최신순"
+        }
+    }
+}
+
 protocol WordViewModelOutput {
     var groups: BehaviorRelay<[Group]> { get }
     var words: BehaviorRelay<[Word]> { get }
