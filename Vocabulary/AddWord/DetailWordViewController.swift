@@ -408,9 +408,6 @@ class DetailWordViewController: UIViewController {
             }
             return
         }
-        guard let deleteGroup = self.getGroup else {
-            return
-        }
         
         switch currentState {
         case .add:
@@ -435,7 +432,7 @@ class DetailWordViewController: UIViewController {
                 }
             }
         case .edit:
-            guard let deleteWord = self.getWord else {
+            guard let deleteGroup = self.getGroup, let deleteWord = self.getWord else {
                 return
             }
             
