@@ -432,10 +432,7 @@ class DetailWordViewController: UIViewController {
                 }
             }
         case .edit:
-            guard let deleteGroup = self.getGroup else {
-                return
-            }
-            guard let deleteWord = self.getWord else {
+            guard let deleteGroup = self.getGroup, let deleteWord = self.getWord else {
                 return
             }
             
