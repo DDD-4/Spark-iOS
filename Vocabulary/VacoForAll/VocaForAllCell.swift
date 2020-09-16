@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import PoingVocaSubsystem
+import PoingDesignSystem
 import SnapKit
 import RxSwift
 import RxCocoa
-import PoingVocaSubsystem
-import PoingDesignSystem
+import SDWebImage
 
 class VocaForAllCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: VocaForAllCell.self)
@@ -102,30 +103,15 @@ class VocaForAllCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(dummy: VocaForAll) {
-        //titleLabel.text = dummy.title
-        titleLabel.text = "내가 좋아하는 달달한 간식"
-        authorLabel.text = "홍길동"
-        if let urlImage = URL(string: dummy.words[0].imageURL) {
+    func configure(content: EveryVocaContent) {
+        titleLabel.text = content.folderName
+        authorLabel.text = content.userName
+
+        if let urlImage = URL(string: content.photoUrl) {
             vocaImageView.sd_setImage(with: urlImage)
         }
-        authorImageView.image = UIImage(named: "icPicture")
-        numberLable.text = "\(dummy.words.count)"
-    }
-
-    func configure(group: Group) {
-        titleLabel.text = group.title
-        authorLabel.text = "\(group.identifier)"
-        
-        if group.words.isEmpty {
-            vocaImageView.image = UIImage(named: "emptyFace")
-        } else {
-            if let data = group.words[0].image {
-                vocaImageView.image = UIImage(data: data)
-            }
-        }
         authorImageView.image = UIImage(named: "emptyFace")
-        numberLable.text = "\(group.words.count)"
+        numberLable.text = "\(content.count)"
     }
 
     func configureLayout() {

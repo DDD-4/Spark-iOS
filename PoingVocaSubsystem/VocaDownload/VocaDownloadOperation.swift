@@ -35,11 +35,11 @@ class VocaDownloadOperation: Operation {
     override var isExecuting: Bool { return state == .executing }
     override var isFinished: Bool { return state == .finished }
 
-    init(session: URLSession, download: WordDownload, completionHandler: ((Word?, Error?) -> Void)?) {
+    init(session: URLSession, download: WordResponse, completionHandler: ((Word?, Error?) -> Void)?) {
         super.init()
 
         // use weak self to prevent retain cycle
-        task = session.downloadTask(with: URL(string: download.imageURL)!, completionHandler: { [weak self] (localURL, response, error) in
+        task = session.downloadTask(with: URL(string: download.photoUrl)!, completionHandler: { [weak self] (localURL, response, error) in
 
             /*
              if there is a custom completionHandler defined,

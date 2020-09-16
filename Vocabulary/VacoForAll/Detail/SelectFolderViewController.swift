@@ -27,8 +27,6 @@ class SelectFolderViewController: UIViewController {
     }
     
     // MARK: - Properties
-    private var groups = [Group]()
-    private var words: [Word] = []
     let disposeBag = DisposeBag()
     let viewModel = SelectViewModel()
     weak var delegate: SelectFolderViewControllerDelegate?
@@ -59,22 +57,8 @@ class SelectFolderViewController: UIViewController {
         return collectionView
     }()
     
-    init(words: [WordDownload]?) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        guard let words = words else {
-            return
-        }
-        //self.words = words
-        modalPresentationStyle = .fullScreen
-        modalTransitionStyle = .coverVertical
-    }
-    
-    init(words: [Word]?) {
-        super.init(nibName: nil, bundle: nil)
-        guard let words = words else {
-            return
-        }
-        self.words = words
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
     }
@@ -92,10 +76,10 @@ class SelectFolderViewController: UIViewController {
         VocaDataChanged()
         
         NotificationCenter.default.addObserver(
-        self,
-        selector: #selector(VocaDataChanged),
-        name: .vocaDataChanged,
-        object: nil)
+            self,
+            selector: #selector(VocaDataChanged),
+            name: .vocaDataChanged,
+            object: nil)
     }
     
     func configureLayout() {
@@ -115,9 +99,7 @@ class SelectFolderViewController: UIViewController {
     }
     
     @objc func tapLeftButton() {
-        //self.dismiss(animated: true, completion: nil)
-        //self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     func configureRx() {
@@ -126,17 +108,11 @@ class SelectFolderViewController: UIViewController {
             .subscribe(onNext: { [weak self] (_) in
                 self?.folderCollectionView.reloadData()
             }).disposed(by: disposeBag)
-        
-        viewModel.output.words
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (_) in
-                self?.folderCollectionView.reloadData()
-            }).disposed(by: disposeBag)
+
     }
     
     @objc func VocaDataChanged() {
         viewModel.input.fetchGroups()
-        groups = viewModel.output.groups.value
     }
 }
 
@@ -165,10 +141,8 @@ extension SelectFolderViewController: UICollectionViewDataSource {
         if indexPath.row == 0 {
             navigationController?.pushViewController(AddFolderViewController(), animated: true)
         } else {
-            
             delegate?.selectFolderViewController(didTapFolder: viewModel.output.groups.value[indexPath.item - 1])
-            
-            self.navigationController?.popToRootViewController(animated: true)
+            navigationController?.popViewController(animated: true)
         }
     }
 }

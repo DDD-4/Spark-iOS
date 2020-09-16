@@ -111,11 +111,6 @@ class SelectVocaViewController: UIViewController {
                 self?.folderCollectionView.reloadData()
             }).disposed(by: disposeBag)
         
-        viewModel.output.words
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (_) in
-                self?.folderCollectionView.reloadData()
-            }).disposed(by: disposeBag)
     }
     
     @objc func VocaDataChanged() {

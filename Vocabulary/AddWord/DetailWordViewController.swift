@@ -309,13 +309,7 @@ class DetailWordViewController: UIViewController {
             .subscribe(onNext: { [weak self] (_) in
                 
             }).disposed(by: disposeBag)
-        
-        viewModel.output.words
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (_) in
                 
-            }).disposed(by: disposeBag)
-        
         engTextField.rx.controlEvent(.editingChanged)
             .subscribe { [weak self] (_) in
                 guard let self = self else {

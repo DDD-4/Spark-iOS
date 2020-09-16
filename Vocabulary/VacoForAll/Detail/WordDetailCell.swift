@@ -97,10 +97,10 @@ class WordDetailCell: UICollectionViewCell {
         super.layoutSubviews()
     }
 
-    func configure(wordDownload: WordDownload) {
-        englishLabel.text = wordDownload.english
-        koreanLabel.text = wordDownload.korean
-        if let urlImage = URL(string: wordDownload.imageURL) {
+    func configure(VocabularyContent: WordResponse) {
+        englishLabel.text = VocabularyContent.english
+        koreanLabel.text = VocabularyContent.korean
+        if let urlImage = URL(string: VocabularyContent.photoUrl) {
             vocaImageView.sd_setImage(with: urlImage)
         }
     }
