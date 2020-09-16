@@ -220,7 +220,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
 
         let selectedFolder = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row]
         let wordViewModel = WordViewModel(content: selectedFolder)
-        let wordView = DummyVocaDetailViewController(viewModel: wordViewModel)
+        let wordView = VocaForAllDetailViewController(viewModel: wordViewModel)
 
         self.navigationController?.pushViewController(wordView, animated: true)
     }
