@@ -12,7 +12,7 @@ target 'Vocabulary' do
   basicFrameworks
   pod 'SwiftLint'
   pod 'SDWebImage', '~> 5.0'
-  pod 'Moya', '~> 14.0'
+  pod 'Moya/RxSwift'
   pod 'RxSwift'
   pod 'RxCocoa'
   pod "KeyboardObserver", '~> 2.1'
@@ -23,6 +23,9 @@ target 'VocaGame' do
 end
 
 target 'PoingVocaSubsystem' do
+  pod 'Moya/RxSwift'
+  pod 'RxSwift'
+  pod 'RxCocoa'
 end
 
 target 'PoingDesignSystem' do

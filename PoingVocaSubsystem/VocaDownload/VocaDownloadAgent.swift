@@ -15,8 +15,8 @@ public class VocaDownloadAgent {
         return queue
     }()
 
-    let dummyData: [WordDownload]
-    public init(data: [WordDownload]) {
+    let dummyData: [WordResponse]
+    public init(data: [WordResponse]) {
         dummyData = data
     }
 

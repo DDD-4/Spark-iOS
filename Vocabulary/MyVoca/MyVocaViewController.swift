@@ -180,9 +180,8 @@ extension MyVocaViewController: UICollectionViewDataSource {
                 ) as? VocaForAllCell else {
                     return UICollectionViewCell()
             }
-            //cell.configure(dummy: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row])
             
-            cell.configure(group: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
+            cell.configure(content: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
             return cell
         }
     }
@@ -217,14 +216,13 @@ extension MyVocaViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard currentViewType == .vocaForAll else {
-            return
-        }
-        
-        let wordView = VocaDetailViewController(group: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
-        
-        self.present(wordView, animated: true, completion: nil)
-        //self.navigationController?.pushViewController(wordView, animated: true)
+        guard currentViewType == .vocaForAll else { return }
+
+        let selectedFolder = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row]
+        let wordViewModel = WordViewModel(content: selectedFolder)
+        let wordView = VocaForAllDetailViewController(viewModel: wordViewModel)
+
+        self.navigationController?.pushViewController(wordView, animated: true)
     }
 }
 

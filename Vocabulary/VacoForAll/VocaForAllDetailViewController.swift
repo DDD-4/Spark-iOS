@@ -1,19 +1,19 @@
 //
-//  VocaDetailViewController.swift
+//  DummyVocaDetailViewController.swift
 //  Vocabulary
 //
-//  Created by apple on 2020/07/31.
+//  Created by LEE HAEUN on 2020/08/24.
 //  Copyright © 2020 LEE HAEUN. All rights reserved.
 //
 
 import UIKit
+import PoingVocaSubsystem
+import PoingDesignSystem
 import RxSwift
 import RxCocoa
 import SnapKit
-import PoingVocaSubsystem
-import PoingDesignSystem
 
-class VocaDetailViewController: UIViewController {
+class VocaForAllDetailViewController: UIViewController {
     enum Constant {
         enum Floating {
             static let height: CGFloat = 60
@@ -25,10 +25,10 @@ class VocaDetailViewController: UIViewController {
     var headerHeightConstraint: NSLayoutConstraint?
     let maximumHeaderHeight: CGFloat = 130
     let minimumHeaderHeight: CGFloat = 0
-    
+
     // MARK: - Properties
     lazy var naviView: SideNavigationView = {
-        let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: vocaTitle, rightImage: nil)
+        let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: nil, rightImage: nil)
         view.backgroundColor = .white
         view.titleLabel.alpha = 0
         view.leftSideButton.addTarget(self, action: #selector(tapLeftButton), for: .touchUpInside)
@@ -36,7 +36,7 @@ class VocaDetailViewController: UIViewController {
         return view
     }()
     lazy var headerView: VocaHeaderView = {
-        let view = VocaHeaderView(vocaTitle: vocaTitle, profileName: "홍길동", profileImage: nil)
+        let view = VocaHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -63,6 +63,7 @@ class VocaDetailViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.clipsToBounds = false
+        collectionView.alwaysBounceVertical = true
         return collectionView
     }()
 
@@ -77,36 +78,30 @@ class VocaDetailViewController: UIViewController {
         button.layer.masksToBounds = false
         return button
     }()
-    
-    var words = [Word]()
-    static let photoIdentifier = "DetailsCollectionViewCell"
-    private var viewModel: WordViewModel
+
     let disposeBag = DisposeBag()
-    var vocaTitle: String
-    
-    // MARK: - Init
-    init(group: Group) {
-        self.viewModel = WordViewModel(group: group)
-        self.vocaTitle = group.title
-        self.words = group.words
+    let viewModel: WordViewModelType
+
+    init(viewModel: WordViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .coverVertical
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
         configureRx()
-        viewModel.input.fetchGroups()
+
+        viewModel.input.fetchFolder()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-    }
-    
+
     func configureLayout() {
         view.backgroundColor = .white
         view.addSubview(headerView)
@@ -151,26 +146,34 @@ class VocaDetailViewController: UIViewController {
             make.bottom.equalTo(view)
         }
     }
-    
-    func configureRx() {
-        
-        self.saveButton.rx.tap.subscribe(onNext: {[weak self] (_) in
-            let viewController = SelectFolderViewController(words: self?.words)
-            viewController.delegate = self
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }).disposed(by: disposeBag)
 
-        viewModel.output.words
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: {[weak self] (_) in
-                
+    func configureRx() {
+
+        viewModel.input.content
+            .subscribe { [weak self] (content) in
+                guard let self = self, let data = content.element else { return }
+                self.headerView.configure(
+                    vocaTitle: data.folderName,
+                    profileName: data.userName,
+                    profileImage: nil
+                )
+                self.naviView.titleLabel.text = data.folderName
+            }
+            .disposed(by: disposeBag)
+
+        saveButton.rx.tap
+            .withLatestFrom(viewModel.output.vocaContent)
+            .subscribe(onNext: { [weak self] (vocaContent) in
+                let viewController = SelectFolderViewController()
+                viewController.delegate = self
+                self?.navigationController?.pushViewController(viewController, animated: true)
             }).disposed(by: disposeBag)
-        
-        viewModel.output.groups
-        .observeOn(MainScheduler.instance)
-        .subscribe(onNext: {[weak self] (_) in
-            
-        }).disposed(by: disposeBag)
+
+        viewModel.output.vocaContent
+            .subscribe { [weak self] (response) in
+                self?.vocaCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
     
     @objc func tapLeftButton() {
@@ -178,40 +181,47 @@ class VocaDetailViewController: UIViewController {
     }
 }
 
-extension VocaDetailViewController: SelectFolderViewControllerDelegate {
+extension VocaForAllDetailViewController: SelectFolderViewControllerDelegate {
     func selectFolderViewController(didTapFolder folder: Group) {
-        
-        VocaManager.shared.update(group: folder, addWords: words) {
-            let alert: UIAlertView = UIAlertView(title: "단어 추가 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
-            
-            alert.show()
-            
-            let when = DispatchTime.now() + 2
-            DispatchQueue.main.asyncAfter(deadline: when){
-                alert.dismiss(withClickedButtonIndex: 0, animated: true)
+        LoadingView.show()
+        let words = viewModel.output.vocaContent.value
+        let agent = VocaDownloadAgent(data: words)
+        agent.download { [weak self] (words) in
+            guard let self = self else {
+                LoadingView.hide()
+                return
             }
-            self.dismiss(animated: true, completion: nil)
+
+            VocaManager.shared.update(group: folder, addWords: words) {
+
+                LoadingView.hide()
+
+                // TODO: Add success alert (need design guide)
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
 }
 
-extension VocaDetailViewController: UICollectionViewDataSource {
+extension VocaForAllDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let words = viewModel.output.vocaContent.value
         return words.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WordDetailCell.reuseIdentifier, for: indexPath) as? WordDetailCell else {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: WordDetailCell.reuseIdentifier,
+            for: indexPath
+        ) as? WordDetailCell else {
             return UICollectionViewCell()
         }
-        cell.configure(word:
-            words[indexPath.row])
-        
+        cell.configure(VocabularyContent: viewModel.output.vocaContent.value[indexPath.row])
         return cell
     }
 }
 
-extension VocaDetailViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension VocaForAllDetailViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -247,3 +257,4 @@ extension VocaDetailViewController: UICollectionViewDelegateFlowLayout, UICollec
         }
     }
 }
+

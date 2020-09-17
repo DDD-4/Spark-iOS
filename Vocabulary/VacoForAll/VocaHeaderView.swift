@@ -18,7 +18,7 @@ class VocaHeaderView: UIView {
     }
     
     // MARK: - Properties
-    lazy var vocaTitle: UILabel = {
+    lazy var vocaTitleLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 26)
@@ -50,33 +50,39 @@ class VocaHeaderView: UIView {
         imageView.layer.cornerRadius = Constant.Profile.imageHeight * 0.5
         return imageView
     }()
-    
-    init(vocaTitle: String, profileName: String, profileImage: UIImage?) {
-        super.init(frame: .zero)
-        self.vocaTitle.text = vocaTitle
-        self.profileLabel.text = profileName
-        self.profileImageView.image = UIImage(named: "icPicture")
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    func configure(
+        vocaTitle: String,
+        profileName: String,
+        profileImage: UIImage?
+    ) {
+        vocaTitleLabel.text = vocaTitle
+        profileLabel.text = profileName
+        profileImageView.image = UIImage(named: "icPicture")
+    }
+
     func configureLayout() {
-        self.addSubview(vocaTitle)
-        self.addSubview(profileContentView)
+        addSubview(vocaTitleLabel)
+        addSubview(profileContentView)
         
         profileContentView.addSubview(profileImageView)
         profileContentView.addSubview(profileLabel)
         
-        vocaTitle.snp.makeConstraints { (make) in
+        vocaTitleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(24)
             make.leading.trailing.equalTo(self)
         }
         
         profileContentView.snp.makeConstraints { (make) in
-            make.top.equalTo(vocaTitle.snp.bottom).offset(8)
+            make.top.equalTo(vocaTitleLabel.snp.bottom).offset(8)
             make.centerX.equalTo(self)
         }
         
