@@ -31,7 +31,7 @@ protocol VocaForAllViewModelInput {
 }
 
 protocol VocaForAllViewModelOutput {
-    var vocaForAllList: BehaviorRelay<[Group]> { get }
+    var vocaForAllList: BehaviorRelay<[EveryVocaContent]> { get }
 }
 
 protocol VocaForAllViewModelType {
@@ -47,25 +47,21 @@ class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, Vo
     // Input
     var orderType: BehaviorRelay<VocaForAllOrderType>
     // Output
-    var vocaForAllList: BehaviorRelay<[Group]>
+    var vocaForAllList: BehaviorRelay<[EveryVocaContent]>
+
+    var disposeBag = DisposeBag()
     
     init() {
         orderType = BehaviorRelay<VocaForAllOrderType>(value: .recent)
-        vocaForAllList = BehaviorRelay<[Group]>(value: [])
+        vocaForAllList = BehaviorRelay<[EveryVocaContent]>(value: [])
     }
 
     func fetchVocaForAllData() {
-        // TODO: Fix Real Data
-        //vocaForAllList.accept(DummyData.vocaForAll)
-        VocaManager.shared.fetch(identifier: nil) { [weak self]( groups ) in
-            guard let self = self else { return }
-            guard let groups = groups, groups.isEmpty == false else {
-                self.vocaForAllList.accept([])
-                return
+        EveryVocabularyController.shared.getEveryVocabularies()
+            .bind { [weak self] (response) in
+                guard let self = self else { return }
+                self.vocaForAllList.accept(response.content)
             }
-            
-            self.vocaForAllList.accept(groups)
-            
-        }
+            .disposed(by: disposeBag)
     }
 }

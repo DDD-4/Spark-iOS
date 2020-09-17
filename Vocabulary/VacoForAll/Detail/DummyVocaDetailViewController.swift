@@ -13,7 +13,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class DummyVocaDetailViewController: UIViewController {
+class VocaForAllDetailViewController: UIViewController {
     enum Constant {
         enum Floating {
             static let height: CGFloat = 60
@@ -28,7 +28,7 @@ class DummyVocaDetailViewController: UIViewController {
 
     // MARK: - Properties
     lazy var naviView: SideNavigationView = {
-        let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: vocaTitle, rightImage: nil)
+        let view = SideNavigationView(leftImage: UIImage(named: "icArrow"), centerTitle: nil, rightImage: nil)
         view.backgroundColor = .white
         view.titleLabel.alpha = 0
         view.leftSideButton.addTarget(self, action: #selector(tapLeftButton), for: .touchUpInside)
@@ -36,7 +36,7 @@ class DummyVocaDetailViewController: UIViewController {
         return view
     }()
     lazy var headerView: VocaHeaderView = {
-        let view = VocaHeaderView(vocaTitle: vocaTitle, profileName: "홍길동", profileImage: nil)
+        let view = VocaHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -63,6 +63,7 @@ class DummyVocaDetailViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.clipsToBounds = false
+        collectionView.alwaysBounceVertical = true
         return collectionView
     }()
 
@@ -78,14 +79,11 @@ class DummyVocaDetailViewController: UIViewController {
         return button
     }()
 
-    static let photoIdentifier = "DetailsCollectionViewCell"
     let disposeBag = DisposeBag()
-    let wordDownload: [WordDownload]
-    let vocaTitle: String
+    let viewModel: WordViewModelType
 
-    init(title: String, wordDownload: [WordDownload]) {
-        self.vocaTitle = title
-        self.wordDownload = wordDownload
+    init(viewModel: WordViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
@@ -100,9 +98,8 @@ class DummyVocaDetailViewController: UIViewController {
         super.viewDidLoad()
         configureLayout()
         configureRx()
-    }
 
-    override func viewWillDisappear(_ animated: Bool) {
+        viewModel.input.fetchFolder()
     }
 
     func configureLayout() {
@@ -152,12 +149,31 @@ class DummyVocaDetailViewController: UIViewController {
 
     func configureRx() {
 
-        self.saveButton.rx.tap.subscribe(onNext: {[weak self] (_) in
-            let viewController = SelectFolderViewController(words: self?.wordDownload)
-            viewController.delegate = self
-            self?.navigationController?.pushViewController(viewController, animated: true)
-            //self?.present(viewController, animated: true, completion: nil)
-        }).disposed(by: disposeBag)
+        viewModel.input.content
+            .subscribe { [weak self] (content) in
+                guard let self = self, let data = content.element else { return }
+                self.headerView.configure(
+                    vocaTitle: data.folderName,
+                    profileName: data.userName,
+                    profileImage: nil
+                )
+                self.naviView.titleLabel.text = data.folderName
+            }
+            .disposed(by: disposeBag)
+
+        saveButton.rx.tap
+            .withLatestFrom(viewModel.output.vocaContent)
+            .subscribe(onNext: { [weak self] (vocaContent) in
+                let viewController = SelectFolderViewController()
+                viewController.delegate = self
+                self?.navigationController?.pushViewController(viewController, animated: true)
+            }).disposed(by: disposeBag)
+
+        viewModel.output.vocaContent
+            .subscribe { [weak self] (response) in
+                self?.vocaCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
     
     @objc func tapLeftButton() {
@@ -165,10 +181,11 @@ class DummyVocaDetailViewController: UIViewController {
     }
 }
 
-extension DummyVocaDetailViewController: SelectFolderViewControllerDelegate {
+extension VocaForAllDetailViewController: SelectFolderViewControllerDelegate {
     func selectFolderViewController(didTapFolder folder: Group) {
         LoadingView.show()
-        let agent = VocaDownloadAgent(data: wordDownload)
+        let words = viewModel.output.vocaContent.value
+        let agent = VocaDownloadAgent(data: words)
         agent.download { [weak self] (words) in
             guard let self = self else {
                 LoadingView.hide()
@@ -178,33 +195,33 @@ extension DummyVocaDetailViewController: SelectFolderViewControllerDelegate {
             VocaManager.shared.update(group: folder, addWords: words) {
 
                 LoadingView.hide()
-                
-                self.dismiss(animated: true, completion: nil)
+
+                // TODO: Add success alert (need design guide)
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }
 }
 
-extension DummyVocaDetailViewController: UICollectionViewDataSource {
+extension VocaForAllDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return wordDownload.count
+        let words = viewModel.output.vocaContent.value
+        return words.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: WordDetailCell.reuseIdentifier,
-                for: indexPath
+            withReuseIdentifier: WordDetailCell.reuseIdentifier,
+            for: indexPath
         ) as? WordDetailCell else {
             return UICollectionViewCell()
         }
-//        cell.configure(word: words[indexPath.row])
-        cell.configure(wordDownload: wordDownload[indexPath.row])
-
+        cell.configure(VocabularyContent: viewModel.output.vocaContent.value[indexPath.row])
         return cell
     }
 }
 
-extension DummyVocaDetailViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension VocaForAllDetailViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
