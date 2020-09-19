@@ -15,18 +15,18 @@ import PoingVocaSubsystem
 protocol EditMyVocaGroupCellDelegate: class {
     func editMyVocaGroupCell(
         _ cell: UICollectionViewCell,
-        didTapDelete button: UIButton,
-        group: Group
-    )
-    func editMyVocaGroupCell(
-        _ cell: UICollectionViewCell,
         didTapChangeVisibility button: UIButton,
-        group: Group
+        group: Folder
     )
     func editMyVocaGroupCell(
         _ cell: UICollectionViewCell,
         didTapDeleteSelect button: UIButton,
-        group: Group
+        group: Folder
+    )
+    func editMyVocaGroupCell(
+        _ cell: UICollectionViewCell,
+        didTapEdit button: UIButton,
+        folder: Folder
     )
 }
 
@@ -56,7 +56,7 @@ class EditMyVocaGroupCell: UICollectionViewCell {
             }
         }
     }
-    var group: Group?
+    var group: Folder?
     weak var delegate: EditMyVocaGroupCellDelegate?
 
     lazy var containerView: UIView = {
@@ -86,6 +86,7 @@ class EditMyVocaGroupCell: UICollectionViewCell {
         let button = UIButton()
         button.setImage(UIImage(named: "icEdit"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(editFolderDidTap), for: .touchUpInside)
         return button
     }()
 
@@ -131,12 +132,12 @@ class EditMyVocaGroupCell: UICollectionViewCell {
     }
 
     func configure(
-        group: Group,
-        state: EditMyVocaGroupViewController.State,
+        group: Folder,
+        state: EditMyFolderViewController.State,
         isDeleteSelected: Bool
     ) {
         self.group = group
-        groupNameLabel.text = group.title
+        groupNameLabel.text = group.name
         setVisibilityColor(group: group)
 
         switch state {
@@ -206,26 +207,35 @@ class EditMyVocaGroupCell: UICollectionViewCell {
         }
     }
 
-    func setVisibilityColor(group: Group) {
-        switch group.visibilityType {
-        case .group, .public:
-            publicButton.setTitle("공개 중", for: .normal)
-            publicButton.backgroundColor = Constant.Public.backgrounColor
-            publicButton.setTitleColor(Constant.Public.fontColor, for: .normal)
-        case .private:
-            publicButton.setTitle("공개하기", for: .normal)
-            publicButton.backgroundColor = Constant.Private.backgrounColor
-            publicButton.setTitleColor(Constant.Private.fontColor, for: .normal)
-        case .default:
-            break
+    func setVisibilityColor(group: Folder) {
+        if let folder = group as? FolderCoreData {
+            switch folder.visibilityType {
+            case .group, .public:
+                setPublicConfigure()
+            case .private:
+                setPrivateConfigure()
+            case .default:
+                break
+            }
+        } else {
+            if group.shareable {
+                setPublicConfigure()
+            } else {
+                setPrivateConfigure()
+            }
         }
     }
 
-    @objc func deleteDidTap(_ sender: UIButton) {
-        guard let group = group else {
-            return
-        }
-        delegate?.editMyVocaGroupCell(self, didTapDelete: sender, group: group)
+    func setPublicConfigure() {
+        publicButton.setTitle("공개 중", for: .normal)
+        publicButton.backgroundColor = Constant.Public.backgrounColor
+        publicButton.setTitleColor(Constant.Public.fontColor, for: .normal)
+    }
+
+    func setPrivateConfigure() {
+        publicButton.setTitle("공개하기", for: .normal)
+        publicButton.backgroundColor = Constant.Private.backgrounColor
+        publicButton.setTitleColor(Constant.Private.fontColor, for: .normal)
     }
 
     @objc func changeVisibilityTypeDidTap(_ sender: UIButton) {
@@ -241,5 +251,13 @@ class EditMyVocaGroupCell: UICollectionViewCell {
         }
         selectButton.isSelected = !selectButton.isSelected
         delegate?.editMyVocaGroupCell(self, didTapDeleteSelect: sender, group: group)
+    }
+
+    @objc func editFolderDidTap(_ sender: UIButton) {
+        guard let group = group else {
+            return
+        }
+
+        delegate?.editMyVocaGroupCell(self, didTapEdit: sender, folder: group)
     }
 }

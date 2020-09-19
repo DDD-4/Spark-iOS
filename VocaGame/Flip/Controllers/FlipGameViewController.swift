@@ -39,7 +39,7 @@ public class FlipGameViewController: UIViewController {
 
     //MARK: - Init
 
-    public init(words: [Word]) {
+    public init(words: [WordCoreData]) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical

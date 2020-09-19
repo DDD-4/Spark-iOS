@@ -15,11 +15,11 @@ import Foundation
 public class VocaManager {
     public static let shared = VocaManager()
     
-    public var groups: [Group]?
+    public var groups: [FolderCoreData]?
     
     public func insertDefaultGroup(completion: @escaping (() -> Void)) {
-        let defaultGroup = Group(
-            title: "기본 폴더",
+        let defaultGroup = FolderCoreData(
+            name: "기본 폴더",
             visibilityType: .default,
             identifier: UUID(),
             words: [],
@@ -47,7 +47,7 @@ public class VocaManager {
     
     public func fetch(
         identifier: UUID?,
-        completion: @escaping (([Group]?) -> Void)
+        completion: @escaping (([FolderCoreData]?) -> Void)
     ) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             guard let managedGroups = VocaCoreDataManager.shared.fetch(predicate: identifier, context: context) else {
@@ -55,7 +55,7 @@ public class VocaManager {
                 return
             }
             
-            var groups = [Group]()
+            var groups = [FolderCoreData]()
             for managedGroup in managedGroups {
                 groups.append(managedGroup.toGroup())
             }
@@ -67,7 +67,7 @@ public class VocaManager {
     
     public func fetch(
         visibilityType: VisibilityType,
-        completion: @escaping (([Group]?) -> Void)
+        completion: @escaping (([FolderCoreData]?) -> Void)
     ) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             guard let managedGroups = VocaCoreDataManager.shared.fetch(predicate: visibilityType, context: context) else {
@@ -75,7 +75,7 @@ public class VocaManager {
                 return
             }
             
-            var groups = [Group]()
+            var groups = [FolderCoreData]()
             for managedGroup in managedGroups {
                 groups.append(managedGroup.toGroup())
             }
@@ -84,7 +84,7 @@ public class VocaManager {
         }
     }
     
-    public func insert(group: Group, completion: (() -> Void)? = nil) {
+    public func insert(group: FolderCoreData, completion: (() -> Void)? = nil) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             VocaCoreDataManager.shared.insert(group: group, context: context)
             guard let completion = completion else {
@@ -94,7 +94,7 @@ public class VocaManager {
         }
     }
     
-    public func delete(group: Group, completion: (() -> Void)? = nil) {
+    public func delete(group: FolderCoreData, completion: (() -> Void)? = nil) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             VocaCoreDataManager.shared.delete(identifier: group.identifier, context: context)
             guard let completion = completion else {
@@ -104,7 +104,7 @@ public class VocaManager {
         }
     }
     
-    public func update(group: Group, deleteWords: [Word], completion: (() -> Void)? = nil) {
+    public func update(group: FolderCoreData, deleteWords: [WordCoreData], completion: (() -> Void)? = nil) {
         let currentWords = group.words.filter { (groupWord) -> Bool in
             deleteWords.contains { (word) -> Bool in
                 word.identifier != groupWord.identifier
@@ -122,7 +122,7 @@ public class VocaManager {
         }
     }
     
-    public func update(group: Group, completion: (() -> Void)? = nil) {
+    public func update(group: FolderCoreData, completion: (() -> Void)? = nil) {
         VocaCoreDataManager.shared.performBackgroundTask { (context) in
             VocaCoreDataManager.shared.update(group: group, context: context) {
                 guard let completion = completion else {
@@ -133,7 +133,7 @@ public class VocaManager {
         }
     }
     
-    public func update(group: Group, addWords: [Word], completion: (() -> Void)? = nil) {
+    public func update(group: FolderCoreData, addWords: [WordCoreData], completion: (() -> Void)? = nil) {
         var currentGroup = group
         var currentWords = addWords
         
@@ -152,7 +152,7 @@ public class VocaManager {
         }
     }
     
-    public func update(deleteGroup: Group, addGroup: Group, deleteWords: [Word], addWords: [Word], completion: (() -> Void)? = nil) {
+    public func update(deleteGroup: FolderCoreData, addGroup: FolderCoreData, deleteWords: [WordCoreData], addWords: [WordCoreData], completion: (() -> Void)? = nil) {
         
 //        update(group: deleteGroup, deleteWords: deleteWords) {
 //            self.update(group: addGroup, addWords: addWords) {

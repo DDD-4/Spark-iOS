@@ -88,7 +88,7 @@ public class CardMatchingViewController: UIViewController {
 
     var cardHeightConstraint: NSLayoutConstraint?
 
-    public init(words: [Word]) {
+    public init(words: [WordCoreData]) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
@@ -98,10 +98,10 @@ public class CardMatchingViewController: UIViewController {
 
         for word in currentWord {
             guard let imageData = word.image,
-                let wordImage = UIImage(data: imageData),
-                let english = word.english else {
+                let wordImage = UIImage(data: imageData) else {
                 continue
             }
+            let english = word.english
             let currentUUID = UUID()
             let color = UIColor().HSBRandomColor()
             let image = CardMatching(
@@ -206,7 +206,7 @@ public class CardMatchingViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    func getMaxCount(words: [Word]) -> Int {
+    func getMaxCount(words: [WordCoreData]) -> Int {
         let wordCount = words.count / 2
         if wordCount < 4 {
             return 0

@@ -135,8 +135,11 @@ class MyVocaWordCell: UICollectionViewCell {
         self.word = word
         englishLabel.text = word.english
         koreanLabel.text = word.korean
-        if let data = word.image {
-            imageView.image = UIImage(data: data)
+        if let wordCoreData = word as? WordCoreData {
+            guard let image = wordCoreData.image else { return }
+            imageView.image = UIImage(data: image)
+        } else {
+            // TODO: 서버용
         }
     }
 

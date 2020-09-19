@@ -166,14 +166,18 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegate
                     completion: nil
             )
         case .matching:
-            if let filtered = VocaManager.shared.groups?.filter({ (groups) -> Bool in
-                groups.visibilityType == .default
-            }) {
-                present(CardMatchingViewController(words: filtered.first?.words ?? []),
-                        animated: true,
-                        completion: nil
-                )
+            var words: [WordCoreData] = []
+            guard let groups = VocaManager.shared.groups else {
+                return
             }
+            for group in groups {
+                words.append(contentsOf: group.words)
+            }
+
+            present(CardMatchingViewController(words: words),
+                    animated: true,
+                    completion: nil
+            )
         }
     }
 }

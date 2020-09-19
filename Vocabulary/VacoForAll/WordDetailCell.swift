@@ -97,10 +97,11 @@ class WordDetailCell: UICollectionViewCell {
         super.layoutSubviews()
     }
 
-    func configure(VocabularyContent: WordResponse) {
+    func configure(VocabularyContent: Word) {
         englishLabel.text = VocabularyContent.english
         koreanLabel.text = VocabularyContent.korean
-        if let urlImage = URL(string: VocabularyContent.photoUrl) {
+        if let photoURL = VocabularyContent.photoUrl,
+           let urlImage = URL(string: photoURL) {
             vocaImageView.sd_setImage(with: urlImage)
         }
     }
@@ -108,8 +109,12 @@ class WordDetailCell: UICollectionViewCell {
     func configure(word: Word) {
         englishLabel.text = word.english
         koreanLabel.text = word.korean
-        guard let image = word.image else { return }
-        vocaImageView.image = UIImage(data: image)
+        if let wordCoreData = word as? WordCoreData {
+            guard let image = wordCoreData.image else { return }
+            vocaImageView.image = UIImage(data: image)
+        } else {
+            // TODO: 서버용
+        }
     }
 
     func configureLayout() {
