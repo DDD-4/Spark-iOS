@@ -160,11 +160,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegate
         let selectedGame = Constant.gameList[indexPath.row]
         switch selectedGame {
         case .flip:
-            present(FlipGameViewController(
-                words: []),
-                    animated: true,
-                    completion: nil
-            )
+            navigationController?.pushViewController(FlipGameViewController(words: []), animated: true)
         case .matching:
             var words: [WordCoreData] = []
             guard let groups = VocaManager.shared.groups else {
@@ -174,10 +170,7 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegate
                 words.append(contentsOf: group.words)
             }
 
-            present(CardMatchingViewController(words: words),
-                    animated: true,
-                    completion: nil
-            )
+            navigationController?.pushViewController(CardMatchingViewController(words: words), animated: true)
         }
     }
 }

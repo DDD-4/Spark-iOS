@@ -166,8 +166,11 @@ class HomeViewController: UIViewController {
 
         gameFloatingButton.rx.tap
             .subscribe(onNext: { [weak self] (_) in
-                let viewController = GameViewController()
-                self?.present(viewController, animated: true, completion: nil)
+                let navigationController = UINavigationController(rootViewController: GameViewController())
+                navigationController.navigationBar.isHidden = true
+                navigationController.modalPresentationStyle = .fullScreen
+                navigationController.modalTransitionStyle = .coverVertical
+                self?.present(navigationController, animated: true, completion: nil)
             }).disposed(by: disposeBag)
     }
 }
