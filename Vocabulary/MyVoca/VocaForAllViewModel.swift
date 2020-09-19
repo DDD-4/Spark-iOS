@@ -67,9 +67,9 @@ class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, Vo
 
     private func fetchVocaForAllData() {
         EveryVocabularyController.shared.getEveryVocabularies()
-            .bind { [weak self] (response) in
+            .subscribe { [weak self] (response) in
                 guard let self = self else { return }
-                self.vocaForAllList.accept(response.content)
+                self.vocaForAllList.accept(response.element?.content ?? [])
             }
             .disposed(by: disposeBag)
     }
