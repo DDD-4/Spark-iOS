@@ -9,6 +9,7 @@
 import UIKit
 import PoingDesignSystem
 import SnapKit
+import KeyboardObserver
 
 class MyProfileViewController: UIViewController {
     enum Constant {
@@ -37,6 +38,12 @@ class MyProfileViewController: UIViewController {
         return view
     }()
 
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
     lazy var profileImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,26 +70,42 @@ class MyProfileViewController: UIViewController {
         return text
     }()
 
+    private let keyboard = KeyboardObserver()
+    private var scrollViewBottomConstraint: NSLayoutConstraint?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+        observeKeyboard()
+
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
+        view.addGestureRecognizer(gesture)
     }
 
     func configureLayout() {
         view.backgroundColor = .white
 
         view.addSubview(navView)
-        view.addSubview(profileImageView)
-        view.addSubview(cameraButton)
-        view.addSubview(nameTextField)
+        view.addSubview(scrollView)
+        scrollView.addSubview(profileImageView)
+        scrollView.addSubview(cameraButton)
+        scrollView.addSubview(nameTextField)
 
         navView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(44)
         }
 
+        scrollView.snp.makeConstraints { (make) in
+            make.top.equalTo(navView.snp.bottom)
+            make.leading.trailing.equalTo(view)
+        }
+
+        scrollViewBottomConstraint = scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        scrollViewBottomConstraint?.isActive = true
+
         profileImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(navView.snp.bottom).offset(Constant.ProfileImage.topMargin)
+            make.top.equalTo(scrollView).offset(Constant.ProfileImage.topMargin)
             make.centerX.equalTo(view)
             make.width.height.equalTo(Constant.ProfileImage.length)
         }
@@ -97,6 +120,41 @@ class MyProfileViewController: UIViewController {
             make.leading.equalTo(view).offset(Constant.Name.sideMargin)
             make.trailing.equalTo(view).offset(-Constant.Name.sideMargin)
             make.height.equalTo(Constant.Name.height)
+            make.bottom.equalTo(scrollView.snp.bottom).offset(-16)
+        }
+    }
+
+    @objc func viewTapped(_ gesture: UIGestureRecognizer) {
+        view.endEditing(true)
+    }
+
+    func observeKeyboard() {
+        keyboard.observe { [weak self] (event) -> Void in
+            guard let self = self else { return }
+            switch event.type {
+            case .willShow:
+                let keyboardFrameEnd = event.keyboardFrameEnd
+                let bottom = keyboardFrameEnd.height - self.view.safeAreaInsets.bottom
+
+                if event.type == .willShow {
+                    var offset = self.scrollView.contentOffset
+                    offset.y = self.scrollView.contentSize.height
+                    self.scrollView.contentOffset = offset
+                }
+
+                UIView.animate(withDuration: event.duration, delay: 0.0, options: [event.options], animations: { () -> Void in
+                    self.scrollViewBottomConstraint?.constant = -bottom
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+            case .willHide:
+                self.scrollView.contentOffset = .zero
+                UIView.animate(withDuration: event.duration, delay: 0.0, options: [event.options], animations: { () -> Void in
+                    self.scrollViewBottomConstraint?.constant = 0
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+            default:
+                break
+            }
         }
     }
 

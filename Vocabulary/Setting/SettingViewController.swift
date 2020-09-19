@@ -69,6 +69,7 @@ class SettingViewController: UIViewController {
             forCellReuseIdentifier: SettingMyInfoCell.reuseIdentifier
         )
         tableView.separatorStyle = .none
+        tableView.contentInset.bottom = Constant.Floating.height + (hasTopNotch ? bottomSafeInset : 32)
         return tableView
     }()
     
