@@ -10,6 +10,8 @@ import UIKit
 import PoingDesignSystem
 import SnapKit
 import KeyboardObserver
+import RxSwift
+import RxCocoa
 
 class MyProfileViewController: UIViewController {
     enum Constant {
@@ -72,6 +74,8 @@ class MyProfileViewController: UIViewController {
 
     private let keyboard = KeyboardObserver()
     private var scrollViewBottomConstraint: NSLayoutConstraint?
+    private let disposeBag = DisposeBag()
+    private var needAdjustScrollViewForTextFields = [UITextField]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +84,8 @@ class MyProfileViewController: UIViewController {
 
         let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
         view.addGestureRecognizer(gesture)
+
+        needAdjustScrollViewForTextFields.append(nameTextField)
     }
 
     func configureLayout() {
@@ -136,25 +142,38 @@ class MyProfileViewController: UIViewController {
                 let keyboardFrameEnd = event.keyboardFrameEnd
                 let bottom = keyboardFrameEnd.height - self.view.safeAreaInsets.bottom
 
-                if event.type == .willShow {
-                    var offset = self.scrollView.contentOffset
-                    offset.y = self.scrollView.contentSize.height
-                    self.scrollView.contentOffset = offset
+                self.scrollView.contentInset.bottom = bottom
+                self.scrollView.verticalScrollIndicatorInsets.bottom = bottom
+                
+                UIView.animate(withDuration: event.duration, delay: 0.0, options: [event.options], animations: { () -> Void in
+                    self.view.layoutIfNeeded()
+                }) { _ in
+                    self.adjustScrollViewOffset()
                 }
+            case .willHide:
+                self.scrollView.contentInset.bottom = 0
+                self.scrollView.verticalScrollIndicatorInsets.bottom = 0
 
                 UIView.animate(withDuration: event.duration, delay: 0.0, options: [event.options], animations: { () -> Void in
-                    self.scrollViewBottomConstraint?.constant = -bottom
-                    self.view.layoutIfNeeded()
-                }, completion: nil)
-            case .willHide:
-                self.scrollView.contentOffset = .zero
-                UIView.animate(withDuration: event.duration, delay: 0.0, options: [event.options], animations: { () -> Void in
-                    self.scrollViewBottomConstraint?.constant = 0
                     self.view.layoutIfNeeded()
                 }, completion: nil)
             default:
                 break
             }
+        }
+    }
+
+    private func adjustScrollViewOffset() {
+        guard scrollView.contentSize.height > (scrollView.frame.size.height - scrollView.contentInset.bottom) else {
+            return
+        }
+
+        for textField in needAdjustScrollViewForTextFields where textField.isFirstResponder {
+            var offsetY: CGFloat = 0
+            offsetY = textField.frame.maxY - (scrollView.frame.height - scrollView.contentInset.bottom)
+            scrollView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: true)
+            scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: offsetY), animated: true)
+            break
         }
     }
 
