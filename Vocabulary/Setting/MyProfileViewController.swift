@@ -163,6 +163,10 @@ class MyProfileViewController: UIViewController {
         }
     }
 
+    /*
+     needAdjustScrollViewForTextFields 에 추가된
+     TextField에서 keyboard가 올라오면 그 뷰를 기준으로 offset 을 조정
+     */
     private func adjustScrollViewOffset() {
         guard scrollView.contentSize.height > (scrollView.frame.size.height - scrollView.contentInset.bottom) else {
             return
@@ -171,7 +175,6 @@ class MyProfileViewController: UIViewController {
         for textField in needAdjustScrollViewForTextFields where textField.isFirstResponder {
             var offsetY: CGFloat = 0
             offsetY = textField.frame.maxY - (scrollView.frame.height - scrollView.contentInset.bottom)
-            scrollView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: true)
             scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: offsetY), animated: true)
             break
         }
