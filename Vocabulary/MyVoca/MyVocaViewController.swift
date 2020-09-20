@@ -375,6 +375,7 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
     
     func myVocaWord(didTapMic button: UIButton, selectedWord word: Word) {
         let englishWord = word.english
+        
         synthesizer.stopSpeaking(at: .immediate)
         let utterance = AVSpeechUtterance(string: englishWord)
         utterance.rate = 0.3

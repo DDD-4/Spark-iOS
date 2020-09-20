@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import PoingVocaSubsystem
+import PoingDesignSystem
 
 protocol MyVocaWordCellDelegate: class {
     func myVocaWord(didTapEdit button: UIButton, selectedWord word: Word)
@@ -33,6 +34,7 @@ class MyVocaWordCell: UICollectionViewCell {
             static let width: CGFloat = 18
         }
         static let micImage: UIImage? = UIImage(named: "icVoice")
+        static let touchedMicImage: UIImage? = UIImage(named: "icVoice2")
         static let micImageHeight: CGFloat = 48
         static let imageRadius: CGFloat = 12
 
@@ -55,7 +57,7 @@ class MyVocaWordCell: UICollectionViewCell {
     lazy var micButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(Constant.micImage, for: .normal)
+        button.setImage(Constant.touchedMicImage, for: .normal)
         button.addTarget(self, action: #selector(micButtonDidTap(_:)), for: .touchUpInside)
         return button
     }()
@@ -193,6 +195,17 @@ class MyVocaWordCell: UICollectionViewCell {
         guard let word = word else {
             return
         }
+        
+        let pulse = PulseAnimation(numberOfPulses: 2, radius: Constant.micImageHeight * 1.2, position: self.micButton.center)
+        pulse.animationDuration = 0.3
+        pulse.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.8690668736, blue: 0.5490196347, alpha: 1)
+        self.layer.insertSublayer(pulse, below: self.layer)
+        
+        let pulse1 = PulseAnimation(numberOfPulses: 2, radius: Constant.micImageHeight, position: self.micButton.center)
+        pulse1.animationDuration = 0.5
+        pulse1.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 0.3529411765, alpha: 1)
+        self.layer.insertSublayer(pulse1, below: self.layer)
+        
         delegate?.myVocaWord(didTapMic: sender, selectedWord: word)
     }
 }
