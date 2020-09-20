@@ -24,7 +24,7 @@ class CancelPopupViewController: UIViewController {
             static let radius: CGFloat = 32
         }
         enum Button {
-            static let radius: CGFloat = 30
+            static let radius: CGFloat = 24
             static let margin: CGFloat = 24
         }
     }
@@ -143,7 +143,7 @@ class CancelPopupViewController: UIViewController {
         
         confirmButton.rx.tap.subscribe(onNext: { [weak self] (_) in
             self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-        })
+        }).disposed(by: disposeBag)
     }
     
 }
