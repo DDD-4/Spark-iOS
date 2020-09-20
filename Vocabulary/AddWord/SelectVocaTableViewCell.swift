@@ -18,7 +18,7 @@ class SelectVocaTableViewCell: UITableViewCell {
         static let imageRadius: CGFloat = 12
     }
     
-    var group: Group?
+    var group: FolderCoreData?
 
     lazy var VocaLabel: UILabel = {
         let label = UILabel()
@@ -37,9 +37,9 @@ class SelectVocaTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(group: Group) {
+    func configure(group: FolderCoreData) {
         self.group = group
-        VocaLabel.text = group.title
+        VocaLabel.text = group.name
     }
 
     func configureLayout() {

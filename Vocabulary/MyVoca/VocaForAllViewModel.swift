@@ -26,7 +26,6 @@ enum VocaForAllOrderType: Int, CaseIterable {
 }
 
 protocol VocaForAllViewModelInput {
-    func fetchVocaForAllData()
     var orderType: BehaviorRelay<VocaForAllOrderType> { get }
 }
 
@@ -54,13 +53,23 @@ class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, Vo
     init() {
         orderType = BehaviorRelay<VocaForAllOrderType>(value: .recent)
         vocaForAllList = BehaviorRelay<[EveryVocaContent]>(value: [])
+
+        orderType.bind{ [weak self] (type) in
+            guard let self = self else { return }
+            switch type {
+            // TODO: Apply sort type
+            case .popular, .recent:
+                self.fetchVocaForAllData()
+            }
+        }.disposed(by: disposeBag)
+
     }
 
-    func fetchVocaForAllData() {
+    private func fetchVocaForAllData() {
         EveryVocabularyController.shared.getEveryVocabularies()
-            .bind { [weak self] (response) in
+            .subscribe { [weak self] (response) in
                 guard let self = self else { return }
-                self.vocaForAllList.accept(response.content)
+                self.vocaForAllList.accept(response.element?.content ?? [])
             }
             .disposed(by: disposeBag)
     }

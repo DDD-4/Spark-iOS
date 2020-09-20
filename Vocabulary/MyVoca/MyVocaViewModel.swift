@@ -12,14 +12,15 @@ import RxCocoa
 import PoingVocaSubsystem
 
 protocol MyVocaViewModelOutput {
-    var groups: BehaviorRelay<[Group]> { get }
+    var folders: BehaviorRelay<[Folder]> { get }
     var words: BehaviorRelay<[Word]> { get }
 }
 
 protocol MyVocaViewModelInput {
-    func fetchGroups()
-    var selectedGroupIndex: BehaviorRelay<Int?> { get }
-    var selectedGroup: BehaviorRelay<Group?> { get }
+    func fetchFolder()
+    func deleteWord(deleteWords: [Word])
+    var selectedFolderIndex: BehaviorRelay<Int?> { get }
+    var selectedFolder: BehaviorRelay<Folder?> { get }
 }
 
 protocol MyVocaViewModelType {
@@ -32,11 +33,11 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
 
     var words: BehaviorRelay<[Word]>
 
-    var selectedGroup: BehaviorRelay<Group?>
+    var selectedFolder: BehaviorRelay<Folder?>
 
-    var groups: BehaviorRelay<[Group]>
+    var folders: BehaviorRelay<[Folder]>
 
-    var selectedGroupIndex: BehaviorRelay<Int?>
+    var selectedFolderIndex: BehaviorRelay<Int?>
 
     var input: MyVocaViewModelInput { return self }
     var output: MyVocaViewModelOutput { return self }
@@ -44,35 +45,50 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
 
     init() {
         words = BehaviorRelay<[Word]>(value: [])
-        selectedGroup = BehaviorRelay<Group?>(value: nil)
-        groups = BehaviorRelay<[Group]>(value: [])
-        selectedGroupIndex = BehaviorRelay<Int?>(value: nil)
+        selectedFolder = BehaviorRelay<Folder?>(value: nil)
+        folders = BehaviorRelay<[Folder]>(value: [])
+        selectedFolderIndex = BehaviorRelay<Int?>(value: nil)
 
-        selectedGroup.map { (group) -> [Word] in
-            group?.words ?? []
+        selectedFolder.map { (group) -> [Word] in
+            guard let folder = group as? FolderCoreData else {
+                return []
+            }
+            return folder.words
         }
         .bind(to: words)
         .disposed(by: disposeBag)
     }
 
-    func fetchGroups() {
+    func fetchFolder() {
         VocaManager.shared.fetch(identifier: nil) { [weak self] (groups) in
             guard let self = self else { return }
             guard let groups = groups, groups.isEmpty == false else {
-                self.groups.accept([])
+                self.folders.accept([])
                 return
             }
-            self.groups.accept(groups)
+            self.folders.accept(groups)
 
-            let currentSelectedGroup = groups.filter { (group) -> Bool in
-                group.identifier == self.selectedGroup.value?.identifier
+            var currentSelectedGroup: [Folder] = []
+            if let folderCoreData = self.selectedFolder.value as? FolderCoreData {
+                currentSelectedGroup = groups.filter { (group) -> Bool in
+                    group.identifier == folderCoreData.identifier
+                }
             }
 
             if currentSelectedGroup.isEmpty == false {
-                self.selectedGroup.accept(currentSelectedGroup.first)
+                self.selectedFolder.accept(currentSelectedGroup.first)
             } else {
-                self.selectedGroup.accept(groups.first!)
+                self.selectedFolder.accept(groups.first!)
             }
         }
+    }
+
+    func deleteWord(deleteWords: [Word]) {
+        guard let folder = selectedFolder.value as? FolderCoreData,
+              let deleteWords = deleteWords as? [WordCoreData] else {
+            return
+        }
+
+        VocaManager.shared.update(group: folder, deleteWords: deleteWords)
     }
 }

@@ -15,18 +15,22 @@ public class VocaDownloadAgent {
         return queue
     }()
 
-    let dummyData: [WordResponse]
-    public init(data: [WordResponse]) {
+    let dummyData: [Word]
+    public init(data: [Word]) {
         dummyData = data
     }
 
-    public func download(completion: @escaping ([Word]) -> Void) {
-        var downloadedWord: [Word] = []
+    public func download(completion: @escaping ([WordCoreData]) -> Void) {
+        var downloadedWord: [WordCoreData] = []
+        var order: Int = 0
         for data in dummyData {
             let operation = VocaDownloadOperation(session: URLSession.shared, download: data) { (word, error) in
                 NSLog("VocaDownloadOperation \(word?.english) download finished")
                 guard let word = word else { return }
+                word.order = Int16(order)
                 downloadedWord.append(word)
+
+                order += 1
             }
             operationQueue.addOperation(operation)
         }
