@@ -19,7 +19,7 @@ class ProgressBarNavigationView: UIView {
         enum Progress {
             static let backgroundColor: UIColor = .white
             static let progressColor: UIColor = .dandelion
-            static let radius: CGFloat = 8
+            static let radius: CGFloat = 6
             static let height: CGFloat = 12
         }
     }

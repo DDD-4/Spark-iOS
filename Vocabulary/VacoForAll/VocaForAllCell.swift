@@ -114,6 +114,10 @@ class VocaForAllCell: UICollectionViewCell {
         numberLable.text = "\(content.count)"
     }
 
+    func configure(folder: Folder) {
+        titleLabel.text = folder.name
+    }
+
     func configureLayout() {
         backgroundColor = .clear
         clipsToBounds = false

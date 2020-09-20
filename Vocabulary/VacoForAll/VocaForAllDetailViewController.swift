@@ -80,9 +80,9 @@ class VocaForAllDetailViewController: UIViewController {
     }()
 
     let disposeBag = DisposeBag()
-    let viewModel: WordViewModelType
+    let viewModel: VocaForAllDetailType
 
-    init(viewModel: WordViewModel) {
+    init(viewModel: VocaForAllDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
@@ -182,23 +182,10 @@ class VocaForAllDetailViewController: UIViewController {
 }
 
 extension VocaForAllDetailViewController: SelectFolderViewControllerDelegate {
-    func selectFolderViewController(didTapFolder folder: Group) {
+    func selectFolderViewController(didTapFolder folder: Folder) {
         LoadingView.show()
-        let words = viewModel.output.vocaContent.value
-        let agent = VocaDownloadAgent(data: words)
-        agent.download { [weak self] (words) in
-            guard let self = self else {
-                LoadingView.hide()
-                return
-            }
-
-            VocaManager.shared.update(group: folder, addWords: words) {
-
-                LoadingView.hide()
-
-                // TODO: Add success alert (need design guide)
-                self.navigationController?.popViewController(animated: true)
-            }
+        viewModel.input.downloadWord(myFolderId: folder.id) {
+            LoadingView.hide()
         }
     }
 }

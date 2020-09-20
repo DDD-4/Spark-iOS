@@ -1,5 +1,5 @@
 //
-//  EditMyVocaGroupViewController.swift
+//  EditMyFolderViewController.swift
 //  Vocabulary
 //
 //  Created by user on 2020/07/31.
@@ -13,7 +13,7 @@ import RxCocoa
 import PoingVocaSubsystem
 import PoingDesignSystem
 
-class EditMyVocaGroupViewController: UIViewController {
+class EditMyFolderViewController: UIViewController {
     enum State {
         case delete
         case normal
@@ -25,10 +25,9 @@ class EditMyVocaGroupViewController: UIViewController {
         }
     }
 
-    let viewModel: EditMyVocaGroupViewModel
+    var viewModel: EditMyFolderViewModelType
     private var currentState: BehaviorRelay<State> = BehaviorRelay(value: .normal)
     private let disposeBag = DisposeBag()
-    private var deleteSelectedGroup: BehaviorRelay<[Group]> = BehaviorRelay(value: [])
 
     lazy var navigationViewArea: SideNavigationView = {
         let view = SideNavigationView(
@@ -92,7 +91,11 @@ class EditMyVocaGroupViewController: UIViewController {
     }()
 
     init() {
-        viewModel = EditMyVocaGroupViewModel()
+        if ModeConfig.shared.currentMode == .offline {
+            viewModel = EditMyFolderViewModel()
+        } else {
+            viewModel = EditMyFolderOnlineViewModel()
+        }
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -106,9 +109,7 @@ class EditMyVocaGroupViewController: UIViewController {
         configureLayout()
         configureRx()
 
-        viewModel.filteredFetchGroup { [weak self] in
-            self?.groupCollectionView.reloadData()
-        }
+        viewModel.input.fetchMyFolders()
 
         NotificationCenter.default.addObserver(
             self,
@@ -117,6 +118,12 @@ class EditMyVocaGroupViewController: UIViewController {
             object: nil
         )
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(modeConfigDidChanged),
+            name: .modeConfig,
+            object: nil
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -151,7 +158,7 @@ class EditMyVocaGroupViewController: UIViewController {
         }
 
         deleteButton.snp.makeConstraints { (make) in
-            let constant = AddFolderViewController.Constant.Confirm.self
+            let constant = MyFolderDetailViewController.Constant.Confirm.self
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
             make.centerX.equalTo(view)
             make.height.equalTo(constant.height)
@@ -160,6 +167,14 @@ class EditMyVocaGroupViewController: UIViewController {
     }
 
     func configureRx() {
+
+        viewModel.output.myFolders
+            .subscribeOn(MainScheduler.instance)
+            .subscribe { [weak self] (folders) in
+                self?.groupCollectionView.reloadData()
+            }
+            .disposed(by: disposeBag)
+
         currentState
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (state) in
@@ -186,13 +201,13 @@ class EditMyVocaGroupViewController: UIViewController {
             .subscribe(onNext: { [weak self] (state) in
                 guard let self = self else { return }
                 self.currentState.accept(state == .delete ? .normal : .delete)
-                self.deleteSelectedGroup.accept([])
+                self.viewModel.input.deleteSelectedFolders.accept([])
                 self.groupCollectionView.reloadData()
             }).disposed(by: disposeBag)
 
-        deleteSelectedGroup.subscribe(onNext: { [weak self] (groups) in
+        viewModel.input.deleteSelectedFolders.subscribe(onNext: { [weak self] (groups) in
             guard let self = self else { return }
-            let constant = AddFolderViewController.Constant.Confirm.self
+            let constant = MyFolderDetailViewController.Constant.Confirm.self
             if groups.isEmpty {
                 self.deleteButton.setTitle("삭제", for: .normal)
                 self.deleteButton.backgroundColor = constant.InActive.backgroundColor
@@ -208,19 +223,22 @@ class EditMyVocaGroupViewController: UIViewController {
     }
 
     @objc func deleteGroupDidTap(_ sender: UIButton) {
-        guard deleteSelectedGroup.value.isEmpty == false else {
+        guard viewModel.input.deleteSelectedFolders.value.isEmpty == false else {
             return
         }
-
-        for group in deleteSelectedGroup.value {
-            VocaManager.shared.delete(group: group)
+        viewModel.input.deleteFolders(
+            folders: viewModel.input.deleteSelectedFolders.value
+        ) { [weak self] in
+            self?.viewModel.input.fetchMyFolders()
         }
 
         self.currentState.accept(.normal)
     }
 
     @objc func addDidTap(_ sender: UIButton) {
-        navigationController?.pushViewController(AddFolderViewController(), animated: true)
+        let myFolderDetailViewController = MyFolderDetailViewController(viewType: .add)
+
+        navigationController?.pushViewController(myFolderDetailViewController, animated: true)
     }
 
     @objc func dismissDidTap(_ sender: UIButton) {
@@ -228,15 +246,26 @@ class EditMyVocaGroupViewController: UIViewController {
     }
 
     @objc func vocaDataChanged() {
-        viewModel.filteredFetchGroup() {
-            self.groupCollectionView.reloadData()
+        if ModeConfig.shared.currentMode == .offline {
+            viewModel.input.fetchMyFolders()
         }
+    }
+
+    @objc func modeConfigDidChanged() {
+        if ModeConfig.shared.currentMode == .offline {
+            viewModel = EditMyFolderViewModel()
+        } else {
+            viewModel = EditMyFolderOnlineViewModel()
+        }
+
+        configureRx()
+        viewModel.input.fetchMyFolders()
     }
 }
 
-extension EditMyVocaGroupViewController: UICollectionViewDataSource {
+extension EditMyFolderViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.groups.value.count
+        viewModel.output.myFolders.value.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -246,38 +275,54 @@ extension EditMyVocaGroupViewController: UICollectionViewDataSource {
             ) as? EditMyVocaGroupCell else {
                 return UICollectionViewCell()
         }
-        let group = viewModel.groups.value[indexPath.row]
-        
+
         cell.delegate = self
-        let isDeleteSelected = deleteSelectedGroup.value.contains { (selectedGroup) -> Bool in
-            selectedGroup.identifier == group.identifier
+
+        if ModeConfig.shared.currentMode == .offline {
+            if let myFolder = viewModel.output.myFolders.value[indexPath.row] as? FolderCoreData,
+               let deleteSelectedGroup = viewModel.input.deleteSelectedFolders.value as? [FolderCoreData]
+               {
+                let isDeleteSelected = deleteSelectedGroup.contains { (selectedGroup) -> Bool in
+                    selectedGroup.identifier == myFolder.identifier
+                }
+                cell.configure(
+                    group: myFolder,
+                    state: currentState.value,
+                    isDeleteSelected: isDeleteSelected
+                )
+            }
+        } else {
+            let myFolder = viewModel.output.myFolders.value[indexPath.row]
+            let isDeleteSelected = viewModel.input.deleteSelectedFolders.value.contains { (selectedGroup) -> Bool in
+                selectedGroup.id == myFolder.id
+            }
+            cell.configure(
+                group: myFolder,
+                state: currentState.value,
+                isDeleteSelected: isDeleteSelected
+            )
         }
-        cell.configure(
-            group: group,
-            state: currentState.value,
-            isDeleteSelected: isDeleteSelected
-        )
         return cell
     }
 }
 
-extension EditMyVocaGroupViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension EditMyFolderViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: collectionView.frame.size.width, height: 116)
     }
 }
 
-extension EditMyVocaGroupViewController: UICollectionViewDragDelegate {
+extension EditMyFolderViewController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        let item = viewModel.groups.value[indexPath.row]
-        let itemProvider = NSItemProvider(object: item.title as NSString)
+        let item = viewModel.output.myFolders.value[indexPath.row]
+        let itemProvider = NSItemProvider(object: item.name as NSString)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = item
         return [dragItem]
     }
 }
 
-extension EditMyVocaGroupViewController: UICollectionViewDropDelegate {
+extension EditMyFolderViewController: UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         if collectionView.hasActiveDrag {
             return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
@@ -309,17 +354,27 @@ extension EditMyVocaGroupViewController: UICollectionViewDropDelegate {
             return
         }
 
-        var tempGroup = viewModel.groups.value
+        var tempGroup = viewModel.output.myFolders.value
 
         collectionView.performBatchUpdates({
             tempGroup.remove(at: sourceIndexPath.item)
-            tempGroup.insert(item.dragItem.localObject as! Group, at: destinationIndexPath.item)
+            tempGroup.insert(item.dragItem.localObject as! Folder, at: destinationIndexPath.item)
 
 
             collectionView.deleteItems(at: [sourceIndexPath])
             collectionView.insertItems(at: [destinationIndexPath])
 
-            self.viewModel.groups.accept(tempGroup)
+            print(sourceIndexPath)
+            print(destinationIndexPath)
+            
+            self.viewModel.output.myFolders.accept(tempGroup)
+            if ModeConfig.shared.currentMode == .offline {
+                viewModel.input.reorderFolders(sourceIndex: sourceIndexPath.section, destinationIndex: destinationIndexPath.section, completion: {
+                    print()
+                })
+            } else {
+                self.viewModel.input.reorderFolders(folders: tempGroup)
+            }
 
         }) { (_) in
         }
@@ -328,50 +383,41 @@ extension EditMyVocaGroupViewController: UICollectionViewDropDelegate {
     }
 }
 
-extension EditMyVocaGroupViewController: EditMyVocaGroupCellDelegate {
+extension EditMyFolderViewController: EditMyVocaGroupCellDelegate {
     func editMyVocaGroupCell(
         _ cell: UICollectionViewCell,
         didTapDeleteSelect button: UIButton,
-        group: Group
+        group: Folder
     ) {
-        var selectedGroupIndex: Int?
-        var tempDeleteSelectedGroup = deleteSelectedGroup.value
-
-        for index in 0..<tempDeleteSelectedGroup.count {
-            if tempDeleteSelectedGroup[index].identifier == group.identifier {
-                selectedGroupIndex = index
-                break
-            }
-        }
-        guard let index = selectedGroupIndex else {
-            tempDeleteSelectedGroup.append(group)
-            deleteSelectedGroup.accept(tempDeleteSelectedGroup)
-            return
-        }
-
-        tempDeleteSelectedGroup.remove(at: index)
-        deleteSelectedGroup.accept(tempDeleteSelectedGroup)
-    }
-
-    func editMyVocaGroupCell(
-        _ cell: UICollectionViewCell,
-        didTapDelete button: UIButton,
-        group: Group
-    ) {
-        VocaManager.shared.delete(group: group)
+        viewModel.input.addDeleteFolder(currentSelectedFolder: group)
     }
 
     func editMyVocaGroupCell(
         _ cell: UICollectionViewCell,
         didTapChangeVisibility button: UIButton,
-        group: Group
+        group: Folder
     ) {
-        let changedVisibilityType: VisibilityType = (group.visibilityType == .public) ? .private : .public
+        viewModel.input.changeVisibilityType(
+            folder: group
+        ) {
+            // TODO: 성공
+        }
+    }
 
-        var currentGroup = group
+    func editMyVocaGroupCell(
+        _ cell: UICollectionViewCell,
+        didTapEdit button: UIButton,
+        folder: Folder
+    ) {
+        let myFolderDetailViewController = MyFolderDetailViewController(viewType: .edit(folder: folder))
+        myFolderDetailViewController.delegate = self
 
-        currentGroup.visibilityType = changedVisibilityType
+        navigationController?.pushViewController(myFolderDetailViewController, animated: true)
+    }
+}
 
-        VocaManager.shared.update(group: currentGroup)
+extension EditMyFolderViewController: MyFolderDetailViewControllerDelegate {
+    func needFetchMyFolder(_ viewController: MyFolderDetailViewController) {
+        viewModel.input.fetchMyFolders()
     }
 }

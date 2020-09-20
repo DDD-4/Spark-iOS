@@ -91,6 +91,8 @@ class HomeViewController: UIViewController {
     lazy var myVocaViewController = MyVocaViewController(viewType: .myVoca)
     lazy var vocaForAllViewController = MyVocaViewController(viewType: .vocaForAll)
 
+    var window: UIWindow?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
@@ -103,6 +105,17 @@ class HomeViewController: UIViewController {
             animated: false,
             completion: nil
         )
+
+
+        #if DEBUG
+        window = UIWindow(frame: CGRect(
+                            x: view.frame.maxX - 100,
+                            y: view.frame.minY + 100,
+                            width: 100,
+                            height: 30))
+        window?.rootViewController = ModeConfigStateViewController()
+        window?.makeKeyAndVisible()
+        #endif
     }
 
     func configureLayout() {
@@ -144,13 +157,20 @@ class HomeViewController: UIViewController {
         addWordFloatingButton.rx.tap
             .subscribe(onNext: { [weak self](_) in
                 let viewController = TakePictureViewController()
-                self?.present(viewController, animated: true, completion: nil)
+                let navigationController = UINavigationController(rootViewController: viewController)
+                navigationController.navigationBar.isHidden = true
+                navigationController.modalPresentationStyle = .fullScreen
+                navigationController.modalTransitionStyle = .coverVertical
+                self?.present(navigationController, animated: true, completion: nil)
             }).disposed(by: disposeBag)
 
         gameFloatingButton.rx.tap
             .subscribe(onNext: { [weak self] (_) in
-                let viewController = GameViewController()
-                self?.present(viewController, animated: true, completion: nil)
+                let navigationController = UINavigationController(rootViewController: GameViewController())
+                navigationController.navigationBar.isHidden = true
+                navigationController.modalPresentationStyle = .fullScreen
+                navigationController.modalTransitionStyle = .coverVertical
+                self?.present(navigationController, animated: true, completion: nil)
             }).disposed(by: disposeBag)
     }
 }

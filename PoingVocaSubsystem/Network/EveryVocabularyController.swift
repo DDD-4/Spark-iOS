@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Moya
 
 public class EveryVocabularyController {
     public static let shared = EveryVocabularyController()
@@ -19,10 +20,16 @@ public class EveryVocabularyController {
             .asObservable()
     }
 
-    public func getEveryVocabulariesFolder(folderId: Int) -> Observable<[WordResponse]> {
+    public func getEveryVocabulariesFolder(folderId: Int) -> Observable<[Word]> {
         return serviceManager.provider.rx
             .request(EveryVocabularyService.getEveryVocabulariesFolder(folderId: folderId))
-            .map([WordResponse].self)
+            .map([Word].self)
+            .asObservable()
+    }
+
+    public func downloadFolder(downloadFolderId: Int, myFolderId: Int) -> Observable<Response> {
+        return serviceManager.provider.rx
+            .request(EveryVocabularyService.getEveryVocabulariesDownload(downloadFolderId: downloadFolderId, myFolderId: myFolderId))
             .asObservable()
     }
 }

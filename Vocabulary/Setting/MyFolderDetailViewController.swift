@@ -1,5 +1,5 @@
 //
-//  AddFolderViewController.swift
+//  MyFolderDetailViewController.swift
 //  Vocabulary
 //
 //  Created by user on 2020/07/31.
@@ -13,8 +13,18 @@ import SnapKit
 import KeyboardObserver
 import RxSwift
 import RxCocoa
+import Moya
 
-class AddFolderViewController: UIViewController {
+protocol MyFolderDetailViewControllerDelegate: class {
+    func needFetchMyFolder(_ viewController: MyFolderDetailViewController)
+}
+
+class MyFolderDetailViewController: UIViewController {
+    enum ViewType {
+        case add
+        case edit(folder: Folder)
+    }
+
     public enum Constant {
         enum Confirm {
             static let height: CGFloat = 60
@@ -27,6 +37,8 @@ class AddFolderViewController: UIViewController {
                 static let color: UIColor = UIColor(white: 174.0 / 255.0, alpha: 1.0)
                 static let backgroundColor: UIColor = .veryLightPink
             }
+            static let addText = "새 폴더 만들기"
+            static let editText = "수정 완료"
         }
 
         enum TextField {
@@ -54,7 +66,10 @@ class AddFolderViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let keyboard = KeyboardObserver()
     private var confirmButtonConstraint: NSLayoutConstraint?
-    
+    private var viewModel: MyFolderDetailViewModelType
+
+    var delegate: MyFolderDetailViewControllerDelegate?
+
     lazy var navigationView: SideNavigationView = {
         let view = SideNavigationView(
             leftImage: UIImage.init(named: "icArrow"),
@@ -113,7 +128,6 @@ class AddFolderViewController: UIViewController {
     lazy var confirmButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("새 폴더 만들기", for: .normal)
         button.backgroundColor = .veryLightPink
         button.setTitleColor(UIColor(white: 174.0 / 255.0, alpha: 1.0), for: .disabled)
         button.setTitleColor(UIColor.white, for: .normal)
@@ -123,6 +137,35 @@ class AddFolderViewController: UIViewController {
         button.addTarget(self, action: #selector(confirmDidTap(_:)), for: .touchUpInside)
         return button
     }()
+
+    let currentViewType: ViewType
+    init(viewType: ViewType) {
+        currentViewType = viewType
+        switch viewType {
+        case .add:
+            viewModel = (ModeConfig.shared.currentMode == .offline)
+                ?  MyFolderDetailViewModel()
+                : MyFolderDetailOnlineViewModel()
+        case .edit(let folder):
+            viewModel = (ModeConfig.shared.currentMode == .offline)
+                ? MyFolderDetailViewModel(editFolder: folder)
+                :MyFolderDetailOnlineViewModel(editFolder: folder)
+        }
+
+        super.init(nibName: nil, bundle: nil)
+
+        switch viewType {
+        case .add:
+            confirmButton.setTitle(Constant.Confirm.addText, for: .normal)
+        case .edit(let folder):
+            textFieldView.placeholder = folder.name
+            confirmButton.setTitle(Constant.Confirm.editText, for: .normal)
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,7 +218,6 @@ class AddFolderViewController: UIViewController {
         }
 
         confirmButton.snp.makeConstraints { (make) in
-//            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
             make.centerX.equalTo(view)
             make.height.equalTo(Constant.Confirm.height)
             make.width.greaterThanOrEqualTo(Constant.Confirm.minWidth)
@@ -238,17 +280,22 @@ class AddFolderViewController: UIViewController {
     }
 
     @objc func confirmDidTap(_ sender: UIButton) {
-        let order = VocaManager.shared.groups?.count ?? 0
-        let newGroup = Group(
-            title: textFieldView.textField.text ?? "이름 없음",
-            visibilityType: visibilityButton.isSelected ? .public : .private,
-            identifier: UUID(),
-            words: [],
-            order: Int16(order == 0 ? 0 : order)
-        )
-
-        VocaManager.shared.insert(group: newGroup) { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
+        let folderName = textFieldView.textField.text ?? "이름 없음"
+        switch currentViewType {
+        case .add:
+            viewModel.input.addFolder(
+                name: folderName,
+                isShareable: visibilityButton.isSelected) { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.needFetchMyFolder(self)
+                self.navigationController?.popViewController(animated: true)
+            }
+        case .edit(let folder):
+            viewModel.input.editFolder(folder: folder, name: folderName, isShareable: visibilityButton.isSelected) { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.needFetchMyFolder(self)
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
 }

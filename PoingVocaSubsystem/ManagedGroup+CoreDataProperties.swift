@@ -17,29 +17,37 @@ public enum VisibilityType: String {
     case `default`
 }
 
-public struct Group {
+public class FolderCoreData: Folder {
     public init(
-        title: String,
+        name: String,
         visibilityType: VisibilityType,
         identifier: UUID,
-        words: [Word],
+        words: [WordCoreData],
         order: Int16
     ) {
-        self.title = title
-        self.visibilityType = visibilityType
         self.identifier = identifier
         self.words = words
         self.order = order
+        self.visibilityType = visibilityType
+
+        super.init(
+            default: (visibilityType == .default),
+            id: -1,
+            name: name,
+            shareable: (visibilityType == .public)
+        )
+    }
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
     }
 
-    public var title: String
-    public var visibilityType: VisibilityType
     public var identifier: UUID
-    public var words: [Word]
+    public var words: [WordCoreData]
     public var order: Int16
+    public var visibilityType: VisibilityType
 }
 
-extension Group {
+extension FolderCoreData {
     func toManaged(context: NSManagedObjectContext) {
 
         var managedWords = [ManagedWord]()
@@ -47,9 +55,9 @@ extension Group {
             managedWords.append(word.toManaged(context: context))
         }
         let managed = ManagedGroup(context: context)
-        managed.title = title
-        managed.visibilityType = visibilityType.rawValue
+        managed.title = name
         managed.identifier = identifier
+        managed.visibilityType = visibilityType.rawValue
         managed.words = NSSet(array: managedWords)
         managed.order = order
     }
@@ -86,9 +94,9 @@ extension ManagedGroup {
 }
 
 extension ManagedGroup {
-    func toGroup() -> Group {
+    func toGroup() -> FolderCoreData {
 
-        var processedWords = [Word]()
+        var processedWords = [WordCoreData]()
         if let managedWords = words as? Set<ManagedWord> {
             for managedWord in managedWords {
                 processedWords.append(managedWord.toWord())
@@ -99,10 +107,10 @@ extension ManagedGroup {
             }
         }
 
-         let isVailableVisibilityType = VisibilityType(rawValue: visibilityType ?? "") ?? .private
+        let isVailableVisibilityType = VisibilityType(rawValue: visibilityType ?? "") ?? .private
 
-        let group = Group(
-            title: title ?? "",
+        let group = FolderCoreData(
+            name: title ?? "",
             visibilityType: isVailableVisibilityType,
             identifier: identifier ?? UUID(),
             words: processedWords,

@@ -11,12 +11,13 @@ import Moya
 enum EveryVocabularyService {
     case getEveryVocabularies
     case getEveryVocabulariesFolder(folderId: Int)
+    case getEveryVocabulariesDownload(downloadFolderId: Int, myFolderId: Int)
 
 }
 
 extension EveryVocabularyService: TargetType {
     var baseURL: URL {
-        URL(string: "http://poingpoing.cf/")!
+        URL(string: ServerURL.base.rawValue)!
     }
 
     var path: String {
@@ -25,11 +26,18 @@ extension EveryVocabularyService: TargetType {
             return "v1/every-vocabularies"
         case .getEveryVocabulariesFolder(let folderId):
             return "v1/every-vocabularies/folders/\(folderId)"
+        case .getEveryVocabulariesDownload(let downloadFolderId, _):
+            return "v1/every-vocabularies/folders/\(downloadFolderId)"
         }
     }
 
     var method: Moya.Method {
-        .get
+        switch self {
+        case .getEveryVocabulariesDownload:
+            return .post
+        default:
+            return .get
+        }
     }
 
     var sampleData: Data {
@@ -42,6 +50,12 @@ extension EveryVocabularyService: TargetType {
             return .requestPlain
         case .getEveryVocabulariesFolder:
             return .requestPlain
+        case .getEveryVocabulariesDownload(_, let myFolderId):
+            let param: [String : Any] = [
+                "myFolderId": myFolderId,
+                "vocabularyIds": []
+            ]
+            return .requestParameters(parameters: param, encoding: JsonEncoding.default)
         }
     }
 

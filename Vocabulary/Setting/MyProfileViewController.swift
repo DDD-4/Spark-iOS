@@ -9,6 +9,9 @@
 import UIKit
 import PoingDesignSystem
 import SnapKit
+import KeyboardObserver
+import RxSwift
+import RxCocoa
 
 class MyProfileViewController: UIViewController {
     enum Constant {
@@ -37,6 +40,12 @@ class MyProfileViewController: UIViewController {
         return view
     }()
 
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
     lazy var profileImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,26 +72,46 @@ class MyProfileViewController: UIViewController {
         return text
     }()
 
+    private let keyboard = KeyboardObserver()
+    private var scrollViewBottomConstraint: NSLayoutConstraint?
+    private let disposeBag = DisposeBag()
+    private var needAdjustScrollViewForTextFields = [UITextField]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+        observeKeyboard()
+
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
+        view.addGestureRecognizer(gesture)
+
+        needAdjustScrollViewForTextFields.append(nameTextField)
     }
 
     func configureLayout() {
         view.backgroundColor = .white
 
         view.addSubview(navView)
-        view.addSubview(profileImageView)
-        view.addSubview(cameraButton)
-        view.addSubview(nameTextField)
+        view.addSubview(scrollView)
+        scrollView.addSubview(profileImageView)
+        scrollView.addSubview(cameraButton)
+        scrollView.addSubview(nameTextField)
 
         navView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(44)
         }
 
+        scrollView.snp.makeConstraints { (make) in
+            make.top.equalTo(navView.snp.bottom)
+            make.leading.trailing.equalTo(view)
+        }
+
+        scrollViewBottomConstraint = scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        scrollViewBottomConstraint?.isActive = true
+
         profileImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(navView.snp.bottom).offset(Constant.ProfileImage.topMargin)
+            make.top.equalTo(scrollView).offset(Constant.ProfileImage.topMargin)
             make.centerX.equalTo(view)
             make.width.height.equalTo(Constant.ProfileImage.length)
         }
@@ -97,6 +126,57 @@ class MyProfileViewController: UIViewController {
             make.leading.equalTo(view).offset(Constant.Name.sideMargin)
             make.trailing.equalTo(view).offset(-Constant.Name.sideMargin)
             make.height.equalTo(Constant.Name.height)
+            make.bottom.equalTo(scrollView.snp.bottom).offset(-16)
+        }
+    }
+
+    @objc func viewTapped(_ gesture: UIGestureRecognizer) {
+        view.endEditing(true)
+    }
+
+    func observeKeyboard() {
+        keyboard.observe { [weak self] (event) -> Void in
+            guard let self = self else { return }
+            switch event.type {
+            case .willShow:
+                let keyboardFrameEnd = event.keyboardFrameEnd
+                let bottom = keyboardFrameEnd.height - self.view.safeAreaInsets.bottom
+
+                self.scrollView.contentInset.bottom = bottom
+                self.scrollView.verticalScrollIndicatorInsets.bottom = bottom
+                
+                UIView.animate(withDuration: event.duration, delay: 0.0, options: [event.options], animations: { () -> Void in
+                    self.view.layoutIfNeeded()
+                }) { _ in
+                    self.adjustScrollViewOffset()
+                }
+            case .willHide:
+                self.scrollView.contentInset.bottom = 0
+                self.scrollView.verticalScrollIndicatorInsets.bottom = 0
+
+                UIView.animate(withDuration: event.duration, delay: 0.0, options: [event.options], animations: { () -> Void in
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+            default:
+                break
+            }
+        }
+    }
+
+    /*
+     needAdjustScrollViewForTextFields 에 추가된
+     TextField에서 keyboard가 올라오면 그 뷰를 기준으로 offset 을 조정
+     */
+    private func adjustScrollViewOffset() {
+        guard scrollView.contentSize.height > (scrollView.frame.size.height - scrollView.contentInset.bottom) else {
+            return
+        }
+
+        for textField in needAdjustScrollViewForTextFields where textField.isFirstResponder {
+            var offsetY: CGFloat = 0
+            offsetY = textField.frame.maxY - (scrollView.frame.height - scrollView.contentInset.bottom)
+            scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: offsetY), animated: true)
+            break
         }
     }
 

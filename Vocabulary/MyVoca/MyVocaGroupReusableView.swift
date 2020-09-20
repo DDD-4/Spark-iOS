@@ -11,7 +11,7 @@ import PoingVocaSubsystem
 import RxSwift
 
 protocol MyVocaViewControllerDelegate: class {
-    func myVocaViewController(didTapGroup group: Group, view: MyVocaGroupReusableView)
+    func myVocaViewController(didTapGroup group: Folder, view: MyVocaGroupReusableView)
     func myVocaViewController(didTapEditGroupButton button: UIButton)
     func myVocaGroupReusableView(didTapOrderType type: VocaForAllOrderType, view: MyVocaGroupReusableView)
 }
@@ -21,7 +21,7 @@ class MyVocaGroupReusableView: UICollectionReusableView {
     static let reuseIdentifier = String(describing: MyVocaGroupReusableView.self)
     weak var delegate: MyVocaViewControllerDelegate?
 
-    private var groups = [Group]()
+    private var groups = [Folder]()
     private var selectedRow: Int?
 
     private var orderTypes = [VocaForAllOrderType]()
@@ -67,12 +67,17 @@ class MyVocaGroupReusableView: UICollectionReusableView {
         }
     }
 
-    func configure(groups: [Group], selectedGroup: Group?) {
+    func configure(groups: [Folder], selectedGroup: Folder?) {
         currentViewType = .myVoca
         self.groups = groups
-        for index in 0 ..< groups.count where groups[index].identifier == selectedGroup?.identifier {
-            selectedRow = index
-            break
+        if let folder = groups as? [FolderCoreData],
+           let selectedFolder = selectedGroup as? FolderCoreData {
+            for index in 0 ..< folder.count where folder[index].identifier == selectedFolder.identifier {
+                selectedRow = index
+                break
+            }
+        } else {
+            // TODO: Add Server
         }
 
         groupNameCollectionView.reloadData()
@@ -109,7 +114,7 @@ extension MyVocaGroupReusableView: UICollectionViewDataSource {
 
         switch viewType {
         case .myVoca:
-            cell.configure(groupName: groups[indexPath.row].title)
+            cell.configure(groupName: groups[indexPath.row].name)
         case .vocaForAll:
             cell.configure(groupName: orderTypes[indexPath.row].description)
         }
@@ -130,7 +135,7 @@ extension MyVocaGroupReusableView: UICollectionViewDelegate, UICollectionViewDel
         }
 
         let string: String  = (viewType == .myVoca)
-            ? groups[indexPath.row].title
+            ? groups[indexPath.row].name
             : orderTypes[indexPath.row].description
         
         let size =  UILabel.measureSize(
