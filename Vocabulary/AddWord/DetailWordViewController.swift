@@ -474,7 +474,10 @@ class DetailWordViewController: UIViewController {
     }
     
     @objc func tapLeftButton() {
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
+        let viewController = CancelPopupViewController()
+        viewController.modalPresentationStyle = .overCurrentContext
+        present(viewController, animated: true, completion: nil)
     }
     
     func updateConfirmButton() {
