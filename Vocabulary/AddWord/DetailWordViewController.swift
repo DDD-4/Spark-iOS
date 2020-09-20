@@ -220,68 +220,69 @@ class DetailWordViewController: UIViewController {
         initView()
         registerForKeyboardNotifications()
         configureRx()
-        
-        self.delegate = self
-        
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(vocaDataChanged),
             name: .vocaDataChanged,
             object: nil
         )
+
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+        view.addGestureRecognizer(gesture)
     }
     
     // MARK: - View ✨
     func initView() {
         view.backgroundColor = .white
         view.addSubview(scrollView)
-        
+
         scrollView.addSubview(contentView)
         contentView.addSubview(naviView)
         contentView.addSubview(containerView)
+        containerView.addSubview(wordImageView)
         containerView.addSubview(textStack)
         containerView.addSubview(folderButton)
-        contentView.addSubview(wordImageView)
         contentView.addSubview(cameraButton)
         contentView.addSubview(confirmButton)
-        
+
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
-        
+
         contentView.snp.makeConstraints { (make) in
             make.width.equalToSuperview()
             make.height.equalToSuperview()
             make.centerX.bottom.equalToSuperview()
             make.top.equalToSuperview()
         }
-        
+
         naviView.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.snp.top)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(44)
         }
-        
+
         wordImageView.snp.makeConstraints { (make) in
             make.centerX.equalTo(contentView)
             make.height.width.equalTo(166)
-            make.top.equalTo(naviView.snp.bottom).offset(14)
+            make.top.equalTo(containerView.snp.top).offset(-55)
         }
-        
+
         cameraButton.snp.makeConstraints { (make) in
             make.trailing.equalTo(wordImageView.snp.trailing)
             make.bottom.equalTo(wordImageView.snp.bottom)
             make.width.height.equalTo(40)
         }
-        
+
         containerView.snp.makeConstraints { (make) in
             make.top.equalTo(naviView.snp.bottom).offset(69)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
-            make.height.equalTo(view.layer.bounds.width - 32)
         }
 
         textStack.snp.makeConstraints { (make) in
+            make.top.equalTo(wordImageView.snp.bottom).offset(14)
             make.centerX.equalTo(containerView)
             make.leading.equalTo(containerView).offset(16)
             make.trailing.equalTo(containerView).offset(-16)
@@ -294,15 +295,16 @@ class DetailWordViewController: UIViewController {
             make.bottom.equalTo(containerView).offset(-16)
             make.height.equalTo(56)
         }
-        
+
         confirmButton.snp.makeConstraints { (make) in
             make.height.equalTo(60)
-            make.width.equalTo(343)
-            make.bottom.equalTo(contentView.snp.bottom).offset(hasTopNotch ? -34 : -20 )
+            make.leading.equalTo(16)
+            make.trailing.equalTo(-16)
+            make.bottom.equalTo(contentView.snp.bottom).offset(hasTopNotch ? 0 : -16 )
             make.centerX.equalTo(contentView)
         }
     }
-    
+
     func configureRx() {
         
         viewModel.output.groups
@@ -363,10 +365,14 @@ class DetailWordViewController: UIViewController {
         
     }
     
-    @objc
-    func vocaDataChanged() {
+    @objc func vocaDataChanged() {
         viewModel.input.fetchGroups()
     }
+
+    @objc func viewTapped() {
+        view.endEditing(true)
+    }
+
     
     @objc func addPicture(_ sender: Any) {
         
