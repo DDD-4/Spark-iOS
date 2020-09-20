@@ -25,6 +25,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+    <key>UIUserInterfaceStyle</key>
+    <string>Light</string>
 	<key>NSCameraUsageDescription</key>
 	<string>we need to camera access.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

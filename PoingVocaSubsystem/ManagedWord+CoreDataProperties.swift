@@ -10,23 +10,30 @@
 import Foundation
 import CoreData
 
-public struct Word {
+public class WordCoreData: Word {
     public init(
         korean: String? = nil,
         english: String? = nil,
-        image: Data? = nil,
+        imageData: Data? = nil,
         identifier: UUID? = nil,
         order: Int16
     ) {
-        self.korean = korean
-        self.english = english
-        self.image = image
-        self.identifier = identifier
+        self.image = imageData
         self.order = order
+        self.identifier = identifier
+
+        super.init(
+            id: -0,
+            korean: korean ?? "",
+            english: english ?? "",
+            photoUrl: nil
+        )
     }
 
-    public var korean: String?
-    public var english: String?
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+
     public var image: Data?
     public var identifier: UUID?
     public var order: Int16
@@ -55,7 +62,13 @@ extension ManagedWord {
     @NSManaged public var ofGroup: ManagedGroup?
     @NSManaged public var order: Int16
 
-    func toWord() -> Word {
-        Word(korean: korean, english: english, image: image, identifier: identifier,order: order)
+    func toWord() -> WordCoreData {
+        WordCoreData(
+            korean: korean ?? "",
+            english: english ?? "",
+            imageData: image,
+            identifier: identifier,
+            order: order
+        )
     }
 }

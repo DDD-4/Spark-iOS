@@ -11,7 +11,7 @@ import SnapKit
 import PoingVocaSubsystem
 
 protocol SelectFolderViewCellDelegate: class {
-    func selectFolder(didTapEdit button: UIButton, selectedFolder Folder: Group)
+    func selectFolder(didTapEdit button: UIButton, selectedFolder Folder: FolderCoreData)
 }
 
 class SelectFolderViewCell: UICollectionViewCell {
@@ -35,7 +35,7 @@ class SelectFolderViewCell: UICollectionViewCell {
     }
     
     weak var delegate: MyVocaWordCellDelegate?
-    var Folder: Group?
+    var Folder: FolderCoreData?
     
     lazy var containerView: UIView = {
         let view = UIView()
@@ -97,7 +97,7 @@ class SelectFolderViewCell: UICollectionViewCell {
         addImageView.isHidden = false
     }
     
-    func configure(folder: Group, type: SelectFolderCellType) {
+    func configure(folder: FolderCoreData, type: SelectFolderCellType) {
         switch type {
         case .add:
             self.folderImageView.isHidden = true
@@ -107,7 +107,7 @@ class SelectFolderViewCell: UICollectionViewCell {
         }
         
         self.Folder = folder
-        self.folderTitleLabel.text = folder.title
+        self.folderTitleLabel.text = folder.name
         folderImageView.image = UIImage(named: "emptyFace")
         
         guard !folder.words.isEmpty else {

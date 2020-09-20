@@ -179,7 +179,7 @@ public class VocaCoreDataManager: NSObject {
         return groupList
     }
 
-    func insert(group: Group, context: NSManagedObjectContext) {
+    func insert(group: FolderCoreData, context: NSManagedObjectContext) {
         group.toManaged(context: context)
         saveContext(context: context)
     }
@@ -195,14 +195,14 @@ public class VocaCoreDataManager: NSObject {
         saveContext(context: context)
     }
 
-    func update(group: Group, context: NSManagedObjectContext, completion: @escaping (() -> Void)) {
+    func update(group: FolderCoreData, context: NSManagedObjectContext, completion: @escaping (() -> Void)) {
         guard let updateGroups = fetch(predicate: group.identifier, context: context) else {
             completion()
             return
         }
 
         for updateGroup in updateGroups {
-            updateGroup.title = group.title
+            updateGroup.title = group.name
             updateGroup.visibilityType = group.visibilityType.rawValue
             var newWordArr = [ManagedWord]()
             for word in group.words {

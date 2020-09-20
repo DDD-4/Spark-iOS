@@ -37,11 +37,11 @@ class DetailWordViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: SelectViewModelType = SelectViewModel()
     
-    var newGroup: Group?
+    var newGroup: Folder?
     var delegate: DetailWordViewController?
     var currentState: State
     var getWord: Word?
-    var getGroup: Group?
+    var getGroup: Folder?
     
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -181,7 +181,7 @@ class DetailWordViewController: UIViewController {
         view.clipsToBounds = false
     }
     
-    init(group: Group?, word: Word?) {
+    init(group: Folder?, word: Word?) {
         self.currentState = .edit
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
@@ -190,7 +190,7 @@ class DetailWordViewController: UIViewController {
         guard let getGroup = group else {
             return
         }
-        self.folderButton.folderLabel.text = getGroup.title
+        self.folderButton.folderLabel.text = getGroup.name
         self.newGroup = getGroup
         self.getGroup = getGroup
         
@@ -200,11 +200,12 @@ class DetailWordViewController: UIViewController {
         self.engTextField.text = getWord.english
         self.korTextField.text = getWord.korean
         self.getWord = getWord
-        
-        guard let getWordImage = getWord.image else {
-            return
+
+        // TODO: server
+        if let wordCoreData = word as? WordCoreData,
+           let getWordImage = wordCoreData.image {
+            self.wordImageView.image = UIImage(data: getWordImage)
         }
-        self.wordImageView.image = UIImage(data: getWordImage)
         
         view.clipsToBounds = false
     }
@@ -351,18 +352,13 @@ class DetailWordViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         folderButton.rx.tap.subscribe(onNext: {[weak self] (_) in
-            let viewController = SelectVocaViewController()
+            let viewController = SelectFolderViewController()
             viewController.delegate = self
-            
-            let navigationController = UINavigationController(rootViewController: viewController)
-            navigationController.navigationBar.isHidden = true
-            navigationController.modalPresentationStyle = .fullScreen
-            navigationController.modalTransitionStyle = .coverVertical
-            
+
             self?.confirmButton.isEnabled = (self?.engTextField.text?.count == 0 || self?.korTextField.text?.count == 0 ) ? false : true
             self?.updateConfirmButton()
             
-            self?.present(navigationController, animated: true)
+            self?.navigationController?.pushViewController(viewController, animated: true)
         }).disposed(by: disposeBag)
         
     }
@@ -402,18 +398,31 @@ class DetailWordViewController: UIViewController {
             }
             return
         }
+        guard let deleteGroup = self.getGroup else {
+            return
+        }
+
+        // TODO: Add server
         
         switch currentState {
         case .add:
-            let word = Word(
-                korean: self.korTextField.text,
-                english: self.engTextField.text,
-                image: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
+            // change to viewmodel..
+
+            guard let addFolder = addGroup as? FolderCoreData else {
+                return
+            }
+            let word = WordCoreData(
+                korean: self.korTextField.text ?? "",
+                english: self.engTextField.text ?? "",
+                imageData: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
                 identifier: UUID(),
-                order: Int16(addGroup.words.count)
+                order: Int16(addFolder.words.count)
             )
             
-            VocaManager.shared.update(group: addGroup, addWords: [word]) { [weak self] in
+            VocaManager.shared.update(
+                group: addFolder,
+                addWords: [word]
+            ) { [weak self] in
                 let alert: UIAlertView = UIAlertView(title: "단어 만들기 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
                 
                 alert.show()
@@ -426,20 +435,29 @@ class DetailWordViewController: UIViewController {
                 }
             }
         case .edit:
-            guard let deleteGroup = self.getGroup, let deleteWord = self.getWord else {
+            // TODO: Add server flag
+
+            guard let addFolder = addGroup as? FolderCoreData,
+                  let deleteFolder = deleteGroup as? FolderCoreData,
+                let deleteWord = self.getWord as? WordCoreData else {
                 return
             }
-            
-            let word = Word(
-                korean: self.korTextField.text,
-                english: self.engTextField.text,
-                image: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
+
+            let word = WordCoreData(
+                korean: self.korTextField.text ?? "",
+                english: self.engTextField.text ?? "",
+                imageData: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
                 identifier: UUID(),
                 order: deleteWord.order
             )
             
             
-            VocaManager.shared.update(deleteGroup: deleteGroup, addGroup: addGroup, deleteWords: [deleteWord], addWords: [word]) { [weak self ] in
+            VocaManager.shared.update(
+                deleteGroup: deleteFolder,
+                addGroup: addFolder,
+                deleteWords: [deleteWord],
+                addWords: [word]
+            ) { [weak self ] in
                 let alert: UIAlertView = UIAlertView(title: "단어 수정 완료!", message: "단어장의 단어를 수정했어요!", delegate: nil, cancelButtonTitle: nil);
                 
                 alert.show()
@@ -466,10 +484,10 @@ class DetailWordViewController: UIViewController {
     }
 }
 
-extension DetailWordViewController: SelectVocaViewControllerDelegate {
-    func selectVocaViewController(didTapGroup group: Group) {
-        self.newGroup = group
-        self.folderButton.folderLabel.text = group.title
+extension DetailWordViewController: SelectFolderViewControllerDelegate {
+    func selectFolderViewController(didTapFolder folder: Folder) {
+        self.newGroup = folder
+        self.folderButton.folderLabel.text = folder.name
     }
 }
 

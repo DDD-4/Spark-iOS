@@ -12,7 +12,7 @@ import RxCocoa
 import PoingVocaSubsystem
 
 protocol SelectViewModelOutput {
-    var groups: BehaviorRelay<[Group]> { get}
+    var groups: BehaviorRelay<[FolderCoreData]> { get}
 }
 
 protocol SelectViewModelInput {
@@ -30,7 +30,7 @@ class SelectViewModel: SelectViewModelType, SelectViewModelInput, SelectViewMode
     
     var output: SelectViewModelOutput { return self }
     
-    var groups: BehaviorRelay<[Group]>
+    var groups: BehaviorRelay<[FolderCoreData]>
 
     init() {
         groups = BehaviorRelay(value: VocaManager.shared.groups ?? [])

@@ -14,7 +14,7 @@ import PoingVocaSubsystem
 import PoingDesignSystem
 
 protocol SelectFolderViewControllerDelegate: class {
-    func selectFolderViewController(didTapFolder folder: Group)
+    func selectFolderViewController(didTapFolder folder: Folder)
 }
 
 class SelectFolderViewController: UIViewController {
@@ -139,7 +139,9 @@ extension SelectFolderViewController: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            navigationController?.pushViewController(AddFolderViewController(), animated: true)
+            // TODO: 만약 온라인 모드이면 변경 사항을 현재 뷰컨으로 update해야합니다
+            let myFolderDetailViewController = MyFolderDetailViewController(viewType: .add)
+            navigationController?.pushViewController(myFolderDetailViewController, animated: true)
         } else {
             delegate?.selectFolderViewController(didTapFolder: viewModel.output.groups.value[indexPath.item - 1])
             navigationController?.popViewController(animated: true)

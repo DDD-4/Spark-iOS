@@ -69,6 +69,7 @@ class SettingViewController: UIViewController {
             forCellReuseIdentifier: SettingMyInfoCell.reuseIdentifier
         )
         tableView.separatorStyle = .none
+        tableView.contentInset.bottom = Constant.Floating.height + (hasTopNotch ? bottomSafeInset : 32)
         return tableView
     }()
     
@@ -81,7 +82,7 @@ class SettingViewController: UIViewController {
 
             }),
             Option(title: "폴더 편집", rightType: .arrow, handler: { [weak self] in
-                let viewController = EditMyVocaGroupViewController()
+                let viewController = EditMyFolderViewController()
                 self?.navigationController?.pushViewController(viewController, animated: true)
 
             }),
@@ -91,11 +92,16 @@ class SettingViewController: UIViewController {
             Option(title: "탈퇴하기", rightType: nil, handler: {
 
             }),
-            Option(title: "모든 데이터 삭제하기", rightType: nil, handler: {
-                VocaManager.shared.deleteAllGroup()
-                LoadCoreDataManager.shared.deleteLoadTime()
-            }),
         ]
+
+        #if DEBUG
+        let option = Option(title: "모든 데이터 삭제하기 (only for dev)", rightType: nil, handler: {
+            VocaManager.shared.deleteAllGroup()
+            LoadCoreDataManager.shared.deleteLoadTime()
+        })
+        options.append(option)
+        #endif
+
     }
 
     required init?(coder: NSCoder) {
