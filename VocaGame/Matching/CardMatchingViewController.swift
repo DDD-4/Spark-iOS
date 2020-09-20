@@ -57,6 +57,9 @@ public class CardMatchingViewController: UIViewController {
 
         return nil
     }
+
+    private var scoreAnimationView: ScoreAnimateView?
+
     lazy var progressNavigationView: ProgressBarNavigationView = {
         let view = ProgressBarNavigationView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -161,22 +164,27 @@ public class CardMatchingViewController: UIViewController {
 
         if cards[first].uuid == cards[second].uuid {
             currectCardCount += 1
-            currectCard(row: first)
-            currectCard(row: second)
-            correctCardRow.append(first)
-            correctCardRow.append(second)
+            correctCard(first: first, second: second)
+        } else {
+            incorrectCard(first: first, second: second)
         }
     }
 
-    func deselectCardIsNeeded() {
-        if selectedCardRow.count > Constant.maxSelectedCount {
-            let first = selectedCardRow[0]
-            let second = selectedCardRow[1]
-            if cards[first].uuid != cards[second].uuid {
-                deSelectCard(row: first)
-                deSelectCard(row: second)
-            }
-        }
+    func correctCard(first: Int, second: Int) {
+        correctAnimation()
+
+        currectCard(row: first)
+        currectCard(row: second)
+
+        correctCardRow.append(first)
+        correctCardRow.append(second)
+    }
+
+    func incorrectCard(first: Int, second: Int) {
+        incorrectAnimation()
+        
+        deSelectCard(row: first)
+        deSelectCard(row: second)
     }
 
     func currectCard(row: Int) {
@@ -202,12 +210,38 @@ public class CardMatchingViewController: UIViewController {
         cell.setNeedsLayout()
     }
 
+    func correctAnimation() {
+        scoreAnimationView?.removeFromSuperview()
+        let animateView = ScoreAnimateView(type: .Correct)
+        scoreAnimationView = animateView
+
+        view.addSubview(animateView)
+        animateView.frame = view.frame
+
+        animateView.startAnimation { [weak self] in
+            self?.scoreAnimationView?.removeFromSuperview()
+        }
+    }
+
+    func incorrectAnimation() {
+        scoreAnimationView?.removeFromSuperview()
+        let animateView = ScoreAnimateView(type: .Incorrect)
+        scoreAnimationView = animateView
+
+        view.addSubview(animateView)
+        animateView.frame = view.frame
+
+        animateView.startAnimation { [weak self] in
+            self?.scoreAnimationView?.removeFromSuperview()
+        }
+    }
+
     @objc func closeDidTap(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 
     func getMaxCount(words: [WordCoreData]) -> Int {
-        let wordCount = words.count / 2
+        let wordCount = words.count
         if wordCount < 4 {
             return 0
         } else if 4 <= wordCount && wordCount < 6 {
@@ -244,7 +278,6 @@ extension CardMatchingViewController: UICollectionViewDataSource {
         }
         SelectCard(row: indexPath.row)
         isMatching()
-        deselectCardIsNeeded()
     }
 }
 
