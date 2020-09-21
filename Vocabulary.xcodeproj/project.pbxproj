@@ -73,6 +73,8 @@
 		7D702D3B24F98473008F21F9 /* VocaForAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D702D3A24F98473008F21F9 /* VocaForAllCell.swift */; };
 		7D7191922515F1BA005B835E /* VocaForAllDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7191912515F1BA005B835E /* VocaForAllDetailViewModel.swift */; };
 		7D72ABEA24F3FBFF00A01BCC /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72ABE924F3FBFF00A01BCC /* DummyData.swift */; };
+		7D763CAC25176CD700AA13BD /* ScoreAnimateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D763CAB25176CD700AA13BD /* ScoreAnimateView.swift */; };
+		7D763CAD2517839800AA13BD /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D477D7A24E2C3C7004A7F17 /* Media.xcassets */; };
 		7D790FA224F9624A0034BC1D /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7D790FA324F9624A0034BC1D /* PoingDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D790FA724F9624D0034BC1D /* PoingVocaSubsystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AEA24DC2DF2008812CD /* PoingVocaSubsystem.framework */; };
@@ -296,6 +298,7 @@
 		7D72ABE924F3FBFF00A01BCC /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		7D72ABEB24F4007200A01BCC /* VocaForAllDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaForAllDetailViewController.swift; sourceTree = "<group>"; };
 		7D72ABED24F404BD00A01BCC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		7D763CAB25176CD700AA13BD /* ScoreAnimateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreAnimateView.swift; sourceTree = "<group>"; };
 		7D7F602324F29226007021C6 /* LoadCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCoreDataManager.swift; sourceTree = "<group>"; };
 		7D8029752512744A0057934E /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		7D802977251274B90057934E /* FolderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderService.swift; sourceTree = "<group>"; };
@@ -806,12 +809,13 @@
 		CEFED48024D5C8C2002E858C /* VocaGame */ = {
 			isa = PBXGroup;
 			children = (
-				7D16CBBE24E8D6AC00C95F8D /* Flip */,
-				7D16CBCB24E8D6AD00C95F8D /* Matching */,
 				CEFED48124D5C8C2002E858C /* VocaGame.h */,
 				CEFED48224D5C8C2002E858C /* Info.plist */,
 				7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */,
+				7D763CAB25176CD700AA13BD /* ScoreAnimateView.swift */,
 				7D477D7A24E2C3C7004A7F17 /* Media.xcassets */,
+				7D16CBBE24E8D6AC00C95F8D /* Flip */,
+				7D16CBCB24E8D6AD00C95F8D /* Matching */,
 			);
 			path = VocaGame;
 			sourceTree = "<group>";
@@ -1045,6 +1049,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D763CAD2517839800AA13BD /* Media.xcassets in Resources */,
 				7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */,
 				7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */,
 				7D16CBBC24E5826300C95F8D /* BalsamiqSansBold.ttf in Resources */,
@@ -1381,6 +1386,7 @@
 				7D16CBD324E8D6AD00C95F8D /* FlipCardViewDelegate.swift in Sources */,
 				7D16CBDC24E8D6AD00C95F8D /* CardMatching.swift in Sources */,
 				7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */,
+				7D763CAC25176CD700AA13BD /* ScoreAnimateView.swift in Sources */,
 				7D16CBD224E8D6AD00C95F8D /* FlipCardViewDataSource.swift in Sources */,
 				7D16CBD424E8D6AD00C95F8D /* CardsDataModel.swift in Sources */,
 				7D16CBD624E8D6AD00C95F8D /* FlipCardView.swift in Sources */,

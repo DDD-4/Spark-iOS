@@ -69,6 +69,14 @@ public extension UIColor {
     class var grey244: UIColor {
       return UIColor(white: 244.0 / 255.0, alpha: 1.0)
     }
+
+    class var goldenYellow40: UIColor {
+      return UIColor(red: 1.0, green: 218.0 / 255.0, blue: 19.0 / 255.0, alpha: 0.4)
+    }
+
+    class var orangered40: UIColor {
+      return UIColor(red: 1.0, green: 63.0 / 255.0, blue: 12.0 / 255.0, alpha: 0.4)
+    }
 }
 
 public extension UIColor {
