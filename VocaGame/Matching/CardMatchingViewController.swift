@@ -43,6 +43,8 @@ public class CardMatchingViewController: UIViewController {
         }
     }
 
+    var completeCardCount: Int = 0
+
     var gridType: CardMatchingGrid? {
         let wordCount = cards.count / 2
         if wordCount < 4 {
@@ -93,11 +95,10 @@ public class CardMatchingViewController: UIViewController {
 
     public init(words: [WordCoreData]) {
         super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle = .fullScreen
-        modalTransitionStyle = .coverVertical
 
         let shuffledWord = words.shuffled()
-        let currentWord = shuffledWord[0...getMaxCount(words: words) - 1]
+        completeCardCount = getMaxCount(words: words)
+        let currentWord = shuffledWord[0...completeCardCount - 1]
 
         for word in currentWord {
             guard let imageData = word.image,
@@ -165,6 +166,11 @@ public class CardMatchingViewController: UIViewController {
         if cards[first].uuid == cards[second].uuid {
             currectCardCount += 1
             correctCard(first: first, second: second)
+
+
+            if currectCardCount == completeCardCount {
+                present(StudyCompleteViewController(), animated: true, completion: nil)
+            }
         } else {
             incorrectCard(first: first, second: second)
         }

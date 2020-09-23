@@ -64,18 +64,21 @@ public extension UIColor {
 
     class var midnight: UIColor {
         return UIColor(red: 4.0 / 255.0, green: 10.0 / 255.0, blue: 36.0 / 255.0, alpha: 1.0)
-      }
-
-    class var grey244: UIColor {
-      return UIColor(white: 244.0 / 255.0, alpha: 1.0)
     }
 
+    class var grey244: UIColor {
+        return UIColor(white: 244.0 / 255.0, alpha: 1.0)
+    }
     class var goldenYellow40: UIColor {
-      return UIColor(red: 1.0, green: 218.0 / 255.0, blue: 19.0 / 255.0, alpha: 0.4)
+        return UIColor(red: 1.0, green: 218.0 / 255.0, blue: 19.0 / 255.0, alpha: 0.4)
     }
 
     class var orangered40: UIColor {
-      return UIColor(red: 1.0, green: 63.0 / 255.0, blue: 12.0 / 255.0, alpha: 0.4)
+        return UIColor(red: 1.0, green: 63.0 / 255.0, blue: 12.0 / 255.0, alpha: 0.4)
+    }
+    
+    class var confettiBlue: UIColor {
+        return UIColor(red: 81.0 / 255.0, green: 226.0 / 255.0, blue: 250.0 / 255.0, alpha: 1.0)
     }
 }
 
@@ -91,8 +94,8 @@ public extension UIColor {
             alpha: 1
         )
     }
-    
+
     @nonobjc class var brownGrey: UIColor {
-      return UIColor(white: 174.0 / 255.0, alpha: 1.0)
+        return UIColor(white: 174.0 / 255.0, alpha: 1.0)
     }
 }
