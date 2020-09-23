@@ -404,9 +404,6 @@ class DetailWordViewController: UIViewController {
             }
             return
         }
-        guard let deleteGroup = self.getGroup else {
-            return
-        }
 
         // TODO: Add server
         
@@ -443,6 +440,9 @@ class DetailWordViewController: UIViewController {
         case .edit:
             // TODO: Add server flag
 
+            guard let deleteGroup = self.getGroup else {
+                return
+            }
             guard let addFolder = addGroup as? FolderCoreData,
                   let deleteFolder = deleteGroup as? FolderCoreData,
                 let deleteWord = self.getWord as? WordCoreData else {

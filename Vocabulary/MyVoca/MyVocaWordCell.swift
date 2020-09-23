@@ -8,17 +8,19 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
 import PoingVocaSubsystem
+import PoingDesignSystem
 
 protocol MyVocaWordCellDelegate: class {
     func myVocaWord(didTapEdit button: UIButton, selectedWord word: Word)
-    func myVocaWord(didTapMic button: UIButton, selectedWord word: Word)
+    func myVocaWord(_ cell: UICollectionViewCell, didTapMic button: UIButton, selectedWord word: Word)
 }
 
 class MyVocaWordCell: UICollectionViewCell {
-
+    
     static let reuseIdentifier = String(describing: MyVocaWordCell.self)
-
+    
     enum Constant {
         static let sideMargin: CGFloat = 16
         enum Image {
@@ -33,15 +35,16 @@ class MyVocaWordCell: UICollectionViewCell {
             static let width: CGFloat = 18
         }
         static let micImage: UIImage? = UIImage(named: "icVoice")
+        static let touchedMicImage: UIImage? = UIImage(named: "icVoiceSpeaking")
         static let micImageHeight: CGFloat = 48
         static let imageRadius: CGFloat = 12
-
+        
     }
-
+    
     weak var delegate: MyVocaWordCellDelegate?
-
+    
     var word: Word?
-
+    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,15 +54,16 @@ class MyVocaWordCell: UICollectionViewCell {
         imageView.backgroundColor = .lightGray
         return imageView
     }()
-
+    
     lazy var micButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(Constant.micImage, for: .normal)
+        button.setImage(Constant.touchedMicImage, for: .selected)
         button.addTarget(self, action: #selector(micButtonDidTap(_:)), for: .touchUpInside)
         return button
     }()
-
+    
     lazy var textContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +80,7 @@ class MyVocaWordCell: UICollectionViewCell {
         view.backgroundColor = .white
         return view
     }()
-
+    
     lazy var textStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [englishLabel, koreanLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -86,8 +90,8 @@ class MyVocaWordCell: UICollectionViewCell {
         stack.spacing = 3
         return stack
     }()
-
-
+    
+    
     lazy var englishLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +104,7 @@ class MyVocaWordCell: UICollectionViewCell {
         label.minimumScaleFactor = 0.5
         return label
     }()
-
+    
     lazy var koreanLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -110,27 +114,27 @@ class MyVocaWordCell: UICollectionViewCell {
         label.numberOfLines = 0
         return label
     }()
-
+    
     lazy var editButton: UIButton = {
-      let button = UIButton()
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "icnEdit"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(editButtonDidTap(_:)), for: .touchUpInside)
-      return button
+        return button
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
         clipsToBounds = false
         configureLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func configure(word: Word) {
         self.word = word
         englishLabel.text = word.english
@@ -142,17 +146,21 @@ class MyVocaWordCell: UICollectionViewCell {
             // TODO: 서버용
         }
     }
-
+    
+    override func prepareForReuse() {
+        self.layer.sublayers?.removeAll()
+    }
+    
     func configureLayout() {
         clipsToBounds = false
         backgroundColor = .clear
-
+        
         contentView.addSubview(editButton)
         contentView.addSubview(textContentView)
         contentView.addSubview(imageView)
         contentView.addSubview(micButton)
         textContentView.addSubview(textStackView)
-
+        
         imageView.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top)
             make.centerX.equalTo(contentView.snp.centerX)
@@ -179,20 +187,36 @@ class MyVocaWordCell: UICollectionViewCell {
             make.leading.trailing.equalTo(textContentView)
             make.bottom.equalTo(textContentView).offset(-28)
         }
-
+        
     }
-
+    
     @objc func editButtonDidTap(_ sender: UIButton) {
         guard let word = word else {
             return
         }
         delegate?.myVocaWord(didTapEdit: sender, selectedWord: word)
     }
-
+    
     @objc func micButtonDidTap(_ sender: UIButton) {
+        stopAnimation()
         guard let word = word else {
             return
         }
-        delegate?.myVocaWord(didTapMic: sender, selectedWord: word)
+        self.micButton.isSelected = true
+        layer.speed = 0.3
+        let pulse = PulseAnimation(numberOfPulses: 3, radius: Constant.micImageHeight * 1.2, position: self.micButton.center)
+        pulse.animationDuration = 0.3
+        pulse.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.8690668736, blue: 0.5490196347, alpha: 1)
+        self.layer.insertSublayer(pulse, below: self.layer)
+
+        delegate?.myVocaWord(self, didTapMic: sender, selectedWord: word)
+    }
+    
+    public func stopAnimation() {
+        layer.removeAllAnimations()
+        layer.speed = 0
+        self.micButton.isSelected = false
     }
 }
+
+

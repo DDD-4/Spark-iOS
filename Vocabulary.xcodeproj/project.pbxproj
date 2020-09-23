@@ -10,6 +10,7 @@
 		060A2BFF3328CFC53FBFBE42 /* Pods_VocaGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4478D4B7DA4E6BD69D08D8DE /* Pods_VocaGame.framework */; };
 		1238287CFA7BC45ADFF42843 /* Pods_PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED704EC38B4DD6954EB8967E /* Pods_PoingDesignSystem.framework */; };
 		181D304A2515CA0A0002BBFE /* CancelPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181D30492515CA0A0002BBFE /* CancelPopupViewController.swift */; };
+		181D305825175CBB0002BBFE /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181D305725175CBB0002BBFE /* PulseAnimation.swift */; };
 		1833D74A24E78A3C0085DDF6 /* SelectVocaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */; };
 		1833D74B24E78A3C0085DDF6 /* TakePictureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74624E78A3C0085DDF6 /* TakePictureController.swift */; };
 		1833D74C24E78A3C0085DDF6 /* SelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833D74724E78A3C0085DDF6 /* SelectViewModel.swift */; };
@@ -232,6 +233,7 @@
 
 /* Begin PBXFileReference section */
 		181D30492515CA0A0002BBFE /* CancelPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelPopupViewController.swift; sourceTree = "<group>"; };
+		181D305725175CBB0002BBFE /* PulseAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
 		1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectVocaTableViewCell.swift; sourceTree = "<group>"; };
 		1833D74624E78A3C0085DDF6 /* TakePictureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePictureController.swift; sourceTree = "<group>"; };
 		1833D74724E78A3C0085DDF6 /* SelectViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectViewModel.swift; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 				1877C0002503C65D00C29ECE /* SelectFolderButton.swift */,
 				7DDB4B0924DC2E0A008812CD /* NavigationView */,
 				7DF47BED24F6A4CF00C4E2CB /* AccentLineTextField.swift */,
+				181D305725175CBB0002BBFE /* PulseAnimation.swift */,
 			);
 			path = PoingDesignSystem;
 			sourceTree = "<group>";
@@ -1325,6 +1328,7 @@
 				7DF47BEE24F6A4CF00C4E2CB /* AccentLineTextField.swift in Sources */,
 				7DDB4B3324DC337E008812CD /* SideNavigationView.swift in Sources */,
 				7DDB4B1324DC2E1E008812CD /* VDSTextField.swift in Sources */,
+				181D305825175CBB0002BBFE /* PulseAnimation.swift in Sources */,
 				1877C0012503C65D00C29ECE /* SelectFolderButton.swift in Sources */,
 				7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */,
 				7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */,
