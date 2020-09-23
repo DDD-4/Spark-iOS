@@ -272,9 +272,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard currentViewType == .vocaForAll else {
-            return
-        }
+        guard currentViewType == .vocaForAll else { return }
         
         let type = vocaForAllViewModel.inputs.orderType.value
         
@@ -383,7 +381,7 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
     }
     
     func myVocaWord(_ cell: UICollectionViewCell, didTapMic button: UIButton, selectedWord word: Word) {
-       //currentSynthesizerCellRow = cell.tag
+ 
         currentSynthesizerCellRow = cell.tag
         let englishWord = word.english
         synthesizer.stopSpeaking(at: .immediate)
@@ -397,9 +395,7 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
 extension MyVocaViewController: AVSpeechSynthesizerDelegate {
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        
-        // 여기서 스피킹이 끝났을 경우 애니메이션을 끝낸다.
-        print("end")
+
         if let currentRow = currentSynthesizerCellRow,
           let currentCell = groupNameCollectionView.cellForItem(at: IndexPath(row: currentRow, section: 0)) as? MyVocaWordCell {
           currentCell.stopAnimation()
