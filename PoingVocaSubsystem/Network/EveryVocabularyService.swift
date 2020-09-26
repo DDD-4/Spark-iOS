@@ -8,8 +8,13 @@
 
 import Moya
 
+public enum EveryVocabularySortType: String {
+    case latest = "LATEST"
+    case popular = "POPULAR"
+}
+
 enum EveryVocabularyService {
-    case getEveryVocabularies
+    case getEveryVocabularies(sortType: EveryVocabularySortType)
     case getEveryVocabulariesFolder(folderId: Int)
     case getEveryVocabulariesDownload(downloadFolderId: Int, myFolderId: Int)
 
@@ -23,13 +28,14 @@ extension EveryVocabularyService: TargetType {
     var path: String {
         switch self {
         case .getEveryVocabularies:
-            return "v1/every-vocabularies"
+            return "v1/every-vocabularies/"
         case .getEveryVocabulariesFolder(let folderId):
             return "v1/every-vocabularies/folders/\(folderId)"
         case .getEveryVocabulariesDownload(let downloadFolderId, _):
             return "v1/every-vocabularies/folders/\(downloadFolderId)"
         }
     }
+
 
     var method: Moya.Method {
         switch self {
@@ -46,8 +52,11 @@ extension EveryVocabularyService: TargetType {
 
     var task: Task {
         switch self {
-        case .getEveryVocabularies:
-            return .requestPlain
+        case .getEveryVocabularies(let sortType):
+            let params: [String : Any] = [
+                "sortType" : sortType.rawValue,
+            ]
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .getEveryVocabulariesFolder:
             return .requestPlain
         case .getEveryVocabulariesDownload(_, let myFolderId):

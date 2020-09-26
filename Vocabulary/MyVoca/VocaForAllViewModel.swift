@@ -12,14 +12,14 @@ import RxCocoa
 import PoingVocaSubsystem
 
 enum VocaForAllOrderType: Int, CaseIterable {
-    case recent
+    case latest
     case popular
 
     var description: String {
         switch self {
         case .popular:
             return "인기순"
-        case .recent:
+        case .latest:
             return "최신순"
         }
     }
@@ -51,14 +51,14 @@ class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, Vo
     var disposeBag = DisposeBag()
     
     init() {
-        orderType = BehaviorRelay<VocaForAllOrderType>(value: .recent)
+        orderType = BehaviorRelay<VocaForAllOrderType>(value: .latest)
         vocaForAllList = BehaviorRelay<[EveryVocaContent]>(value: [])
 
         orderType.bind{ [weak self] (type) in
             guard let self = self else { return }
             switch type {
             // TODO: Apply sort type
-            case .popular, .recent:
+            case .popular, .latest:
                 self.fetchVocaForAllData()
             }
         }.disposed(by: disposeBag)
@@ -66,10 +66,14 @@ class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, Vo
     }
 
     private func fetchVocaForAllData() {
-        EveryVocabularyController.shared.getEveryVocabularies()
+        let orderType: EveryVocabularySortType = (self.orderType.value == .popular)
+            ? .popular
+            : .latest
+
+        EveryVocabularyController.shared.getEveryVocabularies(sortType: orderType)
             .subscribe { [weak self] (response) in
-                guard let self = self else { return }
-                self.vocaForAllList.accept(response.element?.content ?? [])
+                guard let self = self, let element = response.element else { return }
+                self.vocaForAllList.accept(element.content)
             }
             .disposed(by: disposeBag)
     }

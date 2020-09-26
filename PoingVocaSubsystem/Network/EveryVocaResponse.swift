@@ -15,7 +15,7 @@ public struct EveryVocaResponse: Codable {
     public let last: Bool
     public let number: Int
     public let numberOfElements: Int
-    public let pageable: Pageable
+    public let pageable: Pageable?
     public let size: Int
     public let sort: Sort
     public let totalElements: Int

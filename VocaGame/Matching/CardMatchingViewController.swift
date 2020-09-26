@@ -18,6 +18,10 @@ var hasTopNotch: Bool {
   return false
 }
 
+var bottomSafeInset: CGFloat {
+    UIApplication.shared.delegate?.window??.safeAreaInsets.bottom ?? 0
+}
+
 public class CardMatchingViewController: UIViewController {
 
     struct CardMatchingGrid {
@@ -42,6 +46,8 @@ public class CardMatchingViewController: UIViewController {
             progressNavigationView.setProgress(index: currectCardCount)
         }
     }
+
+    var completeCardCount: Int = 0
 
     var gridType: CardMatchingGrid? {
         let wordCount = cards.count / 2
@@ -91,33 +97,47 @@ public class CardMatchingViewController: UIViewController {
 
     var cardHeightConstraint: NSLayoutConstraint?
 
-    public init(words: [WordCoreData]) {
+    public init(words: [Word]) {
         super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle = .fullScreen
-        modalTransitionStyle = .coverVertical
 
         let shuffledWord = words.shuffled()
-        let currentWord = shuffledWord[0...getMaxCount(words: words) - 1]
+        completeCardCount = getMaxCount(words: words)
+        let currentWord = shuffledWord[0...completeCardCount - 1]
 
         for word in currentWord {
-            guard let imageData = word.image,
-                let wordImage = UIImage(data: imageData) else {
-                continue
-            }
             let english = word.english
             let currentUUID = UUID()
             let color = UIColor().HSBRandomColor()
-            let image = CardMatching(
-                contentType: .image(wordImage),
-                uuid: currentUUID,
-                color: color
-            )
+
+            let imageCard: CardMatching
+            if let wordCoreData = word as? WordCoreData {
+                guard let imageData = wordCoreData.image,
+                      let wordImage = UIImage(data: imageData) else {
+                    continue
+                }
+
+                imageCard = CardMatching(
+                    contentType: .image(wordImage),
+                    uuid: currentUUID,
+                    color: color
+                )
+            } else {
+                guard let imageURLString = word.photoUrl,
+                      let imageURL = URL(string: imageURLString) else {
+                    continue
+                }
+                imageCard = CardMatching(
+                    contentType: .imageURL(imageURL),
+                    uuid: currentUUID,
+                    color: color
+                )
+            }
             let word = CardMatching(
                 contentType: .text(english),
                 uuid: currentUUID,
                 color: color
             )
-            cards.append(image)
+            cards.append(imageCard)
             cards.append(word)
         }
 
@@ -165,6 +185,13 @@ public class CardMatchingViewController: UIViewController {
         if cards[first].uuid == cards[second].uuid {
             currectCardCount += 1
             correctCard(first: first, second: second)
+
+
+            if currectCardCount == completeCardCount {
+                let completeViewController = VocaGame.GameCompleteViewController()
+                completeViewController.delegate = self
+                present(completeViewController, animated: true, completion: nil)
+            }
         } else {
             incorrectCard(first: first, second: second)
         }
@@ -240,7 +267,7 @@ public class CardMatchingViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    func getMaxCount(words: [WordCoreData]) -> Int {
+    func getMaxCount(words: [Word]) -> Int {
         let wordCount = words.count
         if wordCount < 4 {
             return 0
@@ -324,5 +351,19 @@ extension CardMatchingViewController: UICollectionViewDelegate, UICollectionView
         }
 
         return CGSize(width: Int(cellWidth), height: Int(cellHeight))
+    }
+}
+
+extension CardMatchingViewController: GameCompleteViewControllerDelegate {
+    public func GameCompleteViewController(_ viewController: GameCompleteViewController, didTapClose button: UIButton) {
+        dismiss(animated: true) { [weak self] in
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+
+    public func GameCompleteViewController(_ viewController: GameCompleteViewController, didTapRetry button: UIButton) {
+        dismiss(animated: true) { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
 }
