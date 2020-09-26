@@ -45,7 +45,6 @@
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
 		7D396E4E2513C42F005D6E9C /* MyVocaOnlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D396E4D2513C42F005D6E9C /* MyVocaOnlineViewModel.swift */; };
-		7D3D6B0725151CA7007950F7 /* ModeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D6B0625151CA7007950F7 /* ModeConfig.swift */; };
 		7D3D6B09251523E3007950F7 /* MyFolderDetailOnlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D6B08251523E3007950F7 /* MyFolderDetailOnlineViewModel.swift */; };
 		7D3D6B0B251523F1007950F7 /* MyFolderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D6B0A251523F1007950F7 /* MyFolderDetailViewModel.swift */; };
 		7D4081BD24F3EA49004FDC60 /* VocaDownloadAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4081BC24F3EA49004FDC60 /* VocaDownloadAgent.swift */; };
@@ -59,8 +58,6 @@
 		7D4C9933250D27FA005F1619 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9930250D27FA005F1619 /* LoginViewController.swift */; };
 		7D4C9934250D27FA005F1619 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */; };
 		7D4C9935250D27FA005F1619 /* AppleLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */; };
-		7D5323B92515C1F3005B76A2 /* ModeConfigStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5323B82515C1F3005B76A2 /* ModeConfigStateView.swift */; };
-		7D5323BB2515C298005B76A2 /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5323BA2515C298005B76A2 /* Notification.Name+.swift */; };
 		7D5C34E62512608900A9933F /* EveryVocabularyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5C34DA2512382800A9933F /* EveryVocabularyService.swift */; };
 		7D5C34E72512608E00A9933F /* EveryVocaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5C34DC25123C7600A9933F /* EveryVocaResponse.swift */; };
 		7D5C34E82512609100A9933F /* EveryVocabularyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5C34E12512408200A9933F /* EveryVocabularyController.swift */; };
@@ -89,7 +86,7 @@
 		7D80297A251277E90057934E /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D802979251277E90057934E /* FolderController.swift */; };
 		7D80297C251281810057934E /* ServerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D80297B251281810057934E /* ServerURL.swift */; };
 		7D8755DC251A370200618D32 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D477D7A24E2C3C7004A7F17 /* Media.xcassets */; };
-		7D8755E0251A37EF00618D32 /* StudyCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8755DF251A37EF00618D32 /* StudyCompleteViewController.swift */; };
+		7D8755E0251A37EF00618D32 /* GameCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8755DF251A37EF00618D32 /* GameCompleteViewController.swift */; };
 		7D88184E24F6AA8A005A157E /* AccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88184D24F6AA8A005A157E /* AccentButton.swift */; };
 		7D88185224F6C960005A157E /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88185124F6C960005A157E /* String+.swift */; };
 		7D88185424F7609E005A157E /* SettingMyInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88185324F7609E005A157E /* SettingMyInfoCell.swift */; };
@@ -97,6 +94,10 @@
 		7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A024E17DD3000D8559 /* HomeViewController.swift */; };
 		7D88E2A324E17F32000D8559 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */; };
 		7D94D048251A4CF200DD194F /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D94D045251A4C4500DD194F /* ConfettiView.swift */; };
+		7D94D04B251CB41300DD194F /* SelectFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D94D04A251CB41300DD194F /* SelectFolderViewController.swift */; };
+		7D94D04D251CB4F300DD194F /* SelectFolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D94D04C251CB4F300DD194F /* SelectFolderCell.swift */; };
+		7D94D063251CE8B000DD194F /* SelectFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D94D062251CE8B000DD194F /* SelectFolderViewModel.swift */; };
+		7D94D065251CEF0A00DD194F /* GameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D94D064251CEF0A00DD194F /* GameType.swift */; };
 		7DA59C7D24FCFFDF001E7D7D /* VocaHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA59C7C24FCFFDF001E7D7D /* VocaHeaderView.swift */; };
 		7DDB4ACE24DC2D6B008812CD /* PoingDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */; };
 		7DDB4AD524DC2D6B008812CD /* PoingDesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4AD424DC2D6B008812CD /* PoingDesignSystemTests.swift */; };
@@ -116,6 +117,13 @@
 		7DDB4B2124DC2E6E008812CD /* ManagedGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B1624DC2E6D008812CD /* ManagedGroup+CoreDataProperties.swift */; };
 		7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0724DC2E0A008812CD /* LeftTitleNavigationView.swift */; };
 		7DDB4B3324DC337E008812CD /* SideNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDB4B0824DC2E0A008812CD /* SideNavigationView.swift */; };
+		7DDC861A251EC8C6003904D6 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDC8619251EC8C6003904D6 /* RadioButton.swift */; };
+		7DDC861D251EE864003904D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
+		7DDC861E251EE865003904D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
+		7DDC861F251EE866003904D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
+		7DDC8621251EFE08003904D6 /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5323BA2515C298005B76A2 /* Notification.Name+.swift */; };
+		7DDC8622251EFE08003904D6 /* ModeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D6B0625151CA7007950F7 /* ModeConfig.swift */; };
+		7DDC8623251EFE08003904D6 /* ModeConfigStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5323B82515C1F3005B76A2 /* ModeConfigStateView.swift */; };
 		7DE758D224DDBB0E001922C6 /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE758D124DDBB0E001922C6 /* Notification.Name+.swift */; };
 		7DED513A2515299400FDB80E /* EditMyFolderOnlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED51392515299400FDB80E /* EditMyFolderOnlineViewModel.swift */; };
 		7DEF533724FC054D003F3AC9 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEF533624FC054D003F3AC9 /* MyProfileViewController.swift */; };
@@ -309,7 +317,7 @@
 		7D802979251277E90057934E /* FolderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderController.swift; sourceTree = "<group>"; };
 		7D80297B251281810057934E /* ServerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerURL.swift; sourceTree = "<group>"; };
 		7D8755DD251A371600618D32 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
-		7D8755DF251A37EF00618D32 /* StudyCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCompleteViewController.swift; sourceTree = "<group>"; };
+		7D8755DF251A37EF00618D32 /* GameCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCompleteViewController.swift; sourceTree = "<group>"; };
 		7D88184D24F6AA8A005A157E /* AccentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccentButton.swift; path = PoingDesignSystem/AccentButton.swift; sourceTree = SOURCE_ROOT; };
 		7D88185124F6C960005A157E /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		7D88185324F7609E005A157E /* SettingMyInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMyInfoCell.swift; sourceTree = "<group>"; };
@@ -317,6 +325,10 @@
 		7D88E2A024E17DD3000D8559 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7D88E2A224E17F32000D8559 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		7D94D045251A4C4500DD194F /* ConfettiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
+		7D94D04A251CB41300DD194F /* SelectFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderViewController.swift; sourceTree = "<group>"; };
+		7D94D04C251CB4F300DD194F /* SelectFolderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderCell.swift; sourceTree = "<group>"; };
+		7D94D062251CE8B000DD194F /* SelectFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFolderViewModel.swift; sourceTree = "<group>"; };
+		7D94D064251CEF0A00DD194F /* GameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameType.swift; sourceTree = "<group>"; };
 		7DA59C7C24FCFFDF001E7D7D /* VocaHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VocaHeaderView.swift; sourceTree = "<group>"; };
 		7DDB4AC524DC2D6B008812CD /* PoingDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PoingDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PoingDesignSystem.h; sourceTree = "<group>"; };
@@ -343,6 +355,7 @@
 		7DDB4B1924DC2E6D008812CD /* ManagedWord+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedWord+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7DDB4B1A24DC2E6D008812CD /* VocaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaManager.swift; sourceTree = "<group>"; };
 		7DDB4B1B24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7DDC8619251EC8C6003904D6 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		7DE758D124DDBB0E001922C6 /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
 		7DED51392515299400FDB80E /* EditMyFolderOnlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyFolderOnlineViewModel.swift; sourceTree = "<group>"; };
 		7DEF533624FC054D003F3AC9 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
@@ -669,22 +682,23 @@
 		7DDB4AC624DC2D6B008812CD /* PoingDesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */,
-				7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */,
-				7D16CBB724E5804400C95F8D /* Resources */,
-				7D477D7624E193C9004A7F17 /* CALayer+.swift */,
-				7D88184D24F6AA8A005A157E /* AccentButton.swift */,
 				7DDB4AC724DC2D6B008812CD /* PoingDesignSystem.h */,
 				7DDB4AC824DC2D6B008812CD /* Info.plist */,
+				7D88184D24F6AA8A005A157E /* AccentButton.swift */,
+				7DF47BED24F6A4CF00C4E2CB /* AccentLineTextField.swift */,
+				7D6AFDC12507974C0050CED4 /* AddWordTextField.swift */,
+				7D477D7624E193C9004A7F17 /* CALayer+.swift */,
 				7DDB4B0A24DC2E1D008812CD /* NoticePopupViewController.swift */,
+				181D305725175CBB0002BBFE /* PulseAnimation.swift */,
+				7DDC8619251EC8C6003904D6 /* RadioButton.swift */,
+				7D6AFDC32507976A0050CED4 /* SelectFolderButton.swift */,
 				7DDB4B0D24DC2E1E008812CD /* UIColor+.swift */,
 				7DDB4B0B24DC2E1D008812CD /* UIFont+.swift */,
 				7DDB4B0C24DC2E1D008812CD /* VDSTextField.swift */,
+				7DDB4B0924DC2E0A008812CD /* NavigationView */,
+				7D16CBB724E5804400C95F8D /* Resources */,
 				1877BFFE250359E100C29ECE /* AddWordTextField.swift */,
 				1877C0002503C65D00C29ECE /* SelectFolderButton.swift */,
-				7DDB4B0924DC2E0A008812CD /* NavigationView */,
-				7DF47BED24F6A4CF00C4E2CB /* AccentLineTextField.swift */,
-				181D305725175CBB0002BBFE /* PulseAnimation.swift */,
 			);
 			path = PoingDesignSystem;
 			sourceTree = "<group>";
@@ -812,12 +826,12 @@
 		CE8703C124D2F9F100DDFAD4 /* Utills */ = {
 			isa = PBXGroup;
 			children = (
+				7D5323BA2515C298005B76A2 /* Notification.Name+.swift */,
+				7D3D6B0625151CA7007950F7 /* ModeConfig.swift */,
+				7D5323B82515C1F3005B76A2 /* ModeConfigStateView.swift */,
 				CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */,
 				7D88185124F6C960005A157E /* String+.swift */,
 				7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */,
-				7D3D6B0625151CA7007950F7 /* ModeConfig.swift */,
-				7D5323B82515C1F3005B76A2 /* ModeConfigStateView.swift */,
-				7D5323BA2515C298005B76A2 /* Notification.Name+.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -836,9 +850,13 @@
 			children = (
 				CEFED48124D5C8C2002E858C /* VocaGame.h */,
 				CEFED48224D5C8C2002E858C /* Info.plist */,
+				7D94D064251CEF0A00DD194F /* GameType.swift */,
 				7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */,
 				7D763CAB25176CD700AA13BD /* ScoreAnimateView.swift */,
-				7D8755DF251A37EF00618D32 /* StudyCompleteViewController.swift */,
+				7D94D04C251CB4F300DD194F /* SelectFolderCell.swift */,
+				7D94D04A251CB41300DD194F /* SelectFolderViewController.swift */,
+				7D94D062251CE8B000DD194F /* SelectFolderViewModel.swift */,
+				7D8755DF251A37EF00618D32 /* GameCompleteViewController.swift */,
 				7D477D7A24E2C3C7004A7F17 /* Media.xcassets */,
 				7D94D044251A4C4500DD194F /* ConfettiAnimation */,
 				7D16CBBE24E8D6AC00C95F8D /* Flip */,
@@ -1089,6 +1107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D16CBB924E5805500C95F8D /* BalsamiqSansBold.ttf in Resources */,
+				7DDC861E251EE865003904D6 /* Assets.xcassets in Resources */,
 				7DEF533F24FC10A0003F3AC9 /* Quicksand-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1104,6 +1123,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DDC861F251EE866003904D6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,6 +1140,7 @@
 			files = (
 				7D16CBBD24E5826400C95F8D /* BalsamiqSansBold.ttf in Resources */,
 				7DEF533E24FC10A0003F3AC9 /* Quicksand-Bold.ttf in Resources */,
+				7DDC861D251EE864003904D6 /* Assets.xcassets in Resources */,
 				7D477D7B24E2C3C7004A7F17 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1312,25 +1333,25 @@
 				7D88E2A124E17DD3000D8559 /* HomeViewController.swift in Sources */,
 				7D0F433424F912CC006CC32B /* LoadingView.swift in Sources */,
 				7D14050824DE5F8E00F57260 /* EditMyVocaFolderViewModel.swift in Sources */,
-				7D5323B92515C1F3005B76A2 /* ModeConfigStateView.swift in Sources */,
 				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
 				7D4C992E250D27F2005F1619 /* SignInNameViewController.swift in Sources */,
 				187952CD24FB8BE500AAAA65 /* SelectFolderViewCell.swift in Sources */,
 				7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */,
 				7D396E4E2513C42F005D6E9C /* MyVocaOnlineViewModel.swift in Sources */,
-				7D5323BB2515C298005B76A2 /* Notification.Name+.swift in Sources */,
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
+				7DDC8621251EFE08003904D6 /* Notification.Name+.swift in Sources */,
 				7D4C9934250D27FA005F1619 /* AppleLoginButton.swift in Sources */,
 				CE1458F824D3193D004F2700 /* EditMyVocaFolderViewController.swift in Sources */,
 				7DEF533724FC054D003F3AC9 /* MyProfileViewController.swift in Sources */,
 				186E84CA24D1462E0094E9EB /* BaseButton.swift in Sources */,
 				CEFED47324D45291002E858C /* GameViewController.swift in Sources */,
+				7DDC8622251EFE08003904D6 /* ModeConfig.swift in Sources */,
 				7D4C992B250D27DE005F1619 /* UITapGestureRecognizer+.swift in Sources */,
 				7D6AFDC6250797930050CED4 /* SelectFolderViewController.swift in Sources */,
+				7DDC8623251EFE08003904D6 /* ModeConfigStateView.swift in Sources */,
 				7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */,
 				1833D75624E78A720085DDF6 /* SettingViewController.swift in Sources */,
 				7D4C9935250D27FA005F1619 /* AppleLoginHelper.swift in Sources */,
-				7D3D6B0725151CA7007950F7 /* ModeConfig.swift in Sources */,
 				CE4401B824CF33E70093D04B /* MyVocaViewController.swift in Sources */,
 				181D304A2515CA0A0002BBFE /* CancelPopupViewController.swift in Sources */,
 				7D4C9933250D27FA005F1619 /* LoginViewController.swift in Sources */,
@@ -1355,6 +1376,7 @@
 				181D305825175CBB0002BBFE /* PulseAnimation.swift in Sources */,
 				1877C0012503C65D00C29ECE /* SelectFolderButton.swift in Sources */,
 				7DDB4B3224DC337B008812CD /* LeftTitleNavigationView.swift in Sources */,
+				7DDC861A251EC8C6003904D6 /* RadioButton.swift in Sources */,
 				7D6F9D0624E2EE96005B6835 /* CALayer+.swift in Sources */,
 				7D88184E24F6AA8A005A157E /* AccentButton.swift in Sources */,
 				7DDB4B1024DC2E1E008812CD /* NoticePopupViewController.swift in Sources */,
@@ -1412,17 +1434,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D94D048251A4CF200DD194F /* ConfettiView.swift in Sources */,
+				7D94D063251CE8B000DD194F /* SelectFolderViewModel.swift in Sources */,
 				7D16CBD324E8D6AD00C95F8D /* FlipCardViewDelegate.swift in Sources */,
 				7D16CBDC24E8D6AD00C95F8D /* CardMatching.swift in Sources */,
+				7D94D04B251CB41300DD194F /* SelectFolderViewController.swift in Sources */,
 				7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */,
 				7D763CAC25176CD700AA13BD /* ScoreAnimateView.swift in Sources */,
 				7D16CBD224E8D6AD00C95F8D /* FlipCardViewDataSource.swift in Sources */,
 				7D16CBD424E8D6AD00C95F8D /* CardsDataModel.swift in Sources */,
 				7D16CBD624E8D6AD00C95F8D /* FlipCardView.swift in Sources */,
-				7D8755E0251A37EF00618D32 /* StudyCompleteViewController.swift in Sources */,
+				7D8755E0251A37EF00618D32 /* GameCompleteViewController.swift in Sources */,
+				7D94D065251CEF0A00DD194F /* GameType.swift in Sources */,
 				7D16CBDB24E8D6AD00C95F8D /* ImageWord.swift in Sources */,
 				7D16CBDA24E8D6AD00C95F8D /* CardMatchingViewController.swift in Sources */,
 				7D16CBD924E8D6AD00C95F8D /* CardCell.swift in Sources */,
+				7D94D04D251CB4F300DD194F /* SelectFolderCell.swift in Sources */,
 				7D16CBD524E8D6AD00C95F8D /* StackContainerView.swift in Sources */,
 				7D16CBD824E8D6AD00C95F8D /* FlipGameViewController.swift in Sources */,
 			);
@@ -1608,6 +1634,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3058D476938174BA00AE76FD /* Pods-Vocabulary.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1631,6 +1658,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F9AD3A526916EA462BD8F5D /* Pods-Vocabulary.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Vocabulary/Vocabulary.entitlements;
 				CODE_SIGN_STYLE = Automatic;

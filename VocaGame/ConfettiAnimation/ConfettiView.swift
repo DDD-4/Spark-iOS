@@ -22,9 +22,6 @@ class ConfettiView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        print(emitter)
-        print(frame)
         emitter.emitterPosition = CGPoint(x: center.x, y: -96)
         emitter.emitterShape = .line
         emitter.emitterSize = CGSize(width: frame.size.width, height: 1)

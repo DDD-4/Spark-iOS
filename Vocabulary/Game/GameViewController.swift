@@ -12,11 +12,6 @@ import VocaGame
 import PoingVocaSubsystem
 
 class GameViewController: UIViewController {
-    enum GameType: String {
-        case flip = "뒤집기"
-        case matching = "매칭 게임"
-    }
-
     enum Constant {
         static let backgroundColor = UIColor.gameBackgroundColor
         static let gameList: [GameType] = [.flip, .matching]
@@ -157,21 +152,23 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedGame = Constant.gameList[indexPath.row]
-        switch selectedGame {
-        case .flip:
-            navigationController?.pushViewController(FlipGameViewController(words: []), animated: true)
-        case .matching:
-            var words: [WordCoreData] = []
-            guard let groups = VocaManager.shared.groups else {
-                return
-            }
-            for group in groups {
-                words.append(contentsOf: group.words)
-            }
 
-            navigationController?.pushViewController(CardMatchingViewController(words: words), animated: true)
+        let selectedGame = Constant.gameList[indexPath.row]
+
+        let selectFolderViewController: VocaGame.SelectFolderViewController
+        if ModeConfig.shared.currentMode == .offline {
+            selectFolderViewController = VocaGame.SelectFolderViewController(
+                VocaManager.shared.groups ?? [],
+                gameType: selectedGame
+            )
+        } else {
+            selectFolderViewController = VocaGame.SelectFolderViewController(
+                FolderManager.shared.myFolders,
+                gameType: selectedGame
+            )
         }
+
+        navigationController?.pushViewController(selectFolderViewController, animated: true)
     }
 }
 

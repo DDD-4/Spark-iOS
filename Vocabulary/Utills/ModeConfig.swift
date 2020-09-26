@@ -8,15 +8,15 @@
 
 import Foundation
 
-enum ModeType {
+public enum ModeType {
     case offline
     case online
 }
 
-class ModeConfig {
-    static let shared = ModeConfig()
+public class ModeConfig {
+    public static let shared = ModeConfig()
 
-    var currentMode: ModeType = .offline {
+    public var currentMode: ModeType = .offline {
         didSet {
             NotificationCenter.default.post(name: Notification.Name.modeConfig, object: nil)
         }

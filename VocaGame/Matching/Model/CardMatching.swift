@@ -10,6 +10,7 @@ import UIKit
 class CardMatching {
     enum ContentType {
         case image(_ image: UIImage)
+        case imageURL(_ imageURL: URL)
         case text(_ text: String)
     }
 

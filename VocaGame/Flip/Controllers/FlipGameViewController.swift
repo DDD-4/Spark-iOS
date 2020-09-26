@@ -39,13 +39,39 @@ public class FlipGameViewController: UIViewController {
 
     //MARK: - Init
 
-    public init(words: [WordCoreData]) {
+    public init(words: [Word]) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
 
-        for word in words {
-            viewModelData.append(CardsDataModel(text: word.english ?? "", image: UIImage()))
+        if let wordCoreDataList = words as? [WordCoreData] {
+            for word in wordCoreDataList {
+                guard let imageData = word.image,
+                      let uiimage = UIImage(data: imageData) else {
+                    return
+                }
+
+                let cardDataModel = CardsDataModel(
+                    text: word.english,
+                    imageType: .uiimage(image: uiimage)
+                )
+
+                viewModelData.append(cardDataModel)
+            }
+        } else {
+            for word in words {
+                guard let photoString = word.photoUrl,
+                      let photoURL = URL(string: photoString) else {
+                    return
+                }
+
+                let cardDataModel = CardsDataModel(
+                    text: word.english,
+                    imageType: .photoURL(url: photoURL)
+                )
+
+                viewModelData.append(cardDataModel)
+            }
         }
     }
 
@@ -110,7 +136,9 @@ extension FlipGameViewController: StackContainerViewDelegate {
         _ view: StackContainerView,
         didCompleteCard: FlipCardView
     ) {
-        present(NoticePopupViewController(text: "모두 학습! 잘했어!"), animated: true, completion: nil)
+        let completeViewController = VocaGame.GameCompleteViewController()
+        completeViewController.delegate = self
+        present(completeViewController, animated: true, completion: nil)
     }
 
     func stackContainerView(
@@ -120,5 +148,19 @@ extension FlipGameViewController: StackContainerViewDelegate {
     ) {
         // index starts from 0.
         navigationView.setProgress(index: index + 1)
+    }
+}
+
+extension FlipGameViewController: GameCompleteViewControllerDelegate {
+    public func GameCompleteViewController(_ viewController: GameCompleteViewController, didTapClose button: UIButton) {
+        dismiss(animated: true) { [weak self] in
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+
+    public func GameCompleteViewController(_ viewController: GameCompleteViewController, didTapRetry button: UIButton) {
+        dismiss(animated: true) { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
 }

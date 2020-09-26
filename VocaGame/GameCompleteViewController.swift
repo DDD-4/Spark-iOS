@@ -1,5 +1,5 @@
 //
-//  StudyCompleteViewController.swift
+//  GameCompleteViewController.swift
 //  VocaGame
 //
 //  Created by LEE HAEUN on 2020/09/22.
@@ -10,15 +10,25 @@ import UIKit
 import PoingDesignSystem
 import SnapKit
 
-public class StudyCompleteViewController: UIViewController {
+public protocol GameCompleteViewControllerDelegate: class {
+    func GameCompleteViewController(
+        _ viewController: GameCompleteViewController,
+        didTapClose button: UIButton
+    )
+    func GameCompleteViewController(
+        _ viewController: GameCompleteViewController,
+        didTapRetry button: UIButton
+    )
+}
 
+public class GameCompleteViewController: UIViewController {
     lazy var navView: SideNavigationView = {
         let view = SideNavigationView(
             leftImage: UIImage.init(named: "iconClose"),
             centerTitle: nil,
             rightImage: nil
         )
-        view.leftSideButton.addTarget(self, action: #selector(closeDidTap(_:)), for: .touchUpInside)
+        view.leftSideButton.addTarget(self, action: #selector(didTapClose(_:)), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -74,11 +84,18 @@ public class StudyCompleteViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.setTitle("다시하기", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        button.addTarget(self, action: #selector(didTapRetry(_:)), for: .touchUpInside)
         return button
     }()
 
-    @objc func closeDidTap(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
+    weak var delegate: GameCompleteViewControllerDelegate?
+
+    @objc func didTapClose(_ sender: UIButton) {
+        delegate?.GameCompleteViewController(self, didTapClose: sender)
+    }
+
+    @objc func didTapRetry(_ sender: UIButton) {
+        delegate?.GameCompleteViewController(self, didTapRetry: sender)
     }
 
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

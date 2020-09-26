@@ -4,6 +4,7 @@ use_frameworks!
 
 def basicFrameworks
   pod 'SnapKit', '~> 5.0.0'
+  pod 'SDWebImage', '~> 5.0'
 end
 
 target 'Vocabulary' do
@@ -11,7 +12,6 @@ target 'Vocabulary' do
   # Pods for Vocabulary
   basicFrameworks
   pod 'SwiftLint'
-  pod 'SDWebImage', '~> 5.0'
   pod 'Moya/RxSwift'
   pod 'RxSwift'
   pod 'RxCocoa'
