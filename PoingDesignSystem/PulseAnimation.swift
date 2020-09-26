@@ -59,11 +59,19 @@ public class PulseAnimation: CALayer {
         return opacityAnimation
     }
     
+//    func setUpAnimationGroup() {
+//        self.animationGroup.duration = animationDuration
+//        self.animationGroup.repeatCount = numberOfPulses
+//        let defaulCurve = CAMediaTimingFunction(name: .default)
+//        self.animationGroup.timingFunction = defaulCurve
+//        self.animationGroup.animations = [scaleAnimation(), createOpacirtyAnimation()]
+//    }
+    
     func setUpAnimationGroup() {
-        self.animationGroup.duration = animationDuration
-        self.animationGroup.repeatCount = numberOfPulses
-        let defaulCurve = CAMediaTimingFunction(name: .default)
-        self.animationGroup.timingFunction = defaulCurve
-        self.animationGroup.animations = [scaleAnimation(), createOpacirtyAnimation()]
-    }
+          self.animationGroup.repeatCount = .greatestFiniteMagnitude
+          self.animationGroup.duration = animationDuration
+          let defaulCurve = CAMediaTimingFunction(name: .default)
+          self.animationGroup.timingFunction = defaulCurve
+          self.animationGroup.animations = [scaleAnimation(), createOpacirtyAnimation()]
+      }
 }

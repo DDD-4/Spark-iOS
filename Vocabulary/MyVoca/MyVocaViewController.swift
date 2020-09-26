@@ -34,6 +34,8 @@ class MyVocaViewController: UIViewController {
     let disposeBag = DisposeBag()
     let synthesizer = AVSpeechSynthesizer()
     
+    var currentSynthesizerCellRow: Int?
+    
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -95,6 +97,8 @@ class MyVocaViewController: UIViewController {
         case .vocaForAll:
             configureVocaForAllRx()
         }
+        
+        self.synthesizer.delegate = self
         
         NotificationCenter.default.addObserver(
             self,
@@ -218,6 +222,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
             cell.delegate = self
             let word = viewModel.output.words.value[indexPath.row]
             cell.configure(word: word)
+            cell.tag = indexPath.item
             return cell
         case .vocaForAll:
             guard let cell = collectionView.dequeueReusableCell(
@@ -266,10 +271,11 @@ extension MyVocaViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         guard currentViewType == .vocaForAll else { return }
-
+        
         let type = vocaForAllViewModel.inputs.orderType.value
-
+        
         switch type {
         case .popular, .latest:
             let selectedFolder = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row]
@@ -278,6 +284,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
 
             navigationController?.pushViewController(wordView, animated: true)
         }
+        
     }
 }
 
@@ -373,13 +380,25 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
         present(actionsheet, animated: true, completion: nil)
     }
     
-    func myVocaWord(didTapMic button: UIButton, selectedWord word: Word) {
+    func myVocaWord(_ cell: UICollectionViewCell, didTapMic button: UIButton, selectedWord word: Word) {
+ 
+        currentSynthesizerCellRow = cell.tag
         let englishWord = word.english
-        
         synthesizer.stopSpeaking(at: .immediate)
         let utterance = AVSpeechUtterance(string: englishWord)
         utterance.rate = 0.3
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         synthesizer.speak(utterance)
+      }
+}
+
+extension MyVocaViewController: AVSpeechSynthesizerDelegate {
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+
+        if let currentRow = currentSynthesizerCellRow,
+          let currentCell = groupNameCollectionView.cellForItem(at: IndexPath(row: currentRow, section: 0)) as? MyVocaWordCell {
+          currentCell.stopAnimation()
+        }
     }
 }
