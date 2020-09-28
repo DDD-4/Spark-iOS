@@ -13,9 +13,9 @@ public class EveryVocabularyController {
     public static let shared = EveryVocabularyController()
     private let serviceManager = EveryVocabularyServiceManager()
 
-    public func getEveryVocabularies() -> Observable<EveryVocaResponse> {
+    public func getEveryVocabularies(sortType: EveryVocabularySortType) -> Observable<EveryVocaResponse> {
         return serviceManager.provider.rx
-            .request(EveryVocabularyService.getEveryVocabularies)
+            .request(EveryVocabularyService.getEveryVocabularies(sortType: sortType))
             .map(EveryVocaResponse.self)
             .asObservable()
     }

@@ -8,8 +8,9 @@
 //
 
 import UIKit
-import SnapKit
 import PoingDesignSystem
+import SnapKit
+import SDWebImage
 
 class FlipCardView: UIView {
     enum Constant {
@@ -24,8 +25,15 @@ class FlipCardView: UIView {
         didSet {
             swipeView.backgroundColor = .white
             flipLabel.text = dataSource?.text
-            guard let image = dataSource?.image else { return }
-//            imageView.image = UIImage(named: image)
+
+            switch dataSource?.image {
+            case .photoURL(let url):
+                imageView.sd_setImage(with: url)
+            case .uiimage(let image):
+                imageView.image = image
+            case .none:
+                imageView.image = nil
+            }
         }
     }
 

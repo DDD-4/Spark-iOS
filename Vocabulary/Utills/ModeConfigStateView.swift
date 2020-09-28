@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import SnapKit
 
-class ModeConfigStateViewController: UIViewController {
+public class ModeConfigStateViewController: UIViewController {
     lazy var modeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +19,7 @@ class ModeConfigStateViewController: UIViewController {
         return button
     }()
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         view.addSubview(modeButton)
@@ -30,9 +29,12 @@ class ModeConfigStateViewController: UIViewController {
             : "online mode"
 
         modeButton.setTitle(mode, for: .normal)
-        modeButton.snp.makeConstraints { (make) in
-            make.top.leading.trailing.bottom.equalTo(view)
-        }
+        NSLayoutConstraint.activate([
+            modeButton.topAnchor.constraint(equalTo: view.topAnchor),
+            modeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            modeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            modeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
 
         NotificationCenter.default.addObserver(
             self,

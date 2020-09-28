@@ -94,6 +94,7 @@
 		218C14EAE5AA31C30314AE0289B732A0 /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD7DEC442BCBE499D4A684503F4064E /* Protected.swift */; };
 		21AB1101BBE4D28D74ED4EDF0D59025A /* ConstraintInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEC0D03471199098A46438F4A52648E /* ConstraintInsets.swift */; };
 		21C120EDFCE3F1B685833EAE2F088998 /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D899F182FD87498884EA79D2FD5C51 /* UIView+WebCacheOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		23093760BBE5FB540A8546BAEBC6C4C2 /* Pods-VocaGame-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C134E0A3483A52EF2A31885750F4A7 /* Pods-VocaGame-dummy.m */; };
 		232B2F922E972D9F43D2EE15ACECE734 /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE99C005CF1A58C304E4575B96DDF1C /* ConstraintPriority.swift */; };
 		241588D302CF69F54DD7C9DE826BFDBA /* UIApplication+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E3C7689CEDDB3C35E018019BE8C899 /* UIApplication+Rx.swift */; };
 		2470CC04B43F5471BDC6EB0CAD4CB858 /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0112111950A5FA5320D29C694CCA03B6 /* Throttle.swift */; };
@@ -201,7 +202,6 @@
 		576BF0A19B5DFFA653E1C650E7697364 /* UIActivityIndicatorView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8B3733CE017B35562218193366FB69 /* UIActivityIndicatorView+Rx.swift */; };
 		577AA19CD0920257DDA421B3730683DA /* VirtualTimeScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208F398B6759115F40BFF1CCCFB05012 /* VirtualTimeScheduler.swift */; };
 		57B1876F2BE4168E5BFDB63D8CC849A0 /* ConstraintLayoutSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E719CE9436916A841AF35C5FAB1AE806 /* ConstraintLayoutSupport.swift */; };
-		5817948DF2524557BC450E1EF4D5ADA7 /* Pods-VocaGame-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FB6769C921A80E709BFB9DEE4E891980 /* Pods-VocaGame-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5854DF509E8A016B6235793D04083035 /* ConstraintConstantTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D782BC4C0A2B83F339CA08B307C1F6E /* ConstraintConstantTarget.swift */; };
 		5896D2CB29E5127FB72CF2352E0FE8AC /* _RX.h in Headers */ = {isa = PBXBuildFile; fileRef = 138799E97F26E39B4397C68590AAD576 /* _RX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		597D7E6072334B26EA2F9247571480EE /* NotificationCenter+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ECEA414362517085EDB49FC292E9F8 /* NotificationCenter+Rx.swift */; };
@@ -221,8 +221,8 @@
 		5F913FF66A8F54DCBCC28C3AE1366450 /* TextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE69BAC9783062A66BF73D8EE7F69551 /* TextInput.swift */; };
 		5FAE40FE684583E5269FE01B44C28512 /* NSImageView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB761B5CE103B8D6E3517591E1323A9 /* NSImageView+Rx.swift */; };
 		5FE5C179140E991F45B5AB363A93BCFB /* ReplaySubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F7E8C00E78DB1A56E22C11378A27FC /* ReplaySubject.swift */; };
-		60813B6729A2E8CC25B9D7322C9F2107 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D37F0AF47A42785EA445308D69DC1EC /* Foundation.framework */; };
 		615A811EFA4C9A0AC93CD04F30DB16D5 /* SubjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF37084DB5691A851D7E5A878EE850C1 /* SubjectType.swift */; };
+		63008B28BE84B10D78A4F1B0D129E78C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D37F0AF47A42785EA445308D69DC1EC /* Foundation.framework */; };
 		648BEC3D1E2FC89ED7487960646A2672 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F0149119C06B69FCC5EC8AF7D01020 /* Endpoint.swift */; };
 		64D2DFDCD8B89C7A662F3CC34987AF3A /* SchedulerServices+Emulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C71E39071BC92956DBCBB08E04DD6D /* SchedulerServices+Emulation.swift */; };
 		64F3EB426774D6F1D593DBFAFFBF6791 /* SDWebImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 21C5CBEBDF0502490A398E71B2908007 /* SDWebImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -516,10 +516,10 @@
 		E53CD0ACE5EA032CDD13B66B91A6EFF1 /* NSBezierPath+SDRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D28CCB98064DA728F9217C14593B8C /* NSBezierPath+SDRoundedCorners.m */; };
 		E550F25D61213D342FD151469B18D35C /* OperationQueueScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9DD82BBE2A085CA20A6A52280734C2 /* OperationQueueScheduler.swift */; };
 		E64D07F38172F52590728184657D9CD6 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD1613EE35F0EA76D624EEE0924678 /* Scan.swift */; };
-		E66EE690AA44F5DE9D6E5952F1F252CF /* Pods-VocaGame-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C134E0A3483A52EF2A31885750F4A7 /* Pods-VocaGame-dummy.m */; };
 		E6FC6B657FAFE526214A86627D1447C2 /* SharedSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B1B4E333B4696949EFF8E48FD43D1F /* SharedSequence.swift */; };
 		E705567E9C436F85F87156E97DB9CDFB /* ControlTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E423A2B09E30F57FBF7257F10A1008B /* ControlTarget.swift */; };
 		E7082CA403DB134897DE248F8DD03E48 /* NSObject+Rx+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B642D38B3CFAB35842DCA9DC602BD7 /* NSObject+Rx+RawRepresentable.swift */; };
+		E75F8AB50C564E6E388BA69B66245EBC /* Pods-VocaGame-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FB6769C921A80E709BFB9DEE4E891980 /* Pods-VocaGame-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7EEDB6566BB993101A6BD90444F1B6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D37F0AF47A42785EA445308D69DC1EC /* Foundation.framework */; };
 		E84C3265A50F762414793124E7BE854E /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DBBDD8EB0FD6E3FABD1C37BB249A29 /* Debounce.swift */; };
 		E87D1FB94C6DE49D2E750AC53341B991 /* UISearchController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56160D959BAAE138D5538A2CB4A43800 /* UISearchController+Rx.swift */; };
@@ -630,12 +630,26 @@
 			remoteGlobalIDString = EA9EA43B3B503823EE36C60D9C8A865F;
 			remoteInfo = RxSwift;
 		};
+		3E8C586A6AA5E1E9AF31E315DAA612B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19622742EBA51E823D6DAE3F8CDBFAD4;
+			remoteInfo = SnapKit;
+		};
 		5210E18E803B371F006D469F7283F550 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
 			remoteInfo = Alamofire;
+		};
+		54A25205F1F098A81962529CA5D862ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3847153A6E5EEFB86565BA840768F429;
+			remoteInfo = SDWebImage;
 		};
 		5ACBF5135D653C867A650490A60FEEC7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -664,13 +678,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
 			remoteInfo = Alamofire;
-		};
-		73F48A6803FEEAF728001ACAC57D1022 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 19622742EBA51E823D6DAE3F8CDBFAD4;
-			remoteInfo = SnapKit;
 		};
 		7670FA654167D8D17DA52524D024C50E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1369,6 +1376,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2F7E770DA726FA6CFD1D5F35B1859ADB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63008B28BE84B10D78A4F1B0D129E78C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3C8B1704CC97EF12D3409771318C6433 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1428,14 +1443,6 @@
 			files = (
 				A738C2A39C0150BBA7EA5EC19B95F03E /* CFNetwork.framework in Frameworks */,
 				F6B16DC8CADA07287C6A372AC8AD787C /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D188D9C4DA2AC3D2E00B63C1FD22F5F1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				60813B6729A2E8CC25B9D7322C9F2107 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2400,19 +2407,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		817F41C5370FC957AADF4E21846ADD43 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E75F8AB50C564E6E388BA69B66245EBC /* Pods-VocaGame-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		93C4326BC9019FD5195EF72D21996E2E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				938FBB39A2ABD287EACB02448C955229 /* Pods-Vocabulary-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		97D19D2F1669E2CF390F2A86311F86A6 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5817948DF2524557BC450E1EF4D5ADA7 /* Pods-VocaGame-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2672,17 +2679,18 @@
 		};
 		A3076036B1F4612E1A86B024F47FE184 /* Pods-VocaGame */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EEF74CD413F20373B4814CC4084CDDE0 /* Build configuration list for PBXNativeTarget "Pods-VocaGame" */;
+			buildConfigurationList = CF8DBDD83D8D1B669581C5865174AE26 /* Build configuration list for PBXNativeTarget "Pods-VocaGame" */;
 			buildPhases = (
-				97D19D2F1669E2CF390F2A86311F86A6 /* Headers */,
-				C3E87A6F37787022D0BC7EF11E0B6DA0 /* Sources */,
-				D188D9C4DA2AC3D2E00B63C1FD22F5F1 /* Frameworks */,
-				5FA33EEDF0BE1FBE987A7838D27EAC4B /* Resources */,
+				817F41C5370FC957AADF4E21846ADD43 /* Headers */,
+				AC6956B3402BD97432F16AB018383AF6 /* Sources */,
+				2F7E770DA726FA6CFD1D5F35B1859ADB /* Frameworks */,
+				64FAFE5349615B7C740C43B9A19A90D5 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6F5905F55E215FC22746D9E30CBC41A3 /* PBXTargetDependency */,
+				232B94B9290C26B0888F8EE6034C34AE /* PBXTargetDependency */,
+				E28BD7F7FD358791EBFBA1ACF97B96FC /* PBXTargetDependency */,
 			);
 			name = "Pods-VocaGame";
 			productName = "Pods-VocaGame";
@@ -2813,7 +2821,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5FA33EEDF0BE1FBE987A7838D27EAC4B /* Resources */ = {
+		64FAFE5349615B7C740C43B9A19A90D5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3271,19 +3279,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AC6956B3402BD97432F16AB018383AF6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23093760BBE5FB540A8546BAEBC6C4C2 /* Pods-VocaGame-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC42FF2DEFB650A5AA9FA7D7D672282D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				04CD9B3383B09C730B357B013C32F35C /* Pods-PoingVocaSubsystem-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C3E87A6F37787022D0BC7EF11E0B6DA0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E66EE690AA44F5DE9D6E5952F1F252CF /* Pods-VocaGame-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3427,6 +3435,12 @@
 			target = 3847153A6E5EEFB86565BA840768F429 /* SDWebImage */;
 			targetProxy = 05B05DF4B916F6241DD2211A9A1246D9 /* PBXContainerItemProxy */;
 		};
+		232B94B9290C26B0888F8EE6034C34AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDWebImage;
+			target = 3847153A6E5EEFB86565BA840768F429 /* SDWebImage */;
+			targetProxy = 54A25205F1F098A81962529CA5D862ED /* PBXContainerItemProxy */;
+		};
 		35C938242D3907FDFCCB9135F15C9DB3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RxRelay;
@@ -3444,12 +3458,6 @@
 			name = RxRelay;
 			target = 4622BFEF3DC16E8BD15EEFC30D4D0084 /* RxRelay */;
 			targetProxy = 0DAB8F23FA0E2047CD6646B4C68C903A /* PBXContainerItemProxy */;
-		};
-		6F5905F55E215FC22746D9E30CBC41A3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SnapKit;
-			target = 19622742EBA51E823D6DAE3F8CDBFAD4 /* SnapKit */;
-			targetProxy = 73F48A6803FEEAF728001ACAC57D1022 /* PBXContainerItemProxy */;
 		};
 		74B938D3CFCDDB507A7F5F193378C078 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3522,6 +3530,12 @@
 			name = RxSwift;
 			target = EA9EA43B3B503823EE36C60D9C8A865F /* RxSwift */;
 			targetProxy = 066A4D96C78037EDA55B39F5AF05ECF1 /* PBXContainerItemProxy */;
+		};
+		E28BD7F7FD358791EBFBA1ACF97B96FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SnapKit;
+			target = 19622742EBA51E823D6DAE3F8CDBFAD4 /* SnapKit */;
+			targetProxy = 3E8C586A6AA5E1E9AF31E315DAA612B2 /* PBXContainerItemProxy */;
 		};
 		E431D0BD15007AFD2455A5584E4F0E56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3852,6 +3866,45 @@
 			};
 			name = Debug;
 		};
+		4BD301471A8449290B66C3B3CD02BC04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98F2B9521866C2FC721DA9C354C19625 /* Pods-VocaGame.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-VocaGame/Pods-VocaGame-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-VocaGame/Pods-VocaGame.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		4FC89E54D80D64E72FD431BC306367BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEB4F8A7F4BA981B4ECA4A5DF84B97BE /* RxSwift.xcconfig */;
@@ -4159,44 +4212,6 @@
 			};
 			name = Release;
 		};
-		ACD49215E643EE81CAF57DBF3092A720 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 020F863B59E0E15AEAB85D0904AD264C /* Pods-VocaGame.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-VocaGame/Pods-VocaGame-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-VocaGame/Pods-VocaGame.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		AD8F92ECA18DCC4535DA4FD0F02E53E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 841F671A31EFFC404E6F6E9D0FEACE1E /* Pods-PoingVocaSubsystem.debug.xcconfig */;
@@ -4310,45 +4325,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		C531104E2F8181AB828BB456A62B7149 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 98F2B9521866C2FC721DA9C354C19625 /* Pods-VocaGame.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-VocaGame/Pods-VocaGame-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-VocaGame/Pods-VocaGame.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		D36AAB828EE4B3CFF49640576B573601 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -4540,6 +4516,44 @@
 			};
 			name = Debug;
 		};
+		F7DFACA66A623FC1F44DFFCF443F172B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 020F863B59E0E15AEAB85D0904AD264C /* Pods-VocaGame.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-VocaGame/Pods-VocaGame-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-VocaGame/Pods-VocaGame.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		F967DC98C228D739DD7CA8D42896EBC5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 024F4DB482295EDCBC6ECFADED33B22C /* Alamofire.xcconfig */;
@@ -4679,20 +4693,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		CF8DBDD83D8D1B669581C5865174AE26 /* Build configuration list for PBXNativeTarget "Pods-VocaGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F7DFACA66A623FC1F44DFFCF443F172B /* Debug */,
+				4BD301471A8449290B66C3B3CD02BC04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DB1A1AE77D69C6BF7EC425EE4E2157EC /* Build configuration list for PBXNativeTarget "Pods-PoingDesignSystem" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B6F2C003A46E6EECA60D5B77D7EBA550 /* Debug */,
 				88EC8534DDFC5A0C19209AD1D9303BBE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EEF74CD413F20373B4814CC4084CDDE0 /* Build configuration list for PBXNativeTarget "Pods-VocaGame" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ACD49215E643EE81CAF57DBF3092A720 /* Debug */,
-				C531104E2F8181AB828BB456A62B7149 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

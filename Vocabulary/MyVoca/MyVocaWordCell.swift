@@ -148,7 +148,7 @@ class MyVocaWordCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        self.layer.sublayers?.removeAll()
+        stopAnimation()
     }
     
     func configureLayout() {

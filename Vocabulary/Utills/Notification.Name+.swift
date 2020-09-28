@@ -9,5 +9,5 @@
 import Foundation
 
 extension Notification.Name {
-    static let modeConfig = Notification.Name("ModeConfig")
+    public static let modeConfig = Notification.Name("ModeConfig")
 }

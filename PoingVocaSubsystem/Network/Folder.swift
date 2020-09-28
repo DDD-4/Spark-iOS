@@ -9,7 +9,7 @@
 import Foundation
 
 public class Folder: Codable {
-    internal init(default: Bool, id: Int, name: String, shareable: Bool) {
+    public init(default: Bool, id: Int, name: String, shareable: Bool) {
         self.default = `default`
         self.id = id
         self.name = name

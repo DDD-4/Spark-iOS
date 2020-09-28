@@ -8,11 +8,11 @@
 
 import UIKit
 import AVFoundation
+import PoingVocaSubsystem
+import PoingDesignSystem
 import RxSwift
 import RxCocoa
 import SnapKit
-import PoingVocaSubsystem
-import PoingDesignSystem
 
 class MyVocaViewController: UIViewController {
     enum Constant {
@@ -195,7 +195,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
         case .vocaForAll:
             let type = vocaForAllViewModel.inputs.orderType.value
             switch type {
-            case .popular, .recent:
+            case .popular, .latest:
                 return vocaForAllViewModel.outputs.vocaForAllList.value.count
             }
         }
@@ -234,7 +234,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
 
             let type = vocaForAllViewModel.inputs.orderType.value
             switch type {
-            case .popular, .recent:
+            case .popular, .latest:
                 cell.configure(content: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
             }
             return cell
@@ -277,7 +277,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
         let type = vocaForAllViewModel.inputs.orderType.value
         
         switch type {
-        case .popular, .recent:
+        case .popular, .latest:
             let selectedFolder = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row]
             let viewModel = VocaForAllDetailViewModel(content: selectedFolder)
             let wordView = VocaForAllDetailViewController(viewModel: viewModel)
