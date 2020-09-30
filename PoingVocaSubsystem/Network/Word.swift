@@ -8,6 +8,11 @@
 
 import Foundation
 
+public class WordResponse: Codable {
+    public let content: [Word]
+    public let hasNext: Bool
+    public let totalCount: Int
+}
 public class Word: Codable {
     internal init(
         id: Int,

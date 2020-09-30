@@ -8,18 +8,15 @@
 
 import Foundation
 
+public struct EveryVocaSortType: Codable {
+    public let key: String
+    public let value: String
+}
+
 public struct EveryVocaResponse: Codable {
     public let content: [EveryVocaContent]
-    public let empty: Bool
-    public let first: Bool
-    public let last: Bool
-    public let number: Int
-    public let numberOfElements: Int
-    public let pageable: Pageable?
-    public let size: Int
-    public let sort: Sort
-    public let totalElements: Int
-    public let totalPages: Int
+    public let hasNext: Bool
+    public let totalCount: Int
 }
 
 public struct EveryVocaContent: Codable {
