@@ -95,6 +95,7 @@ class SelectFolderViewCell: UICollectionViewCell {
         folderImageView.isHidden = false
         folderTitleLabel.isHidden = false
         addImageView.isHidden = false
+        folderImageView.sd_cancelCurrentImageLoad()
     }
     
     func configure(folder: Folder, type: SelectFolderCellType) {
@@ -109,15 +110,16 @@ class SelectFolderViewCell: UICollectionViewCell {
         self.folder = folder
         self.folderTitleLabel.text = folder.name
         folderImageView.image = UIImage(named: "emptyFace")
-        
-//        guard !folder.words.isEmpty else {
-//            return
-//        }
-//        
-//        guard let data = folder.words[0].image else {
-//            return
-//        }
-//        folderImageView.image = UIImage(data: data)
+
+        if let folderCoreData = folder as? FolderCoreData {
+            guard folderCoreData.words.isEmpty == false,
+                  let imageData = folderCoreData.words.first?.image else {
+                return
+            }
+            folderImageView.image = UIImage(data: imageData)
+        } else {
+            folderImageView.sd_setImage(with: URL(string: folder.photoUrl))
+        }
     }
     
     func configure(type: SelectFolderCellType) {

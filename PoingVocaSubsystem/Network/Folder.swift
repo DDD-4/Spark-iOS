@@ -9,15 +9,17 @@
 import Foundation
 
 public class Folder: Codable {
-    public init(default: Bool, id: Int, name: String, shareable: Bool) {
+    internal init(default: Bool, id: Int, name: String, shareable: Bool, photoUrl: String) {
         self.default = `default`
         self.id = id
         self.name = name
         self.shareable = shareable
-        }
+        self.photoUrl = photoUrl
+    }
 
     public var `default`: Bool
     public var id: Int
     public var name: String
     public var shareable: Bool
+    public var photoUrl: String
 }

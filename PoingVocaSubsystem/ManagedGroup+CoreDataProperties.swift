@@ -34,7 +34,8 @@ public class FolderCoreData: Folder {
             default: (visibilityType == .default),
             id: -1,
             name: name,
-            shareable: (visibilityType == .public)
+            shareable: (visibilityType == .public),
+            photoUrl: ""
         )
     }
     required init(from decoder: Decoder) throws {
