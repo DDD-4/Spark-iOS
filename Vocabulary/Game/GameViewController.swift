@@ -33,14 +33,16 @@ class GameViewController: UIViewController {
 
     var tableViewHeightConstraint: NSLayoutConstraint?
 
-    lazy var titleStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [imageView, titleLabel])
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .center
-        stack.spacing = Constant.spacing
-        return stack
+    lazy var guideContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    lazy var guideCenterContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     lazy var imageView: UIImageView = {
@@ -77,7 +79,8 @@ class GameViewController: UIViewController {
         collectionView.backgroundColor = Constant.backgroundColor
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.contentInset = UIEdgeInsets(top: 60, left: 0, bottom: 60, right: 0)
+        collectionView.contentInset = .zero
+        collectionView.clipsToBounds = false
         return collectionView
     }()
 
@@ -115,8 +118,11 @@ class GameViewController: UIViewController {
     }
 
     func configureLayout() {
-        view.addSubview(titleStackView)
-        view.addSubview(gameListCollectionView)
+        view.addSubview(guideContainerView)
+        guideContainerView.addSubview(guideCenterContainerView)
+        guideCenterContainerView.addSubview(imageView)
+        guideCenterContainerView.addSubview(titleLabel)
+        guideCenterContainerView.addSubview(gameListCollectionView)
         view.addSubview(closeButton)
 
         closeButton.snp.makeConstraints { (make) in
@@ -125,19 +131,34 @@ class GameViewController: UIViewController {
             make.centerX.equalTo(view)
         }
 
-        titleStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(106)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        guideContainerView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(closeButton.snp.top)
+        }
+
+        guideCenterContainerView.snp.makeConstraints { (make) in
+            make.center.leading.trailing.equalTo(guideContainerView).priority(.high)
+            make.top.lessThanOrEqualTo(guideContainerView).priority(.low)
+            make.bottom.greaterThanOrEqualTo(guideContainerView).priority(.low)
         }
 
         imageView.snp.makeConstraints { (make) in
+            make.top.equalTo(guideCenterContainerView)
+            make.centerX.equalTo(guideCenterContainerView)
             make.height.width.equalTo(Constant.Image.height)
         }
 
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(imageView.snp.bottom).offset(24)
+            make.leading.trailing.equalTo(guideCenterContainerView)
+            make.centerX.equalTo(guideCenterContainerView)
+        }
+
         gameListCollectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(titleStackView.snp.bottom)
-            make.leading.trailing.equalTo(view)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(titleLabel.snp.bottom).offset(40)
+            make.leading.trailing.equalTo(guideCenterContainerView)
+            make.bottom.equalTo(guideCenterContainerView)
+            make.height.equalTo((96 * Constant.gameList.count) + 16)
         }
     }
 
