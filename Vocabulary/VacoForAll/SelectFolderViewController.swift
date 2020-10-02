@@ -28,7 +28,7 @@ class SelectFolderViewController: UIViewController {
     
     // MARK: - Properties
     let disposeBag = DisposeBag()
-    let viewModel = SelectViewModel()
+    let viewModel: SelectViewModelType
     weak var delegate: SelectFolderViewControllerDelegate?
     
     lazy var naviView: SideNavigationView = {
@@ -58,6 +58,11 @@ class SelectFolderViewController: UIViewController {
     }()
     
     init() {
+        if ModeConfig.shared.currentMode == .offline {
+            viewModel = SelectViewModel()
+        } else {
+            viewModel = SelectFolderOnlineViewModel()
+        }
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
@@ -112,7 +117,9 @@ class SelectFolderViewController: UIViewController {
     }
     
     @objc func VocaDataChanged() {
-        viewModel.input.fetchGroups()
+        if ModeConfig.shared.currentMode == .offline {
+            viewModel.input.fetchGroups()
+        }
     }
 }
 

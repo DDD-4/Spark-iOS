@@ -13,11 +13,11 @@ import PoingVocaSubsystem
 
 protocol EditMyFolderViewModelInput {
     func fetchMyFolders()
-    func changeVisibilityType(folder: Folder, completion: (() -> Void)?)
-    func deleteFolders(folders: [Folder], completion: (() -> Void)?)
+    func changeVisibilityType(folder: Folder)
+    func deleteFolders(folders: [Folder])
     func addDeleteFolder(currentSelectedFolder: Folder)
     var deleteSelectedFolders: BehaviorRelay<[Folder]> { get }
-    func reorderFolders(sourceIndex: Int, destinationIndex: Int, completion: @escaping (() -> Void))
+    func reorderFolders(sourceIndex: Int, destinationIndex: Int)
     func reorderFolders(folders: [Folder])
 }
 
@@ -58,7 +58,7 @@ class EditMyFolderViewModel: EditMyFolderViewModelType, EditMyFolderViewModelInp
         })
     }
 
-    func changeVisibilityType(folder: Folder, completion: (() -> Void)?) {
+    func changeVisibilityType(folder: Folder) {
         if let currentFolder = folder as? FolderCoreData {
             let changedVisibilityType: VisibilityType = (currentFolder.visibilityType == .public) ? .private : .public
             currentFolder.visibilityType = changedVisibilityType
@@ -66,7 +66,7 @@ class EditMyFolderViewModel: EditMyFolderViewModelType, EditMyFolderViewModelInp
         }
     }
 
-    func deleteFolders(folders: [Folder], completion: (() -> Void)?) {
+    func deleteFolders(folders: [Folder]) {
         guard let folders = folders as? [FolderCoreData] else {
             return
         }
@@ -100,8 +100,7 @@ class EditMyFolderViewModel: EditMyFolderViewModelType, EditMyFolderViewModelInp
 
     func reorderFolders(
         sourceIndex: Int,
-        destinationIndex: Int,
-        completion: @escaping (() -> Void)
+        destinationIndex: Int
     ) {
         guard let myFolders = myFolders.value as? [FolderCoreData] else {
             return
@@ -118,7 +117,7 @@ class EditMyFolderViewModel: EditMyFolderViewModelType, EditMyFolderViewModelInp
 
         VocaManager.shared.update(group: tempFolder[sourceIndex]) {
             VocaManager.shared.update(group: tempFolder[destinationIndex]) {
-                completion()
+                
             }
         }
     }

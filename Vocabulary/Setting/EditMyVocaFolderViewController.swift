@@ -51,7 +51,14 @@ class EditMyFolderViewController: UIViewController {
             EditMyVocaGroupCell.self,
             forCellWithReuseIdentifier: EditMyVocaGroupCell.reuseIdentifier
         )
-        collectionView.contentInset = UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)
+        collectionView.contentInset = UIEdgeInsets(
+            top: 32,
+            left: 0,
+            bottom: hasTopNotch
+                ? 32 + Constant.Floating.height
+                : 16 + Constant.Floating.height,
+            right: 0
+        )
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.dragDelegate = self
@@ -148,7 +155,8 @@ class EditMyFolderViewController: UIViewController {
 
         groupCollectionView.snp.makeConstraints { (make) in
             make.top.equalTo(navigationViewArea.snp.bottom)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view)
         }
 
         addFolderButton.snp.makeConstraints { (make) in
@@ -228,15 +236,14 @@ class EditMyFolderViewController: UIViewController {
         }
         viewModel.input.deleteFolders(
             folders: viewModel.input.deleteSelectedFolders.value
-        ) { [weak self] in
-            self?.viewModel.input.fetchMyFolders()
-        }
+        )
 
         self.currentState.accept(.normal)
     }
 
     @objc func addDidTap(_ sender: UIButton) {
         let myFolderDetailViewController = MyFolderDetailViewController(viewType: .add)
+        myFolderDetailViewController.delegate = self
 
         navigationController?.pushViewController(myFolderDetailViewController, animated: true)
     }
@@ -369,9 +376,7 @@ extension EditMyFolderViewController: UICollectionViewDropDelegate {
             
             self.viewModel.output.myFolders.accept(tempGroup)
             if ModeConfig.shared.currentMode == .offline {
-                viewModel.input.reorderFolders(sourceIndex: sourceIndexPath.section, destinationIndex: destinationIndexPath.section, completion: {
-                    print()
-                })
+                viewModel.input.reorderFolders(sourceIndex: sourceIndexPath.section, destinationIndex: destinationIndexPath.section)
             } else {
                 self.viewModel.input.reorderFolders(folders: tempGroup)
             }
@@ -399,9 +404,7 @@ extension EditMyFolderViewController: EditMyVocaGroupCellDelegate {
     ) {
         viewModel.input.changeVisibilityType(
             folder: group
-        ) {
-            // TODO: 성공
-        }
+        )
     }
 
     func editMyVocaGroupCell(

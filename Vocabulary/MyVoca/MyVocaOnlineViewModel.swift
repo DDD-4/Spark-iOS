@@ -32,11 +32,13 @@ class MyVocaOnlineViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVoca
 
     func fetchFolder() {
         FolderController.shared.getMyFolder()
-            .bind { [weak self] (response) in
-                guard let self = self else { return }
-                self.folders.accept(response)
-                FolderManager.shared.myFolders = response
-            }
+            .subscribe({ [weak self] (response) in
+                guard let element = response.element else {
+                    return
+                }
+                self?.folders.accept(element)
+                FolderManager.shared.myFolders = element
+            })
             .disposed(by: disposeBag)
     }
 

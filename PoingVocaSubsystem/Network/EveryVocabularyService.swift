@@ -8,14 +8,10 @@
 
 import Moya
 
-public enum EveryVocabularySortType: String {
-    case latest = "LATEST"
-    case popular = "POPULAR"
-}
-
 enum EveryVocabularyService {
-    case getEveryVocabularies(sortType: EveryVocabularySortType)
-    case getEveryVocabulariesFolder(folderId: Int)
+    case getEveryVocabulariesSortType
+    case getEveryVocabularies(sortType: String, page: Int)
+    case getEveryVocabulariesFolder(folderId: Int, page: Int)
     case getEveryVocabulariesDownload(downloadFolderId: Int, myFolderId: Int)
 
 }
@@ -27,9 +23,11 @@ extension EveryVocabularyService: TargetType {
 
     var path: String {
         switch self {
+        case .getEveryVocabulariesSortType:
+            return "/v1/every-vocabularies/sort-types"
         case .getEveryVocabularies:
             return "v1/every-vocabularies/"
-        case .getEveryVocabulariesFolder(let folderId):
+        case .getEveryVocabulariesFolder(let folderId, _):
             return "v1/every-vocabularies/folders/\(folderId)"
         case .getEveryVocabulariesDownload(let downloadFolderId, _):
             return "v1/every-vocabularies/folders/\(downloadFolderId)"
@@ -52,19 +50,24 @@ extension EveryVocabularyService: TargetType {
 
     var task: Task {
         switch self {
-        case .getEveryVocabularies(let sortType):
+        case .getEveryVocabularies(let sortType, let page):
             let params: [String : Any] = [
-                "sortType" : sortType.rawValue,
+                "sortType" : sortType,
+                "page" : page
             ]
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
-        case .getEveryVocabulariesFolder:
-            return .requestPlain
+        case .getEveryVocabulariesFolder(_, let page):
+            let params: [String: Any] = [
+                "page" : page
+            ]
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .getEveryVocabulariesDownload(_, let myFolderId):
             let param: [String : Any] = [
-                "myFolderId": myFolderId,
-                "vocabularyIds": []
+                "myFolderId": myFolderId
             ]
             return .requestParameters(parameters: param, encoding: JsonEncoding.default)
+        case .getEveryVocabulariesSortType:
+            return .requestPlain
         }
     }
 

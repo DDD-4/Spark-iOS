@@ -11,26 +11,17 @@ import RxSwift
 import RxCocoa
 import PoingVocaSubsystem
 
-enum VocaForAllOrderType: Int, CaseIterable {
-    case latest
-    case popular
-
-    var description: String {
-        switch self {
-        case .popular:
-            return "인기순"
-        case .latest:
-            return "최신순"
-        }
-    }
-}
-
 protocol VocaForAllViewModelInput {
-    var orderType: BehaviorRelay<VocaForAllOrderType> { get }
+    var orderType: BehaviorRelay<EveryVocaSortType?> { get }
+    var currentPage: BehaviorRelay<Int> { get }
+    func fetchEveryVocaSortTypes()
 }
 
 protocol VocaForAllViewModelOutput {
     var vocaForAllList: BehaviorRelay<[EveryVocaContent]> { get }
+    var everyVocaSortTypes: BehaviorRelay<[EveryVocaSortType]> { get }
+    func hasMoreEveryVocaContent() -> Bool
+    var vocaShouldShowLoadingCell: BehaviorRelay<Bool> { get }
 }
 
 protocol VocaForAllViewModelType {
@@ -39,41 +30,73 @@ protocol VocaForAllViewModelType {
 }
 
 class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, VocaForAllViewModelOutput {
-    
     var inputs: VocaForAllViewModelInput { return self }
     var outputs: VocaForAllViewModelOutput { return self }
 
     // Input
-    var orderType: BehaviorRelay<VocaForAllOrderType>
+    var orderType: BehaviorRelay<EveryVocaSortType?>
     // Output
     var vocaForAllList: BehaviorRelay<[EveryVocaContent]>
+    var vocaHasMore: BehaviorRelay<Bool>
+    var vocaShouldShowLoadingCell: BehaviorRelay<Bool>
+
+    var everyVocaSortTypes: BehaviorRelay<[EveryVocaSortType]>
+
+    var currentPage: BehaviorRelay<Int>
 
     var disposeBag = DisposeBag()
     
     init() {
-        orderType = BehaviorRelay<VocaForAllOrderType>(value: .latest)
+        orderType = BehaviorRelay<EveryVocaSortType?>(value: nil)
         vocaForAllList = BehaviorRelay<[EveryVocaContent]>(value: [])
+        everyVocaSortTypes = BehaviorRelay<[EveryVocaSortType]>(value: [])
+        currentPage = BehaviorRelay<Int>(value: 0)
+        vocaHasMore = BehaviorRelay<Bool>(value: false)
+        vocaShouldShowLoadingCell = BehaviorRelay<Bool>(value: false)
 
-        orderType.bind{ [weak self] (type) in
-            guard let self = self else { return }
-            switch type {
-            // TODO: Apply sort type
-            case .popular, .latest:
-                self.fetchVocaForAllData()
-            }
+        orderType
+            .bind { [weak self] _ in
+                self?.currentPage.accept(0)
+                self?.vocaHasMore.accept(false)
+            }.disposed(by: disposeBag)
+
+        currentPage
+            .bind { [weak self] page in
+                guard let self = self ,
+                      let type = self.orderType.value else {
+                    return
+                }
+                self.fetchVocaForAllData(sortTypeKey: type.key, page: page)
         }.disposed(by: disposeBag)
 
     }
 
-    private func fetchVocaForAllData() {
-        let orderType: EveryVocabularySortType = (self.orderType.value == .popular)
-            ? .popular
-            : .latest
+    func hasMoreEveryVocaContent() -> Bool {
+        vocaHasMore.value && vocaShouldShowLoadingCell.value == false
+    }
 
-        EveryVocabularyController.shared.getEveryVocabularies(sortType: orderType)
+    func fetchEveryVocaSortTypes() {
+        EveryVocabularyController.shared.getEveryVocabulariesSortType()
             .subscribe { [weak self] (response) in
+                guard let element = response.element else { return }
+                self?.orderType.accept(element.first)
+                self?.everyVocaSortTypes.accept(element)
+            }
+            .disposed(by: disposeBag)
+    }
+
+    func fetchVocaForAllData(sortTypeKey: String, page: Int) {
+        vocaShouldShowLoadingCell.accept(true)
+        EveryVocabularyController.shared.getEveryVocabularies(sortType: sortTypeKey, page: page)
+            .subscribe { [weak self] (response) in
+                self?.vocaShouldShowLoadingCell.accept(false)
                 guard let self = self, let element = response.element else { return }
-                self.vocaForAllList.accept(element.content)
+                if page == 0 {
+                    self.vocaForAllList.accept(element.content)
+                } else {
+                    self.vocaForAllList.accept(self.vocaForAllList.value + element.content)
+                }
+                self.vocaHasMore.accept(element.hasNext)
             }
             .disposed(by: disposeBag)
     }

@@ -35,6 +35,7 @@ class MyVocaViewController: UIViewController {
     let synthesizer = AVSpeechSynthesizer()
     
     var currentSynthesizerCellRow: Int?
+
     
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -96,6 +97,7 @@ class MyVocaViewController: UIViewController {
             
         case .vocaForAll:
             configureVocaForAllRx()
+            vocaForAllViewModel.inputs.fetchEveryVocaSortTypes()
         }
         
         self.synthesizer.delegate = self
@@ -160,6 +162,18 @@ class MyVocaViewController: UIViewController {
             .subscribe(onNext: { [weak self] (_) in
                 self?.groupNameCollectionView.reloadData()
             }).disposed(by: disposeBag)
+
+        vocaForAllViewModel.outputs.everyVocaSortTypes
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (_) in
+                self?.groupNameCollectionView.reloadData()
+            }).disposed(by: disposeBag)
+
+        vocaForAllViewModel.outputs.vocaShouldShowLoadingCell
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (bool) in
+                bool ? LoadingView.show() : LoadingView.hide()
+            }).disposed(by: disposeBag)
     }
     
     @objc func vocaDataChanged() {
@@ -193,11 +207,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
             let wordCount = viewModel.output.words.value.count
             return wordCount == 0 ? 1 : wordCount
         case .vocaForAll:
-            let type = vocaForAllViewModel.inputs.orderType.value
-            switch type {
-            case .popular, .latest:
-                return vocaForAllViewModel.outputs.vocaForAllList.value.count
-            }
+            return vocaForAllViewModel.outputs.vocaForAllList.value.count
         }
     }
     
@@ -231,12 +241,7 @@ extension MyVocaViewController: UICollectionViewDataSource {
                 ) as? VocaForAllCell else {
                     return UICollectionViewCell()
             }
-
-            let type = vocaForAllViewModel.inputs.orderType.value
-            switch type {
-            case .popular, .latest:
-                cell.configure(content: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
-            }
+            cell.configure(content: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
             return cell
         }
     }
@@ -258,9 +263,8 @@ extension MyVocaViewController: UICollectionViewDataSource {
                     selectedGroup: viewModel.input.selectedFolder.value
                 )
             case .vocaForAll:
-                let test = VocaForAllOrderType.allCases
                 reusableview.configure(
-                    orderTypes: test,
+                    orderTypes: vocaForAllViewModel.outputs.everyVocaSortTypes.value,
                     currentType: vocaForAllViewModel.inputs.orderType.value
                 )
             }
@@ -274,17 +278,23 @@ extension MyVocaViewController: UICollectionViewDataSource {
         
         guard currentViewType == .vocaForAll else { return }
         
-        let type = vocaForAllViewModel.inputs.orderType.value
-        
-        switch type {
-        case .popular, .latest:
-            let selectedFolder = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row]
-            let viewModel = VocaForAllDetailViewModel(content: selectedFolder)
-            let wordView = VocaForAllDetailViewController(viewModel: viewModel)
+        let selectedFolder = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row]
+        let viewModel = VocaForAllDetailViewModel(content: selectedFolder)
+        let wordView = VocaForAllDetailViewController(viewModel: viewModel)
 
-            navigationController?.pushViewController(wordView, animated: true)
-        }
+        navigationController?.pushViewController(wordView, animated: true)
         
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard currentViewType == .vocaForAll,
+            indexPath.row == (vocaForAllViewModel.outputs.vocaForAllList.value.count - 1),
+            vocaForAllViewModel.outputs.hasMoreEveryVocaContent()
+        else { return }
+
+        let value = vocaForAllViewModel.inputs.currentPage.value
+
+        vocaForAllViewModel.inputs.currentPage.accept(value + 1)
     }
 }
 
@@ -322,7 +332,7 @@ extension MyVocaViewController: UICollectionViewDelegateFlowLayout, UICollection
 
 
 extension MyVocaViewController: MyVocaViewControllerDelegate {
-    func myVocaGroupReusableView(didTapOrderType type: VocaForAllOrderType, view: MyVocaGroupReusableView) {
+    func myVocaGroupReusableView(didTapOrderType type: EveryVocaSortType, view: MyVocaGroupReusableView) {
         vocaForAllViewModel.inputs.orderType.accept(type)
     }
     
