@@ -61,7 +61,7 @@ class SelectFolderViewController: UIViewController {
         if ModeConfig.shared.currentMode == .offline {
             viewModel = SelectViewModel()
         } else {
-            viewModel = SelectFolderOnlineViewModel()
+            viewModel = SelectOnlineViewModel()
         }
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
@@ -108,7 +108,7 @@ class SelectFolderViewController: UIViewController {
     }
     
     func configureRx() {
-        viewModel.output.groups
+        viewModel.output.myFolders
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
                 self?.folderCollectionView.reloadData()
@@ -118,14 +118,14 @@ class SelectFolderViewController: UIViewController {
     
     @objc func VocaDataChanged() {
         if ModeConfig.shared.currentMode == .offline {
-            viewModel.input.fetchGroups()
+            viewModel.input.fetchMyFolders()
         }
     }
 }
 
 extension SelectFolderViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.output.groups.value.count + 1
+        return viewModel.output.myFolders.value.count + 1
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -139,7 +139,8 @@ extension SelectFolderViewController: UICollectionViewDataSource {
         if indexPath.row == 0 {
             cell.configure(type: .add)
         } else {
-            cell.configure(folder: viewModel.output.groups.value[indexPath.row - 1], type: .read)
+            //이부분을 보완해야할것같다. 모델에 따라 값을 넣어주어야한다.
+            cell.configure(folder: viewModel.output.myFolders.value[indexPath.row - 1], type: .read)
         }
         return cell
     }
@@ -150,7 +151,7 @@ extension SelectFolderViewController: UICollectionViewDataSource {
             let myFolderDetailViewController = MyFolderDetailViewController(viewType: .add)
             navigationController?.pushViewController(myFolderDetailViewController, animated: true)
         } else {
-            delegate?.selectFolderViewController(didTapFolder: viewModel.output.groups.value[indexPath.item - 1])
+            delegate?.selectFolderViewController(didTapFolder: viewModel.output.myFolders.value[indexPath.item - 1])
             navigationController?.popViewController(animated: true)
         }
     }

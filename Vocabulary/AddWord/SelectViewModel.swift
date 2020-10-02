@@ -12,11 +12,11 @@ import RxCocoa
 import PoingVocaSubsystem
 
 protocol SelectViewModelOutput {
-    var groups: BehaviorRelay<[Folder]> { get}
+    var myFolders: BehaviorRelay<[Folder]> { get}
 }
 
 protocol SelectViewModelInput {
-    func fetchGroups()
+    func fetchMyFolders()
 }
 
 protocol SelectViewModelType {
@@ -25,25 +25,35 @@ protocol SelectViewModelType {
 }
 
 class SelectViewModel: SelectViewModelType, SelectViewModelInput, SelectViewModelOutput {
+    
     let disposeBag = DisposeBag()
     var input: SelectViewModelInput { return self }
     
     var output: SelectViewModelOutput { return self }
     
-    var groups: BehaviorRelay<[Folder]>
+    var myFolders: BehaviorRelay<[Folder]>
 
     init() {
-        groups = BehaviorRelay(value: VocaManager.shared.groups ?? [])
+        myFolders = BehaviorRelay<[Folder]>(value: [])
     }
 
-    @objc func fetchGroups() {
+    @objc func fetchMyFolders() {
         VocaManager.shared.fetch(identifier: nil) { [weak self] (groups) in
             guard let self = self else { return }
             guard let groups = groups, groups.isEmpty == false else {
-                self.groups.accept([])
+                self.myFolders.accept([])
                 return
             }
-            self.groups.accept(groups)
+            let filteredGroups = self.filteredGroup(groups: groups)
+            self.myFolders.accept(filteredGroups)
+            
+            
         }
+    }
+    
+    private func filteredGroup(groups: [FolderCoreData]) -> [FolderCoreData] {
+        groups.filter({ (group) -> Bool in
+            group.visibilityType != .default && group.visibilityType != .group
+        })
     }
 }
