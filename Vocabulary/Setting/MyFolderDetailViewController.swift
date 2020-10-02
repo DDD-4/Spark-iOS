@@ -158,7 +158,7 @@ class MyFolderDetailViewController: UIViewController {
         case .add:
             confirmButton.setTitle(Constant.Confirm.addText, for: .normal)
         case .edit(let folder):
-            textFieldView.placeholder = folder.name
+            textFieldView.textField.text = folder.name
             confirmButton.setTitle(Constant.Confirm.editText, for: .normal)
         }
     }

@@ -35,7 +35,7 @@ class SelectFolderViewCell: UICollectionViewCell {
     }
     
     weak var delegate: MyVocaWordCellDelegate?
-    var Folder: FolderCoreData?
+    var folder: Folder?
     
     lazy var containerView: UIView = {
         let view = UIView()
@@ -95,9 +95,10 @@ class SelectFolderViewCell: UICollectionViewCell {
         folderImageView.isHidden = false
         folderTitleLabel.isHidden = false
         addImageView.isHidden = false
+        folderImageView.sd_cancelCurrentImageLoad()
     }
     
-    func configure(folder: FolderCoreData, type: SelectFolderCellType) {
+    func configure(folder: Folder, type: SelectFolderCellType) {
         switch type {
         case .add:
             self.folderImageView.isHidden = true
@@ -106,18 +107,19 @@ class SelectFolderViewCell: UICollectionViewCell {
             self.addImageView.isHidden = true
         }
         
-        self.Folder = folder
+        self.folder = folder
         self.folderTitleLabel.text = folder.name
         folderImageView.image = UIImage(named: "emptyFace")
-        
-        guard !folder.words.isEmpty else {
-            return
+
+        if let folderCoreData = folder as? FolderCoreData {
+            guard folderCoreData.words.isEmpty == false,
+                  let imageData = folderCoreData.words.first?.image else {
+                return
+            }
+            folderImageView.image = UIImage(data: imageData)
+        } else {
+            folderImageView.sd_setImage(with: URL(string: folder.photoUrl))
         }
-        
-        guard let data = folder.words[0].image else {
-            return
-        }
-        folderImageView.image = UIImage(data: data)
     }
     
     func configure(type: SelectFolderCellType) {

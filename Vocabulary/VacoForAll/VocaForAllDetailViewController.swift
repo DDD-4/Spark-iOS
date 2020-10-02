@@ -99,7 +99,7 @@ class VocaForAllDetailViewController: UIViewController {
         configureLayout()
         configureRx()
 
-        viewModel.input.fetchFolder()
+        viewModel.input.currentPage.accept(0)
     }
 
     func configureLayout() {
@@ -148,7 +148,6 @@ class VocaForAllDetailViewController: UIViewController {
     }
 
     func configureRx() {
-
         viewModel.input.content
             .subscribe { [weak self] (content) in
                 guard let self = self, let data = content.element else { return }
@@ -242,6 +241,16 @@ extension VocaForAllDetailViewController: UICollectionViewDelegateFlowLayout, UI
             headerHeightConstraint?.constant = newHeaderHeight
             scrollView.contentOffset.y = 0
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let contentCount = viewModel.output.vocaContent.value.count
+        guard indexPath.row == (contentCount - 1),
+              viewModel.output.hasMoreEveryVocaContent(),
+              let page = viewModel.input.currentPage.value
+        else { return }
+
+        viewModel.input.currentPage.accept(page + 1)
     }
 }
 

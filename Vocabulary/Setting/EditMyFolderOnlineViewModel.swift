@@ -39,18 +39,17 @@ class EditMyFolderOnlineViewModel: EditMyFolderViewModelType, EditMyFolderViewMo
             .disposed(by: disposeBag)
     }
 
-    func changeVisibilityType(folder: Folder, completion: (() -> Void)?) {
+    func changeVisibilityType(folder: Folder) {
         folder.shareable = folder.shareable ? false : true
         FolderController.shared.editFolder(
             folderId: folder.id,
             name: folder.name,
             shareable: folder.shareable
         )
-        .subscribe { (response) in
-            print(response)
+        .subscribe { [weak self] (response) in
             if response.element?.statusCode == 200 {
                 // success
-                completion?()
+                self?.fetchMyFolders()
             }
             else {
                 // error
@@ -59,15 +58,15 @@ class EditMyFolderOnlineViewModel: EditMyFolderViewModelType, EditMyFolderViewMo
         .disposed(by: disposeBag)
     }
 
-    func deleteFolders(folders: [Folder], completion: (() -> Void)?) {
+    func deleteFolders(folders: [Folder]) {
         let folderIds: [Int] = folders.map { (folder) -> Int in
             folder.id
         }
         FolderController.shared.deleteFolder(folderId: folderIds)
-            .subscribe { (response) in
+            .subscribe { [weak self] (response) in
                 if response.element?.statusCode == 200 {
                     // success
-                    completion?()
+                    self?.fetchMyFolders()
                 }
                 else {
                     // error
@@ -98,8 +97,7 @@ class EditMyFolderOnlineViewModel: EditMyFolderViewModelType, EditMyFolderViewMo
 
     func reorderFolders(
         sourceIndex: Int,
-        destinationIndex: Int,
-        completion: @escaping (() -> Void)
+        destinationIndex: Int
     ) {
         // This function is only used in coredata
     }
