@@ -11,6 +11,9 @@ import PoingDesignSystem
 
 class LoginViewController: UIViewController {
     enum Constant {
+        static let topImage = UIImage(named: "duck")
+        static let bottomImage = UIImage(named: "doughnut")
+
         static let sideMargin: CGFloat = 40
         enum Button {
             static let height: CGFloat = 60
@@ -30,39 +33,86 @@ class LoginViewController: UIViewController {
     }
 
     func configureLayout() {
-        view.backgroundColor = .brightSkyBlue
-        view.addSubview(logoImageView)
+        view.backgroundColor = .white
+        view.addSubview(logoImageViewTop)
+        view.addSubview(logoImageViewBottom)
+        view.addSubview(descriptionLabel)
         view.addSubview(appleLoginButton)
         view.addSubview(termsLabel)
 
-        logoImageView.snp.makeConstraints { (make) in
-            make.center.equalTo(view.safeAreaLayoutGuide)
+        logoImageViewTop.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(hasTopNotch ? 134 : 85)
+            make.trailing.equalTo(view).priority(.high)
+            make.leading.greaterThanOrEqualToSuperview()
+        }
+
+        logoImageViewBottom.snp.makeConstraints { (make) in
+            make.top.equalTo(logoImageViewTop.snp.bottom).offset(hasTopNotch ? -52 : -76)
+            make.trailing.equalTo(view).offset(-24)
+            make.leading.greaterThanOrEqualToSuperview()
+        }
+
+        descriptionLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(view).offset(40)
+            make.trailing.equalTo(view)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(38)
+            make.bottom.equalTo(view).priority(.low)
         }
 
         appleLoginButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(termsLabel.snp.top).offset(-24)
+            make.bottom.equalTo(termsLabel.snp.top).offset(-16)
             make.leading.equalTo(view).offset(Constant.sideMargin)
             make.trailing.equalTo(view).offset(-Constant.sideMargin)
             make.height.equalTo(Constant.Button.height)
         }
 
         termsLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(hasTopNotch ? -8 : -24)
             make.leading.equalTo(view).offset(Constant.sideMargin)
             make.trailing.equalTo(view).offset(-Constant.sideMargin)
         }
     }
-    lazy var logoImageView: UIImageView = {
+
+    lazy var logoImageViewTop: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleToFill
+        view.image = Constant.topImage
+        return view
+    }()
+
+    lazy var logoImageViewBottom: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
+        view.image = Constant.bottomImage
         return view
+    }()
+
+    lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        let attributedString = NSMutableAttributedString(string: "내가 만드는\n나만의 단어장,\n포잉포잉", attributes: [
+            .font: UIFont.systemFont(ofSize: 38, weight: .light),
+          .foregroundColor: UIColor.midnight,
+          .kern: -1.0
+        ])
+        attributedString.addAttribute(
+            .font,
+            value: UIFont.systemFont(ofSize: 38, weight: .black),
+            range: NSRange(location: 16, length: 4)
+        )
+        label.attributedText = attributedString
+        return label
     }()
 
     lazy var appleLoginButton: AppleLoginButton = {
         var button = AppleLoginButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = Constant.Button.height * 0.5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.862745098, blue: 0.862745098, alpha: 1)
         button.clipsToBounds = true
         button.backgroundColor = .white
         button.addTarget(self, action: #selector(appleLoginDidTap), for: .touchUpInside)
@@ -79,9 +129,21 @@ class LoginViewController: UIViewController {
         let attributes: [NSAttributedString.Key : Any] = [
             .font: UIFont(name: "AppleSDGothicNeo-Regular", size: 12) as Any,
             .paragraphStyle: paragraphStyle,
-            .foregroundColor: UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+            .foregroundColor: UIColor.brownGrey
         ]
         let attrString = NSMutableAttributedString(string: Constant.Terms.text, attributes: attributes)
+
+        attrString.addAttribute(
+            .foregroundColor,
+            value: UIColor.slateGrey,
+            range: Constant.Terms.privacyRange
+        )
+
+        attrString.addAttribute(
+            .foregroundColor,
+            value: UIColor.slateGrey,
+            range: Constant.Terms.termsRange
+        )
 
         attrString.addAttribute(
             NSAttributedString.Key.underlineStyle,
