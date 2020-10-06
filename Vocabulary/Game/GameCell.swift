@@ -9,12 +9,12 @@
 import UIKit
 import SnapKit
 import PoingDesignSystem
+import VocaGame
 
 class GameCell: UICollectionViewCell {
     enum Constant {
         enum Thumb {
-            static let height: CGFloat = 48
-            static let radius: CGFloat = 12
+            static let height: CGFloat = 32
         }
         enum Title {
             static let font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -52,9 +52,14 @@ class GameCell: UICollectionViewCell {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
-        view.backgroundColor = .blue
-        view.layer.cornerRadius = Constant.Thumb.radius
-        view.clipsToBounds = true
+        return view
+    }()
+
+    lazy var arrowImageView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFit
+        view.image = UIImage(named: "icSettingArrow")
         return view
     }()
 
@@ -71,14 +76,16 @@ class GameCell: UICollectionViewCell {
         super.prepareForReuse()
     }
 
-    func configure(title: String) {
-        titleLabel.text = title
+    func configure(_ style: GameStyle) {
+        titleLabel.text = style.type.rawValue
+        thumbImageView.image = style.image
     }
 
     func configureLayout() {
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(thumbImageView)
+        containerView.addSubview(arrowImageView)
 
         containerView.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(contentView)
@@ -96,6 +103,13 @@ class GameCell: UICollectionViewCell {
             make.centerY.equalTo(containerView)
             make.height.width.equalTo(Constant.Thumb.height)
             make.leading.equalTo(containerView).offset(24)
+        }
+
+        arrowImageView.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-24)
+            make.width.equalTo(8)
+            make.height.equalTo(14)
         }
     }
 }
