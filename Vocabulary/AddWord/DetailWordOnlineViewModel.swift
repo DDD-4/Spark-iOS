@@ -14,21 +14,22 @@ import PoingVocaSubsystem
 protocol DetailWordViewModelInput {
     
     func postWord(
-        folderId: Int,
-        word: WordCoreData,
+        folder: Folder,
+        word: Word,
+        image: Data,
         completion: @escaping (() -> Void))
     
     func updateWord(
         vocabularyId: Int,
-        deleteFolder: FolderCoreData,
-        addFolder: FolderCoreData,
-        deleteWords: [WordCoreData],
-        addWords: [WordCoreData],
+        deleteFolder: Folder,
+        addFolder: Folder,
+        deleteWords: [Word],
+        addWords: [Word],
         completion: @escaping (() -> Void))
     
     func deleteWord(
         vocabularyId: Int,
-        word: WordCoreData,
+        word: Word,
         completion: @escaping (() -> Void))
     
 }
@@ -57,20 +58,24 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
     }
     
     func postWord(
-        folderId: Int,
-        word: WordCoreData,
+        folder: Folder,
+        word: Word,
+        image: Data,
         completion: @escaping (() -> Void)
     ) {
+        
         WordController.shared.postWord(
             english: word.english,
-            folderId: word.id,
+            folderId: folder.id,
             korean: word.korean,
-            photo: word.image! )
+            photo: image
+        )
             .subscribe{ response in
+                
                 if response.element?.statusCode == 200 {
                     completion()
                 } else {
-                    //error
+                    //error 처리 해줘야함
                     print("postWord error")
                 }
             }.disposed(by: disposeBag)
@@ -78,10 +83,10 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
     
     func updateWord(
         vocabularyId: Int,
-        deleteFolder: FolderCoreData,
-        addFolder: FolderCoreData,
-        deleteWords: [WordCoreData],
-        addWords: [WordCoreData],
+        deleteFolder: Folder,
+        addFolder: Folder,
+        deleteWords: [Word],
+        addWords: [Word],
         completion: @escaping (() -> Void)
     ) {
         guard !addWords.isEmpty else {
@@ -89,26 +94,34 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
             return
         }
         
+        guard let addWord = addWords[0] as? WordCoreData else {
+            return
+        }
+        
+        guard let image = addWord.image else {
+            return
+        }
+        
         WordController.shared.updateWord(
             vocabularyId: vocabularyId,
-            english: addWords[0].english,
-            folderId: addWords[0].id,
-            korean: addWords[0].korean,
-            photo: addWords[0].image!
+            english: addWord.english,
+            folderId: addFolder.id,
+            korean: addWord.korean,
+            photo: image
         )
         .subscribe { (response) in
             if response.element?.statusCode == 200 {
                 completion()
             } else {
                 // error
-                print("updateWord error")
+                print(response)
             }
         }.disposed(by: disposeBag)
     }
     
     func deleteWord(
         vocabularyId: Int,
-        word: WordCoreData,
+        word: Word,
         completion: @escaping (() -> Void)
     ) {
         WordController.shared.deleteWord(vocabularyId: vocabularyId)

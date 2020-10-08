@@ -18,7 +18,8 @@ protocol MyVocaViewModelOutput {
 
 protocol MyVocaViewModelInput {
     func fetchFolder()
-    func deleteWord(deleteWords: [Word])
+    func deleteWord(deleteWords: [Word], completion: @escaping ( () -> Void))
+    func getWord()
     var selectedFolderIndex: BehaviorRelay<Int?> { get }
     var selectedFolder: BehaviorRelay<Folder?> { get }
 }
@@ -83,12 +84,18 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
         }
     }
 
-    func deleteWord(deleteWords: [Word]) {
+    func deleteWord(deleteWords: [Word], completion: @escaping (() -> Void)) {
         guard let folder = selectedFolder.value as? FolderCoreData,
               let deleteWords = deleteWords as? [WordCoreData] else {
             return
         }
 
-        VocaManager.shared.update(group: folder, deleteWords: deleteWords)
+        VocaManager.shared.update(group: folder, deleteWords: deleteWords) { [weak self] in
+            completion()
+        }
+    }
+    
+    func getWord() {
+        
     }
 }

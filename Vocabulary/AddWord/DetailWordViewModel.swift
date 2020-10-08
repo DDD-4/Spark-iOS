@@ -30,35 +30,48 @@ class DetailWordViewModel: DetailWordViewModelInput, DetailWordViewModelOutput, 
     }
     
     func postWord(
-        folderId: Int,
-        word: WordCoreData,
+        folder: Folder,
+        word: Word,
+        image: Data,
         completion: @escaping (() -> Void)
     ) {
-        guard let folder = self.updateFolder.value else {
+        
+        guard let folder = folder as? FolderCoreData else {
             return
         }
         var wordOrder = folder.words.count ?? 0
+        guard let postWord = word as? WordCoreData else {
+            return
+        }
         
         VocaManager.shared.update(
             group: folder,
-            addWords: [word]) { [weak self] in
+            addWords: [postWord]) { [weak self] in
             completion()
         }
     }
     
     func updateWord(
         vocabularyId: Int,
-        deleteFolder: FolderCoreData,
-        addFolder: FolderCoreData,
-        deleteWords: [WordCoreData],
-        addWords: [WordCoreData],
+        deleteFolder: Folder,
+        addFolder: Folder,
+        deleteWords: [Word],
+        addWords: [Word],
         completion: @escaping (() -> Void)
     ) {
+        
+        guard let deleteFolder = deleteFolder as? FolderCoreData,
+              let addFolder = addFolder as? FolderCoreData,
+              let deleteWord = deleteWords[0] as? WordCoreData,
+              let addWord = addWords[0] as? WordCoreData else {
+            return
+        }
+        
         VocaManager.shared.update(
             deleteGroup: deleteFolder,
             addGroup: addFolder,
-            deleteWords: deleteWords,
-            addWords: addWords
+            deleteWords: [deleteWord],
+            addWords: [addWord]
         ) { [weak self ] in
             completion()
         }
@@ -66,7 +79,7 @@ class DetailWordViewModel: DetailWordViewModelInput, DetailWordViewModelOutput, 
     
     func deleteWord(
         vocabularyId: Int,
-        word: WordCoreData,
+        word: Word,
         completion: @escaping (() -> Void)
     ) {
         

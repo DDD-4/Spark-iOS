@@ -221,6 +221,11 @@ class DetailWordViewController: UIViewController {
         if let wordCoreData = word as? WordCoreData,
            let getWordImage = wordCoreData.image {
             self.wordImageView.image = UIImage(data: getWordImage)
+        } else {
+            guard let url = word?.photoUrl else {
+                return
+            }
+            self.wordImageView.sd_setImage(with: URL(string: url))
         }
         
         view.clipsToBounds = false
@@ -427,22 +432,28 @@ class DetailWordViewController: UIViewController {
         switch currentState {
         case .add:
             // change to viewmodel.
-            guard let addFolder = addGroup as? FolderCoreData else {
-                return
-            }
+//            guard let addFolder = addGroup as? FolderCoreData else {
+//                return
+//            }
+            
+            let addFolder = addGroup as? FolderCoreData
             
             let word = WordCoreData(
                 korean: self.korTextField.text ?? "",
                 english: self.engTextField.text ?? "",
                 imageData: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
                 identifier: UUID(),
-                order: Int16(addFolder.words.count)
+                order: Int16(addFolder?.words.count ?? 0)
             )
             
+            guard let image = word.image else {
+                return
+            }
             
             viewModel.input.postWord(
-                folderId: addFolder.id,
-                word: word ) { [weak self] in
+                folder: addGroup,
+                word: word,
+                image: image) { [weak self] in
                 guard let self = self else { return }
                 let alert: UIAlertView = UIAlertView(title: "단어 만들기 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
                 
@@ -459,10 +470,8 @@ class DetailWordViewController: UIViewController {
         case .edit:
             // TODO: Add server flag
             
-            guard let deleteGroup = self.getGroup as? FolderCoreData,
-                  let addFolder = addGroup as? FolderCoreData,
-                  let deleteFolder = deleteGroup as? FolderCoreData,
-                  let deleteWord = self.getWord as? WordCoreData else {
+            guard let deleteGroup = self.getGroup,
+                  let deleteWord = self.getWord else {
                 return
             }
             
@@ -471,13 +480,13 @@ class DetailWordViewController: UIViewController {
                 english: self.engTextField.text ?? "",
                 imageData: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
                 identifier: UUID(),
-                order: deleteWord.order
+                order: 0
             )
             
             viewModel.input.updateWord(
-                vocabularyId: self.newGroup!.id,
-                deleteFolder: deleteFolder,
-                addFolder: addFolder,
+                vocabularyId: deleteWord.id,
+                deleteFolder: deleteGroup,
+                addFolder: addGroup,
                 deleteWords: [deleteWord],
                 addWords: [word]) { [weak self] in
                 let alert: UIAlertView = UIAlertView(title: "단어 수정 완료!", message: "단어장의 단어를 수정했어요!", delegate: nil, cancelButtonTitle: nil);

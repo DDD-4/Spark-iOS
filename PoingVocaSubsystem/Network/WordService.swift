@@ -9,6 +9,7 @@
 import Moya
 
 enum WordService {
+    case getWord(folderId: Int)
     case postWord(
             english: String,
             folderId: Int,
@@ -33,17 +34,21 @@ extension WordService: TargetType {
     
     var path: String {
         switch self {
-        case .postWord(let english, let folderId, let korean, let photo):
-            return "V1/vocabularies"
+        case .getWord(_):
+            return "v1/vocabularies"
+        case .postWord(_, _, _, _):
+            return "v1/vocabularies"
         case .deleteWord(let vocabularyId):
-            return "V1/vocabularies\(vocabularyId)"
-        case .updateWord(let vocabularyId):
-            return "V1/vocabularies\(vocabularyId)"
+            return "v1/vocabularies/\(vocabularyId)"
+        case .updateWord(let vocabularyId, _, _, _, _):
+            return "v1/vocabularies/\(vocabularyId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
+        case .getWord:
+            return .get
         case .postWord:
             return .post
         case .deleteWord:
@@ -58,24 +63,38 @@ extension WordService: TargetType {
     
     var task: Task {
         switch self {
+        case .getWord(let folderId):
+            return .requestParameters(parameters: ["folderId": folderId], encoding: URLEncoding.default)
         case .postWord(let english, let folderId, let korean, let photo):
+            
+            let photoData = MultipartFormData(provider: .data(photo), name: "photo", fileName: "\(english).jpg", mimeType: "image/jpg")
+            
             let params: [String: Any] = [
                 "english": english,
                 "folderId": folderId,
-                "korean": korean,
-                "photo": photo
+                "korean": korean
             ]
-            return .requestParameters(parameters: params, encoding: URLEncoding.default)
-        case .deleteWord(let vocabularyId):
-            return .requestParameters(parameters: ["vocabularyId": vocabularyId], encoding: JSONEncoding.default)
+            
+            return .uploadCompositeMultipart([photoData], urlParameters: params)
+            //return .uploadMultipart(multipartData)
+        case .deleteWord(_):
+            return .requestPlain
         case .updateWord(_, let english, let folderId, let korean, let photo):
+            
+            let photoData = MultipartFormData(provider: .data(photo), name: "photo", fileName: "\(english).jpg", mimeType: "image/jpg")
+            let englishData = MultipartFormData(provider: .data(english.data(using: .utf8)!), name: "english")
+            let folderIdData = MultipartFormData(provider: .data("\(folderId)".data(using: .utf8)!), name: "folderId")
+            let koreanData = MultipartFormData(provider: .data(korean.data(using: .utf8)!), name: "korean")
+            
             let params: [String: Any] = [
                 "english": english,
                 "folderId": folderId,
-                "korean": korean,
-                "photo": photo
+                "korean": korean
             ]
-            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            
+            return .uploadMultipart([ photoData, englishData, folderIdData, koreanData ])
+            
+            //return .uploadCompositeMultipart([photoData], urlParameters: params)
         }
     }
     
