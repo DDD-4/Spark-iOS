@@ -45,7 +45,7 @@ class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, Vo
     var currentPage: BehaviorRelay<Int>
 
     var disposeBag = DisposeBag()
-    
+
     init() {
         orderType = BehaviorRelay<EveryVocaSortType?>(value: nil)
         vocaForAllList = BehaviorRelay<[EveryVocaContent]>(value: [])
@@ -77,6 +77,8 @@ class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, Vo
 
     func fetchEveryVocaSortTypes() {
         EveryVocabularyController.shared.getEveryVocabulariesSortType()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
             .subscribe { [weak self] (response) in
                 guard let element = response.element else { return }
                 self?.orderType.accept(element.first)
@@ -88,6 +90,8 @@ class VocaForAllViewModel: VocaForAllViewModelType, VocaForAllViewModelInput, Vo
     func fetchVocaForAllData(sortTypeKey: String, page: Int) {
         vocaShouldShowLoadingCell.accept(true)
         EveryVocabularyController.shared.getEveryVocabularies(sortType: sortTypeKey, page: page)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
             .subscribe { [weak self] (response) in
                 self?.vocaShouldShowLoadingCell.accept(false)
                 guard let self = self, let element = response.element else { return }

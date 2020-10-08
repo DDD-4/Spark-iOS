@@ -14,7 +14,10 @@ import PoingVocaSubsystem
 class GameViewController: UIViewController {
     enum Constant {
         static let backgroundColor = UIColor.gameBackgroundColor
-        static let gameList: [GameType] = [.flip, .matching]
+        static let gameList: [GameStyle] = [
+            GameStyle(type: .flip, image: UIImage(named: "icnflip")),
+            GameStyle(type: .matching, image: UIImage(named: "icnMatching"))
+        ]
         static let spacing: CGFloat = 32
         enum Title {
             static let text = "함께 복습 해볼까요?"
@@ -180,12 +183,12 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegate
         if ModeConfig.shared.currentMode == .offline {
             selectFolderViewController = VocaGame.SelectFolderViewController(
                 VocaManager.shared.groups ?? [],
-                gameType: selectedGame
+                gameType: selectedGame.type
             )
         } else {
             selectFolderViewController = VocaGame.SelectFolderViewController(
                 FolderManager.shared.myFolders,
-                gameType: selectedGame
+                gameType: selectedGame.type
             )
         }
 
@@ -202,7 +205,7 @@ extension GameViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCell.reuseIdentifier, for: indexPath) as? GameCell else {
             return UICollectionViewCell()
         }
-        cell.configure(title: Constant.gameList[indexPath.row].rawValue)
+        cell.configure(Constant.gameList[indexPath.row])
         return cell
     }
 }
