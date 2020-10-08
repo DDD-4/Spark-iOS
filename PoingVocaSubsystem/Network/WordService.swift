@@ -67,34 +67,24 @@ extension WordService: TargetType {
             return .requestParameters(parameters: ["folderId": folderId], encoding: URLEncoding.default)
         case .postWord(let english, let folderId, let korean, let photo):
             
-            let photoData = MultipartFormData(provider: .data(photo), name: "photo", fileName: "\(english).jpg", mimeType: "image/jpg")
+            var formData = [MultipartFormData]()
+            formData.append(MultipartFormData(provider: .data(photo), name: "photo", fileName: "\(english).jpg", mimeType: "image/jpg"))
+            formData.append(MultipartFormData(provider: .data(english.data(using: .utf8)!), name: "english"))
+            formData.append(MultipartFormData(provider: .data(korean.data(using: .utf8)!), name: "korean"))
+            formData.append(MultipartFormData(provider: .data("\(folderId)".data(using: .utf8)!), name: "folderId"))
+            return .uploadMultipart(formData)
             
-            let params: [String: Any] = [
-                "english": english,
-                "folderId": folderId,
-                "korean": korean
-            ]
-            
-            return .uploadCompositeMultipart([photoData], urlParameters: params)
-            //return .uploadMultipart(multipartData)
         case .deleteWord(_):
             return .requestPlain
         case .updateWord(_, let english, let folderId, let korean, let photo):
             
-            let photoData = MultipartFormData(provider: .data(photo), name: "photo", fileName: "\(english).jpg", mimeType: "image/jpg")
-            let englishData = MultipartFormData(provider: .data(english.data(using: .utf8)!), name: "english")
-            let folderIdData = MultipartFormData(provider: .data("\(folderId)".data(using: .utf8)!), name: "folderId")
-            let koreanData = MultipartFormData(provider: .data(korean.data(using: .utf8)!), name: "korean")
+            var formData = [MultipartFormData]()
+            formData.append(MultipartFormData(provider: .data(photo), name: "photo", fileName: "\(english).jpg", mimeType: "image/jpg"))
+            formData.append(MultipartFormData(provider: .data(english.data(using: .utf8)!), name: "english"))
+            formData.append(MultipartFormData(provider: .data(korean.data(using: .utf8)!), name: "korean"))
+            formData.append(MultipartFormData(provider: .data("\(folderId)".data(using: .utf8)!), name: "folderId"))
+            return .uploadMultipart(formData)
             
-            let params: [String: Any] = [
-                "english": english,
-                "folderId": folderId,
-                "korean": korean
-            ]
-            
-            return .uploadMultipart([ photoData, englishData, folderIdData, koreanData ])
-            
-            //return .uploadCompositeMultipart([photoData], urlParameters: params)
         }
     }
     
@@ -105,4 +95,4 @@ extension WordService: TargetType {
 }
 
 class WordServiceManager: BaseManager<WordService> {}
- 
+
