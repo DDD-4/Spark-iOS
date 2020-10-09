@@ -35,7 +35,8 @@ class DetailWordViewController: UIViewController {
     // MARK: - Properties
     private let picker = UIImagePickerController()
     private let disposeBag = DisposeBag()
-    private let viewModel: SelectViewModelType = SelectViewModel()
+    //private let viewModel: SelectViewModelType = SelectViewModel()
+    var viewModel: DetailWordViewModelType
     
     var newGroup: Folder?
     var delegate: DetailWordViewController?
@@ -50,7 +51,7 @@ class DetailWordViewController: UIViewController {
         return view
     }()
     lazy var contentView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -173,16 +174,31 @@ class DetailWordViewController: UIViewController {
     
     init(image: UIImage) {
         self.currentState = .add
+        
+        if ModeConfig.shared.currentMode == .offline {
+            viewModel = DetailWordViewModel()
+        } else {
+            viewModel = DetailWordOnlineViewModel()
+        }
+        
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
         
         self.wordImageView.image = image
+        
         view.clipsToBounds = false
     }
     
     init(group: Folder?, word: Word?) {
         self.currentState = .edit
+        
+        if ModeConfig.shared.currentMode == .offline {
+            viewModel = DetailWordViewModel()
+        } else {
+            viewModel = DetailWordOnlineViewModel()
+        }
+        
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
@@ -200,11 +216,16 @@ class DetailWordViewController: UIViewController {
         self.engTextField.text = getWord.english
         self.korTextField.text = getWord.korean
         self.getWord = getWord
-
+        
         // TODO: server
         if let wordCoreData = word as? WordCoreData,
            let getWordImage = wordCoreData.image {
             self.wordImageView.image = UIImage(data: getWordImage)
+        } else {
+            guard let url = word?.photoUrl else {
+                return
+            }
+            self.wordImageView.sd_setImage(with: URL(string: url))
         }
         
         view.clipsToBounds = false
@@ -220,23 +241,23 @@ class DetailWordViewController: UIViewController {
         initView()
         registerForKeyboardNotifications()
         configureRx()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(vocaDataChanged),
-            name: .vocaDataChanged,
-            object: nil
-        )
-
+        
         let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(gesture)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(modeConfigDidChanged),
+            name: .modeConfig,
+            object: nil
+        )
     }
     
     // MARK: - View ✨
     func initView() {
         view.backgroundColor = .white
         view.addSubview(scrollView)
-
+        
         scrollView.addSubview(contentView)
         contentView.addSubview(naviView)
         contentView.addSubview(containerView)
@@ -245,42 +266,42 @@ class DetailWordViewController: UIViewController {
         containerView.addSubview(folderButton)
         contentView.addSubview(cameraButton)
         contentView.addSubview(confirmButton)
-
+        
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
-
+        
         contentView.snp.makeConstraints { (make) in
             make.width.equalToSuperview()
             make.height.equalToSuperview()
             make.centerX.bottom.equalToSuperview()
             make.top.equalToSuperview()
         }
-
+        
         naviView.snp.makeConstraints { (make) in
             make.top.equalTo(contentView.snp.top)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(44)
         }
-
+        
         wordImageView.snp.makeConstraints { (make) in
             make.centerX.equalTo(contentView)
             make.height.width.equalTo(166)
             make.top.equalTo(containerView.snp.top).offset(-55)
         }
-
+        
         cameraButton.snp.makeConstraints { (make) in
             make.trailing.equalTo(wordImageView.snp.trailing)
             make.bottom.equalTo(wordImageView.snp.bottom)
             make.width.height.equalTo(40)
         }
-
+        
         containerView.snp.makeConstraints { (make) in
             make.top.equalTo(naviView.snp.bottom).offset(69)
             make.leading.equalTo(contentView.snp.leading).offset(16)
             make.trailing.equalTo(contentView.snp.trailing).offset(-16)
         }
-
+        
         textStack.snp.makeConstraints { (make) in
             make.top.equalTo(wordImageView.snp.bottom).offset(14)
             make.centerX.equalTo(containerView)
@@ -288,14 +309,14 @@ class DetailWordViewController: UIViewController {
             make.trailing.equalTo(containerView).offset(-16)
             make.bottom.equalTo(folderButton.snp.top).offset(-33)
         }
-
+        
         folderButton.snp.makeConstraints { (make) in
             make.leading.equalTo(containerView).offset(16)
             make.trailing.equalTo(containerView).offset(-16)
             make.bottom.equalTo(containerView).offset(-16)
             make.height.equalTo(56)
         }
-
+        
         confirmButton.snp.makeConstraints { (make) in
             make.height.equalTo(60)
             make.leading.equalTo(16)
@@ -304,15 +325,9 @@ class DetailWordViewController: UIViewController {
             make.centerX.equalTo(contentView)
         }
     }
-
+    
     func configureRx() {
         
-        viewModel.output.groups
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (_) in
-                
-            }).disposed(by: disposeBag)
-                
         engTextField.rx.controlEvent(.editingChanged)
             .subscribe { [weak self] (_) in
                 guard let self = self else {
@@ -331,7 +346,7 @@ class DetailWordViewController: UIViewController {
                 self.confirmButton.isEnabled = (engText.count == 0 || korText.count == 0 ) ? false : true
                 
                 self.updateConfirmButton()
-        }.disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
         
         korTextField.rx.controlEvent(.editingChanged)
             .subscribe { [weak self] (_) in
@@ -351,12 +366,12 @@ class DetailWordViewController: UIViewController {
                 self.confirmButton.isEnabled = (engText.count == 0 || korText.count == 0 ) ? false : true
                 
                 self.updateConfirmButton()
-        }.disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
         
         folderButton.rx.tap.subscribe(onNext: {[weak self] (_) in
             let viewController = SelectFolderViewController()
             viewController.delegate = self
-
+            
             self?.confirmButton.isEnabled = (self?.engTextField.text?.count == 0 || self?.korTextField.text?.count == 0 ) ? false : true
             self?.updateConfirmButton()
             
@@ -365,14 +380,20 @@ class DetailWordViewController: UIViewController {
         
     }
     
-    @objc func vocaDataChanged() {
-        viewModel.input.fetchGroups()
+    @objc func modeConfigDidChanged() {
+        if ModeConfig.shared.currentMode == .offline {
+            viewModel = DetailWordViewModel()
+        } else {
+            viewModel = DetailWordOnlineViewModel()
+        }
+        
+        configureRx()
     }
-
+    
     @objc func viewTapped() {
         view.endEditing(true)
     }
-
+    
     
     @objc func addPicture(_ sender: Any) {
         
@@ -393,6 +414,7 @@ class DetailWordViewController: UIViewController {
     }
     
     @objc func confirmDidTap(_ sender: Any) {
+        
         guard let addGroup = self.newGroup else {
             let alert: UIAlertView = UIAlertView(title: nil, message: "단어장을 선택해 주세요!", delegate: nil, cancelButtonTitle: nil);
             
@@ -404,28 +426,35 @@ class DetailWordViewController: UIViewController {
             }
             return
         }
-
+        
         // TODO: Add server
         
         switch currentState {
         case .add:
-            // change to viewmodel..
-
-            guard let addFolder = addGroup as? FolderCoreData else {
-                return
-            }
+            // change to viewmodel.
+//            guard let addFolder = addGroup as? FolderCoreData else {
+//                return
+//            }
+            
+            let addFolder = addGroup as? FolderCoreData
+            
             let word = WordCoreData(
                 korean: self.korTextField.text ?? "",
                 english: self.engTextField.text ?? "",
                 imageData: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
                 identifier: UUID(),
-                order: Int16(addFolder.words.count)
+                order: Int16(addFolder?.words.count ?? 0)
             )
             
-            VocaManager.shared.update(
-                group: addFolder,
-                addWords: [word]
-            ) { [weak self] in
+            guard let image = word.image else {
+                return
+            }
+            
+            viewModel.input.postWord(
+                folder: addGroup,
+                word: word,
+                image: image) { [weak self] in
+                guard let self = self else { return }
                 let alert: UIAlertView = UIAlertView(title: "단어 만들기 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
                 
                 alert.show()
@@ -434,36 +463,32 @@ class DetailWordViewController: UIViewController {
                 DispatchQueue.main.asyncAfter(deadline: when){
                     alert.dismiss(withClickedButtonIndex: 0, animated: true)
                     
-                    self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                    self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 }
             }
+            
         case .edit:
             // TODO: Add server flag
-
-            guard let deleteGroup = self.getGroup else {
+            
+            guard let deleteGroup = self.getGroup,
+                  let deleteWord = self.getWord else {
                 return
             }
-            guard let addFolder = addGroup as? FolderCoreData,
-                  let deleteFolder = deleteGroup as? FolderCoreData,
-                let deleteWord = self.getWord as? WordCoreData else {
-                return
-            }
-
+            
             let word = WordCoreData(
                 korean: self.korTextField.text ?? "",
                 english: self.engTextField.text ?? "",
                 imageData: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
                 identifier: UUID(),
-                order: deleteWord.order
+                order: 0
             )
             
-            
-            VocaManager.shared.update(
-                deleteGroup: deleteFolder,
-                addGroup: addFolder,
+            viewModel.input.updateWord(
+                vocabularyId: deleteWord.id,
+                deleteFolder: deleteGroup,
+                addFolder: addGroup,
                 deleteWords: [deleteWord],
-                addWords: [word]
-            ) { [weak self ] in
+                addWords: [word]) { [weak self] in
                 let alert: UIAlertView = UIAlertView(title: "단어 수정 완료!", message: "단어장의 단어를 수정했어요!", delegate: nil, cancelButtonTitle: nil);
                 
                 alert.show()
@@ -478,7 +503,6 @@ class DetailWordViewController: UIViewController {
             
         }
     }
-    
     @objc func tapLeftButton() {
         //dismiss(animated: true, completion: nil)
         let viewController = CancelPopupViewController()
@@ -559,7 +583,7 @@ extension DetailWordViewController: UITextFieldDelegate {
         let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
-
+        
         // 활성화된 텍스트 필드가 키보드에 의해 가려진다면 가려지지 않도록 스크롤한다.
         // 이 부분은 상황에 따라 불필요할 수 있다.
         var rect = self.view.frame

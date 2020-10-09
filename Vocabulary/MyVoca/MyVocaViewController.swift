@@ -23,19 +23,18 @@ class MyVocaViewController: UIViewController {
         case myVoca
         case vocaForAll
     }
-
+    
     // ViewModels
     var viewModel: MyVocaViewModelType
-
+    
     let vocaForAllViewModel: VocaForAllViewModelType = VocaForAllViewModel()
-
+    
     let currentViewType: ViewType
     
     let disposeBag = DisposeBag()
     let synthesizer = AVSpeechSynthesizer()
     
     var currentSynthesizerCellRow: Int?
-
     
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -71,13 +70,13 @@ class MyVocaViewController: UIViewController {
     
     init(viewType: ViewType) {
         currentViewType = viewType
-
+        
         if ModeConfig.shared.currentMode == .offline {
             viewModel = MyVocaViewModel()
         } else {
             viewModel = MyVocaOnlineViewModel()
         }
-
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -94,6 +93,7 @@ class MyVocaViewController: UIViewController {
         case .myVoca:
             configureRx()
             viewModel.input.fetchFolder()
+            viewModel.input.getWord()
             
         case .vocaForAll:
             configureVocaForAllRx()
@@ -108,21 +108,21 @@ class MyVocaViewController: UIViewController {
             name: .vocaDataChanged,
             object: nil
         )
-
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(modeConfigDidChanged),
             name: .modeConfig,
             object: nil
         )
-
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(myFolderDidChanged),
             name: PoingVocaSubsystem.Notification.Name.myFolder,
             object: nil
         )
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,13 +162,13 @@ class MyVocaViewController: UIViewController {
             .subscribe(onNext: { [weak self] (_) in
                 self?.groupNameCollectionView.reloadData()
             }).disposed(by: disposeBag)
-
+        
         vocaForAllViewModel.outputs.everyVocaSortTypes
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
                 self?.groupNameCollectionView.reloadData()
             }).disposed(by: disposeBag)
-
+        
         vocaForAllViewModel.outputs.vocaShouldShowLoadingCell
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (bool) in
@@ -177,22 +177,26 @@ class MyVocaViewController: UIViewController {
     }
     
     @objc func vocaDataChanged() {
-        if ModeConfig.shared.currentMode == .offline {
-            viewModel.input.fetchFolder()
-        }
+        //        if ModeConfig.shared.currentMode == .offline {
+        //            viewModel.input.fetchFolder()
+        //        }
+        viewModel.input.fetchFolder()
+        viewModel.input.getWord()
     }
-
+    
     @objc func modeConfigDidChanged() {
         if ModeConfig.shared.currentMode == .offline {
             viewModel = MyVocaViewModel()
         } else {
             viewModel = MyVocaOnlineViewModel()
         }
-
+        
         configureRx()
+        configureVocaForAllRx()
         viewModel.input.fetchFolder()
+        viewModel.input.getWord()
     }
-
+    
     @objc func myFolderDidChanged() {
         if ModeConfig.shared.currentMode == .online {
             viewModel.output.folders.accept(FolderManager.shared.myFolders)
@@ -238,8 +242,8 @@ extension MyVocaViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: VocaForAllCell.reuseIdentifier,
                 for: indexPath
-                ) as? VocaForAllCell else {
-                    return UICollectionViewCell()
+            ) as? VocaForAllCell else {
+                return UICollectionViewCell()
             }
             cell.configure(content: vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.item])
             return cell
@@ -250,10 +254,10 @@ extension MyVocaViewController: UICollectionViewDataSource {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let reusableview = collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: MyVocaGroupReusableView.reuseIdentifier,
-                for: indexPath) as? MyVocaGroupReusableView else {
-                    return UICollectionReusableView()
+                    ofKind: UICollectionView.elementKindSectionHeader,
+                    withReuseIdentifier: MyVocaGroupReusableView.reuseIdentifier,
+                    for: indexPath) as? MyVocaGroupReusableView else {
+                return UICollectionReusableView()
             }
             reusableview.delegate = self
             switch currentViewType {
@@ -281,19 +285,19 @@ extension MyVocaViewController: UICollectionViewDataSource {
         let selectedFolder = vocaForAllViewModel.outputs.vocaForAllList.value[indexPath.row]
         let viewModel = VocaForAllDetailViewModel(content: selectedFolder)
         let wordView = VocaForAllDetailViewController(viewModel: viewModel)
-
+        
         navigationController?.pushViewController(wordView, animated: true)
         
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard currentViewType == .vocaForAll,
-            indexPath.row == (vocaForAllViewModel.outputs.vocaForAllList.value.count - 1),
-            vocaForAllViewModel.outputs.hasMoreEveryVocaContent()
+              indexPath.row == (vocaForAllViewModel.outputs.vocaForAllList.value.count - 1),
+              vocaForAllViewModel.outputs.hasMoreEveryVocaContent()
         else { return }
-
+        
         let value = vocaForAllViewModel.inputs.currentPage.value
-
+        
         vocaForAllViewModel.inputs.currentPage.accept(value + 1)
     }
 }
@@ -343,6 +347,7 @@ extension MyVocaViewController: MyVocaViewControllerDelegate {
     
     func myVocaViewController(didTapGroup group: Folder, view: MyVocaGroupReusableView) {
         viewModel.input.selectedFolder.accept(group)
+        viewModel.input.getWord()
     }
 }
 
@@ -353,23 +358,41 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
                 title: "단어 수정",
                 style: .default,
                 handler: { [weak self] (_) in
+                    
                     let viewController = DetailWordViewController(
-                        group: self?.viewModel.input.selectedFolder.value,
+                        group: self?.viewModel.input.selectedFolder.value ?? self?.viewModel.output.folders.value.first,
                         word: word
                     )
-
-                    self?.present(viewController, animated: true, completion: nil)
+                    
+                    let navigationController = UINavigationController(rootViewController: viewController)
+                    navigationController.navigationBar.isHidden = true
+                    navigationController.modalPresentationStyle = .fullScreen
+                    navigationController.modalTransitionStyle = .coverVertical
+                    self?.present(navigationController, animated: true, completion: nil)
+                    
                 }
             ),
-
+            
             UIAlertAction(
                 title: "단어 삭제",
                 style: .destructive,
                 handler: { [weak self] (_) in
-                    self?.viewModel.input.deleteWord(deleteWords: [word])
+                    self?.viewModel.input.deleteWord(deleteWords: [word]) { [weak self] in
+                        guard let self = self else { return }
+                        let alert: UIAlertView = UIAlertView(title: "단어 삭제 완료!", message: "단어장에 단어를 삭제했어요!", delegate: nil, cancelButtonTitle: nil);
+                        
+                        alert.show()
+                        
+                        let when = DispatchTime.now() + 2
+                        DispatchQueue.main.asyncAfter(deadline: when){
+                            alert.dismiss(withClickedButtonIndex: 0, animated: true)
+                            
+                            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                        }
+                    }
                 }
             ),
-
+            
             UIAlertAction(
                 title: "닫기",
                 style: .cancel,
@@ -386,12 +409,12 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
         for data in actionSheetData {
             actionsheet.addAction(data)
         }
-
+        
         present(actionsheet, animated: true, completion: nil)
     }
     
     func myVocaWord(_ cell: UICollectionViewCell, didTapMic button: UIButton, selectedWord word: Word) {
- 
+        
         currentSynthesizerCellRow = cell.tag
         let englishWord = word.english
         synthesizer.stopSpeaking(at: .immediate)
@@ -399,16 +422,16 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
         utterance.rate = 0.3
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         synthesizer.speak(utterance)
-      }
+    }
 }
 
 extension MyVocaViewController: AVSpeechSynthesizerDelegate {
-
+    
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-
+        
         if let currentRow = currentSynthesizerCellRow,
-          let currentCell = groupNameCollectionView.cellForItem(at: IndexPath(row: currentRow, section: 0)) as? MyVocaWordCell {
-          currentCell.stopAnimation()
+           let currentCell = groupNameCollectionView.cellForItem(at: IndexPath(row: currentRow, section: 0)) as? MyVocaWordCell {
+            currentCell.stopAnimation()
         }
     }
 }

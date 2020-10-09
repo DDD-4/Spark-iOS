@@ -11,6 +11,7 @@ import SnapKit
 import AVFoundation
 import PoingVocaSubsystem
 import PoingDesignSystem
+import SDWebImage
 
 protocol MyVocaWordCellDelegate: class {
     func myVocaWord(didTapEdit button: UIButton, selectedWord word: Word)
@@ -140,10 +141,13 @@ class MyVocaWordCell: UICollectionViewCell {
         englishLabel.text = word.english
         koreanLabel.text = word.korean
         if let wordCoreData = word as? WordCoreData {
-            guard let image = wordCoreData.image else { return }
+            guard let image = wordCoreData.image else {
+                return
+            }
             imageView.image = UIImage(data: image)
         } else {
             // TODO: 서버용
+            imageView.sd_setImage(with: URL(string: word.photoUrl ?? "https://ichef.bbci.co.uk/news/800/cpsprodpb/421A/production/_112922961_apple.jpg"))
         }
     }
     

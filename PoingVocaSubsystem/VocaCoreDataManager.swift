@@ -12,7 +12,7 @@ import CloudKit
 public class VocaCoreDataManager: NSObject {
     public static let shared = VocaCoreDataManager()
     let modelName = "Voca"
-    let cloudKitID = "iCloud.Spark.Vocabulary"
+    let cloudKitID = "iCloud.Spark.Vocabularya"
     let vocaBundleID = "Spark.PoingVocaSubsystem"
 
     /**
