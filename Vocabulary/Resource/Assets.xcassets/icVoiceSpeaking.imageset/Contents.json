@@ -2,8 +2,8 @@
   "images" : [
     {
       "filename" : "icVoiceSpeaking.png",
-      "scale" : "1x",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "scale" : "1x"
     },
     {
       "filename" : "icVoiceSpeaking@2x.png",

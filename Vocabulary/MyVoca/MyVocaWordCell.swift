@@ -124,7 +124,9 @@ class MyVocaWordCell: UICollectionViewCell {
         button.addTarget(self, action: #selector(editButtonDidTap(_:)), for: .touchUpInside)
         return button
     }()
-    
+
+    var pulse: PulseAnimation?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
@@ -135,7 +137,7 @@ class MyVocaWordCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func configure(word: Word) {
         self.word = word
         englishLabel.text = word.english
@@ -146,8 +148,11 @@ class MyVocaWordCell: UICollectionViewCell {
             }
             imageView.image = UIImage(data: image)
         } else {
-            // TODO: 서버용
-            imageView.sd_setImage(with: URL(string: word.photoUrl ?? "https://ichef.bbci.co.uk/news/800/cpsprodpb/421A/production/_112922961_apple.jpg"))
+            guard let imageUrlString = word.photoUrl,
+                  let imageUrl = URL(string: imageUrlString) else {
+                return
+            }
+            imageView.sd_setImage(with: imageUrl, completed: nil)
         }
     }
     
@@ -206,20 +211,25 @@ class MyVocaWordCell: UICollectionViewCell {
         guard let word = word else {
             return
         }
-        self.micButton.isSelected = true
-        layer.speed = 0.3
-        let pulse = PulseAnimation(numberOfPulses: 3, radius: Constant.micImageHeight * 1.2, position: self.micButton.center)
-        pulse.animationDuration = 0.3
+        micButton.isSelected = true
+
+        let pulse = PulseAnimation(
+            radius: Constant.micImageHeight * 0.8,
+            position: micButton.center
+        )
+        pulse.animationDuration = 0.8
         pulse.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.8690668736, blue: 0.5490196347, alpha: 1)
-        self.layer.insertSublayer(pulse, below: self.layer)
+        contentView.layer.insertSublayer(pulse, below: micButton.layer)
 
         delegate?.myVocaWord(self, didTapMic: sender, selectedWord: word)
+
+        self.pulse = pulse
     }
-    
+
     public func stopAnimation() {
-        layer.removeAllAnimations()
-        layer.speed = 0
-        self.micButton.isSelected = false
+        pulse?.stop()
+        micButton.isSelected = false
+
     }
 }
 

@@ -414,7 +414,14 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
     }
     
     func myVocaWord(_ cell: UICollectionViewCell, didTapMic button: UIButton, selectedWord word: Word) {
-        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("audioSession properties weren't set because of an error.")
+        }
+
+
         currentSynthesizerCellRow = cell.tag
         let englishWord = word.english
         synthesizer.stopSpeaking(at: .immediate)
@@ -422,9 +429,21 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
         utterance.rate = 0.3
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         synthesizer.speak(utterance)
-    }
-}
 
+        do {
+            disableAVSession()
+        }
+    }
+
+    private func disableAVSession() {
+        do {
+            try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("audioSession properties weren't disable.")
+        }
+    }
+
+}
 extension MyVocaViewController: AVSpeechSynthesizerDelegate {
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {

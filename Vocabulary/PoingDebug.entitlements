@@ -10,8 +10,8 @@
 	</array>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
-		<string>iCloud.Spark.LoadTimea</string>
-		<string>iCloud.Spark.Vocabularya</string>
+		<string>iCloud.Spark.LoadTime</string>
+		<string>iCloud.Spark.Vocabulary</string>
 	</array>
 	<key>com.apple.developer.icloud-services</key>
 	<array>
