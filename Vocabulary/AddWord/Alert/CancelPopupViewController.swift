@@ -12,20 +12,18 @@ import RxSwift
 
 class CancelPopupViewController: UIViewController {
     
-    enum state {
-        case modal
-        case navigation
-    }
-    
     enum Constant {
         enum Popup {
-            static let height: CGFloat = 168
-            static let width: CGFloat = 311
+            static let height: CGFloat = 247
             static let radius: CGFloat = 32
+            static let sideMargin: CGFloat = 24
+        }
+        enum description {
+            static let topMargin: CGFloat = 48
         }
         enum Button {
-            static let radius: CGFloat = 24
-            static let margin: CGFloat = 24
+            static let height: CGFloat = 60
+            static let radius: CGFloat = 30
         }
     }
     
@@ -36,24 +34,53 @@ class CancelPopupViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = Constant.Popup.radius
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.backgroundColor = .white
         return view
     }()
-    lazy var announcementLabel: UILabel = {
+    
+    lazy var descriptionStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = 9
+        stack.alignment = .center
+        
+        return stack
+    }()
+    
+    lazy var titleLabel: UILabel = {
         let view = UILabel()
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.numberOfLines = 2
+        view.numberOfLines = 1
         
         view.textColor = .midnight
-        view.text = "여기서 그만할까요?\n입력한 정보는 모두 사라져요."
+        view.text = "여기서 그만할까요?"
         
         view.textAlignment = .center
-        view.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 18)
+        view.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 26)
         
         return view
     }()
-    lazy var stackView: UIStackView = {
+    
+    lazy var descriptionLabel: UILabel = {
+        let view = UILabel()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.numberOfLines = 1
+        
+        view.textColor = .slateGrey
+        view.text = "입력한 정보는 모두 사라져요."
+        
+        view.textAlignment = .center
+        view.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+        
+        return view
+    }()
+    
+    lazy var buttonStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [cancelButton, confirmButton])
         
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -111,26 +138,26 @@ class CancelPopupViewController: UIViewController {
         
         view.backgroundColor = UIColor.midnight.withAlphaComponent(0.85)
         view.addSubview(containerView)
-        containerView.addSubview(announcementLabel)
-        containerView.addSubview(stackView)
+        containerView.addSubview(descriptionStackView)
+        containerView.addSubview(buttonStackView)
         
         containerView.snp.makeConstraints { (make) in
-            make.center.equalTo(view)
-            make.width.equalTo(Constant.Popup.width)
+            make.leading.trailing.equalTo(view)
             make.height.equalTo(Constant.Popup.height)
+            make.bottom.equalTo(view)
         }
         
-        announcementLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(containerView.snp.top).offset(Constant.Button.margin)
-            make.leading.equalTo(containerView.snp.leading).offset(Constant.Button.margin)
-            make.trailing.equalTo(containerView.snp.trailing).offset(-1 * Constant.Button.margin)
+        descriptionStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(containerView.snp.top).offset(Constant.description.topMargin)
+            make.leading.equalTo(containerView.snp.leading).offset(Constant.Popup.sideMargin)
+            make.trailing.equalTo(containerView.snp.trailing).offset(-1 * Constant.Popup.sideMargin)
         }
         
-        stackView.snp.makeConstraints { (make) in
-            make.centerX.equalTo(containerView)
-            make.leading.trailing.equalTo(announcementLabel)
-            make.bottom.equalTo(containerView.snp.bottom).offset(-1 * Constant.Button.margin)
-            make.height.equalTo(48)
+        buttonStackView.snp.makeConstraints { (make) in
+            make.leading.equalTo(containerView.snp.leading).offset(Constant.Popup.sideMargin)
+            make.trailing.equalTo(containerView.snp.trailing).offset(-1 * Constant.Popup.sideMargin)
+            make.height.equalTo(Constant.Button.height)
+            make.bottom.equalTo(containerView.snp.bottom).offset( hasTopNotch ? -18 : -32)
             
         }
         

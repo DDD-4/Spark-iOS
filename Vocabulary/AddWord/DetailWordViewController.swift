@@ -426,15 +426,9 @@ class DetailWordViewController: UIViewController {
             }
             return
         }
-        
-        // TODO: Add server
-        
+
         switch currentState {
         case .add:
-            // change to viewmodel.
-//            guard let addFolder = addGroup as? FolderCoreData else {
-//                return
-//            }
             
             let addFolder = addGroup as? FolderCoreData
             
@@ -455,16 +449,8 @@ class DetailWordViewController: UIViewController {
                 word: word,
                 image: image) { [weak self] in
                 guard let self = self else { return }
-                let alert: UIAlertView = UIAlertView(title: "단어 만들기 완료!", message: "단어장에 단어를 추가했어요!", delegate: nil, cancelButtonTitle: nil);
                 
-                alert.show()
-                
-                let when = DispatchTime.now() + 2
-                DispatchQueue.main.asyncAfter(deadline: when){
-                    alert.dismiss(withClickedButtonIndex: 0, animated: true)
-                    
-                    self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-                }
+                self.popUpSuccessAlert()
             }
             
         case .edit:
@@ -489,16 +475,9 @@ class DetailWordViewController: UIViewController {
                 addFolder: addGroup,
                 deleteWords: [deleteWord],
                 addWords: [word]) { [weak self] in
-                let alert: UIAlertView = UIAlertView(title: "단어 수정 완료!", message: "단어장의 단어를 수정했어요!", delegate: nil, cancelButtonTitle: nil);
                 
-                alert.show()
+                self?.popUpSuccessAlert()
                 
-                let when = DispatchTime.now() + 2
-                DispatchQueue.main.asyncAfter(deadline: when){
-                    alert.dismiss(withClickedButtonIndex: 0, animated: true)
-                    
-                    self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-                }
             }
             
         }
@@ -514,6 +493,12 @@ class DetailWordViewController: UIViewController {
         confirmButton.backgroundColor = confirmButton.isEnabled
             ? .brightSkyBlue
             : .veryLightPink
+    }
+    
+    func popUpSuccessAlert() {
+        let viewController = SuccessPopupViewController()
+        viewController.modalPresentationStyle = .overCurrentContext
+        self.present(viewController, animated: true, completion: nil)
     }
 }
 
@@ -604,4 +589,3 @@ extension DetailWordViewController: UITextFieldDelegate {
         return true
     }
 }
-
