@@ -33,8 +33,9 @@ class MyVocaViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     let synthesizer = AVSpeechSynthesizer()
-    
+
     var currentSynthesizerCellRow: Int?
+    var currentSynthesizerCellRowList: [Int] = []
     
     lazy var groupNameCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -421,18 +422,23 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
             print("audioSession properties weren't set because of an error.")
         }
 
-
-        currentSynthesizerCellRow = cell.tag
-        let englishWord = word.english
-        synthesizer.stopSpeaking(at: .immediate)
-        let utterance = AVSpeechUtterance(string: englishWord)
-        utterance.rate = 0.3
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        synthesizer.speak(utterance)
-
-        do {
-            disableAVSession()
+        guard let cell = cell as? MyVocaWordCell else {
+            return
         }
+
+        stopAnimation { [weak self] in
+            guard let self = self else { return }
+            self.synthesizer.stopSpeaking(at: .immediate)
+            self.currentSynthesizerCellRow = cell.tag
+            let englishWord = word.english
+            let utterance = AVSpeechUtterance(string: englishWord)
+            utterance.rate = 0.3
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            self.synthesizer.speak(utterance)
+        }
+            do {
+                self.disableAVSession()
+            }
     }
 
     private func disableAVSession() {
@@ -445,12 +451,44 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
 
 }
 extension MyVocaViewController: AVSpeechSynthesizerDelegate {
-    
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        if let row = currentSynthesizerCellRow,
+           let currentCell = groupNameCollectionView.cellForItem(at: IndexPath(row: row, section: 0)) as? MyVocaWordCell {
+            currentCell.startAnimation()
+
+            currentSynthesizerCellRowList.append(row)
+            currentSynthesizerCellRow = nil
+        }
+    }
+
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        
-        if let currentRow = currentSynthesizerCellRow,
+        stopAllAnimation()
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        stopAllAnimation()
+    }
+
+    func stopAnimation(completion: (() -> Void)? = nil) {
+        if currentSynthesizerCellRowList.isEmpty == false,
+           let currentRow = currentSynthesizerCellRowList.first,
            let currentCell = groupNameCollectionView.cellForItem(at: IndexPath(row: currentRow, section: 0)) as? MyVocaWordCell {
             currentCell.stopAnimation()
+            currentSynthesizerCellRowList.removeFirst()
         }
+        completion?()
+    }
+
+    func stopAllAnimation() {
+        for row in currentSynthesizerCellRowList {
+            if let currentCell = groupNameCollectionView.cellForItem(
+                at: IndexPath(row: row, section: 0)
+            ) as? MyVocaWordCell {
+                currentCell.stopAnimation()
+            }
+        }
+
+        currentSynthesizerCellRowList = []
     }
 }

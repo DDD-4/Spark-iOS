@@ -207,10 +207,13 @@ class MyVocaWordCell: UICollectionViewCell {
     }
     
     @objc func micButtonDidTap(_ sender: UIButton) {
-        stopAnimation()
         guard let word = word else {
             return
         }
+        delegate?.myVocaWord(self, didTapMic: sender, selectedWord: word)
+    }
+
+    public func startAnimation() {
         micButton.isSelected = true
 
         let pulse = PulseAnimation(
@@ -221,15 +224,13 @@ class MyVocaWordCell: UICollectionViewCell {
         pulse.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.8690668736, blue: 0.5490196347, alpha: 1)
         contentView.layer.insertSublayer(pulse, below: micButton.layer)
 
-        delegate?.myVocaWord(self, didTapMic: sender, selectedWord: word)
-
         self.pulse = pulse
     }
 
     public func stopAnimation() {
         pulse?.stop()
         micButton.isSelected = false
-
+        pulse = nil
     }
 }
 
