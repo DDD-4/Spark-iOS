@@ -10,10 +10,9 @@ import Foundation
 import UIKit
 
 public class PulseAnimation: CALayer {
-    public var animationGroup = CAAnimationGroup()
+    public var animationGroup: CAAnimationGroup?
     public var animationDuration: TimeInterval = 1.5
     public var radius: CGFloat = 200
-    public var numberOfPulses: Float = 10
     
     override init(layer: Any) {
         super.init(layer: layer)
@@ -23,22 +22,27 @@ public class PulseAnimation: CALayer {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public init(numberOfPulses: Float = 10, radius: CGFloat, position: CGPoint) {
+    public init(radius: CGFloat, position: CGPoint) {
         super.init()
         self.backgroundColor = UIColor.yellow.cgColor
         self.contentsScale = UIScreen.main.scale
         self.opacity = 0
         self.radius = radius
-        self.numberOfPulses = numberOfPulses
         self.position = position
-        
-        self.bounds = CGRect(x: 0, y: 0, width: radius * 1.5, height: radius * 1.5)
-        self.cornerRadius = radius
-        
+
+        let diameter: CGFloat = radius * 2
+        bounds = CGRect(
+            origin: CGPoint.zero,
+            size: CGSize(width: diameter, height: diameter))
+        cornerRadius = radius
+
         DispatchQueue.global(qos: .default).async {
             self.setUpAnimationGroup()
             DispatchQueue.main.async {
-                self.add(self.animationGroup, forKey: "pulse")
+                guard let animationGroup = self.animationGroup else {
+                    return
+                }
+                self.add(animationGroup, forKey: "pulse")
             }
         }
     }
@@ -59,19 +63,19 @@ public class PulseAnimation: CALayer {
         return opacityAnimation
     }
     
-//    func setUpAnimationGroup() {
-//        self.animationGroup.duration = animationDuration
-//        self.animationGroup.repeatCount = numberOfPulses
-//        let defaulCurve = CAMediaTimingFunction(name: .default)
-//        self.animationGroup.timingFunction = defaulCurve
-//        self.animationGroup.animations = [scaleAnimation(), createOpacirtyAnimation()]
-//    }
-    
     func setUpAnimationGroup() {
-          self.animationGroup.repeatCount = .greatestFiniteMagnitude
-          self.animationGroup.duration = animationDuration
-          let defaulCurve = CAMediaTimingFunction(name: .default)
-          self.animationGroup.timingFunction = defaulCurve
-          self.animationGroup.animations = [scaleAnimation(), createOpacirtyAnimation()]
-      }
+        let animationGroup = CAAnimationGroup()
+        animationGroup.repeatCount = .greatestFiniteMagnitude
+        animationGroup.duration = animationDuration
+        let defaulCurve = CAMediaTimingFunction(name: .default)
+        animationGroup.timingFunction = defaulCurve
+        animationGroup.animations = [scaleAnimation(), createOpacirtyAnimation()]
+
+        self.animationGroup = animationGroup
+    }
+
+    public func stop() {
+        animationGroup = nil
+        removeAllAnimations()
+    }
 }
