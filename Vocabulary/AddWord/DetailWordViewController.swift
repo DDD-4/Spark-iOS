@@ -483,8 +483,9 @@ class DetailWordViewController: UIViewController {
         }
     }
     @objc func tapLeftButton() {
-        //dismiss(animated: true, completion: nil)
-        let viewController = CancelPopupViewController()
+        
+        let viewController = PopupViewController(titleMessege: "여기서 그만할까요?", descriptionMessege: "입력한 정보는 모두 사라져요" )
+        viewController.delegate = self
         viewController.modalPresentationStyle = .overCurrentContext
         present(viewController, animated: true, completion: nil)
     }
@@ -587,5 +588,15 @@ extension DetailWordViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
+    }
+}
+
+extension DetailWordViewController: PopupViewDelegate {
+    func didCancelTap(sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func didConfirmTap(sender: UIButton) {
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }

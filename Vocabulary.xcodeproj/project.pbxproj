@@ -29,6 +29,7 @@
 		187B024C24D40968008DBC8B /* WordDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B024B24D40968008DBC8B /* WordDetailCell.swift */; };
 		187B4E4D2521838D00A08CBF /* DetailWordOnlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B4E4C2521838D00A08CBF /* DetailWordOnlineViewModel.swift */; };
 		187B4E4F252195E800A08CBF /* DetailWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B4E4E252195E800A08CBF /* DetailWordViewModel.swift */; };
+		187D446225304B41006A64A1 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D446125304B41006A64A1 /* PopupViewController.swift */; };
 		7D0F433324F912B3006CC32B /* VocaForAllDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72ABEB24F4007200A01BCC /* VocaForAllDetailViewController.swift */; };
 		7D0F433424F912CC006CC32B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D72ABED24F404BD00A01BCC /* LoadingView.swift */; };
 		7D14050824DE5F8E00F57260 /* EditMyFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D14050724DE5F8E00F57260 /* EditMyFolderViewModel.swift */; };
@@ -248,7 +249,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		181D30492515CA0A0002BBFE /* CancelPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelPopupViewController.swift; sourceTree = "<group>"; };
 		181D305725175CBB0002BBFE /* PulseAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
 		1833D74524E78A3C0085DDF6 /* SelectVocaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectVocaTableViewCell.swift; sourceTree = "<group>"; };
 		1833D74624E78A3C0085DDF6 /* TakePictureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakePictureController.swift; sourceTree = "<group>"; };
@@ -270,6 +270,7 @@
 		187B4E232521713B00A08CBF /* PoingDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PoingDebug.entitlements; sourceTree = "<group>"; };
 		187B4E4C2521838D00A08CBF /* DetailWordOnlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWordOnlineViewModel.swift; sourceTree = "<group>"; };
 		187B4E4E252195E800A08CBF /* DetailWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWordViewModel.swift; sourceTree = "<group>"; };
+		187D446125304B41006A64A1 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		2F9AD3A526916EA462BD8F5D /* Pods-Vocabulary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.release.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.release.xcconfig"; sourceTree = "<group>"; };
 		3058D476938174BA00AE76FD /* Pods-Vocabulary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vocabulary.debug.xcconfig"; path = "Target Support Files/Pods-Vocabulary/Pods-Vocabulary.debug.xcconfig"; sourceTree = "<group>"; };
 		4478D4B7DA4E6BD69D08D8DE /* Pods_VocaGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VocaGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -460,7 +461,6 @@
 		18658D9B252F4CDF005B1795 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
-				181D30492515CA0A0002BBFE /* CancelPopupViewController.swift */,
 				18658D8D252EE064005B1795 /* SuccessPopUpViewController.swift */,
 			);
 			path = Alert;
@@ -724,6 +724,7 @@
 				7D16CBB724E5804400C95F8D /* Resources */,
 				1877BFFE250359E100C29ECE /* AddWordTextField.swift */,
 				1877C0002503C65D00C29ECE /* SelectFolderButton.swift */,
+				187D446125304B41006A64A1 /* PopupViewController.swift */,
 			);
 			path = PoingDesignSystem;
 			sourceTree = "<group>";
@@ -1414,6 +1415,7 @@
 				7DDB4B1024DC2E1E008812CD /* NoticePopupViewController.swift in Sources */,
 				7DDB4B1124DC2E1E008812CD /* UIColor+.swift in Sources */,
 				1877BFFF250359E100C29ECE /* AddWordTextField.swift in Sources */,
+				187D446225304B41006A64A1 /* PopupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

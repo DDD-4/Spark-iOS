@@ -7,10 +7,13 @@
 //
 
 import UIKit
-import SnapKit
-import RxSwift
 
-class CancelPopupViewController: UIViewController {
+public protocol PopupViewDelegate: class {
+    func didCancelTap(sender: UIButton)
+    func didConfirmTap(sender: UIButton)
+}
+
+public class PopupViewController: UIViewController {
     
     enum Constant {
         enum Popup {
@@ -28,7 +31,11 @@ class CancelPopupViewController: UIViewController {
     }
     
     // MARK: - Properties
-    private let disposeBag = DisposeBag()
+    public var delegate: PopupViewDelegate?
+    
+    var hasTopNotch: Bool {
+        return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 24
+    }
     
     lazy var containerView: UIView = {
         let view = UIView()
@@ -55,10 +62,7 @@ class CancelPopupViewController: UIViewController {
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.numberOfLines = 1
-        
         view.textColor = .midnight
-        view.text = "여기서 그만할까요?"
-        
         view.textAlignment = .center
         view.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 26)
         
@@ -70,10 +74,7 @@ class CancelPopupViewController: UIViewController {
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.numberOfLines = 1
-        
         view.textColor = .slateGrey
-        view.text = "입력한 정보는 모두 사라져요."
-        
         view.textAlignment = .center
         view.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         
@@ -100,6 +101,9 @@ class CancelPopupViewController: UIViewController {
         button.backgroundColor = .grey244
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 16)
         button.setTitleColor(.midnight, for: .normal)
+        
+        button.addTarget(self, action: #selector(didCancelTap), for: .touchUpInside)
+        
         return button
     }()
     lazy var confirmButton: UIButton = {
@@ -110,21 +114,26 @@ class CancelPopupViewController: UIViewController {
         button.backgroundColor = .brightSkyBlue
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 16)
+        
+        button.addTarget(self, action: #selector(didConfirmTap), for: .touchUpInside)
+        
         return button
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         initView()
-        configureRx()
         
         // Do any additional setup after loading the view.
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    public init(titleMessege: String, descriptionMessege: String) {
+        
         super.init(nibName: nil, bundle: nil)
-        //view.backgroundColor = .clear
+        
+        self.titleLabel.text = titleMessege
+        self.descriptionLabel.text = descriptionMessege
         
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .crossDissolve
@@ -141,36 +150,34 @@ class CancelPopupViewController: UIViewController {
         containerView.addSubview(descriptionStackView)
         containerView.addSubview(buttonStackView)
         
-        containerView.snp.makeConstraints { (make) in
-            make.leading.trailing.equalTo(view)
-            make.height.equalTo(Constant.Popup.height)
-            make.bottom.equalTo(view)
-        }
-        
-        descriptionStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(containerView.snp.top).offset(Constant.description.topMargin)
-            make.leading.equalTo(containerView.snp.leading).offset(Constant.Popup.sideMargin)
-            make.trailing.equalTo(containerView.snp.trailing).offset(-1 * Constant.Popup.sideMargin)
-        }
-        
-        buttonStackView.snp.makeConstraints { (make) in
-            make.leading.equalTo(containerView.snp.leading).offset(Constant.Popup.sideMargin)
-            make.trailing.equalTo(containerView.snp.trailing).offset(-1 * Constant.Popup.sideMargin)
-            make.height.equalTo(Constant.Button.height)
-            make.bottom.equalTo(containerView.snp.bottom).offset( hasTopNotch ? -18 : -32)
+        NSLayoutConstraint.activate([
             
-        }
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            containerView.heightAnchor.constraint(equalToConstant: Constant.Popup.height),
+            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            descriptionStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Constant.description.topMargin),
+            descriptionStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Constant.Popup.sideMargin) ,
+            descriptionStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Constant.Popup.sideMargin),
+            
+            buttonStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Constant.Popup.sideMargin),
+            buttonStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Constant.Popup.sideMargin),
+            buttonStackView.heightAnchor.constraint(equalToConstant: Constant.Button.height),
+            buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: hasTopNotch ? -18 : -32),
+            
+        ])
         
     }
     
-    func configureRx() {
-        cancelButton.rx.tap.subscribe(onNext: {[weak self] (_) in
-            self?.dismiss(animated: true, completion: nil)
-        }).disposed(by: disposeBag)
+    @objc func didCancelTap(sender: UIButton) {
         
-        confirmButton.rx.tap.subscribe(onNext: { [weak self] (_) in
-            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-        }).disposed(by: disposeBag)
+        delegate?.didCancelTap(sender: sender)
+    }
+
+    @objc func didConfirmTap(sender: UIButton) {
+        
+        delegate?.didConfirmTap(sender: sender)
     }
     
 }
