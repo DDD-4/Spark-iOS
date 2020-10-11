@@ -26,9 +26,11 @@ class MyFolderDetailViewController: UIViewController {
     }
 
     public enum Constant {
+        static let addTitleText = "새 폴더 만들기"
+        static let editTitleText = "폴더 이름 수정"
+
         enum Confirm {
             static let height: CGFloat = 60
-            static let minWidth: CGFloat = 206
             enum Active {
                 static let color: UIColor = .white
                 static let backgroundColor: UIColor = .brightSkyBlue
@@ -37,8 +39,8 @@ class MyFolderDetailViewController: UIViewController {
                 static let color: UIColor = UIColor(white: 174.0 / 255.0, alpha: 1.0)
                 static let backgroundColor: UIColor = .veryLightPink
             }
-            static let addText = "새 폴더 만들기"
-            static let editText = "수정 완료"
+            static let addText = "만들기"
+            static let editText = "수정하기"
         }
 
         enum TextField {
@@ -73,7 +75,7 @@ class MyFolderDetailViewController: UIViewController {
     lazy var navigationView: SideNavigationView = {
         let view = SideNavigationView(
             leftImage: UIImage.init(named: "icArrow"),
-            centerTitle: nil,
+            centerTitle: "",
             rightImage: nil
         )
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -146,6 +148,7 @@ class MyFolderDetailViewController: UIViewController {
             viewModel = (ModeConfig.shared.currentMode == .offline)
                 ?  MyFolderDetailViewModel()
                 : MyFolderDetailOnlineViewModel()
+
         case .edit(let folder):
             viewModel = (ModeConfig.shared.currentMode == .offline)
                 ? MyFolderDetailViewModel(editFolder: folder)
@@ -156,8 +159,10 @@ class MyFolderDetailViewController: UIViewController {
 
         switch viewType {
         case .add:
+            navigationView.titleLabel.text = Constant.addTitleText
             confirmButton.setTitle(Constant.Confirm.addText, for: .normal)
         case .edit(let folder):
+            navigationView.titleLabel.text = Constant.editTitleText
             textFieldView.textField.text = folder.name
             confirmButton.setTitle(Constant.Confirm.editText, for: .normal)
         }
@@ -195,7 +200,7 @@ class MyFolderDetailViewController: UIViewController {
         }
 
         textFieldView.snp.makeConstraints { (make) in
-            make.top.equalTo(navigationView.snp.bottom).offset(23)
+            make.top.equalTo(navigationView.snp.bottom).offset(32 + 16)
             make.leading.equalTo(view).offset(16)
             make.trailing.equalTo(view).offset(-16)
         }
@@ -218,9 +223,9 @@ class MyFolderDetailViewController: UIViewController {
         }
 
         confirmButton.snp.makeConstraints { (make) in
-            make.centerX.equalTo(view)
             make.height.equalTo(Constant.Confirm.height)
-            make.width.greaterThanOrEqualTo(Constant.Confirm.minWidth)
+            make.leading.equalTo(view).offset(16)
+            make.trailing.equalTo(view).offset(-16)
         }
 
         confirmButtonConstraint = confirmButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: hasTopNotch ? 0 : -16)
