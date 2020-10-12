@@ -166,11 +166,10 @@ class EditMyFolderViewController: UIViewController {
         }
 
         deleteButton.snp.makeConstraints { (make) in
-            let constant = MyFolderDetailViewController.Constant.Confirm.self
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
             make.centerX.equalTo(view)
-            make.height.equalTo(constant.height)
-            make.width.greaterThanOrEqualTo(constant.minWidth)
+            make.height.equalTo(60)
+            make.width.equalTo(206)
         }
     }
 
