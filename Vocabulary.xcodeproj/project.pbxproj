@@ -50,6 +50,9 @@
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
+		7D344ABC2531BA560020E237 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D344ABB2531BA560020E237 /* UserController.swift */; };
+		7D344AC22531BA7F0020E237 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D344AC12531BA7F0020E237 /* UserService.swift */; };
+		7D344AC82531C52A0020E237 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D344AC72531C52A0020E237 /* UserInfo.swift */; };
 		7D396E4E2513C42F005D6E9C /* MyVocaOnlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D396E4D2513C42F005D6E9C /* MyVocaOnlineViewModel.swift */; };
 		7D3D6B09251523E3007950F7 /* MyFolderDetailOnlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D6B08251523E3007950F7 /* MyFolderDetailOnlineViewModel.swift */; };
 		7D3D6B0B251523F1007950F7 /* MyFolderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D6B0A251523F1007950F7 /* MyFolderDetailViewModel.swift */; };
@@ -293,6 +296,9 @@
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D344ABB2531BA560020E237 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		7D344AC12531BA7F0020E237 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		7D344AC72531C52A0020E237 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		7D396E4D2513C42F005D6E9C /* MyVocaOnlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaOnlineViewModel.swift; sourceTree = "<group>"; };
 		7D3D6B0625151CA7007950F7 /* ModeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeConfig.swift; sourceTree = "<group>"; };
 		7D3D6B08251523E3007950F7 /* MyFolderDetailOnlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFolderDetailOnlineViewModel.swift; sourceTree = "<group>"; };
@@ -651,6 +657,9 @@
 				7D8029752512744A0057934E /* Folder.swift */,
 				7D802977251274B90057934E /* FolderService.swift */,
 				7D802979251277E90057934E /* FolderController.swift */,
+				7D344ABB2531BA560020E237 /* UserController.swift */,
+				7D344AC12531BA7F0020E237 /* UserService.swift */,
+				7D344AC72531C52A0020E237 /* UserInfo.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1432,12 +1441,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D6E2E7324F3E6250015483C /* VocaDownloadOperation.swift in Sources */,
+				7D344AC22531BA7F0020E237 /* UserService.swift in Sources */,
 				7D1FBE5024DC3B6000D2F4A1 /* Voca.xcdatamodeld in Sources */,
 				7DDB4B1F24DC2E6E008812CD /* VocaManager.swift in Sources */,
 				7D5C34E72512608E00A9933F /* EveryVocaResponse.swift in Sources */,
 				7D5C34E62512608900A9933F /* EveryVocabularyService.swift in Sources */,
 				7D5C34EA2512609A00A9933F /* BaseManager.swift in Sources */,
 				18707B0F251C5CCE00EE7B95 /* WordController.swift in Sources */,
+				7D344AC82531C52A0020E237 /* UserInfo.swift in Sources */,
 				7D80297C251281810057934E /* ServerURL.swift in Sources */,
 				7DDB4B2024DC2E6E008812CD /* ManagedWord+CoreDataClass.swift in Sources */,
 				7DDB4B1D24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift in Sources */,
@@ -1449,6 +1460,7 @@
 				7D5C34E92512609500A9933F /* Word.swift in Sources */,
 				7DDB4B1C24DC2E6E008812CD /* ManagedWord+CoreDataProperties.swift in Sources */,
 				7DDB4B1E24DC2E6E008812CD /* VocaCoreDataManager.swift in Sources */,
+				7D344ABC2531BA560020E237 /* UserController.swift in Sources */,
 				7D72ABEA24F3FBFF00A01BCC /* DummyData.swift in Sources */,
 				7DDB4B2124DC2E6E008812CD /* ManagedGroup+CoreDataProperties.swift in Sources */,
 				7D8029762512744A0057934E /* Folder.swift in Sources */,
