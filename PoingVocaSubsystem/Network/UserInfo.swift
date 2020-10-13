@@ -9,11 +9,15 @@
 import Foundation
 
 public struct UserInfo: Codable {
-    let id: String
+    let id: Int
     let name: String
     let photoUrl: String
 }
 
+public class User {
+    public static let shared = User()
+    public var userInfo: UserInfo?
+}
 
 public class Token {
     public static let shared = Token()
@@ -22,4 +26,5 @@ public class Token {
 
 public struct LoginResponse: Codable {
     public let token: String
+    public let userResponse: UserInfo
 }

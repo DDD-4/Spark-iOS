@@ -41,6 +41,7 @@ open class BaseManager<T>: ServiceManager where T: TargetType {
     public typealias ProviderType = T
 
     private var sharedProvider: MoyaProvider<T>!
+    private var sharedProviderWithToken: MoyaProvider<T>!
 
     public required init() {}
 
@@ -61,11 +62,11 @@ open class BaseManager<T>: ServiceManager where T: TargetType {
      for Header Authorization
      */
     var providerWithToken: MoyaProvider<T> {
-        guard let provider = sharedProvider else {
+        guard let provider = sharedProviderWithToken else {
             let token = Token.shared.token ?? ""
             let authPlugin = AccessTokenPlugin { _ in token }
-            self.sharedProvider = MoyaProvider<T>(plugins: [authPlugin])
-            return sharedProvider
+            self.sharedProviderWithToken = MoyaProvider<T>(plugins: [authPlugin])
+            return sharedProviderWithToken
         }
         return provider
     }

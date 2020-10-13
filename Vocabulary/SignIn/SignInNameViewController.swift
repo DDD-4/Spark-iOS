@@ -8,6 +8,7 @@
 
 import UIKit
 import PoingDesignSystem
+import PoingVocaSubsystem
 import SnapKit
 import KeyboardObserver
 import RxSwift
@@ -76,7 +77,18 @@ class SignInNameViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let keyboard = KeyboardObserver()
     private var confirmButtonConstraint: NSLayoutConstraint?
+    let userIdentifier: String
 
+    init(userIdentifier: String, name: String) {
+        self.userIdentifier = userIdentifier
+        super.init(nibName: nil, bundle: nil)
+
+        nameTextField.textField.text = name
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
@@ -156,21 +168,46 @@ class SignInNameViewController: UIViewController {
         }
     }
 
+    func requestSignIn() {
+        UserController.shared.signup(
+            credential: userIdentifier,
+            name: nameTextField.textField.text ?? ""
+        )
+        .subscribe { [weak self] (response) in
+            guard let self = self, let element = response.element else { return }
+            if element.statusCode == 200 {
+                self.requestLogin(credential: self.userIdentifier)
+            }
+        }.disposed(by: disposeBag)
+    }
+
+    func requestLogin(credential: String) {
+        UserController.shared.login(credential: credential)
+            .subscribe { [weak self] (response) in
+                if response.element?.statusCode == 200 {
+                    self?.transitionToHome()
+                }
+            }.disposed(by: disposeBag)
+    }
+
     @objc func tapLeftButton() {
         navigationController?.popViewController(animated: true)
     }
 
     @objc func confirmDidTap(_ sender: UIButton) {
         // TODO: 가입 시도 callback
+        requestSignIn()
+    }
 
+    func transitionToHome() {
         guard let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
           return
         }
         //let viewController = HomeViewController()
-        
+
         let viewController = UINavigationController(rootViewController: HomeViewController())
         viewController.navigationBar.isHidden = true
-        
+
         window.rootViewController = viewController
         let options: UIView.AnimationOptions = .transitionCrossDissolve
         let duration: TimeInterval = 0.3
@@ -180,6 +217,5 @@ class SignInNameViewController: UIViewController {
             options: options,
             animations: {},
             completion: nil)
-
     }
 }

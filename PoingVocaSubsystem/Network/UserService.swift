@@ -10,10 +10,10 @@ import Moya
 
 enum UserService {
     case getUserInfo
-    case signin(credential: String, name: String, email: String)
+    case signup(credential: String, name: String)
     case deleteUser
     case editUser(name: String, photo: String)
-    case login(credential: String, email: String)
+    case login(credential: String)
     // waiting server api
 //    case logout
 }
@@ -21,8 +21,8 @@ enum UserService {
 extension UserService: TargetType, AccessTokenAuthorizable {
     var authorizationType: AuthorizationType? {
         switch self {
-        case .login, .signin:
-            return .none
+        case .login, .signup:
+            return nil
         default:
             return .bearer
         }
@@ -34,10 +34,12 @@ extension UserService: TargetType, AccessTokenAuthorizable {
 
     var path: String {
         switch self {
-        case .getUserInfo, .editUser, .deleteUser, .signin:
+        case .getUserInfo, .editUser, .deleteUser:
             return "/v1/users"
         case .login:
             return "/v1/users/login"
+        case .signup:
+            return "/v1/users/sign-up"
 //        case .logout:
 //            return "/v1/users/logout"
         }
@@ -47,7 +49,7 @@ extension UserService: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getUserInfo:
             return .get
-        case .signin, .login:
+        case .signup, .login:
             return .post
         case .deleteUser:
             return .delete
@@ -66,13 +68,12 @@ extension UserService: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getUserInfo:
             return .requestPlain
-        case .signin(let credential, let name, let email):
+        case .signup(let credential, let name):
             let param: [String : Any] = [
                 "credential": credential,
-                "name": name,
-                "email": email
+                "name": name
             ]
-            return .requestParameters(parameters: param, encoding: URLEncoding.default)
+            return .requestParameters(parameters: param, encoding: JsonEncoding.default)
         case .deleteUser:
             return .requestPlain
         case .editUser(let name, let photo):
@@ -81,10 +82,9 @@ extension UserService: TargetType, AccessTokenAuthorizable {
                 "photo": photo
             ]
             return .requestParameters(parameters: param, encoding: JsonEncoding.default)
-        case .login(let credential, let email):
+        case .login(let credential):
             let param: [String : Any] = [
-                "credential": credential,
-                "email": email
+                "credential": credential
             ]
             return .requestParameters(parameters: param, encoding: JsonEncoding.default)
         }

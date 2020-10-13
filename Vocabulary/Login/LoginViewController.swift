@@ -8,6 +8,10 @@
 
 import UIKit
 import PoingDesignSystem
+import PoingVocaSubsystem
+import RxSwift
+import RxCocoa
+import Moya
 
 class LoginViewController: UIViewController {
     enum Constant {
@@ -26,6 +30,8 @@ class LoginViewController: UIViewController {
 
         }
     }
+
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,15 +179,53 @@ class LoginViewController: UIViewController {
         AppleLoginHelper.shared.setDelegate(self)
         AppleLoginHelper.shared.handleAppleIdRequest()
     }
+
+    func configureRx() {
+
+    }
+
+    func requestLogin(credential: String, name: String, email: String) {
+        UserController.shared.login(credential: credential)
+            .subscribe { [weak self] (response) in
+                guard let self = self, let element = response.element else { return }
+                if element.statusCode == 200 {
+                    do {
+                        let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: element.data)
+                        Token.shared.token = loginResponse.token
+                        User.shared.userInfo = loginResponse.userResponse
+                        self.transitionToHome()
+                    } catch {
+                        // TODO: error
+                    }
+                } else {
+                    self.navigationController?.pushViewController(SignInNameViewController(userIdentifier: credential, name: name), animated: true)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func transitionToHome() {
+        guard let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
+          return
+        }
+
+        let viewController = UINavigationController(rootViewController: HomeViewController())
+
+        window.rootViewController = viewController
+        let options: UIView.AnimationOptions = .transitionCrossDissolve
+        let duration: TimeInterval = 0.3
+        UIView.transition(
+            with: window,
+            duration: duration,
+            options: options,
+            animations: {},
+            completion: nil)
+    }
+
 }
 
 extension LoginViewController: LoginDelegate {
-    func login(userIdentifier: String) {
-        // TODO: store identifier for sign in..
-        print(userIdentifier)
-
-        navigationController?.pushViewController(SignInNameViewController(), animated: true)
+    func login(userIdentifier: String, name: String, email: String) {
+        requestLogin(credential: userIdentifier, name: name, email: email)
     }
-
-
 }

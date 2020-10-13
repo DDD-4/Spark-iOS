@@ -26,9 +26,9 @@ public class UserController {
             .asObservable()
     }
 
-    public func signin(credential: String, name: String, email: String) -> Observable<Response> {
+    public func signup(credential: String, name: String) -> Observable<Response> {
         serviceManager.provider.rx
-            .request(UserService.signin(credential: credential, name: name, email: email))
+            .request(UserService.signup(credential: credential, name: name))
             .asObservable()
     }
 
@@ -43,9 +43,9 @@ public class UserController {
 //            .request(UserService.editUser(name: <#T##String#>, photo: <#T##String#>))
 //    }
 
-    public func login(credential: String, email: String) -> Observable<Response> {
+    public func login(credential: String) -> Observable<Response> {
         serviceManager.provider.rx
-            .request(UserService.login(credential: credential, email: email))
+            .request(UserService.login(credential: credential))
             .asObservable()
     }
 }
