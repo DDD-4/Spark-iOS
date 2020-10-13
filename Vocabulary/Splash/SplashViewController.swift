@@ -36,8 +36,18 @@ class SplashViewController: UIViewController {
     func requestLogin(credential: String) {
         UserController.shared.login(credential: credential)
             .subscribe { [weak self] (response) in
-                if response.element?.statusCode == 200 {
-                    self?.transitionToHome()
+                guard let self = self, let element = response.element else { return }
+                if element.statusCode == 200 {
+                    do {
+                        let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: element.data)
+                        Token.shared.token = loginResponse.token
+                        User.shared.userInfo = loginResponse.userResponse
+
+                        UserDefaults.standard.setUserLoginIdentifier(indentifier: credential)
+                        self.transitionToHome()
+                    } catch {
+                        // TODO: error
+                    }
                 }
             }.disposed(by: disposeBag)
     }

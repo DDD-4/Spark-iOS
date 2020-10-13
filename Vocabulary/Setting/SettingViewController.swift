@@ -169,6 +169,10 @@ extension SettingViewController: UITableViewDataSource {
                 for: indexPath
                 ) as? SettingMyInfoCell {
                 cell.delegate = self
+                cell.configure(
+                    profile: User.shared.userInfo?.photoUrl,
+                    name: User.shared.userInfo?.name ?? ""
+                )
                 return cell
             }
         case .options:

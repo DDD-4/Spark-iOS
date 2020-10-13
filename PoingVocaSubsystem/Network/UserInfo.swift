@@ -9,9 +9,9 @@
 import Foundation
 
 public struct UserInfo: Codable {
-    let id: Int
-    let name: String
-    let photoUrl: String
+    public let id: Int
+    public let name: String
+    public let photoUrl: String
 }
 
 public class User {
