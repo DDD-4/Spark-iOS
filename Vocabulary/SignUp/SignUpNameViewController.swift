@@ -1,5 +1,5 @@
 //
-//  SignInNameViewController.swift
+//  SignUpNameViewController.swift
 //  Vocabulary
 //
 //  Created by LEE HAEUN on 2020/09/13.
@@ -15,7 +15,7 @@ import RxSwift
 import RxCocoa
 
 
-class SignInNameViewController: UIViewController {
+class SignUpNameViewController: UIViewController {
     enum Constant {
         enum Confirm {
             static let sideMargin: CGFloat = 40
@@ -168,7 +168,7 @@ class SignInNameViewController: UIViewController {
         }
     }
 
-    func requestSignIn() {
+    func requestSignUp() {
         UserController.shared.signup(
             credential: userIdentifier,
             name: nameTextField.textField.text ?? ""
@@ -184,8 +184,18 @@ class SignInNameViewController: UIViewController {
     func requestLogin(credential: String) {
         UserController.shared.login(credential: credential)
             .subscribe { [weak self] (response) in
-                if response.element?.statusCode == 200 {
-                    self?.transitionToHome()
+                guard let self = self, let element = response.element else { return }
+                if element.statusCode == 200 {
+                    do {
+                    let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: element.data)
+                    Token.shared.token = loginResponse.token
+                    User.shared.userInfo = loginResponse.userResponse
+
+                    UserDefaults.standard.setUserLoginIdentifier(indentifier: credential)
+                    self.transitionToHome()
+                    } catch {
+
+                    }
                 }
             }.disposed(by: disposeBag)
     }
@@ -196,14 +206,13 @@ class SignInNameViewController: UIViewController {
 
     @objc func confirmDidTap(_ sender: UIButton) {
         // TODO: 가입 시도 callback
-        requestSignIn()
+        requestSignUp()
     }
 
     func transitionToHome() {
         guard let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
           return
         }
-        //let viewController = HomeViewController()
 
         let viewController = UINavigationController(rootViewController: HomeViewController())
         viewController.navigationBar.isHidden = true

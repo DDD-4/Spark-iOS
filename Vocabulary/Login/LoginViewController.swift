@@ -193,12 +193,14 @@ class LoginViewController: UIViewController {
                         let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: element.data)
                         Token.shared.token = loginResponse.token
                         User.shared.userInfo = loginResponse.userResponse
+
+                        UserDefaults.standard.setUserLoginIdentifier(indentifier: credential)
                         self.transitionToHome()
                     } catch {
                         // TODO: error
                     }
                 } else {
-                    self.navigationController?.pushViewController(SignInNameViewController(userIdentifier: credential, name: name), animated: true)
+                    self.navigationController?.pushViewController(SignUpNameViewController(userIdentifier: credential, name: name), animated: true)
                 }
             }
             .disposed(by: disposeBag)

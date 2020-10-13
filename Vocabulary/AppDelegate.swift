@@ -18,24 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.main.bounds)
 
-        let viewController = UINavigationController(rootViewController: LoginViewController())
-//        let viewController = UINavigationController(rootViewController: HomeViewController())
-        viewController.navigationBar.isHidden = true
+
+        let splashViewController = UIStoryboard(name: "Splash", bundle: nil).instantiateViewController(withIdentifier: "SplashViewController") as UIViewController
+
+        let viewController = splashViewController
 
         self.window?.rootViewController = viewController
         self.window?.makeKeyAndVisible()
-
-        if FileManager.default.ubiquityIdentityToken != nil {
-            LoadCoreDataManager.shared.fetchLoad()
-        } else {
-            LoadCoreDataManager.shared.insertDefaultGroupForUnavailableiCloudUser()
-        }
-
-//        if #available(iOS 13.0, *) {
-//            VocaCoreDataManager.shared
-//        } else {
-//            // Fallback on earlier versions
-//        }
 
         return true
     }
