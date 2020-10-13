@@ -17,7 +17,11 @@ enum FolderService {
     case reorderFolder(folderIds: [Int])
 }
 
-extension FolderService: TargetType {
+extension FolderService: TargetType, AccessTokenAuthorizable {
+    var authorizationType: AuthorizationType? {
+        .bearer
+    }
+    
     var baseURL: URL {
         URL(string: ServerURL.base.rawValue)!
     }
