@@ -222,8 +222,7 @@ extension SettingViewController: UITableViewDataSource {
         
         let navigationController = UINavigationController(rootViewController: loginViewController)
         navigationController.navigationBar.isHidden = true
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .coverVertical
+        
         window.rootViewController = navigationController
     }
 }
