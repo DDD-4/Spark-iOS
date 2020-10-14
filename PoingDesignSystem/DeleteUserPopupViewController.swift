@@ -8,21 +8,24 @@
 
 import UIKit
 
-public protocol PopupViewDelegate: class {
-    func didCancelTap(sender: UIButton)
-    func didConfirmTap(sender: UIButton)
+public protocol SignOutPopupViewDelegate: class {
+    func didCancelSignOutTap(sender: UIButton)
+    func didConfirmSignOutTap(sender: UIButton)
 }
 
-public class PopupViewController: UIViewController {
+public class SignOutPopupViewController: UIViewController {
     
     enum Constant {
+        enum Image {
+            static let height: CGFloat = 102
+        }
         enum Popup {
-            static let height: CGFloat = 247
+            static let height: CGFloat = 290
             static let radius: CGFloat = 32
             static let sideMargin: CGFloat = 24
         }
         enum description {
-            static let topMargin: CGFloat = 48
+            static let topMargin: CGFloat = 91
         }
         enum Button {
             static let height: CGFloat = 60
@@ -31,7 +34,7 @@ public class PopupViewController: UIViewController {
     }
     
     // MARK: - Properties
-    public var delegate: PopupViewDelegate?
+    public var delegate: SignOutPopupViewDelegate?
     
     var hasTopNotch: Bool {
         return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 24
@@ -43,6 +46,13 @@ public class PopupViewController: UIViewController {
         view.layer.cornerRadius = Constant.Popup.radius
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.backgroundColor = .white
+        return view
+    }()
+    
+    lazy var imageView: UIImageView = {
+       let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.image = UIImage(named: "redFace")
         return view
     }()
     
@@ -63,6 +73,7 @@ public class PopupViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.numberOfLines = 1
         view.textColor = .midnight
+        view.text = "정말 떠나시나요?"
         view.textAlignment = .center
         view.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 26)
         
@@ -75,6 +86,7 @@ public class PopupViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.numberOfLines = 1
         view.textColor = .slateGrey
+        view.text = "탈퇴하시면 모든 활동 정보가 삭제됩니다."
         view.textAlignment = .center
         view.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         
@@ -110,7 +122,7 @@ public class PopupViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = Constant.Button.radius
-        button.setTitle("그만할래요", for: .normal)
+        button.setTitle("탈퇴할래요", for: .normal)
         button.backgroundColor = .brightSkyBlue
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 16)
@@ -128,14 +140,12 @@ public class PopupViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    public init(titleMessege: String, descriptionMessege: String, cancelMessege: String, confirmMessege: String) {
+    public init(titleMessege: String, descriptionMessege: String) {
         
         super.init(nibName: nil, bundle: nil)
         
         self.titleLabel.text = titleMessege
         self.descriptionLabel.text = descriptionMessege
-        self.cancelButton.setTitle(cancelMessege, for: .normal)
-        self.confirmButton.setTitle(confirmMessege, for: .normal)
         
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .crossDissolve
@@ -149,6 +159,8 @@ public class PopupViewController: UIViewController {
         
         view.backgroundColor = UIColor.midnight.withAlphaComponent(0.85)
         view.addSubview(containerView)
+        
+        containerView.addSubview(imageView)
         containerView.addSubview(descriptionStackView)
         containerView.addSubview(buttonStackView)
         
@@ -158,6 +170,10 @@ public class PopupViewController: UIViewController {
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             containerView.heightAnchor.constraint(equalToConstant: Constant.Popup.height),
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            imageView.centerYAnchor.constraint(equalTo: containerView.topAnchor),
+            imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: Constant.Image.height),
             
             descriptionStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Constant.description.topMargin),
             descriptionStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Constant.Popup.sideMargin) ,
@@ -174,12 +190,12 @@ public class PopupViewController: UIViewController {
     
     @objc func didCancelTap(sender: UIButton) {
         
-        delegate?.didCancelTap(sender: sender)
+        delegate?.didCancelSignOutTap(sender: sender)
     }
 
     @objc func didConfirmTap(sender: UIButton) {
         
-        delegate?.didConfirmTap(sender: sender)
+        delegate?.didConfirmSignOutTap(sender: sender)
     }
     
 }

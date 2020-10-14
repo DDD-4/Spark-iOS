@@ -20,7 +20,7 @@ public class UserController {
             .asObservable()
     }
 
-    public func editUser(name: String, photo: String) -> Observable<Response> {
+    public func editUser(name: String, photo: Data) -> Observable<Response> {
         serviceManager.providerWithToken.rx
             .request(UserService.editUser(name: name, photo: photo))
             .asObservable()

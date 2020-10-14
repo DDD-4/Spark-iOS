@@ -200,6 +200,7 @@ class LoginViewController: UIViewController {
                         // TODO: error
                     }
                 } else {
+                    
                     self.navigationController?.pushViewController(SignUpNameViewController(userIdentifier: credential, name: name), animated: true)
                 }
             }

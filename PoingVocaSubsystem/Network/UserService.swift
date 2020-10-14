@@ -12,10 +12,8 @@ enum UserService {
     case getUserInfo
     case signup(credential: String, name: String)
     case deleteUser
-    case editUser(name: String, photo: String)
+    case editUser(name: String, photo: Data)
     case login(credential: String)
-    // waiting server api
-//    case logout
 }
 
 extension UserService: TargetType, AccessTokenAuthorizable {
@@ -40,8 +38,6 @@ extension UserService: TargetType, AccessTokenAuthorizable {
             return "/v1/users/login"
         case .signup:
             return "/v1/users/sign-up"
-//        case .logout:
-//            return "/v1/users/logout"
         }
     }
 
@@ -55,8 +51,6 @@ extension UserService: TargetType, AccessTokenAuthorizable {
             return .delete
         case .editUser:
             return .patch
-//        case .logout:
-//            <#code#>
         }
     }
 
@@ -77,11 +71,11 @@ extension UserService: TargetType, AccessTokenAuthorizable {
         case .deleteUser:
             return .requestPlain
         case .editUser(let name, let photo):
-            let param: [String : Any] = [
-                "name": name,
-                "photo": photo
-            ]
-            return .requestParameters(parameters: param, encoding: JsonEncoding.default)
+            var formData = [MultipartFormData]()
+            formData.append(MultipartFormData(provider: .data(photo), name: "photo", fileName: "\(name).jpg", mimeType: "image/jpg"))
+            formData.append(MultipartFormData(provider: .data(name.data(using: .utf8)!), name: "name"))
+            
+            return .uploadMultipart(formData)
         case .login(let credential):
             let param: [String : Any] = [
                 "credential": credential

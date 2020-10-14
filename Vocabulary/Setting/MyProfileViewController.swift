@@ -8,10 +8,13 @@
 
 import UIKit
 import PoingDesignSystem
+import PoingVocaSubsystem
 import SnapKit
 import KeyboardObserver
 import RxSwift
 import RxCocoa
+import Photos
+import SDWebImage
 
 class MyProfileViewController: UIViewController {
     enum Constant {
@@ -36,6 +39,7 @@ class MyProfileViewController: UIViewController {
             rightImage: UIImage(named: "btnCompleteDesabled")
         )
         view.leftSideButton.addTarget(self, action: #selector(closeDidTap(_:)), for: .touchUpInside)
+        view.rightSideButton.addTarget(self, action: #selector(confirmDidTap(_:)), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -50,9 +54,19 @@ class MyProfileViewController: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "yellowFace")
         view.layer.cornerRadius = Constant.ProfileImage.length * 0.5
         view.clipsToBounds = true
+        
+        guard let photoURL = User.shared.userInfo?.photoUrl else {
+            view.image = UIImage(named: "yellowFace")
+            return view
+        }
+        if User.shared.userInfo?.photoUrl == "" {
+            view.image = UIImage(named: "yellowFace")
+        } else {
+            view.sd_setImage(with: URL(string: photoURL), completed: .none)
+        }
+        
         return view
     }()
 
@@ -61,6 +75,7 @@ class MyProfileViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = Constant.Camera.length * 0.5
         button.setImage(Constant.Camera.image, for: .normal)
+        button.addTarget(self, action: #selector(addPicture), for: .touchUpInside)
         button.clipsToBounds = true
         return button
     }()
@@ -68,7 +83,8 @@ class MyProfileViewController: UIViewController {
     lazy var nameTextField: VDSTextField = {
         let text = VDSTextField()
         text.translatesAutoresizingMaskIntoConstraints = false
-        text.text = "홍길동"
+        text.text = User.shared.userInfo?.name
+        text.delegate = self
         return text
     }()
 
@@ -76,9 +92,16 @@ class MyProfileViewController: UIViewController {
     private var scrollViewBottomConstraint: NSLayoutConstraint?
     private let disposeBag = DisposeBag()
     private var needAdjustScrollViewForTextFields = [UITextField]()
-
+    private let picker = UIImagePickerController()
+    
+    let imageManager: PHCachingImageManager = PHCachingImageManager()
+    var fetchResult: PHFetchResult<PHAssetCollection>?
+    var albumInfo = Array<PHAsset>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        reguestCollection()
         configureLayout()
         observeKeyboard()
 
@@ -86,6 +109,25 @@ class MyProfileViewController: UIViewController {
         view.addGestureRecognizer(gesture)
 
         needAdjustScrollViewForTextFields.append(nameTextField)
+    }
+    
+    func reguestCollection() {
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
+        
+        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
+        
+        self.albumInfo.removeAll()
+        
+        cameraRoll.enumerateObjects { (collection, index, object) in
+            let photoInAlbum = PHAsset.fetchAssets(in: collection, options: nil)
+            if photoInAlbum.lastObject != nil {
+                self.albumInfo.append(photoInAlbum.lastObject!)
+            }
+        }
+        
+        self.fetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
     }
 
     func configureLayout() {
@@ -97,6 +139,16 @@ class MyProfileViewController: UIViewController {
         scrollView.addSubview(cameraButton)
         scrollView.addSubview(nameTextField)
 
+        DispatchQueue.main.async { [self] in
+            // UI Task
+            if !self.albumInfo.isEmpty {
+                self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+                    
+                    self.cameraButton.setImage(image, for: .normal)
+                })
+            }
+        }
+        
         navView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(44)
@@ -181,6 +233,146 @@ class MyProfileViewController: UIViewController {
     }
 
     @objc func closeDidTap(_ sender: UIButton) {
+        
+        let viewController = PopupViewController(titleMessege: "여기서 그만할까요?", descriptionMessege: "입력한 정보는 모두 사라져요.", cancelMessege: "취소", confirmMessege: "그만할래요")
+        viewController.delegate = self
+        viewController.modalPresentationStyle = .overCurrentContext
+        self.present(viewController, animated: true, completion: nil)
+        
+        //navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func addPicture(_ sender: Any) {
+        
+        self.picker.delegate = self
+        let alert =  UIAlertController(title: "Add New Word", message: "단어에 넣을 사진을 찍어 주세요!", preferredStyle: .actionSheet)
+        let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
+            self.openLibrary()
+        }
+        let camera = UIAlertAction(title: "카메라", style: .default) { [weak self] (action) in
+            self?.dismiss(animated: true, completion: nil)
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(library)
+        alert.addAction(camera)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func confirmDidTap(_ sender: UIButton) {
+        
+        guard let image = self.profileImageView.image else {
+            let alert: UIAlertView = UIAlertView(title: nil, message: "사진을 선택해 주세요!", delegate: nil, cancelButtonTitle: nil);
+            
+            alert.show()
+            
+            let when = DispatchTime.now() + 2
+            DispatchQueue.main.asyncAfter(deadline: when){
+                alert.dismiss(withClickedButtonIndex: 0, animated: true)
+            }
+            return
+        }
+        
+        UserController.shared.editUser(
+            name: self.nameTextField.text ?? "",
+            photo: image.jpegData(compressionQuality: 0.8)! ).subscribe { [self] response in
+                if response.element?.statusCode == 200 {
+                    let viewController = SuccessPopupViewController(titleMessege: "프로필 수정 완료!", descriptionMessege: "설정에서 확인할 수 있어요!")
+                    viewController.modalPresentationStyle = .overCurrentContext
+                    self.present(viewController, animated: true, completion: nil)
+                    
+                    UserController.shared.getUserInfo().subscribe { response in
+                        if !response.isCompleted {
+                            User.shared.userInfo = response.element
+                        }
+                    }.disposed(by: self.disposeBag)
+                    
+                }else {
+                    //error
+                }
+            }.disposed(by: disposeBag)
+    }
+}
+
+extension MyProfileViewController: PopupViewDelegate {
+    func didCancelTap(sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func didConfirmTap(sender: UIButton) {
+        
+        dismiss(animated: true, completion: nil)
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension MyProfileViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.navView.rightSideButton.setImage(UIImage(named: "btnCompleteDesabled"), for: .normal)
+        self.navView.rightSideButton.isEnabled = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if self.nameTextField.text == "" {
+            self.navView.rightSideButton.setImage(UIImage(named: "btnCompleteDesabled"), for: .normal)
+            self.navView.rightSideButton.isEnabled = false
+        } else {
+            self.navView.rightSideButton.setImage(UIImage(named: "iconCompleteDefault"), for: .normal)
+            self.navView.rightSideButton.isEnabled = true
+        }
+    }
+}
+
+extension MyProfileViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+       
+        DispatchQueue.global().async {
+            self.reguestCollection()
+            DispatchQueue.main.async {
+                // UI Task
+                if !self.albumInfo.isEmpty {
+                    self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: {
+                            image, _ in self.cameraButton.setImage(image, for: .normal)
+                    })
+                }
+            }
+        }
+    }
+}
+
+extension MyProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func openLibrary(){
+        
+        self.picker.delegate = self
+        self.picker.sourceType = .photoLibrary
+        self.picker.allowsEditing = true
+        
+        self.present(self.picker, animated: true)
+    }
+    func openCamera(){
+        
+        if(UIImagePickerController.isSourceTypeAvailable(.camera)){
+            self.picker.delegate = self
+            self.picker.sourceType = .camera
+            self.picker.allowsEditing = true
+            
+            self.present(self.picker, animated: true)
+        } else {
+            print("Camera not available")
+        }
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let image = UIImagePickerController.InfoKey.editedImage
+        
+        if let possibleImage = info[image] as? UIImage{
+            self.profileImageView.image = possibleImage
+            self.navView.rightSideButton.setImage(UIImage(named: "iconCompleteDefault"), for: .normal)
+            self.navView.rightSideButton.isEnabled = true
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
 }
