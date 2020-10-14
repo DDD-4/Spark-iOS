@@ -10,4 +10,6 @@ import Foundation
 
 public extension Notification.Name {
     static let vocaDataChanged = Notification.Name("vocaDataChanged")
+    static let folderUpdate = Notification.Name("FolderUpdate")
+    static let myFolder = Notification.Name("MyFolder")
 }

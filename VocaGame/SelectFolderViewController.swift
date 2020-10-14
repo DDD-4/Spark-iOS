@@ -177,6 +177,7 @@ extension SelectFolderViewController: UICollectionViewDelegate, UICollectionView
             cell.radioButton.isSelected = false
             for index in 0 ..< selectedIndexList.count where selectedIndexList[index] == indexPath.row {
                 selectedIndexList.remove(at: index)
+                break
             }
         } else {
             cell.radioButton.isSelected = true
