@@ -16,7 +16,7 @@ public enum ModeType {
 public class ModeConfig {
     public static let shared = ModeConfig()
 
-    public var currentMode: ModeType = .offline {
+    public var currentMode: ModeType = .online {
         didSet {
             NotificationCenter.default.post(name: Notification.Name.modeConfig, object: nil)
         }

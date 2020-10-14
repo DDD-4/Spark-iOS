@@ -14,28 +14,28 @@ public class EveryVocabularyController {
     private let serviceManager = EveryVocabularyServiceManager()
 
     public func getEveryVocabulariesSortType() -> Observable<[EveryVocaSortType]> {
-        return serviceManager.provider.rx
+        return serviceManager.providerWithToken.rx
             .request(EveryVocabularyService.getEveryVocabulariesSortType)
             .map([EveryVocaSortType].self)
             .asObservable()
     }
 
     public func getEveryVocabularies(sortType: String, page: Int) -> Observable<EveryVocaResponse> {
-        return serviceManager.provider.rx
+        return serviceManager.providerWithToken.rx
             .request(EveryVocabularyService.getEveryVocabularies(sortType: sortType, page: page))
             .map(EveryVocaResponse.self)
             .asObservable()
     }
 
     public func getEveryVocabulariesFolder(folderId: Int, page: Int) -> Observable<WordResponse> {
-        return serviceManager.provider.rx
+        return serviceManager.providerWithToken.rx
             .request(EveryVocabularyService.getEveryVocabulariesFolder(folderId: folderId, page: page))
             .map(WordResponse.self)
             .asObservable()
     }
 
     public func downloadFolder(downloadFolderId: Int, myFolderId: Int) -> Observable<Response> {
-        return serviceManager.provider.rx
+        return serviceManager.providerWithToken.rx
             .request(EveryVocabularyService.getEveryVocabulariesDownload(downloadFolderId: downloadFolderId, myFolderId: myFolderId))
             .asObservable()
     }

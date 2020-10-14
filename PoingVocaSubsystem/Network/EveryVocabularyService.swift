@@ -16,7 +16,11 @@ enum EveryVocabularyService {
 
 }
 
-extension EveryVocabularyService: TargetType {
+extension EveryVocabularyService: TargetType, AccessTokenAuthorizable {
+    var authorizationType: AuthorizationType? {
+        .bearer
+    }
+
     var baseURL: URL {
         URL(string: ServerURL.base.rawValue)!
     }

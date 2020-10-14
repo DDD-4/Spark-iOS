@@ -31,32 +31,32 @@ public class FolderController {
     private let serviceManager = FolderServiceManager()
 
     public func getMyFolder() -> Observable<[Folder]> {
-        return serviceManager.provider.rx
+        return serviceManager.providerWithToken.rx
             .request(FolderService.getMyFolder)
             .map([Folder].self)
             .asObservable()
     }
 
     public func addFolder(name: String, shareable: Bool = true) -> Observable<Response> {
-        return serviceManager.provider.rx
+        return serviceManager.providerWithToken.rx
             .request(FolderService.addFolder(name: name, shareable: shareable))
             .asObservable()
     }
 
     public func deleteFolder(folderId: [Int]) -> Observable<Response> {
-        return serviceManager.provider.rx
+        return serviceManager.providerWithToken.rx
             .request(FolderService.deleteFolder(folderId: folderId))
             .asObservable()
     }
 
     public func editFolder(folderId: Int, name: String, shareable: Bool = true) -> Observable<Response> {
-        return serviceManager.provider.rx
+        return serviceManager.providerWithToken.rx
             .request(FolderService.editFolder(folderId: folderId, name: name, shareable: shareable))
             .asObservable()
     }
 
     public func reorderFolder(folderIds: [Int]) -> Observable<Response> {
-        return serviceManager.provider.rx
+        return serviceManager.providerWithToken.rx
             .request(FolderService.reorderFolder(folderIds: folderIds))
             .asObservable()
     }
