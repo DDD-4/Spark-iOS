@@ -50,10 +50,16 @@
 		7D276E0124BE05AF00CA4554 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D276E0024BE05AF00CA4554 /* AppDelegate.swift */; };
 		7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0924BE05B200CA4554 /* Assets.xcassets */; };
 		7D276E0D24BE05B200CA4554 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */; };
+		7D344ABC2531BA560020E237 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D344ABB2531BA560020E237 /* UserController.swift */; };
+		7D344AC22531BA7F0020E237 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D344AC12531BA7F0020E237 /* UserService.swift */; };
+		7D344AC82531C52A0020E237 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D344AC72531C52A0020E237 /* UserInfo.swift */; };
+		7D344AEE2535F8130020E237 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D344AED2535F8130020E237 /* UserDefaults+.swift */; };
+		7D344AFD2535F9E10020E237 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D344AFC2535F9E10020E237 /* SplashViewController.swift */; };
+		7D344B032535FB940020E237 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D344B022535FB940020E237 /* Splash.storyboard */; };
 		7D396E4E2513C42F005D6E9C /* MyVocaOnlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D396E4D2513C42F005D6E9C /* MyVocaOnlineViewModel.swift */; };
 		7D3D6B09251523E3007950F7 /* MyFolderDetailOnlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D6B08251523E3007950F7 /* MyFolderDetailOnlineViewModel.swift */; };
 		7D3D6B0B251523F1007950F7 /* MyFolderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D6B0A251523F1007950F7 /* MyFolderDetailViewModel.swift */; };
-		7D3FAB5A253047CF004427C9 /* CancelPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181D30492515CA0A0002BBFE /* CancelPopupViewController.swift */; };
+		7D3FAB5A253047CF004427C9 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7D4081BD24F3EA49004FDC60 /* VocaDownloadAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4081BC24F3EA49004FDC60 /* VocaDownloadAgent.swift */; };
 		7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7424E19172004A7F17 /* MyVocaEmptyCell.swift */; };
 		7D477D7924E2BFE6004A7F17 /* ProgressBarNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D477D7824E2BFE6004A7F17 /* ProgressBarNavigationView.swift */; };
@@ -61,7 +67,7 @@
 		7D492D4B24D988B9000B8F43 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4401A524CF325F0093D04B /* CloudKit.framework */; };
 		7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */; };
 		7D4C992B250D27DE005F1619 /* UITapGestureRecognizer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */; };
-		7D4C992E250D27F2005F1619 /* SignInNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C992D250D27F2005F1619 /* SignInNameViewController.swift */; };
+		7D4C992E250D27F2005F1619 /* SignUpNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C992D250D27F2005F1619 /* SignUpNameViewController.swift */; };
 		7D4C9933250D27FA005F1619 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9930250D27FA005F1619 /* LoginViewController.swift */; };
 		7D4C9934250D27FA005F1619 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */; };
 		7D4C9935250D27FA005F1619 /* AppleLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */; };
@@ -293,6 +299,12 @@
 		7D276E0924BE05B200CA4554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D276E0C24BE05B200CA4554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D276E0E24BE05B200CA4554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D344ABB2531BA560020E237 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		7D344AC12531BA7F0020E237 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		7D344AC72531C52A0020E237 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		7D344AED2535F8130020E237 /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
+		7D344AFC2535F9E10020E237 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		7D344B022535FB940020E237 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		7D396E4D2513C42F005D6E9C /* MyVocaOnlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocaOnlineViewModel.swift; sourceTree = "<group>"; };
 		7D3D6B0625151CA7007950F7 /* ModeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeConfig.swift; sourceTree = "<group>"; };
 		7D3D6B08251523E3007950F7 /* MyFolderDetailOnlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFolderDetailOnlineViewModel.swift; sourceTree = "<group>"; };
@@ -304,7 +316,7 @@
 		7D477D7A24E2C3C7004A7F17 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7D4C524E24F9517F006D4D09 /* VocaForAllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocaForAllViewModel.swift; sourceTree = "<group>"; };
 		7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecognizer+.swift"; sourceTree = "<group>"; };
-		7D4C992D250D27F2005F1619 /* SignInNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInNameViewController.swift; sourceTree = "<group>"; };
+		7D4C992D250D27F2005F1619 /* SignUpNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameViewController.swift; sourceTree = "<group>"; };
 		7D4C9930250D27FA005F1619 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7D4C9931250D27FA005F1619 /* AppleLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginButton.swift; sourceTree = "<group>"; };
 		7D4C9932250D27FA005F1619 /* AppleLoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginHelper.swift; sourceTree = "<group>"; };
@@ -591,6 +603,7 @@
 		7D276DFF24BE05AF00CA4554 /* Vocabulary */ = {
 			isa = PBXGroup;
 			children = (
+				7D344AF72535F9C00020E237 /* Splash */,
 				187B4E232521713B00A08CBF /* PoingDebug.entitlements */,
 				CE4401A424CF32570093D04B /* Vocabulary.entitlements */,
 				7D276E0E24BE05B200CA4554 /* Info.plist */,
@@ -604,7 +617,7 @@
 				CE6C9B5D24CF2D380068C3BB /* MyVoca */,
 				7D276E4E24BE12FC00CA4554 /* Resource */,
 				CE6C9B5F24CF2D790068C3BB /* Setting */,
-				7D4C992C250D27F2005F1619 /* SignIn */,
+				7D4C992C250D27F2005F1619 /* SignUp */,
 				CE8703C124D2F9F100DDFAD4 /* Utills */,
 				CE6C9B5E24CF2D3F0068C3BB /* VacoForAll */,
 				186E84C824D146110094E9EB /* View */,
@@ -620,12 +633,21 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		7D4C992C250D27F2005F1619 /* SignIn */ = {
+		7D344AF72535F9C00020E237 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				7D4C992D250D27F2005F1619 /* SignInNameViewController.swift */,
+				7D344AFC2535F9E10020E237 /* SplashViewController.swift */,
+				7D344B022535FB940020E237 /* Splash.storyboard */,
 			);
-			path = SignIn;
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		7D4C992C250D27F2005F1619 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				7D4C992D250D27F2005F1619 /* SignUpNameViewController.swift */,
+			);
+			path = SignUp;
 			sourceTree = "<group>";
 		};
 		7D4C992F250D27FA005F1619 /* Login */ = {
@@ -651,6 +673,9 @@
 				7D8029752512744A0057934E /* Folder.swift */,
 				7D802977251274B90057934E /* FolderService.swift */,
 				7D802979251277E90057934E /* FolderController.swift */,
+				7D344ABB2531BA560020E237 /* UserController.swift */,
+				7D344AC12531BA7F0020E237 /* UserService.swift */,
+				7D344AC72531C52A0020E237 /* UserInfo.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -861,6 +886,7 @@
 				CE8703C224D2F9FD00DDFAD4 /* UILabel+.swift */,
 				7D88185124F6C960005A157E /* String+.swift */,
 				7D4C992A250D27DE005F1619 /* UITapGestureRecognizer+.swift */,
+				7D344AED2535F8130020E237 /* UserDefaults+.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -1128,6 +1154,7 @@
 				7D276E0A24BE05B200CA4554 /* Assets.xcassets in Resources */,
 				7D16CBBC24E5826300C95F8D /* BalsamiqSansBold.ttf in Resources */,
 				7DEF533D24FC10A0003F3AC9 /* Quicksand-Bold.ttf in Resources */,
+				7D344B032535FB940020E237 /* Splash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1342,7 +1369,7 @@
 			files = (
 				7D3D6B09251523E3007950F7 /* MyFolderDetailOnlineViewModel.swift in Sources */,
 				CE8703C324D2F9FD00DDFAD4 /* UILabel+.swift in Sources */,
-				7D3FAB5A253047CF004427C9 /* CancelPopupViewController.swift in Sources */,
+				7D3FAB5A253047CF004427C9 /* (null) in Sources */,
 				186E84CE24D15E150094E9EB /* AddWordNavigationView.swift in Sources */,
 				CE381A1324D1DECF00FDEBAC /* MyVocaGroupNameCell.swift in Sources */,
 				7D7191922515F1BA005B835E /* VocaForAllDetailViewModel.swift in Sources */,
@@ -1356,6 +1383,7 @@
 				18658D8E252EE064005B1795 /* SuccessPopUpViewController.swift in Sources */,
 				CE1458FA24D319FC004F2700 /* EditMyVocaFolderCell.swift in Sources */,
 				7D88185424F7609E005A157E /* SettingMyInfoCell.swift in Sources */,
+				7D344AEE2535F8130020E237 /* UserDefaults+.swift in Sources */,
 				186E84CC24D15DFD0094E9EB /* DetailWordViewController.swift in Sources */,
 				7DED513A2515299400FDB80E /* EditMyFolderOnlineViewModel.swift in Sources */,
 				7D477D7524E19172004A7F17 /* MyVocaEmptyCell.swift in Sources */,
@@ -1366,12 +1394,13 @@
 				7D0F433424F912CC006CC32B /* LoadingView.swift in Sources */,
 				7D14050824DE5F8E00F57260 /* EditMyFolderViewModel.swift in Sources */,
 				CE381A1124D1DE5B00FDEBAC /* MyVocaViewModel.swift in Sources */,
-				7D4C992E250D27F2005F1619 /* SignInNameViewController.swift in Sources */,
+				7D4C992E250D27F2005F1619 /* SignUpNameViewController.swift in Sources */,
 				187952CD24FB8BE500AAAA65 /* SelectFolderViewCell.swift in Sources */,
 				7D4C524F24F9517F006D4D09 /* VocaForAllViewModel.swift in Sources */,
 				7D396E4E2513C42F005D6E9C /* MyVocaOnlineViewModel.swift in Sources */,
 				CE8703C524D2FD9C00DDFAD4 /* MyVocaWordCell.swift in Sources */,
 				7DDC8621251EFE08003904D6 /* Notification.Name+.swift in Sources */,
+				7D344AFD2535F9E10020E237 /* SplashViewController.swift in Sources */,
 				7D4C9934250D27FA005F1619 /* AppleLoginButton.swift in Sources */,
 				CE1458F824D3193D004F2700 /* EditMyVocaFolderViewController.swift in Sources */,
 				7DEF533724FC054D003F3AC9 /* MyProfileViewController.swift in Sources */,
@@ -1432,12 +1461,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D6E2E7324F3E6250015483C /* VocaDownloadOperation.swift in Sources */,
+				7D344AC22531BA7F0020E237 /* UserService.swift in Sources */,
 				7D1FBE5024DC3B6000D2F4A1 /* Voca.xcdatamodeld in Sources */,
 				7DDB4B1F24DC2E6E008812CD /* VocaManager.swift in Sources */,
 				7D5C34E72512608E00A9933F /* EveryVocaResponse.swift in Sources */,
 				7D5C34E62512608900A9933F /* EveryVocabularyService.swift in Sources */,
 				7D5C34EA2512609A00A9933F /* BaseManager.swift in Sources */,
 				18707B0F251C5CCE00EE7B95 /* WordController.swift in Sources */,
+				7D344AC82531C52A0020E237 /* UserInfo.swift in Sources */,
 				7D80297C251281810057934E /* ServerURL.swift in Sources */,
 				7DDB4B2024DC2E6E008812CD /* ManagedWord+CoreDataClass.swift in Sources */,
 				7DDB4B1D24DC2E6E008812CD /* ManagedGroup+CoreDataClass.swift in Sources */,
@@ -1449,6 +1480,7 @@
 				7D5C34E92512609500A9933F /* Word.swift in Sources */,
 				7DDB4B1C24DC2E6E008812CD /* ManagedWord+CoreDataProperties.swift in Sources */,
 				7DDB4B1E24DC2E6E008812CD /* VocaCoreDataManager.swift in Sources */,
+				7D344ABC2531BA560020E237 /* UserController.swift in Sources */,
 				7D72ABEA24F3FBFF00A01BCC /* DummyData.swift in Sources */,
 				7DDB4B2124DC2E6E008812CD /* ManagedGroup+CoreDataProperties.swift in Sources */,
 				7D8029762512744A0057934E /* Folder.swift in Sources */,

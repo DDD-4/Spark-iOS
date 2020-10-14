@@ -26,17 +26,20 @@ enum WordService {
          )
 }
 
-extension WordService: TargetType {
-    
+extension WordService: TargetType, AccessTokenAuthorizable {
+    var authorizationType: AuthorizationType? {
+        .bearer
+    }
+
     var baseURL: URL {
         URL(string: ServerURL.base.rawValue)!
     }
     
     var path: String {
         switch self {
-        case .getWord(_):
+        case .getWord:
             return "v1/vocabularies"
-        case .postWord(_, _, _, _):
+        case .postWord:
             return "v1/vocabularies"
         case .deleteWord(let vocabularyId):
             return "v1/vocabularies/\(vocabularyId)"

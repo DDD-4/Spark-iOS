@@ -47,25 +47,14 @@ class MyVocaOnlineViewModel:
     }
     
     func deleteWord(deleteWords: [Word], completion: @escaping (() -> Void)) {
-        let folderIds = deleteWords.map { (word) -> Int in
-            word.id
-        }
-        
         WordController.shared.deleteWord(vocabularyId: deleteWords[0].id).subscribe { response in
             if response.element?.statusCode == 200 {
                 completion()
             } else {
                 //error
-                print(response)
-                print("deleteWord error, ")
             }
-        }.disposed(by: disposeBag)
-        
-        //        FolderController.shared.deleteFolder(folderId: folderIds)
-        //            .bind { [weak self] _ in
-        //                // TODO: Need callback
-        //            }
-        //            .disposed(by: disposeBag)
+        }
+        .disposed(by: disposeBag)
     }
     
     private func fetchWordByFolderId() {
@@ -75,7 +64,6 @@ class MyVocaOnlineViewModel:
     func getWord() {
         WordController.shared.getWord(folderId: self.selectedFolder.value?.id ?? 1)
             .map({ (words) -> [Word] in
-                print(words)
                 WordManager.shared.myWord = words.content
                 return words.content
             }).subscribe{ [weak self] (words) in

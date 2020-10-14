@@ -93,13 +93,22 @@ class SettingMyInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func configure(profile: String?, name: String) {
+        nameLabel.text = name
+        if let profileStringUrl = profile, let profileUrl = URL(string: profileStringUrl) {
+            profileImageView.sd_setImage(with: profileUrl) { [weak self] (image, error, _, _) in
+                guard error == nil else {
+                    self?.profileImageView.image = Constant.Profile.image
+                    return
+                }
+            }
+        }
+    }
+
     func configureLayout() {
         selectionStyle = .none
         backgroundColor = .clear
         clipsToBounds = false
-
-        // FIXIT: delete dummy data
-        nameLabel.text = "홍길동"
 
         contentView.addSubview(containerView)
         containerView.addSubview(profileImageView)

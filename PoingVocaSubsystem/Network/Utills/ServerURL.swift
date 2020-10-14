@@ -9,5 +9,5 @@
 import Foundation
 
 enum ServerURL: String {
-    case base = "http://poingpoing.cf/"
+    case base = "http://poingpoing.cf:80"
 }
