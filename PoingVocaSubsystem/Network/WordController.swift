@@ -33,9 +33,8 @@ public class WordController {
     public func getWord(folderId: Int, page: Int = 0) -> Observable<WordResponse> {
         serviceManager.providerWithToken.rx
             .request(WordService.getWord(folderId: folderId, page: page))
-            .map {
-                try JSONDecoder().decode(WordResponse.self, from: $0.data)
-            }.asObservable()
+            .map( WordResponse.self)
+            .asObservable()
     }
     
     public func postWord(

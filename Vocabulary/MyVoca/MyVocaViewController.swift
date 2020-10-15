@@ -95,7 +95,7 @@ class MyVocaViewController: UIViewController {
         case .myVoca:
             configureRx()
             viewModel.input.fetchFolder()
-            viewModel.input.getWord(page: viewModel.input.currentPage.value)
+            viewModel.input.getWord(page: 0)
             
         case .vocaForAll:
             configureVocaForAllRx()
@@ -107,7 +107,7 @@ class MyVocaViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(vocaDataChanged),
-            name: PoingVocaSubsystem.Notification.Name.wordUpdate ,
+            name: PoingVocaSubsystem.Notification.Name.wordUpdate,
             object: nil
         )
         
@@ -193,7 +193,7 @@ class MyVocaViewController: UIViewController {
     }
     
     @objc func vocaDataChanged() {
-        viewModel.input.getWord(page: viewModel.input.currentPage.value)
+        viewModel.input.getWord(page: 0)
     }
     
     @objc func modeConfigDidChanged() {
@@ -212,6 +212,7 @@ class MyVocaViewController: UIViewController {
     @objc func myFolderDidChanged() {
         if ModeConfig.shared.currentMode == .online {
             viewModel.output.folders.accept(FolderManager.shared.myFolders)
+            viewModel.input.currentPage.accept(0)
         }
     }
 
