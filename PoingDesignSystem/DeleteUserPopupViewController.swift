@@ -182,7 +182,7 @@ public class SignOutPopupViewController: UIViewController {
             buttonStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Constant.Popup.sideMargin),
             buttonStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Constant.Popup.sideMargin),
             buttonStackView.heightAnchor.constraint(equalToConstant: Constant.Button.height),
-            buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: hasTopNotch ? -18 : -32),
+            buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: hasTopNotch ? 0 : -16),
             
         ])
         

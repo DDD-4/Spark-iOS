@@ -60,6 +60,7 @@ class SettingMyInfoCell: UITableViewCell {
         view.contentMode = .scaleAspectFit
         view.image = Constant.Profile.image
         view.layer.cornerRadius = Constant.Profile.length * 0.5
+        view.clipsToBounds = true   
         return view
     }()
 

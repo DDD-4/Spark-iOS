@@ -57,16 +57,13 @@ class MyProfileViewController: UIViewController {
         view.layer.cornerRadius = Constant.ProfileImage.length * 0.5
         view.clipsToBounds = true
         
-        guard let photoURL = User.shared.userInfo?.photoUrl else {
+        guard let photoURL = User.shared.userInfo?.photoUrl,
+              photoURL.isEmpty == false else {
             view.image = UIImage(named: "yellowFace")
             return view
         }
-        if User.shared.userInfo?.photoUrl == "" {
-            view.image = UIImage(named: "yellowFace")
-        } else {
-            view.sd_setImage(with: URL(string: photoURL), completed: .none)
-        }
-        
+        view.sd_setImage(with: URL(string: photoURL), completed: .none)
+    
         return view
     }()
 
@@ -120,10 +117,10 @@ class MyProfileViewController: UIViewController {
         
         self.albumInfo.removeAll()
         
-        cameraRoll.enumerateObjects { (collection, index, object) in
+        cameraRoll.enumerateObjects { [weak self] (collection, index, object) in
             let photoInAlbum = PHAsset.fetchAssets(in: collection, options: nil)
             if photoInAlbum.lastObject != nil {
-                self.albumInfo.append(photoInAlbum.lastObject!)
+                self?.albumInfo.append(photoInAlbum.lastObject!)
             }
         }
         
@@ -139,7 +136,7 @@ class MyProfileViewController: UIViewController {
         scrollView.addSubview(cameraButton)
         scrollView.addSubview(nameTextField)
 
-        DispatchQueue.main.async { [self] in
+        DispatchQueue.main.async {
             // UI Task
             if !self.albumInfo.isEmpty {
                 self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
