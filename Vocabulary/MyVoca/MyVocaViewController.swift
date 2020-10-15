@@ -102,7 +102,7 @@ class MyVocaViewController: UIViewController {
         }
         
         self.synthesizer.delegate = self
-        
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(vocaDataChanged),
@@ -121,6 +121,13 @@ class MyVocaViewController: UIViewController {
             self,
             selector: #selector(myFolderDidChanged),
             name: PoingVocaSubsystem.Notification.Name.myFolder,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(folderUpdate),
+            name: PoingVocaSubsystem.Notification.Name.folderUpdate,
             object: nil
         )
         
@@ -143,6 +150,13 @@ class MyVocaViewController: UIViewController {
     }
     
     func configureRx() {
+        viewModel.input.selectedFolder
+            .subscribe(onNext: { [weak self] (folders) in
+                guard folders != nil else { return }
+                self?.viewModel.input.getWord()
+                self?.groupNameCollectionView.reloadData()
+            }).disposed(by: disposeBag)
+
         viewModel.output.folders
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (_) in
@@ -178,9 +192,6 @@ class MyVocaViewController: UIViewController {
     }
     
     @objc func vocaDataChanged() {
-        //        if ModeConfig.shared.currentMode == .offline {
-        //            viewModel.input.fetchFolder()
-        //        }
         viewModel.input.fetchFolder()
         viewModel.input.getWord()
     }
@@ -201,6 +212,12 @@ class MyVocaViewController: UIViewController {
     @objc func myFolderDidChanged() {
         if ModeConfig.shared.currentMode == .online {
             viewModel.output.folders.accept(FolderManager.shared.myFolders)
+        }
+    }
+
+    @objc func folderUpdate() {
+        if ModeConfig.shared.currentMode == .online {
+            viewModel.input.fetchFolder()
         }
     }
 }
@@ -348,7 +365,6 @@ extension MyVocaViewController: MyVocaViewControllerDelegate {
     
     func myVocaViewController(didTapGroup group: Folder, view: MyVocaGroupReusableView) {
         viewModel.input.selectedFolder.accept(group)
-        viewModel.input.getWord()
     }
 }
 

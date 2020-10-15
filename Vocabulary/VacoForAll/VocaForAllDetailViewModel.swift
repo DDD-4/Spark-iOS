@@ -76,9 +76,9 @@ class VocaForAllDetailViewModel: VocaForAllDetailOutput, VocaForAllDetailInput, 
             myFolderId: myFolderId
         )
         .subscribe { (response) in
-            print(response)
             if response.element?.statusCode == 200 {
                 // success
+                NotificationCenter.default.post(name: .folderUpdate, object: nil)
                 completion()
             }
             else {

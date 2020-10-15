@@ -32,6 +32,16 @@ class MyVocaOnlineViewModel:
         selectedFolder = BehaviorRelay<Folder?>(value: nil)
         folders = BehaviorRelay<[Folder]>(value: [])
         selectedFolderIndex = BehaviorRelay<Int?>(value: nil)
+
+        folders
+            .bind { [weak self] (folders) in
+                if folders.count > 0 {
+                    self?.selectedFolder.accept(folders.first)
+                } else {
+                    self?.selectedFolder.accept(nil)
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     func fetchFolder() {
@@ -49,6 +59,7 @@ class MyVocaOnlineViewModel:
     func deleteWord(deleteWords: [Word], completion: @escaping (() -> Void)) {
         WordController.shared.deleteWord(vocabularyId: deleteWords[0].id).subscribe { response in
             if response.element?.statusCode == 200 {
+                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
                 completion()
             } else {
                 //error

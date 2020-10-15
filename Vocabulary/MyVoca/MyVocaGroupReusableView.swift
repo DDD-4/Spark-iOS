@@ -77,7 +77,10 @@ class MyVocaGroupReusableView: UICollectionReusableView {
                 break
             }
         } else {
-            // TODO: Add Server
+            for index in 0 ..< groups.count where groups[index].id == selectedGroup?.id {
+                selectedRow = index
+                break
+            }
         }
 
         groupNameCollectionView.reloadData()

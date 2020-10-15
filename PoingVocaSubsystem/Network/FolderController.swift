@@ -9,10 +9,6 @@
 import RxSwift
 import Moya
 
-extension Notification.Name {
-    public static let myFolder = Notification.Name("MyFolder")
-}
-
 public class FolderManager {
     public static let shared = FolderManager()
 
