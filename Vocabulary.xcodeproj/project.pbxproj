@@ -597,7 +597,6 @@
 		7D276DFF24BE05AF00CA4554 /* Vocabulary */ = {
 			isa = PBXGroup;
 			children = (
-				7D344AF72535F9C00020E237 /* Splash */,
 				187B4E232521713B00A08CBF /* PoingDebug.entitlements */,
 				CE4401A424CF32570093D04B /* Vocabulary.entitlements */,
 				7D276E0E24BE05B200CA4554 /* Info.plist */,
@@ -612,6 +611,7 @@
 				7D276E4E24BE12FC00CA4554 /* Resource */,
 				CE6C9B5F24CF2D790068C3BB /* Setting */,
 				7D4C992C250D27F2005F1619 /* SignUp */,
+				7D344AF72535F9C00020E237 /* Splash */,
 				CE8703C124D2F9F100DDFAD4 /* Utills */,
 				CE6C9B5E24CF2D3F0068C3BB /* VacoForAll */,
 				186E84C824D146110094E9EB /* View */,

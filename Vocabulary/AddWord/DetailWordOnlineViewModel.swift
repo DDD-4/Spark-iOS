@@ -73,6 +73,7 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
             .subscribe{ response in
                 
                 if response.element?.statusCode == 200 {
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
                     completion()
                 } else {
                     //error 처리 해줘야함
@@ -111,6 +112,7 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
         )
         .subscribe { (response) in
             if response.element?.statusCode == 200 {
+                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
                 completion()
             } else {
                 // error
@@ -127,6 +129,7 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
         WordController.shared.deleteWord(vocabularyId: vocabularyId)
             .subscribe { response in
                 if response.element?.statusCode == 200 {
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
                     completion()
                 } else {
                     //error
