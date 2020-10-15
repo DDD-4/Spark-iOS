@@ -464,7 +464,7 @@ class DetailWordViewController: UIViewController {
             }
             return
         }
-
+        
         switch currentState {
         case .add:
             
@@ -488,7 +488,9 @@ class DetailWordViewController: UIViewController {
                 image: image) { [weak self] in
                 guard let self = self else { return }
                 
-                self.popUpSuccessAlert()
+                self.popUpSuccessAlert(completion: {
+                    self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                })
             }
             
         case .edit:
@@ -513,19 +515,18 @@ class DetailWordViewController: UIViewController {
                 addFolder: addGroup,
                 deleteWords: [deleteWord],
                 addWords: [word]) { [weak self] in
+                guard let self = self else { return }
                 
-                self?.popUpSuccessAlert()
+                self.popUpSuccessAlert(completion: {
+                    self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                })
                 
             }
             
         }
     }
     @objc func tapLeftButton() {
-        
-        let viewController = PopupViewController(titleMessege: "여기서 그만할까요?", descriptionMessege: "입력한 정보는 모두 사라져요", cancelMessege: "취소", confirmMessege: "그만할래요" )
-        viewController.delegate = self
-        viewController.modalPresentationStyle = .overCurrentContext
-        present(viewController, animated: true, completion: nil)
+        self.popUpStopAlert()
     }
     
     func updateConfirmButton() {
@@ -534,8 +535,20 @@ class DetailWordViewController: UIViewController {
             : .veryLightPink
     }
     
-    func popUpSuccessAlert() {
+    func popUpSuccessAlert(completion: @escaping (() -> Void)) {
         let viewController = SuccessPopupViewController(titleMessege: "단어 만들기 완료!", descriptionMessege: "나의 단어장에서 확인할 수 있어요!")
+        viewController.modalPresentationStyle = .overCurrentContext
+        self.present(viewController, animated: true, completion: nil)
+        
+        let when = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: when){
+            completion()
+        }
+    }
+    
+    func popUpStopAlert() {
+        let viewController = PopupViewController(titleMessege: "여기서 그만할까요?", descriptionMessege: "입력한 정보는 모두 사라져요", cancelMessege: "취소", confirmMessege: "그만할래요" )
+        viewController.delegate = self
         viewController.modalPresentationStyle = .overCurrentContext
         self.present(viewController, animated: true, completion: nil)
     }
@@ -543,14 +556,14 @@ class DetailWordViewController: UIViewController {
 
 extension DetailWordViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-       
+        
         DispatchQueue.global().async {
             self.reguestCollection()
             DispatchQueue.main.async {
                 // UI Task
                 if !self.albumInfo.isEmpty {
                     self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: {
-                            image, _ in self.cameraButton.setImage(image, for: .normal)
+                        image, _ in self.cameraButton.setImage(image, for: .normal)
                     })
                 }
             }
@@ -653,6 +666,8 @@ extension DetailWordViewController: PopupViewDelegate {
     }
     
     func didConfirmTap(sender: UIButton) {
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        
+        self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
+        
     }
 }

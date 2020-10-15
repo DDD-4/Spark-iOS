@@ -81,7 +81,7 @@ public class SuccessPopupViewController: UIViewController {
     public override func viewDidAppear(_ animated: Bool) {
         let when = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: when){
-            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
