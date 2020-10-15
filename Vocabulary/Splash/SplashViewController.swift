@@ -29,7 +29,9 @@ class SplashViewController: UIViewController {
             guard let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
               return
             }
-            window.rootViewController = loginViewController
+            let navigationController = UINavigationController(rootViewController: loginViewController)
+            navigationController.navigationBar.isHidden = true
+            window.rootViewController = navigationController
         }
     }
 

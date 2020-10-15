@@ -60,6 +60,7 @@ class SettingMyInfoCell: UITableViewCell {
         view.contentMode = .scaleAspectFit
         view.image = Constant.Profile.image
         view.layer.cornerRadius = Constant.Profile.length * 0.5
+        view.clipsToBounds = true   
         return view
     }()
 
@@ -99,6 +100,7 @@ class SettingMyInfoCell: UITableViewCell {
             profileImageView.sd_setImage(with: profileUrl) { [weak self] (image, error, _, _) in
                 guard error == nil else {
                     self?.profileImageView.image = Constant.Profile.image
+                    self?.profileImageView.layer.cornerRadius = Constant.Profile.length * 0.5
                     return
                 }
             }

@@ -12,6 +12,7 @@ import RxCocoa
 import PoingDesignSystem
 import PoingVocaSubsystem
 import SnapKit
+import Photos
 
 class DetailWordViewController: UIViewController {
     
@@ -43,6 +44,10 @@ class DetailWordViewController: UIViewController {
     var currentState: State
     var getWord: Word?
     var getGroup: Folder?
+    
+    let imageManager: PHCachingImageManager = PHCachingImageManager()
+    var fetchResult: PHFetchResult<PHAssetCollection>?
+    var albumInfo = Array<PHAsset>()
     
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -76,6 +81,8 @@ class DetailWordViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "iconCamera"), for: .normal)
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 20
         button.addTarget(self, action: #selector(addPicture), for: .touchUpInside)
         return button
     }()
@@ -238,6 +245,8 @@ class DetailWordViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        reguestCollection()
         initView()
         registerForKeyboardNotifications()
         configureRx()
@@ -254,6 +263,26 @@ class DetailWordViewController: UIViewController {
     }
     
     // MARK: - View ✨
+    func reguestCollection() {
+        //수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
+        
+        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
+        
+        self.albumInfo.removeAll()
+        
+        cameraRoll.enumerateObjects { (collection, index, object) in
+            let photoInAlbum = PHAsset.fetchAssets(in: collection, options: nil)
+            if photoInAlbum.lastObject != nil {
+                self.albumInfo.append(photoInAlbum.lastObject!)
+            }
+        }
+        
+        self.fetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
+    }
+    
     func initView() {
         view.backgroundColor = .white
         view.addSubview(scrollView)
@@ -266,6 +295,15 @@ class DetailWordViewController: UIViewController {
         containerView.addSubview(folderButton)
         contentView.addSubview(cameraButton)
         contentView.addSubview(confirmButton)
+        
+        DispatchQueue.main.async { [self] in
+            // UI Task
+            if !self.albumInfo.isEmpty {
+                self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+                    self.cameraButton.setImage(image, for: .normal)
+                })
+            }
+        }
         
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -426,7 +464,7 @@ class DetailWordViewController: UIViewController {
             }
             return
         }
-
+        
         switch currentState {
         case .add:
             
@@ -450,7 +488,9 @@ class DetailWordViewController: UIViewController {
                 image: image) { [weak self] in
                 guard let self = self else { return }
                 
-                self.popUpSuccessAlert()
+                self.popUpSuccessAlert(completion: {
+                    self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                })
             }
             
         case .edit:
@@ -475,19 +515,18 @@ class DetailWordViewController: UIViewController {
                 addFolder: addGroup,
                 deleteWords: [deleteWord],
                 addWords: [word]) { [weak self] in
+                guard let self = self else { return }
                 
-                self?.popUpSuccessAlert()
+                self.popUpSuccessAlert(completion: {
+                    self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                })
                 
             }
             
         }
     }
     @objc func tapLeftButton() {
-        
-        let viewController = PopupViewController(titleMessege: "여기서 그만할까요?", descriptionMessege: "입력한 정보는 모두 사라져요" )
-        viewController.delegate = self
-        viewController.modalPresentationStyle = .overCurrentContext
-        present(viewController, animated: true, completion: nil)
+        self.popUpStopAlert()
     }
     
     func updateConfirmButton() {
@@ -496,12 +535,42 @@ class DetailWordViewController: UIViewController {
             : .veryLightPink
     }
     
-    func popUpSuccessAlert() {
-        let viewController = SuccessPopupViewController()
+    func popUpSuccessAlert(completion: @escaping (() -> Void)) {
+        let viewController = SuccessPopupViewController(titleMessege: "단어 만들기 완료!", descriptionMessege: "나의 단어장에서 확인할 수 있어요!")
+        viewController.modalPresentationStyle = .overCurrentContext
+        self.present(viewController, animated: true, completion: nil)
+        
+        let when = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: when){
+            completion()
+        }
+    }
+    
+    func popUpStopAlert() {
+        let viewController = PopupViewController(titleMessege: "여기서 그만할까요?", descriptionMessege: "입력한 정보는 모두 사라져요", cancelMessege: "취소", confirmMessege: "그만할래요" )
+        viewController.delegate = self
         viewController.modalPresentationStyle = .overCurrentContext
         self.present(viewController, animated: true, completion: nil)
     }
 }
+
+extension DetailWordViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        DispatchQueue.global().async {
+            self.reguestCollection()
+            DispatchQueue.main.async {
+                // UI Task
+                if !self.albumInfo.isEmpty {
+                    self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: {
+                        image, _ in self.cameraButton.setImage(image, for: .normal)
+                    })
+                }
+            }
+        }
+    }
+}
+
 
 extension DetailWordViewController: SelectFolderViewControllerDelegate {
     func selectFolderViewController(didTapFolder folder: Folder) {
@@ -597,6 +666,8 @@ extension DetailWordViewController: PopupViewDelegate {
     }
     
     func didConfirmTap(sender: UIButton) {
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        
+        self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
+        
     }
 }

@@ -26,7 +26,7 @@ class SettingViewController: UIViewController {
     }
 
     var options: [Option] = []
-
+    private let disposeBag = DisposeBag()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -75,22 +75,28 @@ class SettingViewController: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-
+        
         // TODO: Binding data
         options = [
             Option(title: "복습 알림 설정", rightType: .switch, handler: {
-
+                
             }),
             Option(title: "폴더 편집", rightType: .arrow, handler: { [weak self] in
                 let viewController = EditMyFolderViewController()
                 self?.navigationController?.pushViewController(viewController, animated: true)
 
             }),
-            Option(title: "로그아웃", rightType: nil, handler: {
-
+            Option(title: "로그아웃", rightType: nil, handler: { [weak self] in
+                let viewController = PopupViewController(titleMessege: "로그아웃 하시겠어요?", descriptionMessege: "", cancelMessege: "취소", confirmMessege: "로그아웃")
+                viewController.delegate = self
+                viewController.modalPresentationStyle = .overCurrentContext
+                self?.present(viewController, animated: true, completion: nil)
             }),
-            Option(title: "탈퇴하기", rightType: nil, handler: {
-
+            Option(title: "탈퇴하기", rightType: nil, handler: { [weak self] in
+                let viewController = SignOutPopupViewController(titleMessege: "정말 떠나시나요?", descriptionMessege: "탈퇴하시면 모든 활동 정보가 삭제됩니다.")
+                viewController.delegate = self
+                viewController.modalPresentationStyle = .overCurrentContext
+                self?.present(viewController, animated: true, completion: nil)
             }),
         ]
 
@@ -112,6 +118,19 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getUserInfo()
+        self.tableView.reloadData()
+    }
+    
+    func getUserInfo() {
+        UserController.shared.getUserInfo().subscribe { response in
+            if !response.isCompleted {
+                User.shared.userInfo = response.element
+            }
+        }.disposed(by: disposeBag)
     }
     
     func configureLayout() {
@@ -192,6 +211,20 @@ extension SettingViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return Section.allCases.count
     }
+    
+    func transitionToLogin() {
+        
+        let loginViewController = LoginViewController()
+
+        guard let window = UIApplication.shared.windows.first else {
+          return
+        }
+        
+        let navigationController = UINavigationController(rootViewController: loginViewController)
+        navigationController.navigationBar.isHidden = true
+        
+        window.rootViewController = navigationController
+    }
 }
 
 extension SettingViewController: UITableViewDelegate {
@@ -212,4 +245,40 @@ extension SettingViewController: SettingMyInfoCellDelegate {
     func settingMyInfoCell(_ cell: SettingMyInfoCell, didTapEdit button: UIButton) {
         navigationController?.pushViewController(MyProfileViewController(), animated: true)
     }
+}
+
+//로그아웃 delegate, 로그아웃시 토큰을 삭제하고 로그인 뷰로 전환한다.
+extension SettingViewController: PopupViewDelegate {
+    func didCancelTap(sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    func didConfirmTap(sender: UIButton) {
+        Token.shared.token = nil
+        User.shared.userInfo = nil
+        UserDefaults.standard.setValue(nil, forKey: "LoginIdentifier")
+        
+        self.dismiss(animated: true, completion: nil)
+        self.transitionToLogin()
+    }
+}
+
+extension SettingViewController: SignOutPopupViewDelegate {
+
+    func didCancelSignOutTap(sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func didConfirmSignOutTap(sender: UIButton) {
+        UserController.shared.deleteUser().subscribe { response in
+            if response.element?.statusCode == 200 {
+                Token.shared.token = nil
+                User.shared.userInfo = nil
+                UserDefaults.standard.setValue(nil, forKey: "LoginIdentifier")
+                self.transitionToLogin()
+            } else {
+                //error
+            }
+        }.disposed(by: disposeBag)
+    }
+    
 }

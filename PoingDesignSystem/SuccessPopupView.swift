@@ -8,9 +8,8 @@
 
 import Foundation
 import UIKit
-import SnapKit
 
-class SuccessPopupViewController: UIViewController {
+public class SuccessPopupViewController: UIViewController {
     
     enum Constant {
         enum Image {
@@ -73,17 +72,28 @@ class SuccessPopupViewController: UIViewController {
         return label
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         initView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         let when = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: when){
-            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    public init(titleMessege: String, descriptionMessege: String) {
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        self.titleLabel.text = titleMessege
+        self.descriptionLabel.text = descriptionMessege
+        
+        modalPresentationStyle = .fullScreen
+        modalTransitionStyle = .crossDissolve
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -105,24 +115,23 @@ class SuccessPopupViewController: UIViewController {
         containerView.addSubview(imageView)
         containerView.addSubview(stackView)
         
-        containerView.snp.makeConstraints { (make) in
-            make.center.equalTo(view)
-            make.width.equalTo(Constant.Popup.width)
-            make.height.equalTo(Constant.Popup.height)
-        }
-        
-        imageView.snp.makeConstraints { (make) in
-            make.centerX.equalTo(containerView.snp.centerX)
-            make.centerY.equalTo(containerView.snp.top)
-            make.width.height.equalTo(Constant.Image.height)
-        }
-        
-        stackView.snp.makeConstraints { (make) in
-            make.centerX.equalTo(containerView)
-            make.leading.equalTo(containerView).offset(Constant.Label.sideMargin)
-            make.trailing.equalTo(containerView).offset(-Constant.Label.sideMargin)
-            make.bottom.equalTo(containerView.snp.bottom).offset(-Constant.Label.bottomMargin)
-        }
+        NSLayoutConstraint.activate([
+            
+            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            containerView.widthAnchor.constraint(equalToConstant: Constant.Popup.width),
+            containerView.heightAnchor.constraint(equalToConstant: Constant.Popup.height),
+           
+            imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: containerView.topAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: Constant.Image.height),
+            imageView.heightAnchor.constraint(equalToConstant: Constant.Image.height),
+            
+            stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Constant.Label.sideMargin),
+            stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Constant.Label.sideMargin),
+            stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -Constant.Label.bottomMargin)
+        ])
     }
     
 }
