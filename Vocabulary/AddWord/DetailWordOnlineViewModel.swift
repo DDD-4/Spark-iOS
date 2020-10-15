@@ -73,7 +73,7 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
             .subscribe{ response in
                 
                 if response.element?.statusCode == 200 {
-                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     completion()
                 } else {
                     //error 처리 해줘야함
@@ -95,11 +95,8 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
             return
         }
         
-        guard let addWord = addWords[0] as? WordCoreData else {
-            return
-        }
-        
-        guard let image = addWord.image else {
+        guard let addWord = addWords[0] as? WordCoreData,
+              let image = addWord.image else {
             return
         }
         
@@ -112,7 +109,7 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
         )
         .subscribe { (response) in
             if response.element?.statusCode == 200 {
-                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                 completion()
             } else {
                 // error
@@ -129,7 +126,7 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
         WordController.shared.deleteWord(vocabularyId: vocabularyId)
             .subscribe { response in
                 if response.element?.statusCode == 200 {
-                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     completion()
                 } else {
                     //error

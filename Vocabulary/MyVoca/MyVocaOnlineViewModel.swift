@@ -42,6 +42,8 @@ class MyVocaOnlineViewModel:
         
         currentPage.bind { [weak self] page in
             guard let self = self else { return }
+            
+            //currentPage.accept(page)
             self.getWord(page: page)
         }.disposed(by: disposeBag)
 
@@ -65,6 +67,7 @@ class MyVocaOnlineViewModel:
                     return
                 }
                 self?.folders.accept(element)
+                self?.words.accept([])
                 FolderManager.shared.myFolders = element
             })
             .disposed(by: disposeBag)
@@ -73,7 +76,7 @@ class MyVocaOnlineViewModel:
     func deleteWord(deleteWords: [Word], completion: @escaping (() -> Void)) {
         WordController.shared.deleteWord(vocabularyId: deleteWords[0].id).subscribe { response in
             if response.element?.statusCode == 200 {
-                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                 completion()
             } else {
                 //error
@@ -89,10 +92,14 @@ class MyVocaOnlineViewModel:
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] response in
                 self?.vocaShouldShowLoadingCell.accept(false)
-                guard let self = self, let element = response.element else {
-                    return
+                guard let self = self, let element = response.element else { return }
+                
+                if page == 0 {
+                    self.words.accept(element.content)
+                } else {
+                    self.words.accept(self.words.value + element.content)
                 }
-                self.words.accept(element.content)
-            }
+                self.vocaHasMore.accept(element.hasNext)
+            }.disposed(by: disposeBag)
     }
 }

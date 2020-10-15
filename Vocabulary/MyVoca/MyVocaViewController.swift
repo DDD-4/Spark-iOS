@@ -206,7 +206,7 @@ class MyVocaViewController: UIViewController {
         configureRx()
         configureVocaForAllRx()
         viewModel.input.fetchFolder()
-        viewModel.input.getWord(page: viewModel.input.currentPage.value)
+        viewModel.input.getWord(page: 0)
     }
     
     @objc func myFolderDidChanged() {
@@ -310,14 +310,6 @@ extension MyVocaViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard currentViewType == .vocaForAll,
-//              indexPath.row == (vocaForAllViewModel.outputs.vocaForAllList.value.count - 1),
-//              vocaForAllViewModel.outputs.hasMoreEveryVocaContent()
-//        else { return }
-//
-//        let value = vocaForAllViewModel.inputs.currentPage.value
-//
-//        vocaForAllViewModel.inputs.currentPage.accept(value + 1)
         
         switch currentViewType {
         case .myVoca:
@@ -385,6 +377,7 @@ extension MyVocaViewController: MyVocaViewControllerDelegate {
     
     func myVocaViewController(didTapGroup group: Folder, view: MyVocaGroupReusableView) {
         viewModel.input.selectedFolder.accept(group)
+        viewModel.input.getWord(page: 0)
     }
 }
 

@@ -489,7 +489,7 @@ class DetailWordViewController: UIViewController {
                 guard let self = self else { return }
                 
                 self.popUpSuccessAlert(completion: {
-                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 })
             }
@@ -519,7 +519,7 @@ class DetailWordViewController: UIViewController {
                 guard let self = self else { return }
                 
                 self.popUpSuccessAlert(completion: {
-                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 })
                 
