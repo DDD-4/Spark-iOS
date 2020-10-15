@@ -273,7 +273,7 @@ class MyProfileViewController: UIViewController {
         
         UserController.shared.editUser(
             name: self.nameTextField.text ?? "",
-            photo: image.jpegData(compressionQuality: 0.8)! ).subscribe { [self] response in
+            photo: image.jpegData(compressionQuality: 0.8)! ).subscribe { response in
                 if response.element?.statusCode == 200 {
                     let viewController = SuccessPopupViewController(titleMessege: "프로필 수정 완료!", descriptionMessege: "설정에서 확인할 수 있어요!")
                     viewController.modalPresentationStyle = .overCurrentContext

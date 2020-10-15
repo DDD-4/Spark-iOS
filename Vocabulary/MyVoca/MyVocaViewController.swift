@@ -66,6 +66,7 @@ class MyVocaViewController: UIViewController {
         collectionView.allowsMultipleSelection = false
         collectionView.delegate = self
         collectionView.dataSource = self
+        
         return collectionView
     }()
     
@@ -94,7 +95,7 @@ class MyVocaViewController: UIViewController {
         case .myVoca:
             configureRx()
             viewModel.input.fetchFolder()
-            viewModel.input.getWord()
+            viewModel.input.getWord(page: viewModel.input.currentPage.value)
             
         case .vocaForAll:
             configureVocaForAllRx()
@@ -106,7 +107,7 @@ class MyVocaViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(vocaDataChanged),
-            name: .vocaDataChanged,
+            name: PoingVocaSubsystem.Notification.Name.wordUpdate ,
             object: nil
         )
         
@@ -153,7 +154,7 @@ class MyVocaViewController: UIViewController {
         viewModel.input.selectedFolder
             .subscribe(onNext: { [weak self] (folders) in
                 guard folders != nil else { return }
-                self?.viewModel.input.getWord()
+                self?.viewModel.input.getWord(page: self?.viewModel.input.currentPage.value ?? 0)
                 self?.groupNameCollectionView.reloadData()
             }).disposed(by: disposeBag)
 
@@ -192,8 +193,7 @@ class MyVocaViewController: UIViewController {
     }
     
     @objc func vocaDataChanged() {
-        viewModel.input.fetchFolder()
-        viewModel.input.getWord()
+        viewModel.input.getWord(page: viewModel.input.currentPage.value)
     }
     
     @objc func modeConfigDidChanged() {
@@ -206,7 +206,7 @@ class MyVocaViewController: UIViewController {
         configureRx()
         configureVocaForAllRx()
         viewModel.input.fetchFolder()
-        viewModel.input.getWord()
+        viewModel.input.getWord(page: viewModel.input.currentPage.value)
     }
     
     @objc func myFolderDidChanged() {
@@ -309,14 +309,33 @@ extension MyVocaViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard currentViewType == .vocaForAll,
-              indexPath.row == (vocaForAllViewModel.outputs.vocaForAllList.value.count - 1),
-              vocaForAllViewModel.outputs.hasMoreEveryVocaContent()
-        else { return }
+//        guard currentViewType == .vocaForAll,
+//              indexPath.row == (vocaForAllViewModel.outputs.vocaForAllList.value.count - 1),
+//              vocaForAllViewModel.outputs.hasMoreEveryVocaContent()
+//        else { return }
+//
+//        let value = vocaForAllViewModel.inputs.currentPage.value
+//
+//        vocaForAllViewModel.inputs.currentPage.accept(value + 1)
         
-        let value = vocaForAllViewModel.inputs.currentPage.value
-        
-        vocaForAllViewModel.inputs.currentPage.accept(value + 1)
+        switch currentViewType {
+        case .myVoca:
+            guard indexPath.row == (viewModel.output.words.value.count - 1),
+                  viewModel.output.hasMoreContent() else {
+                return
+            }
+            
+            let value = viewModel.input.currentPage.value
+            viewModel.input.currentPage.accept(value + 1)
+        case .vocaForAll:
+            guard indexPath.row == (vocaForAllViewModel.outputs.vocaForAllList.value.count - 1),
+                  vocaForAllViewModel.outputs.hasMoreEveryVocaContent()
+            else { return }
+            
+            let value = vocaForAllViewModel.inputs.currentPage.value
+            
+            vocaForAllViewModel.inputs.currentPage.accept(value + 1)
+        }
     }
 }
 
@@ -506,5 +525,11 @@ extension MyVocaViewController: AVSpeechSynthesizerDelegate {
         }
 
         currentSynthesizerCellRowList = []
+    }
+}
+
+extension MyVocaViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       
     }
 }

@@ -74,6 +74,7 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
                 
                 if response.element?.statusCode == 200 {
                     NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     completion()
                 } else {
                     //error 처리 해줘야함
@@ -113,6 +114,7 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
         .subscribe { (response) in
             if response.element?.statusCode == 200 {
                 NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                 completion()
             } else {
                 // error
@@ -130,6 +132,7 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
             .subscribe { response in
                 if response.element?.statusCode == 200 {
                     NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     completion()
                 } else {
                     //error

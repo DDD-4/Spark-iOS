@@ -296,7 +296,7 @@ class DetailWordViewController: UIViewController {
         contentView.addSubview(cameraButton)
         contentView.addSubview(confirmButton)
         
-        DispatchQueue.main.async { [self] in
+        DispatchQueue.main.async {
             // UI Task
             if !self.albumInfo.isEmpty {
                 self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
