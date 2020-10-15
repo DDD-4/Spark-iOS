@@ -83,6 +83,7 @@ class MyVocaOnlineViewModel:
     }
     
     func getWord(page: Int) {
+        vocaShouldShowLoadingCell.accept(true)
         WordController.shared.getWord(folderId: self.selectedFolder.value?.id ?? 0, page: page)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .observeOn(MainScheduler.instance)
@@ -93,13 +94,5 @@ class MyVocaOnlineViewModel:
                 }
                 self.words.accept(element.content)
             }
-        
-//        WordController.shared.getWord(folderId: self.selectedFolder.value?.id ?? 1, page: page)
-//            .map({ (words) -> [Word] in
-//                WordManager.shared.myWord = words.content
-//                return words.content
-//            }).subscribe{ [weak self] (words) in
-//                self?.words.accept(words)
-//            }.disposed(by: disposeBag)
     }
 }
