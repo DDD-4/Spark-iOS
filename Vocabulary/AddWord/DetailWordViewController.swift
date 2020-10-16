@@ -255,6 +255,8 @@ class DetailWordViewController: UIViewController {
             name: .modeConfig,
             object: nil
         )
+        
+        PHPhotoLibrary.shared().register(self)
     }
 
     func setBasicFolder() {
@@ -427,13 +429,13 @@ class DetailWordViewController: UIViewController {
     @objc func confirmDidTap(_ sender: Any) {
         
         guard let addGroup = self.newGroup else {
-            let alert: UIAlertView = UIAlertView(title: nil, message: "단어장을 선택해 주세요!", delegate: nil, cancelButtonTitle: nil);
+            let alert: UIAlertController = UIAlertController(title: nil, message: "단어장을 선택해 주세요!", preferredStyle: .alert)
             
-            alert.show()
+            self.present(alert, animated: true, completion: nil)
             
             let when = DispatchTime.now() + 2
             DispatchQueue.main.asyncAfter(deadline: when){
-                alert.dismiss(withClickedButtonIndex: 0, animated: true)
+                alert.dismiss(animated: true, completion: nil)
             }
             return
         }

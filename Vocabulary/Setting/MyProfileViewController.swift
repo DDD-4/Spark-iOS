@@ -232,13 +232,14 @@ class MyProfileViewController: UIViewController {
     @objc func confirmDidTap(_ sender: UIButton) {
         
         guard let image = self.profileImageView.image else {
-            let alert: UIAlertView = UIAlertView(title: nil, message: "사진을 선택해 주세요!", delegate: nil, cancelButtonTitle: nil);
             
-            alert.show()
+            let alert: UIAlertController = UIAlertController(title: nil, message: "사진을 선택해 주세요!", preferredStyle: .alert)
+            
+            self.present(alert, animated: true, completion: nil)
             
             let when = DispatchTime.now() + 2
             DispatchQueue.main.asyncAfter(deadline: when){
-                alert.dismiss(withClickedButtonIndex: 0, animated: true)
+                alert.dismiss(animated: true, completion: nil)
             }
             return
         }
