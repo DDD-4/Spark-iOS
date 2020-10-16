@@ -64,6 +64,12 @@ public class WordController {
         serviceManager.providerWithToken.rx
             .request(WordService.updateWord(vocabularyId: vocabularyId, english: english, folderId: folderId, korean: korean, photo: photo))
             .asObservable()
-        
+    }
+
+    public func getWordsByIds(ids: [Int]) -> Observable<[Word]> {
+        serviceManager.providerWithToken.rx
+            .request(WordService.getWordsByIds(ids: ids))
+            .map([Word].self)
+            .asObservable()
     }
 }

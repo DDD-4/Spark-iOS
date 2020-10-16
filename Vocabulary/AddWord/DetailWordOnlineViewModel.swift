@@ -12,12 +12,12 @@ import RxCocoa
 import PoingVocaSubsystem
 
 protocol DetailWordViewModelInput {
-    
     func postWord(
         folder: Folder,
         word: Word,
         image: Data,
-        completion: @escaping (() -> Void))
+        completion: @escaping (() -> Void)
+    )
     
     func updateWord(
         vocabularyId: Int,
@@ -25,12 +25,14 @@ protocol DetailWordViewModelInput {
         addFolder: Folder,
         deleteWords: [Word],
         addWords: [Word],
-        completion: @escaping (() -> Void))
+        completion: @escaping (() -> Void)
+    )
     
     func deleteWord(
         vocabularyId: Int,
         word: Word,
-        completion: @escaping (() -> Void))
+        completion: @escaping (() -> Void)
+    )
     
 }
 
@@ -63,23 +65,25 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
         image: Data,
         completion: @escaping (() -> Void)
     ) {
-        
+        LoadingView.show()
         WordController.shared.postWord(
             english: word.english,
             folderId: folder.id,
             korean: word.korean,
             photo: image
         )
-            .subscribe{ response in
-                
-                if response.element?.statusCode == 200 {
-                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
-                    completion()
-                } else {
-                    //error 처리 해줘야함
-                    print("postWord error")
-                }
-            }.disposed(by: disposeBag)
+        .subscribe(onNext: { (response) in
+            LoadingView.hide()
+            if response.statusCode == 200 {
+                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
+                completion()
+            } else {
+                //error 처리 해줘야함
+                print("postWord error")
+            }
+        }, onError: { (error) in
+            LoadingView.hide()
+        }).disposed(by: disposeBag)
     }
     
     func updateWord(
@@ -99,7 +103,8 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
               let image = addWord.image else {
             return
         }
-        
+
+        LoadingView.show()
         WordController.shared.updateWord(
             vocabularyId: vocabularyId,
             english: addWord.english,
@@ -107,15 +112,18 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
             korean: addWord.korean,
             photo: image
         )
-        .subscribe { (response) in
-            if response.element?.statusCode == 200 {
+        .subscribe(onNext: { (response) in
+            LoadingView.hide()
+            if response.statusCode == 200 {
                 NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                 completion()
             } else {
                 // error
                 print(response)
             }
-        }.disposed(by: disposeBag)
+        }, onError: { (error) in
+            LoadingView.hide()
+        }).disposed(by: disposeBag)
     }
     
     func deleteWord(
@@ -123,16 +131,20 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
         word: Word,
         completion: @escaping (() -> Void)
     ) {
+        LoadingView.show()
         WordController.shared.deleteWord(vocabularyId: vocabularyId)
-            .subscribe { response in
-                if response.element?.statusCode == 200 {
+            .subscribe(onNext: { [weak self] (response) in
+                LoadingView.hide()
+                if response.statusCode == 200 {
                     NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     completion()
                 } else {
                     //error
                     print("deleteWord error")
                 }
-            }.disposed(by: disposeBag)
+            }, onError: { (error) in
+                LoadingView.hide()
+            }).disposed(by: disposeBag)
     }
     
 }

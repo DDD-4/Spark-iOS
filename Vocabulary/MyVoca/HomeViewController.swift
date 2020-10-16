@@ -56,38 +56,6 @@ class HomeViewController: UIViewController {
         return pageViewController
     }()
 
-    lazy var addWordFloatingButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "btnAdd"), for: .normal)
-        button.layer.shadow(
-            color: .brightSkyBlue50,
-            alpha: 1,
-            x: 0,
-            y: 5,
-            blur: 20,
-            spread: 0
-        )
-        button.layer.masksToBounds = false
-        return button
-    }()
-
-    lazy var gameFloatingButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "btnGame"), for: .normal)
-        button.layer.shadow(
-            color: .greyblue50,
-            alpha: 1,
-            x: 0,
-            y: 5,
-            blur: 20,
-            spread: 0
-        )
-        button.layer.masksToBounds = false
-        return button
-    }()
-
     lazy var myVocaViewController = MyVocaViewController(viewType: .myVoca)
     lazy var vocaForAllViewController = MyVocaViewController(viewType: .vocaForAll)
 
@@ -97,7 +65,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
         configureLayout()
-        configureRx()
         // start pageViewController
         pageViewController.setViewControllers(
             [myVocaViewController],
@@ -124,8 +91,6 @@ class HomeViewController: UIViewController {
         view.addSubview(headerView)
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
-        view.addSubview(addWordFloatingButton)
-        view.addSubview(gameFloatingButton)
 
         pageViewController.didMove(toParent: self)
 
@@ -139,39 +104,6 @@ class HomeViewController: UIViewController {
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view)
         }
-
-        addWordFloatingButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
-            make.centerX.equalTo(view)
-            make.height.width.equalTo(Constant.Floating.height)
-        }
-
-        gameFloatingButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
-            make.height.width.equalTo(Constant.Floating.height)
-        }
-    }
-
-    func configureRx() {
-        addWordFloatingButton.rx.tap
-            .subscribe(onNext: { [weak self](_) in
-                let viewController = TakePictureViewController()
-                let navigationController = UINavigationController(rootViewController: viewController)
-                navigationController.navigationBar.isHidden = true
-                navigationController.modalPresentationStyle = .fullScreen
-                navigationController.modalTransitionStyle = .coverVertical
-                self?.present(navigationController, animated: true, completion: nil)
-            }).disposed(by: disposeBag)
-
-        gameFloatingButton.rx.tap
-            .subscribe(onNext: { [weak self] (_) in
-                let navigationController = UINavigationController(rootViewController: GameViewController())
-                navigationController.navigationBar.isHidden = true
-                navigationController.modalPresentationStyle = .fullScreen
-                navigationController.modalTransitionStyle = .coverVertical
-                self?.present(navigationController, animated: true, completion: nil)
-            }).disposed(by: disposeBag)
     }
 }
 

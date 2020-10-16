@@ -29,6 +29,7 @@ public class FolderController {
     public func getMyFolder() -> Observable<[Folder]> {
         return serviceManager.providerWithToken.rx
             .request(FolderService.getMyFolder)
+            .filterSuccessfulStatusCodes()
             .map([Folder].self)
             .asObservable()
     }
@@ -36,24 +37,28 @@ public class FolderController {
     public func addFolder(name: String, shareable: Bool = true) -> Observable<Response> {
         return serviceManager.providerWithToken.rx
             .request(FolderService.addFolder(name: name, shareable: shareable))
+            .filterSuccessfulStatusCodes()
             .asObservable()
     }
 
     public func deleteFolder(folderId: [Int]) -> Observable<Response> {
         return serviceManager.providerWithToken.rx
             .request(FolderService.deleteFolder(folderId: folderId))
+            .filterSuccessfulStatusCodes()
             .asObservable()
     }
 
     public func editFolder(folderId: Int, name: String, shareable: Bool = true) -> Observable<Response> {
         return serviceManager.providerWithToken.rx
             .request(FolderService.editFolder(folderId: folderId, name: name, shareable: shareable))
+            .filterSuccessfulStatusCodes()
             .asObservable()
     }
 
     public func reorderFolder(folderIds: [Int]) -> Observable<Response> {
         return serviceManager.providerWithToken.rx
             .request(FolderService.reorderFolder(folderIds: folderIds))
+            .filterSuccessfulStatusCodes()
             .asObservable()
     }
 }

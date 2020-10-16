@@ -78,12 +78,12 @@ class SignUpNameViewController: UIViewController {
     private let keyboard = KeyboardObserver()
     private var confirmButtonConstraint: NSLayoutConstraint?
     let userIdentifier: String
+    let name: String
 
     init(userIdentifier: String, name: String) {
         self.userIdentifier = userIdentifier
+        self.name = name
         super.init(nibName: nil, bundle: nil)
-
-        nameTextField.textField.text = name
     }
 
     required init?(coder: NSCoder) {
@@ -94,6 +94,8 @@ class SignUpNameViewController: UIViewController {
         configureLayout()
         configureRx()
         observeKeyboard()
+
+        nameTextField.textField.text = name
     }
 
     func configureLayout() {

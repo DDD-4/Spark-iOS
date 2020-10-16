@@ -53,7 +53,7 @@ public class CardMatchingViewController: UIViewController {
         let wordCount = cards.count / 2
         if wordCount < 4 {
             return nil
-        } else if wordCount <= 4 && wordCount < 6{
+        } else if wordCount <= 4 && wordCount < 6 {
             return CardMatchingGrid(horizontal: 2, vertical: 4)
         } else if wordCount <= 6 && wordCount < 8 {
             return CardMatchingGrid(horizontal: 3, vertical: 4)

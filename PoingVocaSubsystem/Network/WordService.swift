@@ -24,6 +24,7 @@ enum WordService {
             korean: String,
             photo: Data
          )
+    case getWordsByIds(ids: [Int])
 }
 
 extension WordService: TargetType, AccessTokenAuthorizable {
@@ -45,12 +46,14 @@ extension WordService: TargetType, AccessTokenAuthorizable {
             return "v1/vocabularies/\(vocabularyId)"
         case .updateWord(let vocabularyId, _, _, _, _):
             return "v1/vocabularies/\(vocabularyId)"
+        case .getWordsByIds:
+            return "/v1/vocabularies/game"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getWord:
+        case .getWord, .getWordsByIds:
             return .get
         case .postWord:
             return .post
@@ -88,6 +91,15 @@ extension WordService: TargetType, AccessTokenAuthorizable {
             formData.append(MultipartFormData(provider: .data("\(folderId)".data(using: .utf8)!), name: "folderId"))
             return .uploadMultipart(formData)
             
+        case .getWordsByIds(let ids):
+            var idsString = ""
+            for index in 0..<ids.count {
+                idsString.append(index == (ids.count - 1) ? String(ids[index]) : (String(ids[index]) + ","))
+            }
+            let params: [String : Any] = [
+                "folderIds": idsString
+            ]
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }
     }
     

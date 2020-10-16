@@ -224,7 +224,6 @@ class DetailWordViewController: UIViewController {
         self.korTextField.text = getWord.korean
         self.getWord = getWord
         
-        // TODO: server
         if let wordCoreData = word as? WordCoreData,
            let getWordImage = wordCoreData.image {
             self.wordImageView.image = UIImage(data: getWordImage)
@@ -250,7 +249,8 @@ class DetailWordViewController: UIViewController {
         initView()
         registerForKeyboardNotifications()
         configureRx()
-        
+        setBasicFolder()
+
         let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(gesture)
         
@@ -261,7 +261,14 @@ class DetailWordViewController: UIViewController {
             object: nil
         )
     }
-    
+
+    func setBasicFolder() {
+        for folder in FolderManager.shared.myFolders where folder.default {
+            newGroup = folder
+            folderButton.folderLabel.text = folder.name
+            break
+        }
+    }
     // MARK: - View ✨
     func reguestCollection() {
         //수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
@@ -295,16 +302,7 @@ class DetailWordViewController: UIViewController {
         containerView.addSubview(folderButton)
         contentView.addSubview(cameraButton)
         contentView.addSubview(confirmButton)
-        
-        DispatchQueue.main.async {
-            // UI Task
-            if !self.albumInfo.isEmpty {
-                self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
-                    self.cameraButton.setImage(image, for: .normal)
-                })
-            }
-        }
-        
+
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
@@ -436,7 +434,7 @@ class DetailWordViewController: UIViewController {
     @objc func addPicture(_ sender: Any) {
         
         self.picker.delegate = self
-        let alert =  UIAlertController(title: "Add New Word", message: "단어에 넣을 사진을 찍어 주세요!", preferredStyle: .actionSheet)
+        let alert =  UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
             self.openLibrary()
         }
@@ -467,9 +465,8 @@ class DetailWordViewController: UIViewController {
         
         switch currentState {
         case .add:
-            
             let addFolder = addGroup as? FolderCoreData
-            
+
             let word = WordCoreData(
                 korean: self.korTextField.text ?? "",
                 english: self.engTextField.text ?? "",
@@ -477,7 +474,7 @@ class DetailWordViewController: UIViewController {
                 identifier: UUID(),
                 order: Int16(addFolder?.words.count ?? 0)
             )
-            
+
             guard let image = word.image else {
                 return
             }
@@ -555,24 +552,6 @@ class DetailWordViewController: UIViewController {
         self.present(viewController, animated: true, completion: nil)
     }
 }
-
-extension DetailWordViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
-        DispatchQueue.global().async {
-            self.reguestCollection()
-            DispatchQueue.main.async {
-                // UI Task
-                if !self.albumInfo.isEmpty {
-                    self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: {
-                        image, _ in self.cameraButton.setImage(image, for: .normal)
-                    })
-                }
-            }
-        }
-    }
-}
-
 
 extension DetailWordViewController: SelectFolderViewControllerDelegate {
     func selectFolderViewController(didTapFolder folder: Folder) {

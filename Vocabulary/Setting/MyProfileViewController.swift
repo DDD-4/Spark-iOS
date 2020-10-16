@@ -81,7 +81,7 @@ class MyProfileViewController: UIViewController {
         let text = VDSTextField()
         text.translatesAutoresizingMaskIntoConstraints = false
         text.text = User.shared.userInfo?.name
-        text.delegate = self
+        text.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         return text
     }()
 
@@ -94,6 +94,8 @@ class MyProfileViewController: UIViewController {
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     var fetchResult: PHFetchResult<PHAssetCollection>?
     var albumInfo = Array<PHAsset>()
+
+    private let originName = User.shared.userInfo?.name
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,16 +138,6 @@ class MyProfileViewController: UIViewController {
         scrollView.addSubview(cameraButton)
         scrollView.addSubview(nameTextField)
 
-        DispatchQueue.main.async {
-            // UI Task
-            if !self.albumInfo.isEmpty {
-                self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
-                    
-                    self.cameraButton.setImage(image, for: .normal)
-                })
-            }
-        }
-        
         navView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(44)
@@ -242,7 +234,11 @@ class MyProfileViewController: UIViewController {
     @objc func addPicture(_ sender: Any) {
         
         self.picker.delegate = self
-        let alert =  UIAlertController(title: "Add New Word", message: "단어에 넣을 사진을 찍어 주세요!", preferredStyle: .actionSheet)
+        let alert =  UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
         let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
             self.openLibrary()
         }
@@ -295,6 +291,16 @@ class MyProfileViewController: UIViewController {
                 }
             }.disposed(by: disposeBag)
     }
+
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if self.nameTextField.text == "" {
+            self.navView.rightSideButton.setImage(UIImage(named: "btnCompleteDesabled"), for: .normal)
+            self.navView.rightSideButton.isEnabled = false
+        } else {
+            self.navView.rightSideButton.setImage(UIImage(named: "iconCompleteDefault"), for: .normal)
+            self.navView.rightSideButton.isEnabled = true
+        }
+    }
 }
 
 extension MyProfileViewController: PopupViewDelegate {
@@ -306,40 +312,6 @@ extension MyProfileViewController: PopupViewDelegate {
         
         dismiss(animated: true, completion: nil)
         navigationController?.popViewController(animated: true)
-    }
-}
-
-extension MyProfileViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.navView.rightSideButton.setImage(UIImage(named: "btnCompleteDesabled"), for: .normal)
-        self.navView.rightSideButton.isEnabled = false
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if self.nameTextField.text == "" {
-            self.navView.rightSideButton.setImage(UIImage(named: "btnCompleteDesabled"), for: .normal)
-            self.navView.rightSideButton.isEnabled = false
-        } else {
-            self.navView.rightSideButton.setImage(UIImage(named: "iconCompleteDefault"), for: .normal)
-            self.navView.rightSideButton.isEnabled = true
-        }
-    }
-}
-
-extension MyProfileViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-       
-        DispatchQueue.global().async {
-            self.reguestCollection()
-            DispatchQueue.main.async {
-                // UI Task
-                if !self.albumInfo.isEmpty {
-                    self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: {
-                            image, _ in self.cameraButton.setImage(image, for: .normal)
-                    })
-                }
-            }
-        }
     }
 }
 

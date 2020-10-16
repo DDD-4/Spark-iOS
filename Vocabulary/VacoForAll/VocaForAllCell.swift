@@ -103,14 +103,33 @@ class VocaForAllCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        vocaImageView.sd_cancelCurrentImageLoad()
+        authorImageView.sd_cancelCurrentImageLoad()
+    }
+
     func configure(content: EveryVocaContent) {
         titleLabel.text = content.folderName
         authorLabel.text = content.userName
 
         if let urlImage = URL(string: content.photoUrl) {
+            vocaImageView.sd_imageTransition = .fade
             vocaImageView.sd_setImage(with: urlImage)
         }
-        authorImageView.image = UIImage(named: "emptyFace")
+
+        if let userPhotoUrlString = content.userPhotoUrl, let userPhotoUrl = URL(string: userPhotoUrlString) {
+            authorImageView.sd_imageTransition = .fade
+            authorImageView.sd_setImage(with: userPhotoUrl) { [weak self] (image, error, _, _) in
+                guard error == nil else {
+                    self?.authorImageView.image = UIImage(named: "emptyFace")
+                    return
+                }
+            }
+        } else {
+            authorImageView.image = UIImage(named: "emptyFace")
+        }
+
         numberLable.text = "\(content.count)"
     }
 
