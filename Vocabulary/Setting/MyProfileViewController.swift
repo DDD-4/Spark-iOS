@@ -90,17 +90,12 @@ class MyProfileViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var needAdjustScrollViewForTextFields = [UITextField]()
     private let picker = UIImagePickerController()
-    
-    let imageManager: PHCachingImageManager = PHCachingImageManager()
-    var fetchResult: PHFetchResult<PHAssetCollection>?
-    var albumInfo = Array<PHAsset>()
 
     private let originName = User.shared.userInfo?.name
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        reguestCollection()
+
         configureLayout()
         observeKeyboard()
 
@@ -108,25 +103,6 @@ class MyProfileViewController: UIViewController {
         view.addGestureRecognizer(gesture)
 
         needAdjustScrollViewForTextFields.append(nameTextField)
-    }
-    
-    func reguestCollection() {
-        
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
-        
-        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
-        
-        self.albumInfo.removeAll()
-        
-        cameraRoll.enumerateObjects { [weak self] (collection, index, object) in
-            let photoInAlbum = PHAsset.fetchAssets(in: collection, options: nil)
-            if photoInAlbum.lastObject != nil {
-                self?.albumInfo.append(photoInAlbum.lastObject!)
-            }
-        }
-        
-        self.fetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
     }
 
     func configureLayout() {

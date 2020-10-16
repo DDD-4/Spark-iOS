@@ -45,10 +45,6 @@ class DetailWordViewController: UIViewController {
     var getWord: Word?
     var getGroup: Folder?
     
-    let imageManager: PHCachingImageManager = PHCachingImageManager()
-    var fetchResult: PHFetchResult<PHAssetCollection>?
-    var albumInfo = Array<PHAsset>()
-    
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -245,7 +241,6 @@ class DetailWordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        reguestCollection()
         initView()
         registerForKeyboardNotifications()
         configureRx()
@@ -269,27 +264,7 @@ class DetailWordViewController: UIViewController {
             break
         }
     }
-    // MARK: - View ✨
-    func reguestCollection() {
-        //수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
-        
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
-        
-        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
-        
-        self.albumInfo.removeAll()
-        
-        cameraRoll.enumerateObjects { (collection, index, object) in
-            let photoInAlbum = PHAsset.fetchAssets(in: collection, options: nil)
-            if photoInAlbum.lastObject != nil {
-                self.albumInfo.append(photoInAlbum.lastObject!)
-            }
-        }
-        
-        self.fetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
-    }
-    
+
     func initView() {
         view.backgroundColor = .white
         view.addSubview(scrollView)
