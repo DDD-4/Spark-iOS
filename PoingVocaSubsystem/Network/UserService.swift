@@ -12,7 +12,7 @@ enum UserService {
     case getUserInfo
     case signup(credential: String, name: String)
     case deleteUser
-    case editUser(name: String, photo: Data)
+    case editUser(name: String, photo: Data?)
     case login(credential: String)
 }
 
@@ -72,7 +72,9 @@ extension UserService: TargetType, AccessTokenAuthorizable {
             return .requestPlain
         case .editUser(let name, let photo):
             var formData = [MultipartFormData]()
-            formData.append(MultipartFormData(provider: .data(photo), name: "photo", fileName: "\(name).jpg", mimeType: "image/jpg"))
+            if let photo = photo {
+                formData.append(MultipartFormData(provider: .data(photo), name: "photo", fileName: "\(name).jpg", mimeType: "image/jpg"))
+            }
             formData.append(MultipartFormData(provider: .data(name.data(using: .utf8)!), name: "name"))
             
             return .uploadMultipart(formData)
