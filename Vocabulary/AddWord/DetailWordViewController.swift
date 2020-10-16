@@ -631,8 +631,6 @@ extension DetailWordViewController: PopupViewDelegate {
     }
     
     func didConfirmTap(sender: UIButton) {
-        
-        self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
-        
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)        
     }
 }
