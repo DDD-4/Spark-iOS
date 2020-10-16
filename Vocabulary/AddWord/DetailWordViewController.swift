@@ -441,7 +441,7 @@ class DetailWordViewController: UIViewController {
             self.openLibrary()
         }
         let camera = UIAlertAction(title: "카메라", style: .default) { [weak self] (action) in
-            self?.dismiss(animated: true, completion: nil)
+            self?.openCamera()
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
