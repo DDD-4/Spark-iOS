@@ -45,15 +45,20 @@ public class PopupViewController: UIViewController {
         view.backgroundColor = .white
         return view
     }()
+
+    lazy var descriptionStackCenterGuideStackView: UIView = {
+        let stack = UIStackView(arrangedSubviews: [descriptionStackView])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.alignment = .center
+        return stack
+    }()
     
     lazy var descriptionStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
-        
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 9
         stack.alignment = .center
-        
         return stack
     }()
     
@@ -149,7 +154,7 @@ public class PopupViewController: UIViewController {
         
         view.backgroundColor = UIColor.midnight.withAlphaComponent(0.85)
         view.addSubview(containerView)
-        containerView.addSubview(descriptionStackView)
+        containerView.addSubview(descriptionStackCenterGuideStackView)
         containerView.addSubview(buttonStackView)
         
         NSLayoutConstraint.activate([
@@ -159,14 +164,15 @@ public class PopupViewController: UIViewController {
             containerView.heightAnchor.constraint(equalToConstant: Constant.Popup.height),
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            descriptionStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Constant.description.topMargin),
-            descriptionStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Constant.Popup.sideMargin) ,
-            descriptionStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Constant.Popup.sideMargin),
-            
+            descriptionStackCenterGuideStackView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            descriptionStackCenterGuideStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Constant.Popup.sideMargin) ,
+            descriptionStackCenterGuideStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Constant.Popup.sideMargin),
+            descriptionStackCenterGuideStackView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor),
+
             buttonStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Constant.Popup.sideMargin),
             buttonStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Constant.Popup.sideMargin),
             buttonStackView.heightAnchor.constraint(equalToConstant: Constant.Button.height),
-            buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: hasTopNotch ? 0 : -16),
+            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: hasTopNotch ? 0 : -16),
             
         ])
         

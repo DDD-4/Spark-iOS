@@ -182,6 +182,8 @@ class MyFolderDetailViewController: UIViewController {
         visibilityLabel.addGestureRecognizer(visibilityTapGesture)
 
         observeKeyboard()
+        updateCountLabel()
+        
     }
 
     func configureLayout() {
@@ -244,18 +246,24 @@ class MyFolderDetailViewController: UIViewController {
             .controlEvent(.editingChanged)
             .subscribe { [weak self] (_) in
                 guard let self = self else { return }
-                guard let text = self.textFieldView.textField.text else { return }
-                if text.count > Constant.Count.maxCount {
-                    self.textFieldView.textField.text = text[0..<Constant.Count.maxCount]
-                }
+                self.updateCountLabel()
 
-                self.confirmButton.isEnabled = (text.count == 0) ? false : true
+                let textCount = self.textFieldView.textField.text?.count
+
+                self.confirmButton.isEnabled = (textCount == 0) ? false : true
 
                 self.updateConfirmButton()
 
-                let count = self.textFieldView.textField.text?.count ?? 0
-                self.countLabel.text = "\(count)/\(Constant.Count.maxCount)"
             }.disposed(by: disposeBag)
+    }
+
+    func updateCountLabel() {
+        guard let text = self.textFieldView.textField.text else { return }
+        if text.count > Constant.Count.maxCount {
+            self.textFieldView.textField.text = text[0..<Constant.Count.maxCount]
+        }
+        let count = self.textFieldView.textField.text?.count ?? 0
+        self.countLabel.text = "\(count)/\(Constant.Count.maxCount)"
     }
 
     func observeKeyboard() {
@@ -282,6 +290,8 @@ class MyFolderDetailViewController: UIViewController {
 
     @objc func visiblilityDidTap() {
         visibilityButton.isSelected = !visibilityButton.isSelected
+        confirmButton.isEnabled = true
+        updateConfirmButton()
     }
 
     @objc func confirmDidTap(_ sender: UIButton) {
@@ -290,14 +300,18 @@ class MyFolderDetailViewController: UIViewController {
         case .add:
             viewModel.input.addFolder(
                 name: folderName,
-                isShareable: visibilityButton.isSelected) { [weak self] in
+                isShareable: visibilityButton.isSelected
+            ) { [weak self] in
                 guard let self = self else { return }
+                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
                 self.delegate?.needFetchMyFolder(self)
                 self.navigationController?.popViewController(animated: true)
             }
         case .edit(let folder):
-            viewModel.input.editFolder(folder: folder, name: folderName, isShareable: visibilityButton.isSelected) { [weak self] in
+            viewModel.input.editFolder(folder: folder, name: folderName, isShareable: visibilityButton.isSelected
+            ) { [weak self] in
                 guard let self = self else { return }
+                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
                 self.delegate?.needFetchMyFolder(self)
                 self.navigationController?.popViewController(animated: true)
             }

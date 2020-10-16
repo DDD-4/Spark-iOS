@@ -152,12 +152,14 @@ class MyVocaWordCell: UICollectionViewCell {
                   let imageUrl = URL(string: imageUrlString) else {
                 return
             }
+            imageView.sd_imageTransition = .fade
             imageView.sd_setImage(with: imageUrl, completed: nil)
         }
     }
     
     override func prepareForReuse() {
         stopAnimation()
+        imageView.sd_cancelCurrentImageLoad()
     }
     
     func configureLayout() {

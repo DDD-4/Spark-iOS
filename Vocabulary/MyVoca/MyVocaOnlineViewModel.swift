@@ -57,24 +57,38 @@ class MyVocaOnlineViewModel:
             }
             .disposed(by: disposeBag)
     }
+    
     func hasMoreContent() -> Bool {
         vocaHasMore.value && vocaShouldShowLoadingCell.value == false
     }
+
     func fetchFolder() {
+        LoadingView.show()
         FolderController.shared.getMyFolder()
-            .subscribe({ [weak self] (response) in
-                guard let element = response.element else {
-                    return
-                }
-                self?.folders.accept(element)
+            .subscribe(onNext: { [weak self] (response) in
+                LoadingView.hide()
+                self?.folders.accept(response)
                 self?.words.accept([])
-                FolderManager.shared.myFolders = element
+                FolderManager.shared.myFolders = response
+            }, onError: { [weak self] (error) in
+                LoadingView.hide()
+                UIAlertController().presentShowAlert(
+                    title: "네트워크 오류",
+                    message: "\(error.localizedDescription)",
+                    leftButtonTitle: "취소",
+                    rightButtonTitle: "재시도"
+                ) { (index) in
+                    guard index == 1 else { return }
+                    self?.fetchFolder()
+                }
             })
             .disposed(by: disposeBag)
     }
     
     func deleteWord(deleteWords: [Word], completion: @escaping (() -> Void)) {
+        LoadingView.show()
         WordController.shared.deleteWord(vocabularyId: deleteWords[0].id).subscribe { response in
+            LoadingView.hide()
             if response.element?.statusCode == 200 {
                 NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                 completion()
@@ -86,11 +100,13 @@ class MyVocaOnlineViewModel:
     }
     
     func getWord(page: Int) {
+        LoadingView.show()
         vocaShouldShowLoadingCell.accept(true)
         WordController.shared.getWord(folderId: self.selectedFolder.value?.id ?? 0, page: page)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] response in
+                LoadingView.hide()
                 self?.vocaShouldShowLoadingCell.accept(false)
                 guard let self = self, let element = response.element else { return }
                 

@@ -62,11 +62,15 @@ class VocaHeaderView: UIView {
     func configure(
         vocaTitle: String,
         profileName: String,
-        profileImage: UIImage?
+        profileImage: String?
     ) {
         vocaTitleLabel.text = vocaTitle
         profileLabel.text = profileName
-        profileImageView.image = UIImage(named: "icPicture")
+        if let imageUrlString = profileImage, let imageUrl = URL(string: imageUrlString) {
+            profileImageView.sd_setImage(with: imageUrl)
+        } else {
+            profileImageView.image = UIImage(named: "icPicture")
+        }
     }
 
     func configureLayout() {

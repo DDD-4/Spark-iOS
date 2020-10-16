@@ -68,7 +68,7 @@ class FlipCardView: UIView {
     var flipLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.BalsamiqSansBold(size: 46)
+        label.font = UIFont.QuicksandBold(size: 46)
         label.textColor = .darkIndigo
         label.textAlignment = .center
         label.numberOfLines = 0

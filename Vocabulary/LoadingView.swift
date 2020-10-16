@@ -18,7 +18,7 @@ class LoadingView: NSObject {
 
   static func show() {
     let backView = UIView(frame: .zero)
-    backView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+    backView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
     let popupView = UIActivityIndicatorView()
     popupView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
     popupView.style = UIActivityIndicatorView.Style.white

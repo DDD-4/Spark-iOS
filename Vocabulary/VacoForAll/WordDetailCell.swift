@@ -102,6 +102,7 @@ class WordDetailCell: UICollectionViewCell {
         koreanLabel.text = VocabularyContent.korean
         if let photoURL = VocabularyContent.photoUrl,
            let urlImage = URL(string: photoURL) {
+            vocaImageView.sd_imageTransition = .fade
             vocaImageView.sd_setImage(with: urlImage)
         }
     }
@@ -111,9 +112,8 @@ class WordDetailCell: UICollectionViewCell {
         koreanLabel.text = word.korean
         if let wordCoreData = word as? WordCoreData {
             guard let image = wordCoreData.image else { return }
+            vocaImageView.sd_imageTransition = .fade
             vocaImageView.image = UIImage(data: image)
-        } else {
-            // TODO: 서버용
         }
     }
 
@@ -135,7 +135,8 @@ class WordDetailCell: UICollectionViewCell {
 
         englishLabel.snp.makeConstraints { (make) in
             make.top.equalTo(vocaImageView.snp.bottom).offset(12)
-            make.leading.trailing.equalTo(containerView)
+            make.leading.equalTo(containerView).offset(4)
+            make.trailing.equalTo(containerView).offset(-4)
         }
 
         koreanLabel.snp.makeConstraints { (make) in

@@ -24,6 +24,7 @@ public struct EveryVocaContent: Codable {
     public let folderName: String
     public let photoUrl: String
     public let userName: String
+    public let userPhotoUrl: String?
     public let folderId: Int
 }
 
