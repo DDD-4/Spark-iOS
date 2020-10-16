@@ -164,7 +164,9 @@ public class SelectFolderViewController: UIViewController {
             }
             wordList.onNext(words)
         } else {
-            let folderIds = folderList.map { $0.id }
+            let folderIds = selectedIndexList.map { (index) -> Int in
+                folderList[index].id
+            }
             requestWordsByIds(ids: folderIds)
         }
     }
