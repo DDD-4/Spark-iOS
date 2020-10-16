@@ -480,13 +480,14 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
                 handler: { [weak self] (_) in
                     self?.viewModel.input.deleteWord(deleteWords: [word]) { [weak self] in
                         guard let self = self else { return }
-                        let alert: UIAlertView = UIAlertView(title: "단어 삭제 완료!", message: "단어장에 단어를 삭제했어요!", delegate: nil, cancelButtonTitle: nil);
                         
-                        alert.show()
+                        let alert: UIAlertController = UIAlertController(title: "단어 삭제 완료!", message: "단어장에 단어를 삭제했어요!", preferredStyle: .alert)
+                        
+                        self.present(alert, animated: true, completion: nil)
                         
                         let when = DispatchTime.now() + 2
                         DispatchQueue.main.asyncAfter(deadline: when){
-                            alert.dismiss(withClickedButtonIndex: 0, animated: true)
+                            alert.dismiss(animated: true, completion: nil)
                             
                             self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                         }

@@ -57,10 +57,15 @@ class DetailWordViewController: UIViewController {
         return view
     }()
     lazy var naviView: SideNavigationView = {
-        let view = SideNavigationView(leftImage: UIImage(named: "iconClose"), centerTitle: nil, rightImage: nil)
+        let view = SideNavigationView(
+            leftImage: UIImage(named: "iconClose"),
+            centerTitle: nil,
+            rightImage: UIImage(named: "iconCompleteDefault")
+        )
         view.backgroundColor = .white
         view.titleLabel.alpha = 0
         view.leftSideButton.addTarget(self, action: #selector(tapLeftButton), for: .touchUpInside)
+        view.rightSideButton.addTarget(self, action: #selector(confirmDidTap(_:)), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -189,7 +194,7 @@ class DetailWordViewController: UIViewController {
         modalTransitionStyle = .coverVertical
         
         self.wordImageView.image = image
-        
+        self.naviView.rightSideButton.isHidden = true
         view.clipsToBounds = false
     }
     
@@ -229,7 +234,7 @@ class DetailWordViewController: UIViewController {
             }
             self.wordImageView.sd_setImage(with: URL(string: url))
         }
-        
+        self.confirmButton.isHidden = true
         view.clipsToBounds = false
     }
     
@@ -255,6 +260,7 @@ class DetailWordViewController: UIViewController {
             name: .modeConfig,
             object: nil
         )
+        
     }
 
     func setBasicFolder() {
@@ -427,13 +433,13 @@ class DetailWordViewController: UIViewController {
     @objc func confirmDidTap(_ sender: Any) {
         
         guard let addGroup = self.newGroup else {
-            let alert: UIAlertView = UIAlertView(title: nil, message: "단어장을 선택해 주세요!", delegate: nil, cancelButtonTitle: nil);
+            let alert: UIAlertController = UIAlertController(title: nil, message: "단어장을 선택해 주세요!", preferredStyle: .alert)
             
-            alert.show()
+            self.present(alert, animated: true, completion: nil)
             
             let when = DispatchTime.now() + 2
             DispatchQueue.main.asyncAfter(deadline: when){
-                alert.dismiss(withClickedButtonIndex: 0, animated: true)
+                alert.dismiss(animated: true, completion: nil)
             }
             return
         }
