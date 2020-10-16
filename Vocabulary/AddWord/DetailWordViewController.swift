@@ -296,7 +296,7 @@ class DetailWordViewController: UIViewController {
         contentView.addSubview(cameraButton)
         contentView.addSubview(confirmButton)
         
-        DispatchQueue.main.async { [self] in
+        DispatchQueue.main.async {
             // UI Task
             if !self.albumInfo.isEmpty {
                 self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
@@ -489,6 +489,7 @@ class DetailWordViewController: UIViewController {
                 guard let self = self else { return }
                 
                 self.popUpSuccessAlert(completion: {
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 })
             }
@@ -518,6 +519,7 @@ class DetailWordViewController: UIViewController {
                 guard let self = self else { return }
                 
                 self.popUpSuccessAlert(completion: {
+                    NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 })
                 

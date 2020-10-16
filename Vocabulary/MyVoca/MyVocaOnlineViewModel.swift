@@ -26,12 +26,26 @@ class MyVocaOnlineViewModel:
     
     var input: MyVocaViewModelInput { return self }
     var output: MyVocaViewModelOutput { return self }
+    var currentPage: BehaviorRelay<Int>
+    var vocaShouldShowLoadingCell: BehaviorRelay<Bool>
+    var vocaHasMore: BehaviorRelay<Bool>
     
     init() {
         words = BehaviorRelay<[Word]>(value: [])
         selectedFolder = BehaviorRelay<Folder?>(value: nil)
         folders = BehaviorRelay<[Folder]>(value: [])
         selectedFolderIndex = BehaviorRelay<Int?>(value: nil)
+        
+        vocaHasMore = BehaviorRelay<Bool>(value: false)
+        currentPage = BehaviorRelay<Int>(value: 0)
+        vocaShouldShowLoadingCell = BehaviorRelay<Bool>(value: false)
+        
+        currentPage.bind { [weak self] page in
+            guard let self = self else { return }
+            
+            //currentPage.accept(page)
+            self.getWord(page: page)
+        }.disposed(by: disposeBag)
 
         folders
             .bind { [weak self] (folders) in
@@ -43,7 +57,9 @@ class MyVocaOnlineViewModel:
             }
             .disposed(by: disposeBag)
     }
-    
+    func hasMoreContent() -> Bool {
+        vocaHasMore.value && vocaShouldShowLoadingCell.value == false
+    }
     func fetchFolder() {
         FolderController.shared.getMyFolder()
             .subscribe({ [weak self] (response) in
@@ -51,6 +67,7 @@ class MyVocaOnlineViewModel:
                     return
                 }
                 self?.folders.accept(element)
+                self?.words.accept([])
                 FolderManager.shared.myFolders = element
             })
             .disposed(by: disposeBag)
@@ -59,7 +76,7 @@ class MyVocaOnlineViewModel:
     func deleteWord(deleteWords: [Word], completion: @escaping (() -> Void)) {
         WordController.shared.deleteWord(vocabularyId: deleteWords[0].id).subscribe { response in
             if response.element?.statusCode == 200 {
-                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.folderUpdate, object: nil)
+                NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                 completion()
             } else {
                 //error
@@ -68,17 +85,21 @@ class MyVocaOnlineViewModel:
         .disposed(by: disposeBag)
     }
     
-    private func fetchWordByFolderId() {
-        // TODO: Need Word network code
-    }
-    
-    func getWord() {
-        WordController.shared.getWord(folderId: self.selectedFolder.value?.id ?? 1)
-            .map({ (words) -> [Word] in
-                WordManager.shared.myWord = words.content
-                return words.content
-            }).subscribe{ [weak self] (words) in
-                self?.words.accept(words)
+    func getWord(page: Int) {
+        vocaShouldShowLoadingCell.accept(true)
+        WordController.shared.getWord(folderId: self.selectedFolder.value?.id ?? 0, page: page)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe { [weak self] response in
+                self?.vocaShouldShowLoadingCell.accept(false)
+                guard let self = self, let element = response.element else { return }
+                
+                if page == 0 {
+                    self.words.accept(element.content)
+                } else {
+                    self.words.accept(self.words.value + element.content)
+                }
+                self.vocaHasMore.accept(element.hasNext)
             }.disposed(by: disposeBag)
     }
 }

@@ -14,14 +14,17 @@ import PoingVocaSubsystem
 protocol MyVocaViewModelOutput {
     var folders: BehaviorRelay<[Folder]> { get }
     var words: BehaviorRelay<[Word]> { get }
+    func hasMoreContent() -> Bool
+    var vocaShouldShowLoadingCell: BehaviorRelay<Bool> { get }
 }
 
 protocol MyVocaViewModelInput {
     func fetchFolder()
     func deleteWord(deleteWords: [Word], completion: @escaping ( () -> Void))
-    func getWord()
+    func getWord(page: Int)
     var selectedFolderIndex: BehaviorRelay<Int?> { get }
     var selectedFolder: BehaviorRelay<Folder?> { get }
+    var currentPage: BehaviorRelay<Int> { get }
 }
 
 protocol MyVocaViewModelType {
@@ -30,6 +33,7 @@ protocol MyVocaViewModelType {
 }
 
 class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewModelType {
+    
     let disposeBag = DisposeBag()
 
     var words: BehaviorRelay<[Word]>
@@ -42,14 +46,20 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
 
     var input: MyVocaViewModelInput { return self }
     var output: MyVocaViewModelOutput { return self }
-
-
+    var currentPage: BehaviorRelay<Int>
+    var vocaHasMore: BehaviorRelay<Bool>
+    var vocaShouldShowLoadingCell: BehaviorRelay<Bool>
+    
     init() {
         words = BehaviorRelay<[Word]>(value: [])
         selectedFolder = BehaviorRelay<Folder?>(value: nil)
         folders = BehaviorRelay<[Folder]>(value: [])
         selectedFolderIndex = BehaviorRelay<Int?>(value: nil)
-
+        
+        vocaHasMore = BehaviorRelay<Bool>(value: false)
+        currentPage = BehaviorRelay<Int>(value: 0)
+        vocaShouldShowLoadingCell = BehaviorRelay<Bool>(value: false)
+        
         selectedFolder.map { (group) -> [Word] in
             guard let folder = group as? FolderCoreData else {
                 return []
@@ -58,6 +68,10 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
         }
         .bind(to: words)
         .disposed(by: disposeBag)
+    }
+    
+    func hasMoreContent() -> Bool {
+        vocaHasMore.value && vocaShouldShowLoadingCell.value == false
     }
 
     func fetchFolder() {
@@ -95,7 +109,7 @@ class MyVocaViewModel: MyVocaViewModelInput, MyVocaViewModelOutput, MyVocaViewMo
         }
     }
     
-    func getWord() {
+    func getWord(page: Int) {
         
     }
 }

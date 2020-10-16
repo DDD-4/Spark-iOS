@@ -30,12 +30,11 @@ public class WordController {
     public static let shared = WordController()
     private let serviceManager = WordServiceManager()
     
-    public func getWord(folderId: Int) -> Observable<WordResponse> {
+    public func getWord(folderId: Int, page: Int = 0) -> Observable<WordResponse> {
         serviceManager.providerWithToken.rx
-            .request(WordService.getWord(folderId: folderId))
-            .map {
-                try JSONDecoder().decode(WordResponse.self, from: $0.data)
-            }.asObservable()
+            .request(WordService.getWord(folderId: folderId, page: page))
+            .map( WordResponse.self)
+            .asObservable()
     }
     
     public func postWord(

@@ -9,7 +9,7 @@
 import Moya
 
 enum WordService {
-    case getWord(folderId: Int)
+    case getWord(folderId: Int, page: Int = 0)
     case postWord(
             english: String,
             folderId: Int,
@@ -66,8 +66,8 @@ extension WordService: TargetType, AccessTokenAuthorizable {
     
     var task: Task {
         switch self {
-        case .getWord(let folderId):
-            return .requestParameters(parameters: ["folderId": folderId], encoding: URLEncoding.default)
+        case .getWord(let folderId, let page):
+            return .requestParameters(parameters: ["folderId": folderId, "page": page], encoding: URLEncoding.default)
         case .postWord(let english, let folderId, let korean, let photo):
             
             var formData = [MultipartFormData]()
