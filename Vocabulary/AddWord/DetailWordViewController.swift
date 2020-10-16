@@ -57,10 +57,15 @@ class DetailWordViewController: UIViewController {
         return view
     }()
     lazy var naviView: SideNavigationView = {
-        let view = SideNavigationView(leftImage: UIImage(named: "iconClose"), centerTitle: nil, rightImage: nil)
+        let view = SideNavigationView(
+            leftImage: UIImage(named: "iconClose"),
+            centerTitle: nil,
+            rightImage: UIImage(named: "iconCompleteDefault")
+        )
         view.backgroundColor = .white
         view.titleLabel.alpha = 0
         view.leftSideButton.addTarget(self, action: #selector(tapLeftButton), for: .touchUpInside)
+        view.rightSideButton.addTarget(self, action: #selector(confirmDidTap(_:)), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -189,7 +194,7 @@ class DetailWordViewController: UIViewController {
         modalTransitionStyle = .coverVertical
         
         self.wordImageView.image = image
-        
+        self.naviView.rightSideButton.isHidden = true
         view.clipsToBounds = false
     }
     
@@ -229,7 +234,7 @@ class DetailWordViewController: UIViewController {
             }
             self.wordImageView.sd_setImage(with: URL(string: url))
         }
-        
+        self.confirmButton.isHidden = true
         view.clipsToBounds = false
     }
     
@@ -256,7 +261,6 @@ class DetailWordViewController: UIViewController {
             object: nil
         )
         
-        PHPhotoLibrary.shared().register(self)
     }
 
     func setBasicFolder() {
