@@ -11,29 +11,30 @@ import RxSwift
 import RxCocoa
 import PoingVocaSubsystem
 
-class SelectOnlineViewModel: SelectViewModelInput, SelectViewModelOutput, SelectViewModelType {
-    
+class SelectOnlineViewModel:
+    SelectViewModelInput,
+    SelectViewModelOutput,
+    SelectViewModelType {
+
     var myFolders = BehaviorRelay<[Folder]>(value: [])
     
     var input: SelectViewModelInput { return self }
-    
     var output: SelectViewModelOutput { return self }
     let disposeBag = DisposeBag()
     
     init() {
         myFolders = BehaviorRelay(value: FolderManager.shared.myFolders)
     }
-    
     func fetchMyFolders() {
-
         FolderController.shared.getMyFolder()
             .subscribe { [weak self] (folders) in
+                
                 guard let self = self,
                       let folders = folders.element else {
                     return
                 }
-                print(folders)
                 self.myFolders.accept(folders)
+                FolderManager.shared.myFolders = folders
             }.disposed(by: disposeBag)
     }
     

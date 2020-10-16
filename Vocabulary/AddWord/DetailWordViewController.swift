@@ -29,7 +29,7 @@ class DetailWordViewController: UIViewController {
             static let height: CGFloat = 56
         }
         enum Count {
-            static let maxCount = 15
+            static let maxCount = 30
         }
     }
     
@@ -538,7 +538,16 @@ class DetailWordViewController: UIViewController {
     }
     
     func popUpSuccessAlert(completion: @escaping (() -> Void)) {
-        let viewController = SuccessPopupViewController(titleMessege: "단어 만들기 완료!", descriptionMessege: "나의 단어장에서 확인할 수 있어요!")
+        
+        var title: String
+        switch currentState {
+        case .add:
+            title = "단어 만들기 완료!"
+        case .edit:
+            title = "단어 수정 완료!"
+        }
+        
+        let viewController = SuccessPopupViewController(titleMessege: title, descriptionMessege: "나의 단어장에서 확인할 수 있어요!")
         viewController.modalPresentationStyle = .overCurrentContext
         self.present(viewController, animated: true, completion: nil)
         
