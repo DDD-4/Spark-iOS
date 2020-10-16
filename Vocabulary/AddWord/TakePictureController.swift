@@ -35,7 +35,7 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "icCamera"), for: .normal)
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(photoLibraryButtonTapped), for: .touchUpInside)
         button.tintColor = .midnight
@@ -67,6 +67,9 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
     let sessionQueue = DispatchQueue(label: "session queue")
     let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera, .builtInTripleCamera, .builtInWideAngleCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
     var picker = UIImagePickerController()
+    let imageManager: PHCachingImageManager = PHCachingImageManager()
+    var fetchResult: PHFetchResult<PHAssetCollection>?
+    var albumInfo = Array<PHAsset>()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
@@ -82,6 +85,7 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        reguestCollection()
         screenView.session = captureSession
         sessionQueue.async {
             self.setupSession()
@@ -89,6 +93,27 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         }
         configureLayout()
         bindFunction()
+    }
+    
+    // MARK: - View ✨
+    func reguestCollection() {
+        //수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
+        
+        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
+        
+        self.albumInfo.removeAll()
+        
+        cameraRoll.enumerateObjects { (collection, index, object) in
+            let photoInAlbum = PHAsset.fetchAssets(in: collection, options: nil)
+            if photoInAlbum.lastObject != nil {
+                self.albumInfo.append(photoInAlbum.lastObject!)
+            }
+        }
+        
+        self.fetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
     }
     
     // MARK: - init
@@ -99,6 +124,15 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         view.addSubview(captureButton)
         view.addSubview(switchButton)
         view.addSubview(cancelButton)
+        
+        DispatchQueue.main.async {
+            // UI Task
+            if !self.albumInfo.isEmpty {
+                self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+                    self.photoLibraryButton.setImage(image, for: .normal)
+                })
+            }
+        }
         
         screenView.snp.makeConstraints { (make) in
             make.height.width.equalTo(view.safeAreaLayoutGuide.snp.width)
@@ -407,6 +441,23 @@ extension TakePictureViewController: UIImagePickerControllerDelegate {
         
         DispatchQueue.main.async {
             self.present(DetailWordViewController(image: self.image), animated: true, completion: nil)
+        }
+    }
+}
+
+extension TakePictureViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        DispatchQueue.global().async {
+            self.reguestCollection()
+            DispatchQueue.main.async {
+                // UI Task
+                if !self.albumInfo.isEmpty {
+                    self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: {
+                        image, _ in self .photoLibraryButton.setImage(image, for: .normal)
+                    })
+                }
+            }
         }
     }
 }
