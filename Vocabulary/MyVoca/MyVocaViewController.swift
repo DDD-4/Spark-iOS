@@ -16,7 +16,9 @@ import SnapKit
 
 class MyVocaViewController: UIViewController {
     enum Constant {
-        
+        enum Floating {
+            static let height: CGFloat = 60
+        }
     }
     
     enum ViewType {
@@ -69,7 +71,39 @@ class MyVocaViewController: UIViewController {
         
         return collectionView
     }()
-    
+
+    lazy var addWordFloatingButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "btnAdd"), for: .normal)
+        button.layer.shadow(
+            color: .brightSkyBlue50,
+            alpha: 1,
+            x: 0,
+            y: 5,
+            blur: 20,
+            spread: 0
+        )
+        button.layer.masksToBounds = false
+        return button
+    }()
+
+    lazy var gameFloatingButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "btnGame"), for: .normal)
+        button.layer.shadow(
+            color: .greyblue50,
+            alpha: 1,
+            x: 0,
+            y: 5,
+            blur: 20,
+            spread: 0
+        )
+        button.layer.masksToBounds = false
+        return button
+    }()
+
     init(viewType: ViewType) {
         currentViewType = viewType
         
@@ -93,6 +127,7 @@ class MyVocaViewController: UIViewController {
         
         switch currentViewType {
         case .myVoca:
+            configureMyVoca()
             configureRx()
             viewModel.input.fetchFolder()
             viewModel.input.getWord(page: 0)
@@ -142,15 +177,51 @@ class MyVocaViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(groupNameCollectionView)
-        
+
         groupNameCollectionView.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view)
         }
-        
+    }
+
+    func configureMyVoca() {
+        view.addSubview(addWordFloatingButton)
+        view.addSubview(gameFloatingButton)
+
+        addWordFloatingButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
+            make.centerX.equalTo(view)
+            make.height.width.equalTo(Constant.Floating.height)
+        }
+
+        gameFloatingButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(hasTopNotch ? 0 : -16)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
+            make.height.width.equalTo(Constant.Floating.height)
+        }
     }
     
     func configureRx() {
+        addWordFloatingButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self](_) in
+                let viewController = TakePictureViewController()
+                let navigationController = UINavigationController(rootViewController: viewController)
+                navigationController.navigationBar.isHidden = true
+                navigationController.modalPresentationStyle = .fullScreen
+                navigationController.modalTransitionStyle = .coverVertical
+                self?.present(navigationController, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+
+        gameFloatingButton.rx.tap
+            .subscribe(onNext: { [weak self] (_) in
+                let navigationController = UINavigationController(rootViewController: GameViewController())
+                navigationController.navigationBar.isHidden = true
+                navigationController.modalPresentationStyle = .fullScreen
+                navigationController.modalTransitionStyle = .coverVertical
+                self?.present(navigationController, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+
         viewModel.input.selectedFolder
             .subscribe(onNext: { [weak self] (folders) in
                 guard folders != nil else { return }

@@ -51,15 +51,25 @@ class MyFolderDetailOnlineViewModel: MyFolderDetailViewModelInput, MyFolderDetai
 
     func addFolder(name: String, isShareable: Bool, completeHandler: (() -> Void)?) {
         FolderController.shared.addFolder(name: name, shareable: isShareable)
-            .subscribe { (response) in
-                if response.element?.statusCode == 200 {
-                    // success
+            .subscribe(onNext: { (response) in
+                if response.statusCode == 200 {
                     completeHandler?()
                 }
-                else {
-                    // error
+            }, onError: { [weak self] (error) in
+                UIAlertController().presentShowAlert(
+                    title: nil,
+                    message: "네트워크 오류",
+                    leftButtonTitle: "취소",
+                    rightButtonTitle: "재시도"
+                ) { [weak self] (index) in
+                    guard index == 1 else { return }
+                    self?.addFolder(
+                        name: name,
+                        isShareable: isShareable,
+                        completeHandler: completeHandler
+                    )
                 }
-            }
+            })
             .disposed(by: disposeBag)
     }
 

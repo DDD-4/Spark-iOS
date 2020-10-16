@@ -78,9 +78,9 @@ class SettingViewController: UIViewController {
         
         // TODO: Binding data
         options = [
-            Option(title: "복습 알림 설정", rightType: .switch, handler: {
-                
-            }),
+//            Option(title: "복습 알림 설정", rightType: .switch, handler: {
+//                
+//            }),
             Option(title: "폴더 편집", rightType: .arrow, handler: { [weak self] in
                 let viewController = EditMyFolderViewController()
                 self?.navigationController?.pushViewController(viewController, animated: true)

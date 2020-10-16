@@ -33,28 +33,39 @@ class EditMyFolderOnlineViewModel: EditMyFolderViewModelType, EditMyFolderViewMo
                     folder.default == false
                 }
             })
-            .subscribe { [weak self] (folders) in
+            .subscribe(onNext: { [weak self] (folders) in
                 self?.myFolders.accept(folders)
-            }
+            }, onError: { [weak self] (error) in
+                UIAlertController().presentShowAlert(
+                    title: "네트워크 오류",
+                    message: nil,
+                    leftButtonTitle: "취소",
+                    rightButtonTitle: "재시도"
+                ) { [weak self] (index) in
+                    guard index == 1 else { return }
+                    self?.fetchMyFolders()
+                }
+            })
             .disposed(by: disposeBag)
     }
 
     func changeVisibilityType(folder: Folder) {
+        LoadingView.show()
+
         folder.shareable = folder.shareable ? false : true
         FolderController.shared.editFolder(
             folderId: folder.id,
             name: folder.name,
             shareable: folder.shareable
         )
-        .subscribe { [weak self] (response) in
-            if response.element?.statusCode == 200 {
-                // success
+        .subscribe(onNext: { [weak self] (response) in
+            LoadingView.hide()
+            if response.statusCode == 200 {
                 self?.fetchMyFolders()
             }
-            else {
-                // error
-            }
-        }
+        }, onError: { (error) in
+            LoadingView.hide()
+        })
         .disposed(by: disposeBag)
     }
 
@@ -62,16 +73,26 @@ class EditMyFolderOnlineViewModel: EditMyFolderViewModelType, EditMyFolderViewMo
         let folderIds: [Int] = folders.map { (folder) -> Int in
             folder.id
         }
+        LoadingView.show()
+
         FolderController.shared.deleteFolder(folderId: folderIds)
-            .subscribe { [weak self] (response) in
-                if response.element?.statusCode == 200 {
-                    // success
+            .subscribe(onNext: { [weak self] (response) in
+                LoadingView.hide()
+                if response.statusCode == 200 {
                     self?.fetchMyFolders()
                 }
-                else {
-                    // error
+            }, onError: { [weak self] (error) in
+                LoadingView.hide()
+                UIAlertController().presentShowAlert(
+                    title: nil,
+                    message: "네트워크 오류",
+                    leftButtonTitle: "취소",
+                    rightButtonTitle: "재시도"
+                ) { [weak self] (index) in
+                    guard index == 1 else { return }
+                    self?.deleteFolders(folders: folders)
                 }
-            }
+            })
             .disposed(by: disposeBag)
     }
 
@@ -103,19 +124,28 @@ class EditMyFolderOnlineViewModel: EditMyFolderViewModelType, EditMyFolderViewMo
     }
 
     func reorderFolders(folders: [Folder]) {
+        LoadingView.show()
         let folderIDs = folders.map { (folder) -> Int in
             folder.id
         }
         FolderController.shared.reorderFolder(folderIds: folderIDs)
-            .subscribe { [weak self] (response) in
-                if response.element?.statusCode == 200 {
-                    // success
+            .subscribe(onNext: { [weak self] (response) in
+                LoadingView.hide()
+                if response.statusCode == 200 {
                     self?.fetchMyFolders()
                 }
-                else {
-                    // error
+            }, onError: { [weak self] (erroe) in
+                LoadingView.hide()
+                UIAlertController().presentShowAlert(
+                    title: nil,
+                    message: "네트워크 오류",
+                    leftButtonTitle: "취소",
+                    rightButtonTitle: "재시도"
+                ) { [weak self] (index) in
+                    guard index == 1 else { return }
+                    self?.reorderFolders(folders: folders)
                 }
-            }
+            })
             .disposed(by: disposeBag)
     }
 }

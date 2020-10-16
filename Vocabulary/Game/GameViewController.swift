@@ -176,7 +176,6 @@ extension GameViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         let selectedGame = Constant.gameList[indexPath.row]
 
         let selectFolderViewController: VocaGame.SelectFolderViewController

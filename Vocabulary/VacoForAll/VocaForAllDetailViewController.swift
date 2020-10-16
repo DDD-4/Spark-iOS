@@ -154,7 +154,7 @@ class VocaForAllDetailViewController: UIViewController {
                 self.headerView.configure(
                     vocaTitle: data.folderName,
                     profileName: data.userName,
-                    profileImage: nil
+                    profileImage: data.userPhotoUrl
                 )
                 self.naviView.titleLabel.text = data.folderName
             }

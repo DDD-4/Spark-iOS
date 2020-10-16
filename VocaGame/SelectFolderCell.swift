@@ -79,10 +79,24 @@ class SelectFolderCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        folderImageView.sd_cancelCurrentImageLoad()
+    }
+
     func configure(folder: Folder) {
         self.folder = folder
         folderTitleLabel.text = folder.name
         folderImageView.image = UIImage(named: "emptyFace")
+
+        if let folderCoreData = folder as? FolderCoreData {
+            guard folderCoreData.words.isEmpty == false,
+                  let imageData = folderCoreData.words.first?.image else {
+                return
+            }
+            folderImageView.image = UIImage(data: imageData)
+        } else {
+            folderImageView.sd_setImage(with: URL(string: folder.photoUrl))
+        }
     }
 
     func configureLayout() {

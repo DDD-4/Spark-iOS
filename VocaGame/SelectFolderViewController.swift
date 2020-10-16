@@ -10,6 +10,8 @@ import UIKit
 import PoingDesignSystem
 import PoingVocaSubsystem
 import SnapKit
+import RxSwift
+import RxCocoa
 
 public class SelectFolderViewController: UIViewController {
     enum Constant {
@@ -80,9 +82,16 @@ public class SelectFolderViewController: UIViewController {
 
     var selectedIndexList: [Int] = []
 
+    let wordList: PublishSubject<[Word]>
+
+    let disposeBag = DisposeBag()
+
     public init(_ folderList: [Folder], gameType: GameType) {
         self.folderList = folderList
         selectedGameType = gameType
+
+        wordList = PublishSubject()
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -93,6 +102,7 @@ public class SelectFolderViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+        configureRx()
     }
 
     func configureLayout() {
@@ -119,6 +129,28 @@ public class SelectFolderViewController: UIViewController {
         }
     }
 
+    func configureRx() {
+        wordList
+            .subscribe(onNext: { [weak self] (words) in
+                guard let self = self else { return }
+                guard words.isEmpty == false else {
+                    self.presentEmptyWordAlert()
+                    return
+                }
+
+                switch self.selectedGameType {
+                case .flip:
+                    self.navigationController?.pushViewController(FlipGameViewController(words: words), animated: true)
+                case .matching:
+                    guard words.count >= 4 else {
+                        self.presentMoreWordAlert()
+                        return
+                    }
+                    self.navigationController?.pushViewController(CardMatchingViewController(words: words), animated: true)
+                }
+            }).disposed(by: disposeBag)
+    }
+
     @objc func closeDidTap(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
@@ -130,17 +162,10 @@ public class SelectFolderViewController: UIViewController {
             for folder in folderCoreDataList {
                 words.append(contentsOf: folder.words)
             }
+            wordList.onNext(words)
         } else {
-
-        }
-
-        // TODO: ONLINE
-
-        switch selectedGameType {
-        case .flip:
-            navigationController?.pushViewController(FlipGameViewController(words: words), animated: true)
-        case .matching:
-            navigationController?.pushViewController(CardMatchingViewController(words: words), animated: true)
+            let folderIds = folderList.map { $0.id }
+            requestWordsByIds(ids: folderIds)
         }
     }
 
@@ -151,6 +176,46 @@ public class SelectFolderViewController: UIViewController {
         confirmButton.backgroundColor = confirmButton.isEnabled
             ? Constant.Confirm.Active.backgroundColor
             : Constant.Confirm.InActive.backgroundColor
+    }
+
+    func requestWordsByIds(ids: [Int]) {
+        WordController.shared.getWordsByIds(ids: ids)
+            .subscribe(onNext: { [weak self] (words) in
+                self?.wordList.onNext(words)
+            }, onError: { (error) in
+                print(error)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func presentEmptyWordAlert() {
+        let alert = UIAlertController(
+            title: nil,
+            message: "저장한 단어가 없어요.\n단어를 추가해주세요.",
+            preferredStyle: .alert
+        )
+        let action = UIAlertAction(
+            title: "확인",
+            style: .default,
+            handler: nil
+        )
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+
+    func presentMoreWordAlert() {
+        let alert = UIAlertController(
+            title: nil,
+            message: "4개 이상 단어가 있어야 매칭게임을 할 수 있어요.",
+            preferredStyle: .alert
+        )
+        let action = UIAlertAction(
+            title: "확인",
+            style: .default,
+            handler: nil
+        )
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 }
 

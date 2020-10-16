@@ -41,7 +41,7 @@ class CardCell: UICollectionViewCell {
         label.textAlignment = .center
         label.font = Constant.font
         label.textColor = Constant.textColor
-        label.font = UIFont.BalsamiqSansBold(size: 24)
+        label.font = UIFont.QuicksandBold(size: 24)
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
         label.baselineAdjustment = .alignCenters
@@ -65,16 +65,21 @@ class CardCell: UICollectionViewCell {
 
     func configure(card: CardMatching) {
         cardMatching = card
-        if case let .image(cardImage) = card.contentType {
-            imageView.image = cardImage
-        } else if case let .text(cardWord) = card.contentType {
-            wordLabel.text = cardWord
+
+        switch card.contentType {
+        case .image(let image):
+            imageView.image = image
+        case .imageURL(let imageUrl):
+            imageView.sd_imageTransition = .fade
+            imageView.sd_setImage(with: imageUrl, completed: nil)
+        case .text(let text):
+            wordLabel.text = text
         }
     }
 
     func selected() {
         switch cardMatching?.contentType {
-        case .image:
+        case .image, .imageURL:
             frontView.layer.borderWidth = Constant.borderWidth
             frontView.layer.borderColor = cardMatching?.color.cgColor
         case .text:

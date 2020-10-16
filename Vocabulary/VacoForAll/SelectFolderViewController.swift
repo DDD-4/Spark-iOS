@@ -78,14 +78,14 @@ class SelectFolderViewController: UIViewController {
         configureLayout()
         configureRx()
         
-        VocaDataChanged()
+        vocaDataChanged()
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(VocaDataChanged),
+            selector: #selector(vocaDataChanged),
             name: .vocaDataChanged,
-            object: nil)
-        
+            object: nil
+        )
     }
     
     func configureLayout() {
@@ -117,8 +117,14 @@ class SelectFolderViewController: UIViewController {
 
     }
     
-    @objc func VocaDataChanged() {
+    @objc func vocaDataChanged() {
         if ModeConfig.shared.currentMode == .offline {
+            viewModel.input.fetchMyFolders()
+        }
+    }
+
+    @objc func updateFolder() {
+        if ModeConfig.shared.currentMode == .online {
             viewModel.input.fetchMyFolders()
         }
     }

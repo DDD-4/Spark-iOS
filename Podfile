@@ -20,6 +20,8 @@ end
 
 target 'VocaGame' do
   basicFrameworks
+  pod 'RxSwift'
+  pod 'RxCocoa'
 end
 
 target 'PoingVocaSubsystem' do

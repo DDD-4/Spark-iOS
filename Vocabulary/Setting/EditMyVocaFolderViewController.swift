@@ -174,7 +174,6 @@ class EditMyFolderViewController: UIViewController {
     }
 
     func configureRx() {
-
         viewModel.output.myFolders
             .subscribeOn(MainScheduler.instance)
             .subscribe { [weak self] (folders) in
