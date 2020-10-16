@@ -142,7 +142,7 @@ public class PopupViewController: UIViewController {
         self.cancelButton.setTitle(cancelMessege, for: .normal)
         self.confirmButton.setTitle(confirmMessege, for: .normal)
         
-        modalPresentationStyle = .fullScreen
+        modalPresentationStyle = .overCurrentContext
         modalTransitionStyle = .crossDissolve
     }
     

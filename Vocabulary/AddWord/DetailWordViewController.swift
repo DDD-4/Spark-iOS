@@ -526,8 +526,7 @@ class DetailWordViewController: UIViewController {
         }
         
         let viewController = SuccessPopupViewController(titleMessege: title, descriptionMessege: "나의 단어장에서 확인할 수 있어요!")
-        viewController.modalPresentationStyle = .overCurrentContext
-        self.present(viewController, animated: true, completion: nil)
+        present(viewController, animated: true, completion: nil)
         
         let when = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: when){
@@ -538,8 +537,7 @@ class DetailWordViewController: UIViewController {
     func popUpStopAlert() {
         let viewController = PopupViewController(titleMessege: "여기서 그만할까요?", descriptionMessege: "입력한 정보는 모두 사라져요", cancelMessege: "취소", confirmMessege: "그만할래요" )
         viewController.delegate = self
-        viewController.modalPresentationStyle = .overCurrentContext
-        self.present(viewController, animated: true, completion: nil)
+        present(viewController, animated: true, completion: nil)
     }
 }
 
@@ -637,8 +635,6 @@ extension DetailWordViewController: PopupViewDelegate {
     }
     
     func didConfirmTap(sender: UIButton) {
-        
-        self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
-        
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }

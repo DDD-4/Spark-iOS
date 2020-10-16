@@ -111,7 +111,7 @@ public class FlipGameViewController: UIViewController {
     }
 
     @objc func closeDidTap(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 }
 
