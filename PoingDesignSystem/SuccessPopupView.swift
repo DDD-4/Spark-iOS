@@ -92,18 +92,10 @@ public class SuccessPopupViewController: UIViewController {
         self.titleLabel.text = titleMessege
         self.descriptionLabel.text = descriptionMessege
         
-        modalPresentationStyle = .fullScreen
+        modalPresentationStyle = .overCurrentContext
         modalTransitionStyle = .crossDissolve
     }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nil, bundle: nil)
-        //view.backgroundColor = .clear
 
-        modalPresentationStyle = .fullScreen
-        modalTransitionStyle = .crossDissolve
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
