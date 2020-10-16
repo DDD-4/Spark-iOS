@@ -86,13 +86,6 @@ class SelectFolderViewController: UIViewController {
             name: .vocaDataChanged,
             object: nil
         )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(updateFolder),
-            name: PoingVocaSubsystem.Notification.Name.folderUpdate,
-            object: nil
-        )
     }
     
     func configureLayout() {
@@ -163,6 +156,7 @@ extension SelectFolderViewController: UICollectionViewDataSource {
         if indexPath.row == 0 {
             // TODO: 만약 온라인 모드이면 변경 사항을 현재 뷰컨으로 update해야합니다
             let myFolderDetailViewController = MyFolderDetailViewController(viewType: .add)
+            myFolderDetailViewController.delegate = self
             navigationController?.pushViewController(myFolderDetailViewController, animated: true)
         } else {
             delegate?.selectFolderViewController(didTapFolder: viewModel.output.myFolders.value[indexPath.item - 1])
@@ -185,5 +179,11 @@ extension SelectFolderViewController: UICollectionViewDelegate, UICollectionView
         
         let width = (collectionView.frame.width - (11) - (16 * 2)) / 2
         return CGSize(width: width, height: width)
+    }
+}
+
+extension SelectFolderViewController: MyFolderDetailViewControllerDelegate {
+    func needFetchMyFolder(_ viewController: MyFolderDetailViewController) {
+        viewModel.input.fetchMyFolders()
     }
 }
