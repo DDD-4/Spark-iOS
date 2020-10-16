@@ -56,14 +56,6 @@ class MyProfileViewController: UIViewController {
         view.contentMode = .scaleAspectFit
         view.layer.cornerRadius = Constant.ProfileImage.length * 0.5
         view.clipsToBounds = true
-        
-        guard let photoURL = User.shared.userInfo?.photoUrl,
-              photoURL.isEmpty == false else {
-            view.image = UIImage(named: "yellowFace")
-            return view
-        }
-        view.sd_setImage(with: URL(string: photoURL), completed: .none)
-    
         return view
     }()
 
@@ -91,18 +83,28 @@ class MyProfileViewController: UIViewController {
     private var needAdjustScrollViewForTextFields = [UITextField]()
     private let picker = UIImagePickerController()
 
-    private let originName = User.shared.userInfo?.name
+    private var selectedPhoto: UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureLayout()
         observeKeyboard()
+        configureProfileImage()
 
         let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
         view.addGestureRecognizer(gesture)
 
         needAdjustScrollViewForTextFields.append(nameTextField)
+    }
+
+    func configureProfileImage() {
+        guard let photoURL = User.shared.userInfo?.photoUrl,
+              photoURL.isEmpty == false else {
+            profileImageView.image = UIImage(named: "yellowFace")
+            return
+        }
+        profileImageView.sd_setImage(with: URL(string: photoURL))
     }
 
     func configureLayout() {
@@ -197,18 +199,56 @@ class MyProfileViewController: UIViewController {
         }
     }
 
+    private func fetchMyProfile(completion: @escaping (() -> Void)) {
+        LoadingView.show()
+        UserController.shared.getUserInfo()
+            .subscribe(onNext: { (response) in
+                LoadingView.hide()
+                User.shared.userInfo = response
+                completion()
+            }, onError: { (error) in
+                LoadingView.hide()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func requestSaveMyProfile() {
+        let imageData = selectedPhoto?.jpegData(compressionQuality: 0.8)
+        LoadingView.show()
+        UserController.shared.editUser(
+            name: nameTextField.text ?? "",
+            photo: imageData
+        )
+        .subscribe(onNext: { [weak self] (response) in
+            LoadingView.hide()
+            guard let self = self else { return }
+            self.fetchMyProfile {
+                let viewController = SuccessPopupViewController(
+                    titleMessege: "프로필 수정 완료!",
+                    descriptionMessege: "설정에서 확인할 수 있어요!"
+                )
+                viewController.modalPresentationStyle = .overCurrentContext
+                self.present(viewController, animated: true, completion: nil)
+            }
+        }, onError: { (error) in
+            LoadingView.hide()
+        })
+        .disposed(by: disposeBag)
+    }
+
     @objc func closeDidTap(_ sender: UIButton) {
-        
-        let viewController = PopupViewController(titleMessege: "여기서 그만할까요?", descriptionMessege: "입력한 정보는 모두 사라져요.", cancelMessege: "취소", confirmMessege: "그만할래요")
+        let viewController = PopupViewController(
+            titleMessege: "여기서 그만할까요?",
+            descriptionMessege: "입력한 정보는 모두 사라져요.",
+            cancelMessege: "취소",
+            confirmMessege: "그만할래요"
+        )
         viewController.delegate = self
         viewController.modalPresentationStyle = .overCurrentContext
-        self.present(viewController, animated: true, completion: nil)
-        
-        //navigationController?.popViewController(animated: true)
+        present(viewController, animated: true, completion: nil)
     }
     
     @objc func addPicture(_ sender: Any) {
-        
         self.picker.delegate = self
         let alert =  UIAlertController(
             title: nil,
@@ -230,43 +270,7 @@ class MyProfileViewController: UIViewController {
     }
     
     @objc func confirmDidTap(_ sender: UIButton) {
-        
-        guard let image = self.profileImageView.image else {
-            
-            let alert: UIAlertController = UIAlertController(title: nil, message: "사진을 선택해 주세요!", preferredStyle: .alert)
-            
-            self.present(alert, animated: true, completion: nil)
-            
-            let when = DispatchTime.now() + 2
-            DispatchQueue.main.asyncAfter(deadline: when){
-                alert.dismiss(animated: true, completion: nil)
-            }
-            return
-        }
-        
-        guard let data = image.jpegData(compressionQuality: 0.8) else {
-            return
-        }
-        
-        UserController.shared.editUser(
-            name: self.nameTextField.text ?? "",
-            photo: data ).subscribe { [weak self] response in
-                guard let self = self else { return }
-                if response.element?.statusCode == 200 {
-                    let viewController = SuccessPopupViewController(titleMessege: "프로필 수정 완료!", descriptionMessege: "설정에서 확인할 수 있어요!")
-                    viewController.modalPresentationStyle = .overCurrentContext
-                    self.present(viewController, animated: true, completion: nil)
-                    
-                    UserController.shared.getUserInfo().subscribe { response in
-                        if !response.isCompleted {
-                            User.shared.userInfo = response.element
-                        }
-                    }.disposed(by: self.disposeBag)
-                    
-                }else {
-                    //error
-                }
-            }.disposed(by: disposeBag)
+        requestSaveMyProfile()
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -293,17 +297,15 @@ extension MyProfileViewController: PopupViewDelegate {
 }
 
 extension MyProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     func openLibrary(){
-        
         self.picker.delegate = self
         self.picker.sourceType = .photoLibrary
         self.picker.allowsEditing = true
         
         self.present(self.picker, animated: true)
     }
+
     func openCamera(){
-        
         if(UIImagePickerController.isSourceTypeAvailable(.camera)){
             self.picker.delegate = self
             self.picker.sourceType = .camera
@@ -314,14 +316,14 @@ extension MyProfileViewController: UIImagePickerControllerDelegate, UINavigation
             print("Camera not available")
         }
     }
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
         let image = UIImagePickerController.InfoKey.editedImage
         
         if let possibleImage = info[image] as? UIImage{
-            self.profileImageView.image = possibleImage
-            self.navView.rightSideButton.setImage(UIImage(named: "iconCompleteDefault"), for: .normal)
-            self.navView.rightSideButton.isEnabled = true
+            selectedPhoto = possibleImage
+            navView.rightSideButton.setImage(UIImage(named: "iconCompleteDefault"), for: .normal)
+            navView.rightSideButton.isEnabled = true
         }
         
         dismiss(animated: true, completion: nil)
