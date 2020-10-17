@@ -322,6 +322,7 @@ extension MyProfileViewController: UIImagePickerControllerDelegate, UINavigation
         
         if let possibleImage = info[image] as? UIImage{
             selectedPhoto = possibleImage
+            profileImageView.image = possibleImage
             navView.rightSideButton.setImage(UIImage(named: "iconCompleteDefault"), for: .normal)
             navView.rightSideButton.isEnabled = true
         }
