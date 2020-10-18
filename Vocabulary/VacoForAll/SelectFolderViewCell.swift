@@ -118,7 +118,10 @@ class SelectFolderViewCell: UICollectionViewCell {
             }
             folderImageView.image = UIImage(data: imageData)
         } else {
-            folderImageView.sd_setImage(with: URL(string: folder.photoUrl))
+            folderImageView.sd_setImage(with: URL(string: folder.photoUrl)) { (image, error, _, _) in
+                guard error != nil else { return }
+                self.folderImageView.image = UIImage(named: "emptyFace")
+            }
         }
     }
     
