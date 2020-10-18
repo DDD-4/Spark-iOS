@@ -71,35 +71,38 @@ public class SuccessPopupViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    
-    public override func viewDidLoad() {
-        super.viewDidLoad()
 
-        initView()
-    }
-    
-    public override func viewDidAppear(_ animated: Bool) {
-        let when = DispatchTime.now() + 2
-        DispatchQueue.main.asyncAfter(deadline: when){
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    public init(titleMessege: String, descriptionMessege: String) {
-        
+    let completion: (() -> Void)?
+
+    public init(title: String, message: String, completionHandler: (() -> Void)? = nil) {
+        completion = completionHandler
         super.init(nibName: nil, bundle: nil)
         
-        self.titleLabel.text = titleMessege
-        self.descriptionLabel.text = descriptionMessege
+        titleLabel.text = title
+        descriptionLabel.text = message
         
-        modalPresentationStyle = .overCurrentContext
+        modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        initView()
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let when = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: when) { [weak self] in
+            self?.completion?()
+        }
+    }
+
     func initView() {
         view.backgroundColor = UIColor.midnight.withAlphaComponent(0.85)
         view.addSubview(containerView)

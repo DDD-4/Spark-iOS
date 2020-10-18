@@ -8,11 +8,6 @@
 
 import UIKit
 
-public protocol PopupViewDelegate: class {
-    func didCancelTap(sender: UIButton)
-    func didConfirmTap(sender: UIButton)
-}
-
 public class PopupViewController: UIViewController {
     
     enum Constant {
@@ -29,10 +24,7 @@ public class PopupViewController: UIViewController {
             static let radius: CGFloat = 30
         }
     }
-    
-    // MARK: - Properties
-    public var delegate: PopupViewDelegate?
-    
+
     var hasTopNotch: Bool {
         return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 24
     }
@@ -124,34 +116,39 @@ public class PopupViewController: UIViewController {
         
         return button
     }()
-    
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        initView()
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    public init(titleMessege: String, descriptionMessege: String, cancelMessege: String, confirmMessege: String) {
-        
+
+    let completionHandler: ((Bool) -> Void)
+
+    public init(
+        title: String,
+        message: String? = nil,
+        cancelMessege: String,
+        confirmMessege: String,
+        completion: @escaping ((Bool) -> Void)
+    ) {
+        completionHandler = completion
+
         super.init(nibName: nil, bundle: nil)
         
-        self.titleLabel.text = titleMessege
-        self.descriptionLabel.text = descriptionMessege
-        self.cancelButton.setTitle(cancelMessege, for: .normal)
-        self.confirmButton.setTitle(confirmMessege, for: .normal)
+        titleLabel.text = title
+        descriptionLabel.text = message
+        cancelButton.setTitle(cancelMessege, for: .normal)
+        confirmButton.setTitle(confirmMessege, for: .normal)
         
-        modalPresentationStyle = .overCurrentContext
+        modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        initView()
+    }
+
     func initView() {
-        
         view.backgroundColor = UIColor.midnight.withAlphaComponent(0.85)
         view.addSubview(containerView)
         containerView.addSubview(descriptionStackCenterGuideStackView)
@@ -179,13 +176,11 @@ public class PopupViewController: UIViewController {
     }
     
     @objc func didCancelTap(sender: UIButton) {
-        
-        delegate?.didCancelTap(sender: sender)
+        completionHandler(false)
     }
 
     @objc func didConfirmTap(sender: UIButton) {
-        
-        delegate?.didConfirmTap(sender: sender)
+        completionHandler(true)
     }
     
 }
