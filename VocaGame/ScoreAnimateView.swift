@@ -91,61 +91,70 @@ class ScoreAnimateView: UIView {
         UIView.animate(
             withDuration: Constant.Correct.duration,
             delay: 0,
-            options: [.curveEaseInOut]
-        ) { [weak self] in
-            guard let self = self else { return }
-            self.imageView.layer.transform = CATransform3DMakeScale(1.1, 1.1, 1)
-        } completion: { (_) in
-            UIView.animate(
-                withDuration: Constant.Correct.duration,
-                delay: 0,
-                options: [.curveEaseInOut]
-            ) { [weak self] in
+            options: [.curveEaseInOut],
+            animations: { [weak self] in
                 guard let self = self else { return }
-                self.imageView.transform = .identity
-            } completion: { (_) in
-                completeHandler()
-            }
-        }
+                self.imageView.layer.transform = CATransform3DMakeScale(1.1, 1.1, 1)
+            },
+            completion: { (_) in
+                UIView.animate(
+                    withDuration: Constant.Correct.duration,
+                    delay: 0,
+                    options: [.curveEaseInOut],
+                    animations: { [weak self] in
+                        guard let self = self else { return }
+                        self.imageView.transform = .identity
+                    },
+                    completion: { (_) in
+                        completeHandler()
+                })
+        })
     }
 
     func incorrectAnimation(completeHandler: @escaping (() -> Void)) {
         UIView.animate(
             withDuration: Constant.Incorrect.duration,
             delay: 0,
-            options: [.curveEaseInOut]
-        ) { [weak self] in
-            guard let self = self else { return }
-
-            self.imageView.transform = CGAffineTransform(translationX: -10, y: 0)
-        } completion: { (_) in
-            UIView.animate(
-                withDuration: Constant.Incorrect.duration,
-                delay: 0,
-                options: [.curveEaseInOut]
-            ) { [weak self] in
+            options: [.curveEaseInOut],
+            animations: { [weak self] in
                 guard let self = self else { return }
-                self.imageView.transform = .identity
-            } completion: { (_) in
-                UIView.animate(withDuration: Constant.Incorrect.duration, delay: 0, options: [.curveEaseInOut]) {
-                    self.imageView.transform = CGAffineTransform.identity.translatedBy(x: 10, y: 0)
-                } completion: { (_) in
-                    UIView.animate(
-                        withDuration: Constant.Incorrect.duration,
-                        delay: 0,
-                        options: [.curveEaseInOut]
-                    ) { [weak self] in
+
+                self.imageView.transform = CGAffineTransform(translationX: -10, y: 0)
+            },
+            completion:  { (_) in
+                UIView.animate(
+                    withDuration: Constant.Incorrect.duration,
+                    delay: 0,
+                    options: [.curveEaseInOut],
+                    animations:  { [weak self] in
                         guard let self = self else { return }
                         self.imageView.transform = .identity
-                    } completion: { (_) in
-                        completeHandler()
-                    }
-                }
-            }
-        }
+                    },
+                    completion: { (_) in
+                        UIView.animate(
+                            withDuration: Constant.Incorrect.duration,
+                            delay: 0, options: [.curveEaseInOut],
+                            animations: {
+                                self.imageView.transform = CGAffineTransform.identity.translatedBy(x: 10, y: 0)
+                        },
+                            completion: { (_) in
+                                UIView.animate(
+                                    withDuration: Constant.Incorrect.duration,
+                                    delay: 0,
+                                    options: [.curveEaseInOut],
+                                    animations: { [weak self] in
+                                        guard let self = self else { return }
+                                        self.imageView.transform = .identity
+                                    },
+                                    completion: { (_) in
+                                        completeHandler()
+                                })
+                        })
+                })
+        })
 
     }
-
+    
     func stopAnimation() {
         self.imageView.transform = .identity
     }

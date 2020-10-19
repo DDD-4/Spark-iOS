@@ -15,10 +15,9 @@ import SnapKit
 import Photos
 
 class DetailWordViewController: UIViewController {
-    
     enum State {
         case add
-        case edit
+        case edit(originWord: Word, originFolder: Folder)
     }
     
     enum Constant {
@@ -39,12 +38,10 @@ class DetailWordViewController: UIViewController {
     //private let viewModel: SelectViewModelType = SelectViewModel()
     var viewModel: DetailWordViewModelType
     
-    var newGroup: Folder?
     var delegate: DetailWordViewController?
-    var currentState: State
-    var getWord: Word?
-    var getGroup: Folder?
-    
+    let currentState: State
+    var selectedFolder: Folder?
+
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -193,13 +190,12 @@ class DetailWordViewController: UIViewController {
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
         
-        self.wordImageView.image = image
-        self.naviView.rightSideButton.isHidden = true
-        view.clipsToBounds = false
+        wordImageView.image = image
+        naviView.rightSideButton.isHidden = true
     }
     
-    init(group: Folder?, word: Word?) {
-        self.currentState = .edit
+    init(folder: Folder, word: Word) {
+        currentState = .edit(originWord: word, originFolder: folder)
         
         if ModeConfig.shared.currentMode == .offline {
             viewModel = DetailWordViewModel()
@@ -210,32 +206,23 @@ class DetailWordViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
         modalTransitionStyle = .coverVertical
-        
-        guard let getGroup = group else {
-            return
-        }
-        self.folderButton.folderLabel.text = getGroup.name
-        self.newGroup = getGroup
-        self.getGroup = getGroup
-        
-        guard let getWord = word else {
-            return
-        }
-        self.engTextField.text = getWord.english
-        self.korTextField.text = getWord.korean
-        self.getWord = getWord
+
+        selectedFolder = folder
+        folderButton.folderLabel.text = folder.name
+
+        engTextField.text = word.english
+        korTextField.text = word.korean
         
         if let wordCoreData = word as? WordCoreData,
            let getWordImage = wordCoreData.image {
-            self.wordImageView.image = UIImage(data: getWordImage)
+            wordImageView.image = UIImage(data: getWordImage)
         } else {
-            guard let url = word?.photoUrl else {
+            guard let url = word.photoUrl else {
                 return
             }
-            self.wordImageView.sd_setImage(with: URL(string: url))
+            wordImageView.sd_setImage(with: URL(string: url))
         }
-        self.confirmButton.isHidden = true
-        view.clipsToBounds = false
+        confirmButton.isHidden = true
     }
     
     required init?(coder: NSCoder) {
@@ -245,11 +232,12 @@ class DetailWordViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        view.clipsToBounds = false
+
         initView()
         registerForKeyboardNotifications()
         configureRx()
-        setBasicFolder()
 
         let gesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(gesture)
@@ -260,13 +248,19 @@ class DetailWordViewController: UIViewController {
             name: .modeConfig,
             object: nil
         )
-        
+
+        switch currentState {
+        case .add:
+            setBasicFolder()
+        default:
+            break
+        }
     }
 
     func setBasicFolder() {
         for folder in FolderManager.shared.myFolders where folder.default {
-            newGroup = folder
             folderButton.folderLabel.text = folder.name
+            selectedFolder = folder
             break
         }
     }
@@ -431,8 +425,7 @@ class DetailWordViewController: UIViewController {
     }
     
     @objc func confirmDidTap(_ sender: Any) {
-        
-        guard let addGroup = self.newGroup else {
+        guard let selectedFolder = selectedFolder else {
             let alert: UIAlertController = UIAlertController(title: nil, message: "단어장을 선택해 주세요!", preferredStyle: .alert)
             
             self.present(alert, animated: true, completion: nil)
@@ -443,68 +436,51 @@ class DetailWordViewController: UIViewController {
             }
             return
         }
+
+        guard let image = wordImageView.image?.jpegData(compressionQuality: 0.8) else {
+            let alert = UIAlertController(title: nil, message: "이미지를 불러올 수 없어요. 다시 시도해주세요", preferredStyle: .alert)
+
+            self.present(alert, animated: true, completion: nil)
+
+            let when = DispatchTime.now() + 2
+            DispatchQueue.main.asyncAfter(deadline: when){
+                alert.dismiss(animated: true, completion: nil)
+            }
+            return
+        }
         
         switch currentState {
         case .add:
-            let addFolder = addGroup as? FolderCoreData
-
-            let word = WordCoreData(
-                korean: self.korTextField.text ?? "",
-                english: self.engTextField.text ?? "",
-                imageData: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
-                identifier: UUID(),
-                order: Int16(addFolder?.words.count ?? 0)
-            )
-
-            guard let image = word.image else {
-                return
-            }
-            
-            viewModel.input.postWord(
-                folder: addGroup,
-                word: word,
-                image: image) { [weak self] in
+            viewModel.input.addWord(
+                folder: selectedFolder,
+                english: engTextField.text ?? "",
+                korean: korTextField.text ?? "",
+                image: image
+            ) { [weak self] in
                 guard let self = self else { return }
-                
                 self.popUpSuccessAlert(completion: {
                     NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 })
             }
-            
-        case .edit:
-            // TODO: Add server flag
-            
-            guard let deleteGroup = self.getGroup,
-                  let deleteWord = self.getWord else {
-                return
-            }
-            
-            let word = WordCoreData(
-                korean: self.korTextField.text ?? "",
-                english: self.engTextField.text ?? "",
-                imageData: self.wordImageView.image?.jpegData(compressionQuality: 0.8),
-                identifier: UUID(),
-                order: 0
-            )
-            
+        case .edit(let word, let folder):
             viewModel.input.updateWord(
-                vocabularyId: deleteWord.id,
-                deleteFolder: deleteGroup,
-                addFolder: addGroup,
-                deleteWords: [deleteWord],
-                addWords: [word]) { [weak self] in
+                deleteFolder: folder,
+                addFolder: selectedFolder,
+                updateWord: word,
+                korean: korTextField.text ?? "",
+                english: engTextField.text ?? "",
+                image: image
+            ) { [weak self] in
                 guard let self = self else { return }
-                
                 self.popUpSuccessAlert(completion: {
                     NotificationCenter.default.post(name: PoingVocaSubsystem.Notification.Name.wordUpdate, object: nil)
                     self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 })
-                
             }
-            
         }
     }
+    
     @objc func tapLeftButton() {
         self.popUpStopAlert()
     }
@@ -516,7 +492,6 @@ class DetailWordViewController: UIViewController {
     }
     
     func popUpSuccessAlert(completion: @escaping (() -> Void)) {
-        
         var title: String
         switch currentState {
         case .add:
@@ -525,26 +500,36 @@ class DetailWordViewController: UIViewController {
             title = "단어 수정 완료!"
         }
         
-        let viewController = SuccessPopupViewController(titleMessege: title, descriptionMessege: "나의 단어장에서 확인할 수 있어요!")
+        let viewController = SuccessPopupViewController(
+            title: title,
+            message: "나의 단어장에서 확인할 수 있어요!",
+            completionHandler: completion
+        )
         present(viewController, animated: true, completion: nil)
-        
-        let when = DispatchTime.now() + 2
-        DispatchQueue.main.asyncAfter(deadline: when){
-            completion()
-        }
     }
     
     func popUpStopAlert() {
-        let viewController = PopupViewController(titleMessege: "여기서 그만할까요?", descriptionMessege: "입력한 정보는 모두 사라져요", cancelMessege: "취소", confirmMessege: "그만할래요" )
-        viewController.delegate = self
+        let viewController = PopupViewController(
+            title: "여기서 그만할까요?",
+            message: "입력한 정보는 모두 사라져요",
+            cancelMessege: "취소",
+            confirmMessege: "그만할래요",
+            completion: { [weak self] bool in
+                if bool {
+                    self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                } else {
+                    self?.dismiss(animated: true, completion: nil)
+                }
+            }
+        )
         present(viewController, animated: true, completion: nil)
     }
 }
 
 extension DetailWordViewController: SelectFolderViewControllerDelegate {
     func selectFolderViewController(didTapFolder folder: Folder) {
-        self.newGroup = folder
-        self.folderButton.folderLabel.text = folder.name
+        selectedFolder = folder
+        folderButton.folderLabel.text = folder.name
     }
 }
 
@@ -626,15 +611,5 @@ extension DetailWordViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
-    }
-}
-
-extension DetailWordViewController: PopupViewDelegate {
-    func didCancelTap(sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func didConfirmTap(sender: UIButton) {
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 }

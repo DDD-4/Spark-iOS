@@ -459,18 +459,17 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
                 title: "단어 수정",
                 style: .default,
                 handler: { [weak self] (_) in
-                    
+                    guard let self = self, let selectedFolder = self.viewModel.input.selectedFolder.value else { return }
                     let viewController = DetailWordViewController(
-                        group: self?.viewModel.input.selectedFolder.value ?? self?.viewModel.output.folders.value.first,
+                        folder: selectedFolder,
                         word: word
                     )
-                    
+
                     let navigationController = UINavigationController(rootViewController: viewController)
                     navigationController.navigationBar.isHidden = true
                     navigationController.modalPresentationStyle = .fullScreen
                     navigationController.modalTransitionStyle = .coverVertical
-                    self?.present(navigationController, animated: true, completion: nil)
-                    
+                    self.present(navigationController, animated: true, completion: nil)
                 }
             ),
             
@@ -478,9 +477,8 @@ extension MyVocaViewController: MyVocaWordCellDelegate {
                 title: "단어 삭제",
                 style: .destructive,
                 handler: { [weak self] (_) in
-                    self?.viewModel.input.deleteWord(deleteWords: [word]) { [weak self] in
-                        guard let self = self else { return }
-                        
+                    guard let self = self else { return }
+                    self.viewModel.input.deleteWord(deleteWords: [word]) {
                         let alert: UIAlertController = UIAlertController(title: "단어 삭제 완료!", message: "단어장에 단어를 삭제했어요!", preferredStyle: .alert)
                         
                         self.present(alert, animated: true, completion: nil)

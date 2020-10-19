@@ -8,11 +8,6 @@
 
 import UIKit
 
-public protocol SignOutPopupViewDelegate: class {
-    func didCancelSignOutTap(sender: UIButton)
-    func didConfirmSignOutTap(sender: UIButton)
-}
-
 public class SignOutPopupViewController: UIViewController {
     
     enum Constant {
@@ -32,10 +27,7 @@ public class SignOutPopupViewController: UIViewController {
             static let radius: CGFloat = 30
         }
     }
-    
-    // MARK: - Properties
-    public var delegate: SignOutPopupViewDelegate?
-    
+
     var hasTopNotch: Bool {
         return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 24
     }
@@ -131,28 +123,31 @@ public class SignOutPopupViewController: UIViewController {
         
         return button
     }()
-    
+
+    let completionHandler: ((Bool) -> Void)
+
+    public init(titleMessege: String, descriptionMessege: String, completion: @escaping ((Bool) -> Void)) {
+
+        completionHandler = completion
+
+        super.init(nibName: nil, bundle: nil)
+
+        self.titleLabel.text = titleMessege
+        self.descriptionLabel.text = descriptionMessege
+
+        modalPresentationStyle = .overFullScreen
+        modalTransitionStyle = .crossDissolve
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         initView()
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    public init(titleMessege: String, descriptionMessege: String) {
-        
-        super.init(nibName: nil, bundle: nil)
-        
-        self.titleLabel.text = titleMessege
-        self.descriptionLabel.text = descriptionMessege
-        
-        modalPresentationStyle = .fullScreen
-        modalTransitionStyle = .crossDissolve
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func initView() {
@@ -189,13 +184,11 @@ public class SignOutPopupViewController: UIViewController {
     }
     
     @objc func didCancelTap(sender: UIButton) {
-        
-        delegate?.didCancelSignOutTap(sender: sender)
+        completionHandler(false)
     }
 
     @objc func didConfirmTap(sender: UIButton) {
-        
-        delegate?.didConfirmSignOutTap(sender: sender)
+        completionHandler(true)
     }
     
 }

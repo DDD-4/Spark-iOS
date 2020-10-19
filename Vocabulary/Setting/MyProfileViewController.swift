@@ -224,10 +224,10 @@ class MyProfileViewController: UIViewController {
             guard let self = self else { return }
             self.fetchMyProfile {
                 let viewController = SuccessPopupViewController(
-                    titleMessege: "프로필 수정 완료!",
-                    descriptionMessege: "설정에서 확인할 수 있어요!"
-                )
-                viewController.modalPresentationStyle = .overCurrentContext
+                    title: "프로필 수정 완료!",
+                    message: "설정에서 확인할 수 있어요!") {
+                    self.dismiss(animated: true, completion: nil)
+                }
                 self.present(viewController, animated: true, completion: nil)
             }
         }, onError: { (error) in
@@ -238,13 +238,19 @@ class MyProfileViewController: UIViewController {
 
     @objc func closeDidTap(_ sender: UIButton) {
         let viewController = PopupViewController(
-            titleMessege: "여기서 그만할까요?",
-            descriptionMessege: "입력한 정보는 모두 사라져요.",
+            title: "여기서 그만할까요?",
+            message: "입력한 정보는 모두 사라져요.",
             cancelMessege: "취소",
             confirmMessege: "그만할래요"
-        )
-        viewController.delegate = self
-        viewController.modalPresentationStyle = .overCurrentContext
+        ) { [weak self] (bool) in
+            if bool {
+                self?.dismiss(animated: true, completion: {
+                    self?.navigationController?.popViewController(animated: true)
+                })
+            } else {
+                self?.dismiss(animated: true, completion: nil)
+            }
+        }
         present(viewController, animated: true, completion: nil)
     }
     
@@ -281,18 +287,6 @@ class MyProfileViewController: UIViewController {
             self.navView.rightSideButton.setImage(UIImage(named: "iconCompleteDefault"), for: .normal)
             self.navView.rightSideButton.isEnabled = true
         }
-    }
-}
-
-extension MyProfileViewController: PopupViewDelegate {
-    func didCancelTap(sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func didConfirmTap(sender: UIButton) {
-        
-        dismiss(animated: true, completion: nil)
-        navigationController?.popViewController(animated: true)
     }
 }
 

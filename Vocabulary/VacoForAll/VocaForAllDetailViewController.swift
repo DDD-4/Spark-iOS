@@ -185,7 +185,11 @@ extension VocaForAllDetailViewController: SelectFolderViewControllerDelegate {
         LoadingView.show()
         viewModel.input.downloadWord(myFolderId: folder.id) { [weak self] in
             LoadingView.hide()
-            let popupViewController = SuccessPopupViewController(titleMessege: "단어 저장 완료", descriptionMessege: "나의 단어장에서 확인할 수 있어요!")
+            let popupViewController = SuccessPopupViewController(
+                title: "단어 저장 완료",
+                message: "나의 단어장에서 확인할 수 있어요!") {
+                self?.dismiss(animated: true, completion: nil)
+            }
             self?.present(popupViewController, animated: true, completion: nil)
         }
     }

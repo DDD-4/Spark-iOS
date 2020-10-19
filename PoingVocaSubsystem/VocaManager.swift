@@ -153,16 +153,7 @@ public class VocaManager {
     }
     
     public func update(deleteGroup: FolderCoreData, addGroup: FolderCoreData, deleteWords: [WordCoreData], addWords: [WordCoreData], completion: (() -> Void)? = nil) {
-        
-//        update(group: deleteGroup, deleteWords: deleteWords) {
-//            self.update(group: addGroup, addWords: addWords) {
-//                guard let completion = completion else {
-//                    return
-//                }
-//                completion()
-//            }
-//        }
-        
+                
         var currentGroup = deleteGroup
         var currentWords = deleteGroup.words.filter { (groupWord) -> Bool in
             deleteWords.contains { (word) -> Bool in

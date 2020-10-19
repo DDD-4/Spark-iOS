@@ -12,19 +12,21 @@ import RxCocoa
 import PoingVocaSubsystem
 
 protocol DetailWordViewModelInput {
-    func postWord(
+    func addWord(
         folder: Folder,
-        word: Word,
+        english: String,
+        korean: String,
         image: Data,
         completion: @escaping (() -> Void)
     )
     
     func updateWord(
-        vocabularyId: Int,
         deleteFolder: Folder,
         addFolder: Folder,
-        deleteWords: [Word],
-        addWords: [Word],
+        updateWord: Word,
+        korean: String,
+        english: String,
+        image: Data,
         completion: @escaping (() -> Void)
     )
     
@@ -59,17 +61,18 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
         self.updateWord = BehaviorRelay(value: updateWord)
     }
     
-    func postWord(
+    func addWord(
         folder: Folder,
-        word: Word,
+        english: String,
+        korean: String,
         image: Data,
         completion: @escaping (() -> Void)
     ) {
         LoadingView.show()
         WordController.shared.postWord(
-            english: word.english,
+            english: english,
             folderId: folder.id,
-            korean: word.korean,
+            korean: korean,
             photo: image
         )
         .subscribe(onNext: { (response) in
@@ -80,36 +83,30 @@ class DetailWordOnlineViewModel: DetailWordViewModelInput, DetailWordViewModelOu
             } else {
                 //error 처리 해줘야함
                 print("postWord error")
+                completion()
             }
         }, onError: { (error) in
             LoadingView.hide()
+            completion()
         }).disposed(by: disposeBag)
     }
     
     func updateWord(
-        vocabularyId: Int,
         deleteFolder: Folder,
         addFolder: Folder,
-        deleteWords: [Word],
-        addWords: [Word],
+        updateWord: Word,
+        korean: String,
+        english: String,
+        image: Data,
         completion: @escaping (() -> Void)
     ) {
-        guard !addWords.isEmpty else {
-            print("no updated Words")
-            return
-        }
-        
-        guard let addWord = addWords[0] as? WordCoreData,
-              let image = addWord.image else {
-            return
-        }
 
         LoadingView.show()
         WordController.shared.updateWord(
-            vocabularyId: vocabularyId,
-            english: addWord.english,
+            vocabularyId: updateWord.id,
+            english: english,
             folderId: addFolder.id,
-            korean: addWord.korean,
+            korean: korean,
             photo: image
         )
         .subscribe(onNext: { (response) in

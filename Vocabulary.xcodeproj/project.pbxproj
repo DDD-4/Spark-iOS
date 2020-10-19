@@ -606,7 +606,6 @@
 				7D72ABED24F404BD00A01BCC /* LoadingView.swift */,
 				7D276E0B24BE05B200CA4554 /* LaunchScreen.storyboard */,
 				CE6C9B6124CF2D870068C3BB /* AddWord */,
-				7D6E2E7124F3E5C90015483C /* Data */,
 				CEFED47624D5BAC7002E858C /* Game */,
 				7D4C992F250D27FA005F1619 /* Login */,
 				CE6C9B5D24CF2D380068C3BB /* MyVoca */,
@@ -683,13 +682,6 @@
 				7D80297B251281810057934E /* ServerURL.swift */,
 			);
 			path = Utills;
-			sourceTree = "<group>";
-		};
-		7D6E2E7124F3E5C90015483C /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		7D6E2E7424F3E6290015483C /* VocaDownload */ = {

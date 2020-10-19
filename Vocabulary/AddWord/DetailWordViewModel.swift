@@ -12,8 +12,7 @@ import RxCocoa
 import PoingVocaSubsystem
 
 class DetailWordViewModel: DetailWordViewModelInput, DetailWordViewModelOutput, DetailWordViewModelType {
-    
-    
+
     var updateWord: BehaviorRelay<WordCoreData?>
     
     var updateFolder: BehaviorRelay<FolderCoreData?>
@@ -28,29 +27,62 @@ class DetailWordViewModel: DetailWordViewModelInput, DetailWordViewModelOutput, 
         self.updateWord = BehaviorRelay(value: word)
         self.updateFolder = BehaviorRelay(value: editFolder)
     }
-    
-    func postWord(
+
+    func addWord(
         folder: Folder,
-        word: Word,
+        english: String,
+        korean: String,
         image: Data,
         completion: @escaping (() -> Void)
     ) {
-        
         guard let folder = folder as? FolderCoreData else {
             return
         }
-        var wordOrder = folder.words.count ?? 0
-        guard let postWord = word as? WordCoreData else {
-            return
-        }
-        
-        VocaManager.shared.update(
-            group: folder,
-            addWords: [postWord]) { [weak self] in
+
+        let word = WordCoreData(
+            korean: korean,
+            english: english,
+            imageData: image,
+            identifier: UUID(),
+            order: -1
+        )
+        VocaManager.shared.update(group: folder, addWords: [word]) {
             completion()
         }
     }
-    
+
+
+    func updateWord(
+        deleteFolder: Folder,
+        addFolder: Folder,
+        updateWord: Word,
+        korean: String,
+        english: String,
+        image: Data,
+        completion: @escaping (() -> Void)
+    ) {
+        guard let deleteFolder = deleteFolder as? FolderCoreData,
+              let addFolder = addFolder as? FolderCoreData,
+              let deleteWord = updateWord as? WordCoreData else {
+            return
+        }
+
+        let addWord = WordCoreData(
+            korean: korean,
+            english: english,
+            imageData: image,
+            identifier: UUID(),
+            order: -1
+        )
+        VocaManager.shared.update(
+            deleteGroup: deleteFolder,
+            addGroup: addFolder,
+            deleteWords: [deleteWord],
+            addWords: [addWord]
+        ) {
+            completion()
+        }
+    }
     func updateWord(
         vocabularyId: Int,
         deleteFolder: Folder,
@@ -72,7 +104,7 @@ class DetailWordViewModel: DetailWordViewModelInput, DetailWordViewModelOutput, 
             addGroup: addFolder,
             deleteWords: [deleteWord],
             addWords: [addWord]
-        ) { [weak self ] in
+        ) {
             completion()
         }
     }
