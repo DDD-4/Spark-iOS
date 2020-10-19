@@ -21,7 +21,6 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 15
         button.setImage(UIImage(named: "btnPhoto"), for: .normal)
-        button.addTarget(self, action:#selector(capturePhoto) , for: .touchUpInside)
         return button
     }()
     
@@ -37,8 +36,7 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         button.setImage(UIImage(named: "icCamera"), for: .normal)
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(photoLibraryButtonTapped), for: .touchUpInside)
-        button.tintColor = .midnight
+        button.imageView?.contentMode = .scaleAspectFill
         return button
     }()
     
@@ -46,7 +44,6 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "ic_camera_rear"), for: .normal)
-        button.addTarget(self, action: #selector(switchCamera), for: .touchUpInside)
         button.tintColor = .midnight
         return button
     }()
@@ -58,19 +55,14 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
     }()
     
     let disposeBag = DisposeBag()
-    var image = UIImage()
-    
+
     let captureSession = AVCaptureSession()
-    var videoDeviceInput: AVCaptureDeviceInput!
-    var photoOuput = AVCapturePhotoOutput()
+    var videoDeviceInput: AVCaptureDeviceInput?
+    let photoOuput = AVCapturePhotoOutput()
     
     let sessionQueue = DispatchQueue(label: "session queue")
     let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera, .builtInTripleCamera, .builtInWideAngleCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
-    var picker = UIImagePickerController()
-    let imageManager: PHCachingImageManager = PHCachingImageManager()
-    var fetchResult: PHFetchResult<PHAssetCollection>?
-    var albumInfo = Array<PHAsset>()
-    
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .fullScreen
@@ -84,36 +76,49 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        reguestCollection()
+
+        configureLayout()
+        bindFunction()
+        checkCameraPermission()
+        checkPhotoPermission()
+    }
+
+    func startCameraSession() {
         screenView.session = captureSession
         sessionQueue.async {
             self.setupSession()
             self.startSession()
         }
-        configureLayout()
-        bindFunction()
     }
-    
-    // MARK: - View ✨
-    func reguestCollection() {
-        //수락 시 디바이스의 사진에 접근하여 기본 앨범(카메라롤, 즐겨찾기, 셀피 등)과 사용자 커스텀 앨범을 가져옵니다.
-        
+
+    func requestLatestAlbumPhoto() {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
         
         let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
-        
-        self.albumInfo.removeAll()
-        
-        cameraRoll.enumerateObjects { (collection, index, object) in
+
+        cameraRoll.enumerateObjects { [weak self] (collection, index, object) in
+            guard let self = self else { return }
             let photoInAlbum = PHAsset.fetchAssets(in: collection, options: nil)
-            if photoInAlbum.lastObject != nil {
-                self.albumInfo.append(photoInAlbum.lastObject!)
+            if let latestPhoto = photoInAlbum.lastObject {
+                self.updateLatestPhotoButton(photoInfo: latestPhoto)
             }
         }
-        
-        self.fetchResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: fetchOptions)
+
+    }
+
+    func updateLatestPhotoButton(photoInfo: PHAsset) {
+        let imageManager: PHCachingImageManager = PHCachingImageManager()
+        imageManager.requestImage(
+            for: photoInfo,
+            targetSize: CGSize(width: 40, height: 40),
+            contentMode: .aspectFill,
+            options: nil,
+            resultHandler: { [weak self] image, _ in
+                DispatchQueue.main.async {
+                    self?.photoLibraryButton.setImage(image, for: .normal)
+                }
+            })
     }
     
     // MARK: - init
@@ -124,16 +129,7 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
         view.addSubview(captureButton)
         view.addSubview(switchButton)
         view.addSubview(cancelButton)
-        
-        DispatchQueue.main.async {
-            // UI Task
-            if !self.albumInfo.isEmpty {
-                self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
-                    self.photoLibraryButton.setImage(image, for: .normal)
-                })
-            }
-        }
-        
+
         screenView.snp.makeConstraints { (make) in
             make.height.width.equalTo(view.safeAreaLayoutGuide.snp.width)
             make.centerX.equalTo(view.safeAreaLayoutGuide)
@@ -167,29 +163,109 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
     // MARK: - Bind 🏷
     func bindFunction() {
         cancelButton.rx.tap
-            .subscribe(onNext: { [weak self] (_) in
+            .subscribe(onNext: { [weak self] in
                 self?.dismiss(animated: true, completion: nil)
             }).disposed(by: disposeBag)
+
+        photoLibraryButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let pickerController = UIImagePickerController()
+                pickerController.delegate = self
+                pickerController.sourceType = .photoLibrary
+                pickerController.allowsEditing = true
+                self.present(pickerController, animated: true)
+            }).disposed(by: disposeBag)
+
+        switchButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.switchCamera()
+            }).disposed(by: disposeBag)
+
+        captureButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.capturePhoto()
+            }).disposed(by: disposeBag)
+    }
+
+    func checkCameraPermission() {
+        let cameraMediaType = AVMediaType.video
+        let status = AVCaptureDevice.authorizationStatus(for: cameraMediaType)
+
+        switch status {
+        case .notDetermined:
+          AVCaptureDevice.requestAccess(for: .video) { (_) in
+            self.checkCameraPermission()
+          }
+        case .restricted, .denied:
+            UIAlertController().presentShowAlert(
+                title: "카메라📸 권한 허용 요청",
+                message: "설정에서 카메라 권한을 허용해주세요.",
+                leftButtonTitle: "취소",
+                rightButtonTitle: "설정으로"
+            ) { (index) in
+                if index == 0 {
+                    self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                } else {
+                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                      return
+                    }
+                    if UIApplication.shared.canOpenURL(settingsUrl) {
+                      UIApplication.shared.open(settingsUrl, completionHandler: { _ in self.checkCameraPermission()})
+                    }
+                }
+            }
+        case .authorized:
+          self.startCameraSession()
+        @unknown default:
+          break
+        }
+    }
+
+    func checkPhotoPermission() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .authorized:
+            DispatchQueue.global().async {
+                self.requestLatestAlbumPhoto()
+            }
+        case .denied, .restricted, .limited :
+            UIAlertController().presentShowAlert(
+                title: "사진🏞 권한 허용 요청",
+                message: "설정에서 사진 권한을 허용해주세요.",
+                leftButtonTitle: "취소",
+                rightButtonTitle: "설정으로"
+            ) { (index) in
+                if index == 0 {
+                    self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                } else {
+                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                      return
+                    }
+                    if UIApplication.shared.canOpenURL(settingsUrl) {
+                      UIApplication.shared.open(settingsUrl, completionHandler: { _ in self.checkPhotoPermission()})
+                    }
+                }
+            }
+        case .notDetermined:
+          PHPhotoLibrary.requestAuthorization { (_) in
+            self.checkPhotoPermission()
+          }
+        @unknown default:
+          break
+        }
     }
 }
 
 extension TakePictureViewController {
-    @objc func photoLibraryButtonTapped(_ sender: UITapGestureRecognizer) {
-        
-        self.picker.delegate = self
-        self.picker.sourceType = .photoLibrary
-        self.picker.allowsEditing = true
-        
-        self.present(self.picker, animated: true)
-    }
-    
-    @objc func switchCamera(_ sender: Any) {
-        guard videoDeviceDiscoverySession.devices.count > 1 else {
+    func switchCamera() {
+        guard videoDeviceDiscoverySession.devices.count > 1,
+              let videoDeviceInput = videoDeviceInput else {
             return
         }
         
         sessionQueue.async {
-            let currentVideoDevice = self.videoDeviceInput.device
+            let currentVideoDevice = videoDeviceInput.device
             let currentPosition = currentVideoDevice.position
             let isFront = currentPosition == .front
             let preferredPosition: AVCaptureDevice.Position = isFront ? .back : .front
@@ -203,16 +279,16 @@ extension TakePictureViewController {
             
             if let newDevice = newVideoDevice {
                 do {
-                    let videoDeviceInput = try AVCaptureDeviceInput(device: newDevice)
+                    let newDeviceInput = try AVCaptureDeviceInput(device: newDevice)
                     self.captureSession.beginConfiguration()
-                    self.captureSession.removeInput(self.videoDeviceInput)
+                    self.captureSession.removeInput(videoDeviceInput)
                     
                     // add new device input
-                    if self.captureSession.canAddInput(videoDeviceInput) {
-                        self.captureSession.addInput(videoDeviceInput)
-                        self.videoDeviceInput = videoDeviceInput
+                    if self.captureSession.canAddInput(newDeviceInput) {
+                        self.captureSession.addInput(newDeviceInput)
+                        self.videoDeviceInput = newDeviceInput
                     } else {
-                        self.captureSession.addInput(self.videoDeviceInput)
+                        self.captureSession.addInput(videoDeviceInput)
                     }
                     
                     self.captureSession.commitConfiguration()
@@ -242,7 +318,7 @@ extension TakePictureViewController {
         }
     }
     
-    @objc func capturePhoto(_ sender: UIButton) {
+    func capturePhoto() {
         // TODO: photoOutput의 capturePhoto 메소드
         // orientation
         // photoOutput
@@ -260,42 +336,6 @@ extension TakePictureViewController {
             let setting = AVCapturePhotoSettings()
             self.photoOuput.capturePhoto(with: setting, delegate: self)
 
-        }
-    }
-    
-    func resizeImage(_ image: UIImage, newWidthX: CGFloat , newHeightX: CGFloat) -> UIImage {
-        var newWidth = newWidthX
-        var newHeight = newHeightX
-        if (image.size.width < newWidth){
-            newWidth = image.size.width
-            newHeight = image.size.width
-        }
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
-    
-    func savePhotoLibrary(image: UIImage) {
-        // TODO: capture한 이미지 포토라이브러리에 저장
-        
-        PHPhotoLibrary.requestAuthorization { (status) in
-            if status == .authorized {
-                // save
-                PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.creationRequestForAsset(from: image)
-                }) { (success, error) in
-                    if let error = error {
-                        print("\(error.localizedDescription)" )
-                    }
-                    print("image saved? : \(success)")
-                }
-            } else {
-                // request
-                
-                print("--> request auth again")
-            }
         }
     }
 }
@@ -333,7 +373,7 @@ extension TakePictureViewController {
                 captureSession.commitConfiguration()
                 return
             }
-        } catch let _ {
+        } catch _ {
             captureSession.commitConfiguration()
             return
         }
@@ -424,8 +464,6 @@ extension TakePictureViewController: AVCapturePhotoCaptureDelegate {
         DispatchQueue.main.async {
             self.present(navController, animated: true, completion: nil)
         }
-        
-        self.savePhotoLibrary(image: image)
     }
 }
 
@@ -433,31 +471,13 @@ extension TakePictureViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = UIImagePickerController.InfoKey.editedImage
         
-        if let possibleImage = info[image] as? UIImage {
-            self.image = possibleImage
+        guard let possibleImage = info[image] as? UIImage else {
+            return
         }
-        
-        picker.dismiss(animated: true, completion: nil)
-        
-        DispatchQueue.main.async {
-            self.present(DetailWordViewController(image: self.image), animated: true, completion: nil)
-        }
-    }
-}
 
-extension TakePictureViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
-        DispatchQueue.global().async {
-            self.reguestCollection()
-            DispatchQueue.main.async {
-                // UI Task
-                if !self.albumInfo.isEmpty {
-                    self.imageManager.requestImage(for: self.albumInfo[0], targetSize: CGSize(width: 40, height: 40), contentMode: .aspectFill, options: nil, resultHandler: {
-                        image, _ in self .photoLibraryButton.setImage(image, for: .normal)
-                    })
-                }
-            }
+        DispatchQueue.main.async {
+            picker.dismiss(animated: true, completion: nil)
+            self.present(DetailWordViewController(image: possibleImage), animated: true, completion: nil)
         }
     }
 }
