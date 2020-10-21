@@ -86,6 +86,11 @@ class SettingViewController: UIViewController {
                 self?.navigationController?.pushViewController(viewController, animated: true)
 
             }),
+            Option(title: "고객센터", rightType: nil, handler: {
+                if let url = URL(string: "https://www.notion.so/haeuncs/a71b86900fbe4544ae8b4c4d5a53922a") {
+                    UIApplication.shared.open(url)
+                }
+            }),
             Option(title: "로그아웃", rightType: nil, handler: { [weak self] in
                 let viewController = PopupViewController(
                     title: "로그아웃 하시겠어요?",
@@ -118,11 +123,6 @@ class SettingViewController: UIViewController {
                 }
                 self?.present(viewController, animated: true, completion: nil)
             }),
-            Option(title: "고객센터", rightType: nil, handler: {
-                if let url = URL(string: "https://www.notion.so/haeuncs/a71b86900fbe4544ae8b4c4d5a53922a") {
-                    UIApplication.shared.open(url)
-                }
-            })
         ]
 
         #if DEBUG
