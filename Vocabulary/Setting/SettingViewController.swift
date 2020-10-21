@@ -118,6 +118,11 @@ class SettingViewController: UIViewController {
                 }
                 self?.present(viewController, animated: true, completion: nil)
             }),
+            Option(title: "고객센터", rightType: nil, handler: {
+                if let url = URL(string: "https://www.notion.so/haeuncs/a71b86900fbe4544ae8b4c4d5a53922a") {
+                    UIApplication.shared.open(url)
+                }
+            })
         ]
 
         #if DEBUG
