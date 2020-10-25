@@ -9,6 +9,7 @@
 import UIKit
 import PoingVocaSubsystem
 import PoingDesignSystem
+import VocaGame
 import SnapKit
 import RxCocoa
 import RxSwift
@@ -131,6 +132,13 @@ class SettingViewController: UIViewController {
             LoadCoreDataManager.shared.deleteLoadTime()
         })
         options.append(option)
+        #endif
+
+        #if DEBUG
+        let flipGuideOption = Option(title: "뒤집기 가이드 초기화 (only for dev)", rightType: nil, handler: {
+            GameGuideUtill.reset()
+        })
+        options.append(flipGuideOption)
         #endif
 
     }
