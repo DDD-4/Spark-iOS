@@ -476,8 +476,15 @@ extension TakePictureViewController: UIImagePickerControllerDelegate {
         }
 
         DispatchQueue.main.async {
-            picker.dismiss(animated: true, completion: nil)
-            self.present(DetailWordViewController(image: possibleImage), animated: true, completion: nil)
+            picker.dismiss(animated: true) {
+                let rootViewController = DetailWordViewController(image: possibleImage)
+
+                let navController = UINavigationController(rootViewController: rootViewController)
+                navController.navigationBar.isHidden = true
+                navController.modalPresentationStyle = .fullScreen
+                navController.modalTransitionStyle = .coverVertical
+                self.present(navController, animated: true, completion: nil)
+            }
         }
     }
 }

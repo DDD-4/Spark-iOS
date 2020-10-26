@@ -418,7 +418,7 @@ class DetailWordViewController: UIViewController {
             self.openLibrary()
         }
         let camera = UIAlertAction(title: "카메라", style: .default) { [weak self] (action) in
-            self?.openCamera()
+            self?.dismiss(animated: true, completion: nil)
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
@@ -557,18 +557,7 @@ extension DetailWordViewController: UIImagePickerControllerDelegate, UINavigatio
         
         self.present(self.picker, animated: true)
     }
-    func openCamera(){
-        
-        if(UIImagePickerController.isSourceTypeAvailable(.camera)){
-            self.picker.delegate = self
-            self.picker.sourceType = .camera
-            self.picker.allowsEditing = true
-            
-            self.present(self.picker, animated: true)
-        } else {
-            print("Camera not available")
-        }
-    }
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let image = UIImagePickerController.InfoKey.editedImage
@@ -578,7 +567,7 @@ extension DetailWordViewController: UIImagePickerControllerDelegate, UINavigatio
             self.wordImageView.image = possibleImage
         }
         
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 
