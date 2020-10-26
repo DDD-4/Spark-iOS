@@ -15,6 +15,17 @@ public class FlipGameViewController: UIViewController {
     enum Constant {
         static let backgroundColor = #colorLiteral(red: 0.9567821622, green: 0.9569162726, blue: 0.9567400813, alpha: 1)
         static let navigationHeight: CGFloat = 44
+
+        enum Guide {
+            enum Tap {
+                static let title = "카드를 터치해서 단어의 이미지 확인하기"
+                static let image = UIImage(named: "GuideiconTouch")!
+            }
+            enum Swipe {
+                static let title = "카드를 잡고 오른쪽으로 끌어서 다음 카드 보기"
+                static let image = UIImage(named: "GuideiconSwipe")!
+            }
+        }
     }
 
     //MARK: - Properties
@@ -36,6 +47,8 @@ public class FlipGameViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+    var flipGuideView: GuideView?
 
     //MARK: - Init
 
@@ -108,6 +121,37 @@ public class FlipGameViewController: UIViewController {
         // TODO: datasource didset change
         stackContainer.dataSource = self
 
+        configureGuideView()
+    }
+
+    private func configureGuideView() {
+        guard GameGuideUtill.isNeedGuide == false, flipGuideView == nil else {
+            return
+        }
+
+        let guideView = GuideView(
+            image: Constant.Guide.Tap.image,
+            title: Constant.Guide.Tap.title
+        )
+        guideView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(guideView)
+        view.bringSubviewToFront(guideView)
+
+        NSLayoutConstraint.activate([
+            guideView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: hasTopNotch ? 0 : -16),
+            guideView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            guideView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+        ])
+
+        flipGuideView = guideView
+    }
+
+    private func removeGuideView() {
+        guard let guideView = flipGuideView else { return }
+        GameGuideUtill.didShowGuide()
+        guideView.removeFromSuperview()
+        flipGuideView = nil
     }
 
     @objc func closeDidTap(_ sender: UIButton) {
@@ -132,6 +176,19 @@ extension FlipGameViewController : FlipCardViewDataSource {
 }
 
 extension FlipGameViewController: StackContainerViewDelegate {
+    func stackContainerViewFirstCardTap(_ view: StackContainerView) {
+        guard let guideView = flipGuideView else { return }
+        guideView.configure(
+            image: Constant.Guide.Swipe.image,
+            title: Constant.Guide.Swipe.title
+        )
+    }
+
+    func stackContainerViewFirstCardSwipe(_ view: StackContainerView) {
+        guard flipGuideView != nil else { return }
+        removeGuideView()
+    }
+
     func stackContainerView(
         _ view: StackContainerView,
         didCompleteCard: FlipCardView

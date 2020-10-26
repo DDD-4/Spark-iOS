@@ -9,6 +9,7 @@
 import UIKit
 import PoingVocaSubsystem
 import PoingDesignSystem
+import VocaGame
 import SnapKit
 import RxCocoa
 import RxSwift
@@ -86,6 +87,11 @@ class SettingViewController: UIViewController {
                 self?.navigationController?.pushViewController(viewController, animated: true)
 
             }),
+            Option(title: "고객센터", rightType: nil, handler: {
+                if let url = URL(string: "https://www.notion.so/haeuncs/a71b86900fbe4544ae8b4c4d5a53922a") {
+                    UIApplication.shared.open(url)
+                }
+            }),
             Option(title: "로그아웃", rightType: nil, handler: { [weak self] in
                 let viewController = PopupViewController(
                     title: "로그아웃 하시겠어요?",
@@ -126,6 +132,13 @@ class SettingViewController: UIViewController {
             LoadCoreDataManager.shared.deleteLoadTime()
         })
         options.append(option)
+        #endif
+
+        #if DEBUG
+        let flipGuideOption = Option(title: "뒤집기 가이드 초기화 (only for dev)", rightType: nil, handler: {
+            GameGuideUtill.reset()
+        })
+        options.append(flipGuideOption)
         #endif
 
     }

@@ -25,8 +25,10 @@ class LoginViewController: UIViewController {
 
         enum Terms {
             static let text = "가입을 진행할 경우, 서비스 약관 및 개인정보 처리방침에 동의하시게 됩니다."
-            static let privacyRange = NSRange(location: 12, length: 6)
-            static let termsRange = NSRange(location: 21, length: 9)
+            static let privacyRange = NSRange(location: 21, length: 9)
+            static let privacyLink = "https://www.notion.so/haeuncs/d1b48a54c9d94a07857764b39b1d53e8"
+            static let termsRange = NSRange(location: 12, length: 6)
+            static let termsLink = "https://www.notion.so/haeuncs/72dc72dd9c704835ad7d46c64d8dddd6"
 
         }
     }
@@ -164,14 +166,21 @@ class LoginViewController: UIViewController {
         label.attributedText = attrString
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(termsTapGesture))
         label.addGestureRecognizer(tapGesture)
+        label.isUserInteractionEnabled = true
         return label
     }()
 
     @objc func termsTapGesture(_ gesture: UITapGestureRecognizer) {
         if gesture.didTapAttributedTextInLabel(label: termsLabel, inRange: Constant.Terms.privacyRange) {
-            // TODO: Privacy
+            if let url = URL(string: Constant.Terms.privacyLink) {
+                UIApplication.shared.open(url)
+            }
+
         } else if gesture.didTapAttributedTextInLabel(label: termsLabel, inRange: Constant.Terms.termsRange) {
-            // TODO: Terms
+            if let url = URL(string: Constant.Terms.termsLink) {
+                UIApplication.shared.open(url)
+            }
+
         }
     }
 

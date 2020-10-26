@@ -15,10 +15,22 @@ protocol StackContainerViewDelegate: class {
         _ view: StackContainerView,
         didCompleteCard: FlipCardView
     )
+
     func stackContainerView(
         _ view: StackContainerView,
         didEndDisplayCard: FlipCardView,
         endIndex index: Int
+    )
+
+
+    // For Flip GuideView
+
+    func stackContainerViewFirstCardTap(
+        _ view: StackContainerView
+    )
+
+    func stackContainerViewFirstCardSwipe(
+        _ view: StackContainerView
     )
 }
 
@@ -49,6 +61,9 @@ class StackContainerView: UIView {
     let synthesizer = AVSpeechSynthesizer()
 
     weak var delegate: StackContainerViewDelegate?
+
+    var isFirstTap = false
+    var isFirstSwipe = false
 
     //MARK: - Init
     override init(frame: CGRect) {
@@ -115,6 +130,11 @@ extension StackContainerView: FlipCardViewDelegate {
             return
         }
 
+        if isFirstTap == false {
+            delegate?.stackContainerViewFirstCardTap(self)
+            isFirstTap = true
+        }
+
         UIView.transition(with: view, duration: 0.3, options: [.transitionFlipFromRight], animations: {
             view.flipView.isHidden = !view.flipView.isHidden
         }, completion: { [weak self] complete in
@@ -134,6 +154,11 @@ extension StackContainerView: FlipCardViewDelegate {
         guard let datasource = dataSource else { return }
         view.removeFromSuperview()
 
+        if isFirstTap && isFirstSwipe == false {
+            delegate?.stackContainerViewFirstCardSwipe(self)
+            isFirstSwipe = true
+        }
+        
         delegate?.stackContainerView(self,
                                          didEndDisplayCard: view,
                                          endIndex: index

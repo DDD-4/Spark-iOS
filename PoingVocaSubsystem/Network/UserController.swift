@@ -38,11 +38,6 @@ public class UserController {
             .asObservable()
     }
 
-//    public func editUserInfo(name: String, photo: Data) -> Observable<Response> {
-//        serviceManager.provider.rx
-//            .request(UserService.editUser(name: <#T##String#>, photo: <#T##String#>))
-//    }
-
     public func login(credential: String) -> Observable<Response> {
         serviceManager.provider.rx
             .request(UserService.login(credential: credential))
