@@ -1,13 +1,13 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
       "filename" : "GuideiconTouch.png",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "GuideiconTouch@2x.png",
       "idiom" : "universal",
+      "filename" : "GuideiconTouch@2x.png",
       "scale" : "2x"
     },
     {

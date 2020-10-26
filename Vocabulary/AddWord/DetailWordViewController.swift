@@ -42,6 +42,8 @@ class DetailWordViewController: UIViewController {
     let currentState: State
     var selectedFolder: Folder?
 
+    private var hasChangedProfile = false
+
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -344,6 +346,7 @@ class DetailWordViewController: UIViewController {
                 guard let self = self else {
                     return
                 }
+                self.hasChangedProfile = true
                 guard let engText = self.engTextField.text else {
                     return
                 }
@@ -364,6 +367,7 @@ class DetailWordViewController: UIViewController {
                 guard let self = self else {
                     return
                 }
+                self.hasChangedProfile = true
                 guard let engText = self.engTextField.text else {
                     return
                 }
@@ -482,7 +486,16 @@ class DetailWordViewController: UIViewController {
     }
     
     @objc func tapLeftButton() {
-        self.popUpStopAlert()
+        switch currentState {
+        case .edit:
+            if hasChangedProfile {
+                popUpStopAlert()
+            } else {
+                view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            }
+        case .add:
+            popUpStopAlert()
+        }
     }
     
     func updateConfirmButton() {
@@ -528,6 +541,7 @@ class DetailWordViewController: UIViewController {
 
 extension DetailWordViewController: SelectFolderViewControllerDelegate {
     func selectFolderViewController(didTapFolder folder: Folder) {
+        hasChangedProfile = true
         selectedFolder = folder
         folderButton.folderLabel.text = folder.name
     }
@@ -559,7 +573,8 @@ extension DetailWordViewController: UIImagePickerControllerDelegate, UINavigatio
         
         let image = UIImagePickerController.InfoKey.editedImage
         
-        if let possibleImage = info[image] as? UIImage{
+        if let possibleImage = info[image] as? UIImage {
+            hasChangedProfile = true
             self.wordImageView.image = possibleImage
         }
         
