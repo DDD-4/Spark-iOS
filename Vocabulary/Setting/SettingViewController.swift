@@ -99,10 +99,7 @@ class SettingViewController: UIViewController {
                     confirmMessege: "로그아웃"
                 ) { bool in
                     if bool {
-                        Token.shared.token = nil
-                        User.shared.userInfo = nil
-                        UserDefaults.standard.setValue(nil, forKey: "LoginIdentifier")
-
+                        self?.resetUserDefaults()
                         self?.dismiss(animated: true, completion: nil)
                         self?.transitionToLogin()
                     } else {
@@ -194,16 +191,21 @@ class SettingViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
+    func resetUserDefaults() {
+        Token.shared.token = nil
+        User.shared.userInfo = nil
+        UserDefaults.standard.setValue(nil, forKey: "LoginIdentifier")
+        GameGuideUtill.reset()
+    }
+
     func requestLeaveAccount() {
         LoadingView.show()
         UserController.shared.deleteUser()
-            .subscribe(onNext: { (response) in
+            .subscribe(onNext: { [weak self] (response) in
                 LoadingView.hide()
                 if response.statusCode == 200 {
-                    Token.shared.token = nil
-                    User.shared.userInfo = nil
-                    UserDefaults.standard.setValue(nil, forKey: "LoginIdentifier")
-                    self.transitionToLogin()
+                    self?.resetUserDefaults()
+                    self?.transitionToLogin()
                 } else {
                     //error
                 }
@@ -214,7 +216,7 @@ class SettingViewController: UIViewController {
                     message: "네트워크 오류",
                     leftButtonTitle: "취소",
                     rightButtonTitle: "재시도"
-                ) { [weak self] (index) in
+                ) { (index) in
                     guard index == 1 else { return }
                     self?.requestLeaveAccount()
                 }

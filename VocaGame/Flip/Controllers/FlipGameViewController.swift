@@ -142,6 +142,7 @@ public class FlipGameViewController: UIViewController {
             guideView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: hasTopNotch ? 0 : -16),
             guideView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             guideView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            guideView.topAnchor.constraint(equalTo: stackContainer.topAnchor, constant: 257)
         ])
 
         flipGuideView = guideView

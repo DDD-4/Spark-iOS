@@ -84,6 +84,8 @@ class MyProfileViewController: UIViewController {
     private let picker = UIImagePickerController()
 
     private var selectedPhoto: UIImage? = nil
+
+    private var hasChangedProfile = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,8 +227,8 @@ class MyProfileViewController: UIViewController {
             self.fetchMyProfile {
                 let viewController = SuccessPopupViewController(
                     title: "프로필 수정 완료!",
-                    message: "설정에서 확인할 수 있어요!") {
-                    self.dismiss(animated: true, completion: nil)
+                    message: "설정에서 확인할 수 있어요!") { [weak self] in
+                    self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 }
                 self.present(viewController, animated: true, completion: nil)
             }
@@ -237,21 +239,25 @@ class MyProfileViewController: UIViewController {
     }
 
     @objc func closeDidTap(_ sender: UIButton) {
-        let viewController = PopupViewController(
-            title: "여기서 그만할까요?",
-            message: "입력한 정보는 모두 사라져요.",
-            cancelMessege: "취소",
-            confirmMessege: "그만할래요"
-        ) { [weak self] (bool) in
-            if bool {
-                self?.dismiss(animated: true, completion: {
-                    self?.navigationController?.popViewController(animated: true)
-                })
-            } else {
-                self?.dismiss(animated: true, completion: nil)
+        if hasChangedProfile {
+            let viewController = PopupViewController(
+                title: "여기서 그만할까요?",
+                message: "입력한 정보는 모두 사라져요.",
+                cancelMessege: "취소",
+                confirmMessege: "그만할래요"
+            ) { [weak self] (bool) in
+                if bool {
+                    self?.dismiss(animated: true, completion: {
+                        self?.navigationController?.popViewController(animated: true)
+                    })
+                } else {
+                    self?.dismiss(animated: true, completion: nil)
+                }
             }
+            present(viewController, animated: true, completion: nil)
+        } else {
+            navigationController?.popViewController(animated: true)
         }
-        present(viewController, animated: true, completion: nil)
     }
     
     @objc func addPicture(_ sender: Any) {
@@ -280,6 +286,7 @@ class MyProfileViewController: UIViewController {
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
+        hasChangedProfile = true
         if self.nameTextField.text == "" {
             self.navView.rightSideButton.setImage(UIImage(named: "btnCompleteDesabled"), for: .normal)
             self.navView.rightSideButton.isEnabled = false
@@ -315,6 +322,7 @@ extension MyProfileViewController: UIImagePickerControllerDelegate, UINavigation
         let image = UIImagePickerController.InfoKey.editedImage
         
         if let possibleImage = info[image] as? UIImage{
+            hasChangedProfile = true
             selectedPhoto = possibleImage
             profileImageView.image = possibleImage
             navView.rightSideButton.setImage(UIImage(named: "iconCompleteDefault"), for: .normal)

@@ -11,15 +11,23 @@ import PoingDesignSystem
 
 class GuideView: UIView {
     enum Constant {
-        static let radius: CGFloat = 32
+        static let radius: CGFloat = 16
     }
+
+    lazy var titleAreaView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.midnight.withAlphaComponent(0.8)
+        view.layer.cornerRadius = Constant.radius
+        view.clipsToBounds = true
+        return view
+    }()
 
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "카드를 터치해서 단어의 이미지 확인하기"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.numberOfLines = 0
         return label
     }()
@@ -28,7 +36,6 @@ class GuideView: UIView {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "luggageFreepik")
         return view
     }()
 
@@ -50,23 +57,28 @@ class GuideView: UIView {
     }
 
     func configureLayout() {
-        backgroundColor = UIColor.midnight.withAlphaComponent(0.8)
-        layer.cornerRadius = Constant.radius
-        clipsToBounds = true
-
-        addSubview(titleLabel)
+        isUserInteractionEnabled = false
+        
+        addSubview(titleAreaView)
+        titleAreaView.addSubview(titleLabel)
         addSubview(imageView)
 
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            imageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 48),
-            imageView.heightAnchor.constraint(equalToConstant: 48),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 144),
+            imageView.heightAnchor.constraint(equalToConstant: 144),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 24),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 28),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -28),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24)
+            titleAreaView.topAnchor.constraint(greaterThanOrEqualTo: imageView.bottomAnchor),
+            titleAreaView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleAreaView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            titleAreaView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+
+            titleLabel.topAnchor.constraint(equalTo: titleAreaView.topAnchor, constant: 20),
+            titleLabel.bottomAnchor.constraint(equalTo: titleAreaView.bottomAnchor, constant: -20),
+            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: titleAreaView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: titleAreaView.trailingAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
 }

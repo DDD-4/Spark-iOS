@@ -11,6 +11,12 @@ target 'Vocabulary' do
   # Comment the next line if you don't want to use dynamic frameworks
   # Pods for Vocabulary
   basicFrameworks
+
+  # Firebase
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Performance'
+
   pod 'SwiftLint'
   pod 'Moya/RxSwift'
   pod 'RxSwift'

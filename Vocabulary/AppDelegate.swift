@@ -8,6 +8,7 @@
 
 import UIKit
 import PoingVocaSubsystem
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window?.rootViewController = viewController
         self.window?.makeKeyAndVisible()
+
+        FirebaseApp.configure()
 
         return true
     }
