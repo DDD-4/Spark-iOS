@@ -24,24 +24,28 @@ class SplashViewController: UIViewController {
         if let identifier = UserDefaults.standard.getUserLoginIdentifier() {
             requestLogin(credential: identifier)
         } else {
-            let loginViewController = LoginViewController()
-
-            guard let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
-              return
-            }
-            let navigationController = UINavigationController(rootViewController: loginViewController)
-            navigationController.navigationBar.isHidden = true
-            window.rootViewController = navigationController
+            transitionToLogin()
         }
+    }
+
+    func transitionToLogin() {
+        let loginViewController = LoginViewController()
+
+        guard let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
+          return
+        }
+        let navigationController = UINavigationController(rootViewController: loginViewController)
+        navigationController.navigationBar.isHidden = true
+        window.rootViewController = navigationController
     }
 
     func requestLogin(credential: String) {
         UserController.shared.login(credential: credential)
             .subscribe { [weak self] (response) in
-                guard let self = self, let element = response.element else { return }
-                if element.statusCode == 200 {
+                guard let self = self else { return }
+                if response.statusCode == 200 {
                     do {
-                        let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: element.data)
+                        let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: response.data)
                         Token.shared.token = loginResponse.token
                         User.shared.userInfo = loginResponse.userResponse
 
@@ -50,7 +54,11 @@ class SplashViewController: UIViewController {
                     } catch {
                         // TODO: error
                     }
+                } else if response.statusCode == 404 {
+                    UserDefaults.flushUserInformation()
+                    self.transitionToLogin()
                 }
+            } onError: { (error) in
             }.disposed(by: disposeBag)
     }
 

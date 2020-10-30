@@ -10,7 +10,7 @@ import Foundation
 import AuthenticationServices
 
 protocol LoginDelegate: class {
-    func login(userIdentifier: String, name: String, email: String)
+    func login(userIdentifier: String, name: String)
 }
 class AppleLoginHelper: NSObject {
     weak var loginDelegate: LoginDelegate?
@@ -28,7 +28,7 @@ class AppleLoginHelper: NSObject {
     func handleAppleIdRequest() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.email, .fullName]
+        request.requestedScopes = [.fullName]
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.performRequests()
@@ -40,9 +40,7 @@ extension AppleLoginHelper: ASAuthorizationControllerDelegate {
         if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
             let userIdentifier = appleIDCredential.user
             let name = (appleIDCredential.fullName?.familyName ?? "") + (appleIDCredential.fullName?.givenName ?? "")
-            let email = appleIDCredential.email ?? ""
-
-            self.loginDelegate?.login(userIdentifier: userIdentifier, name: name, email: email)
+            self.loginDelegate?.login(userIdentifier: userIdentifier, name: name)
         }
     }
 

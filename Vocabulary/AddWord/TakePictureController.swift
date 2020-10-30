@@ -199,8 +199,8 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
           }
         case .restricted, .denied:
             UIAlertController().presentShowAlert(
-                title: "카메라📸 권한 허용 요청",
-                message: "설정에서 카메라 권한을 허용해주세요.",
+                title: "카메라 권한 허용 요청",
+                message: "카메라로 찍은 사진을 단어장에 저장하기 위해서 카메라 권한이 필요합니다.",
                 leftButtonTitle: "취소",
                 rightButtonTitle: "설정으로"
             ) { (index) in
@@ -231,8 +231,8 @@ class TakePictureViewController: UIViewController, UINavigationControllerDelegat
             }
         case .denied, .restricted, .limited :
             UIAlertController().presentShowAlert(
-                title: "사진🏞 권한 허용 요청",
-                message: "설정에서 사진 권한을 허용해주세요.",
+                title: "사진 권한 허용 요청",
+                message: "단어장에 사진을 저장하기 위해서 사진 권한이 필요합니다",
                 leftButtonTitle: "취소",
                 rightButtonTitle: "설정으로"
             ) { (index) in

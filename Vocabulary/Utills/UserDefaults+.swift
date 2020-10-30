@@ -7,8 +7,17 @@
 //
 
 import Foundation
+import PoingVocaSubsystem
+import VocaGame
 
 extension UserDefaults {
+    static func flushUserInformation() {
+        Token.shared.token = nil
+        User.shared.userInfo = nil
+        UserDefaults.standard.setValue(nil, forKey: "LoginIdentifier")
+        GameGuideUtill.reset()
+    }
+
     func setUserLoginIdentifier(indentifier: String) {
         UserDefaults.standard.setValue(indentifier, forKey: "LoginIdentifier")
     }
