@@ -120,7 +120,7 @@ class LoginViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = Constant.Button.height * 0.5
         button.layer.borderWidth = 1
-        button.layer.borderColor = #colorLiteral(red: 0.862745098, green: 0.862745098, blue: 0.862745098, alpha: 1)
+        button.layer.borderColor = #colorLiteral(red: 0.7490196078, green: 0.7490196078, blue: 0.7490196078, alpha: 1)
         button.clipsToBounds = true
         button.backgroundColor = .white
         button.addTarget(self, action: #selector(appleLoginDidTap), for: .touchUpInside)
@@ -193,7 +193,7 @@ class LoginViewController: UIViewController {
 
     }
 
-    func requestLogin(credential: String, name: String, email: String) {
+    func requestLogin(credential: String, name: String) {
         UserController.shared.login(credential: credential)
             .subscribe { [weak self] (response) in
                 guard let self = self, let element = response.element else { return }
@@ -208,13 +208,50 @@ class LoginViewController: UIViewController {
                     } catch {
                         // TODO: error
                     }
+                } else if element.statusCode == 404 {
+                    if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        self.navigationController?.pushViewController(SignUpNameViewController(userIdentifier: credential, name: name), animated: true)
+                    } else {
+                        self.requestSignUp(credential: credential, name: name)
+                    }
                 } else {
-                    
-                    self.navigationController?.pushViewController(SignUpNameViewController(userIdentifier: credential, name: name), animated: true)
+                    UIAlertController().presentShowAlert(
+                        title: "네트워크 오류",
+                        message: "다시 시도하시겠습니까?",
+                        leftButtonTitle: "취소",
+                        rightButtonTitle: "재시도"
+                    ) { (index) in
+                        guard index == 1 else { return }
+                        self.requestLogin(credential: credential, name: name)
+                    }
                 }
             }
             .disposed(by: disposeBag)
     }
+
+    func requestSignUp(credential: String, name: String) {
+        UserController.shared.signup(
+            credential: credential,
+            name: name
+        )
+        .subscribe { [weak self] (response) in
+            guard let self = self, let element = response.element else { return }
+            if element.statusCode == 200 {
+                self.requestLogin(credential: credential, name: name)
+            } else {
+                UIAlertController().presentShowAlert(
+                    title: "네트워크 오류",
+                    message: "다시 시도하시겠습니까?",
+                    leftButtonTitle: "취소",
+                    rightButtonTitle: "재시도"
+                ) { (index) in
+                    guard index == 1 else { return }
+                    self.requestSignUp(credential: credential, name: name)
+                }
+            }
+        }.disposed(by: disposeBag)
+    }
+
 
     private func transitionToHome() {
         guard let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
@@ -237,7 +274,7 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: LoginDelegate {
-    func login(userIdentifier: String, name: String, email: String) {
-        requestLogin(credential: userIdentifier, name: name, email: email)
+    func login(userIdentifier: String, name: String) {
+        requestLogin(credential: userIdentifier, name: name)
     }
 }

@@ -33,7 +33,7 @@ class AppleLoginButton: UIButton {
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .equalSpacing
-        stack.spacing = 7
+        stack.spacing = 0
         return stack
     }()
 
@@ -48,7 +48,7 @@ class AppleLoginButton: UIButton {
     lazy var loginLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Apple로 시작하기"
+        label.text = "Apple로 로그인"
         label.textColor = .midnight
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return label

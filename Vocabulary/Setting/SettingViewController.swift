@@ -192,10 +192,7 @@ class SettingViewController: UIViewController {
     }
 
     func resetUserDefaults() {
-        Token.shared.token = nil
-        User.shared.userInfo = nil
-        UserDefaults.standard.setValue(nil, forKey: "LoginIdentifier")
-        GameGuideUtill.reset()
+        UserDefaults.flushUserInformation()
     }
 
     func requestLeaveAccount() {
